@@ -12,7 +12,7 @@
 <body>
     <nav class="bg-gray-800 text-gray-100">
         <div class="flex justify-between">
-            <div class="flex">
+            <div class="flex items-center">
                 <div>
                     <button class="menu-button p-4 focus:outline-none focus:bg-gray-600">
                         <!--hero icons-->
@@ -27,7 +27,7 @@
             </div>
 
 
-            <div class="flex">
+            <div class="flex items-center">
                 <div class="relative bg-gray-600 p-2 rounded">
                     <!--hero icons-->
                     <svg class="h-6 w-6 absolute ml-0.7" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -42,28 +42,60 @@
 
 
 
-            <div class="flex">
-                <!--need to add buttons used this just to test-->
-                Sign in
-                WishList
-                Cart
+            <div class="flex items-center space-x-3 mx-4">
+
+                <div class="flex">
+                    <a class="flex " href=""><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg><span>Sign in</span></a>
+                </div>
+
+                <div class="flex">
+                    <a class="flex" href=""><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        </svg><span>Wishlist</span></a>
+                </div>
+
+                <div class="flex">
+                    <a class="flex" href=""><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg><span>Cart</span></a>
+                </div>
+
             </div>
         </div>
     </nav>
     <aside
         class="sidebar bg-gray-700 text-gray-100 w-64 space-y-6 px-2 transform -translate-x-full transition duration-200 ease-in-out">
-        <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-600 lg:hidden">Sign in</a>
-        <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-600 lg:hidden">Wishlist</a>
         <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-600">Butcher</a>
         <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-600">Greengrocer</a>
         <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-600">Fishmonger</a>
         <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-600">Bakery</a>
         <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-600">Delicatessen</a>
+        <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-600 lg:hidden">Sign in</a>
+        <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-600 lg:hidden">Wishlist</a>
     </aside>
-    <div class="flex-1">
-        @yield('content')
-    </div>
 
+    @yield('content')
+
+    <footer class="bg-gray-800 p-3 text-gray-100 ">
+        <div class="flex justify-between ">
+            <div>
+                <img alt="Logo" src="/resources/images/sbl.png">
+            </div>
+            <div class="space-x-3">
+                <a href="">About us</a>
+                <a href="">Careers</a>
+                <a href="">Email us</a>
+            </div>
+        </div>
+    </footer>
 </body>
 
 
