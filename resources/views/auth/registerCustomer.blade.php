@@ -4,7 +4,7 @@
 
     <div class="flex justify-center">
 
-        <div class="w-5/12 bg-gray-100 p-6 rounded-lg">
+        <div class="w-5/12 p-6 rounded-lg">
             
             <h1 class="text-2xl text-center font-bold mb-8">Sign Up (Customer)</h1>
             
