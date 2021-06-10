@@ -6,11 +6,44 @@
 
         <div class="w-5/12 bg-white p-6 rounded-lg">
             
-            <h1 class="text-2xl text-center font-bold mb-8">Register as Trader</h1>
+            <h1 class="text-2xl text-center font-bold mb-8">Sign Up (Trader)</h1>
             
             <div>
                 <form action="{{route('registerCustomer')}}" method="POST">
+                    
                     @csrf
+                    <div class="mb-5">
+                        <label for="shopname" class=sr-only>Shop Name:</label>
+                        <input type="text" name="shopname" id="shopname" placeholder="Shop Name"
+                        class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('shopname') border-red-500 
+                        @enderror" value="{{old('shopname')}}">
+    
+                        @error('shopname')
+                        <div class="text-red-500 mt-2 text-sm">
+                            {{$message}}
+                        </div>
+                        @enderror
+    
+                    </div>
+
+                    <div class="inline-block relative w-full mb-5">
+                        <select class="block appearance-none w-full h-14 bg-gray-100 border 
+                        border-gray-300 px-4 py-2 pr-8 rounded-lg border-2 text-gray-400">
+
+                          <option>Business Type</option>
+                          <option>Option 2</option>
+                          <option>Option 3</option>
+                          
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex 
+                        items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" 
+                        viewBox="0 0 20 20">
+                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 
+                        6.586 4.343 8z"/></svg>
+                        </div>
+                    </div>
+
                     <div class="mb-5">
                         <label for="email" class=sr-only>Email:</label>
                         <input type="email" name="email" id="email" placeholder="Email"
@@ -120,7 +153,7 @@
                         <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 
                         6.586 4.343 8z"/></svg>
                         </div>
-                      </div>
+                    </div>
 
                     <div class="mb-5 md:flex justify-center">
                         <div>
@@ -158,6 +191,12 @@
                     </div>
 
                     <hr class="mb-5 divide-solid border-0 h-0.5 bg-gray-200">
+
+                    <div class ="mb-2">
+                        <p class="text-center">Sign up as a
+                            <a href="{{route('registerCustomer')}}" class="underline font-bold">Customer?</a>
+                        </p>
+                    </div>
 
                     <div>
                         <p class="text-center">Already a member? 

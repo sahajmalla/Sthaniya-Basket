@@ -6,7 +6,7 @@
 
         <div class="w-5/12 bg-gray-100 p-6 rounded-lg">
             
-            <h1 class="text-2xl text-center font-bold mb-8">Register</h1>
+            <h1 class="text-2xl text-center font-bold mb-8">Sign Up (Customer)</h1>
             
             <div>
                 <form action="{{route('registerCustomer')}}" method="POST">
@@ -158,6 +158,12 @@
                     </div>
 
                     <hr class="mb-5 divide-solid border-0 h-0.5 bg-gray-200">
+
+                    <div class ="mb-2">
+                        <p class="text-center">Sign up as a
+                            <a href="{{route('registerTrader')}}" class="underline font-bold">Trader?</a>
+                        </p>
+                    </div>
 
                     <div>
                         <p class="text-center">Already a member? 
