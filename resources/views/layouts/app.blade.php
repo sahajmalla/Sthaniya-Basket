@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +7,6 @@
     <title>Posty</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
-
 
 <body>
     <nav class="bg-gray-800 text-gray-100">
@@ -26,7 +22,7 @@
                         </svg>
                     </button>
                 </div>
-                <span> <a href=""><img alt="Logo" src="/resources/images/sbl.png"> </a> </span>
+                <span> <a href="/"><img alt="Logo" src="/images/sbl.png"> </a> </span>
             </div>
 
 
@@ -41,9 +37,6 @@
                     <input class="ml-6 bg-transparent" type="text" placeholder="Search">
                 </div>
             </div>
-
-
-
 
             <div class="flex items-center space-x-4 mx-4">
 
@@ -105,7 +98,7 @@
     <footer class="bg-gray-800 p-3 text-gray-100 ">
         <div class="flex justify-between ">
             <div>
-                <img alt="Logo" src="/resources/images/sbl.png">
+                <img alt="Logo" src="/images/sbl.png">
             </div>
             <div class="space-x-3">
                 <a href="">About us</a>
