@@ -2,45 +2,43 @@
 
 @section('content')
 
-    <div class="flex justify-center">
-        
-        <div class="w-4/12 bg-white p-6 rounded-lg">
-            
-            @if(session('status'))
+    <div class="border-4 border-gray-600">
+
+        <div class="w-full p-6 rounded-lg">
+
+            @if (session('status'))
                 <div class="bg-red-500 p-4 rounded-lg mb-6 text-white text-center">
-                    {{session('status')}}
+                    {{ session('status') }}
                 </div>
             @endif
 
             <h1 class="text-2xl text-center font-bold mb-8">Sign In</h1>
 
-            <form action="{{route('login')}}" method="POST">
-                
+            <form action="{{ route('login') }}" method="POST">
+
                 @csrf
                 <div class="mb-5">
                     <label for="email" class=sr-only>Email:</label>
-                    <input type="email" name="email" id="email" placeholder="Email"
-                    class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14
-                    @error('email') border-red-500 @enderror" value="{{old('email')}}">
+                    <input type="email" name="email" id="email" placeholder="Email" class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14
+                        @error('email') border-red-500 @enderror" value="{{ old('email') }}">
 
                     @error('email')
-                    <div class="text-red-500 mt-2 text-sm">
-                        {{$message}}
-                    </div>
+                        <div class="text-red-500 mt-2 text-sm">
+                            {{ $message }}
+                        </div>
                     @enderror
 
                 </div>
 
                 <div class="mb-5">
                     <label for="password" class=sr-only>Password:</label>
-                    <input type="password" name="password" id="password" placeholder="Password"
-                    class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14
-                    @error('password') border-red-500 @enderror" value="">
+                    <input type="password" name="password" id="password" placeholder="Password" class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14
+                        @error('password') border-red-500 @enderror" value="">
 
                     @error('password')
-                    <div class="text-red-500 mt-2 text-sm">
-                        {{$message}}
-                    </div>
+                        <div class="text-red-500 mt-2 text-sm">
+                            {{ $message }}
+                        </div>
                     @enderror
 
                 </div>
@@ -54,19 +52,19 @@
                         <p><a>Forgot password?</a></p>
                     </div>
                 </div>
-                
+
                 <div class="mb-5">
-                    <p class="text-center">By signing in, you agree to Sthaniya Basket's 
-                        <span class="underline font-bold">Privacy Policy</span> and 
+                    <p class="text-center">By signing in, you agree to Sthaniya Basket's
+                        <span class="underline font-bold">Privacy Policy</span> and
                         <span class="underline font-bold">Terms of Use.</span>
                     </p>
                 </div>
 
                 <div class="mb-5">
                     <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded
-                    font-medium w-full">Sign In</button>
+                        font-medium w-full">Sign In</button>
                 </div>
-                
+
 
                 <hr class="mb-5 divide-solid border-0 h-0.5 bg-gray-200">
 
@@ -80,20 +78,20 @@
                     </p>
                 </div>
 
-                <div class="mb-5 md:flex justify-center">                    
-                    <a href="{{route('registerCustomer')}}" class="bg-blue-500 text-white px-4 py-3 rounded
-                    font-medium text-xs w-full mb-2 sm:mb-2 md:m-0 md:mr-2 text-center">
-                    SIGN UP AS CUSTOMER</a>
-                    
-                    <a href="{{route('registerTrader')}}" class="bg-blue-500 text-white px-4 py-3 rounded
-                    font-medium text-xs w-full mt-2 sm:mt-3 md:m-0 md:ml-2 text-center">
-                    SIGN UP AS TRADER</a>
+                <div class="mb-5 md:flex justify-center">
+                    <a href="{{ route('registerCustomer') }}" class="bg-blue-500 text-white px-4 py-3 rounded
+                        font-medium text-xs w-full mb-2 sm:mb-2 md:m-0 md:mr-2 text-center">
+                        SIGN UP AS CUSTOMER</a>
+
+                    <a href="{{ route('registerTrader') }}" class="bg-blue-500 text-white px-4 py-3 rounded
+                        font-medium text-xs w-full mt-2 sm:mt-3 md:m-0 md:ml-2 text-center">
+                        SIGN UP AS TRADER</a>
                 </div>
 
             </form>
 
         </div>
-        
+
     </div>
 
 @endsection

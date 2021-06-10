@@ -2,88 +2,84 @@
 
 @section('content')
 
-    <div class="flex justify-center">
+    <div class="border-4 border-gray-600">
 
-        <div class="w-5/12 bg-white p-6 rounded-lg">
-            
+        <div class="w-full p-6 rounded-lg">
+
             <h1 class="text-2xl text-center font-bold mb-8">Sign Up (Trader)</h1>
-            
+
             <div>
-                <form action="{{route('registerCustomer')}}" method="POST">
-                    
+                <form action="{{ route('registerCustomer') }}" method="POST">
+
                     @csrf
                     <div class="mb-5">
                         <label for="shopname" class=sr-only>Shop Name:</label>
-                        <input type="text" name="shopname" id="shopname" placeholder="Shop Name"
-                        class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('shopname') border-red-500 
-                        @enderror" value="{{old('shopname')}}">
-    
+                        <input type="text" name="shopname" id="shopname" placeholder="Shop Name" class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('shopname') border-red-500 
+                            @enderror" value="{{ old('shopname') }}">
+
                         @error('shopname')
-                        <div class="text-red-500 mt-2 text-sm">
-                            {{$message}}
-                        </div>
+                            <div class="text-red-500 mt-2 text-sm">
+                                {{ $message }}
+                            </div>
                         @enderror
-    
+
                     </div>
 
                     <div class="inline-block relative w-full mb-5">
                         <select class="block appearance-none w-full h-14 bg-gray-100 border 
-                        border-gray-300 px-4 py-2 pr-8 rounded-lg border-2 text-gray-400">
+                            border-gray-300 px-4 py-2 pr-8 rounded-lg border-2 text-gray-400">
 
-                          <option>Business Type</option>
-                          <option>Option 2</option>
-                          <option>Option 3</option>
-                          
+                            <option>Business Type</option>
+                            <option>Option 2</option>
+                            <option>Option 3</option>
+
                         </select>
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex 
-                        items-center px-2 text-gray-700">
-                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" 
-                        viewBox="0 0 20 20">
-                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 
-                        6.586 4.343 8z"/></svg>
+                            items-center px-2 text-gray-700">
+                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 
+                            6.586 4.343 8z" />
+                            </svg>
                         </div>
                     </div>
 
                     <div class="mb-5">
                         <label for="email" class=sr-only>Email:</label>
-                        <input type="email" name="email" id="email" placeholder="Email"
-                        class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('email') border-red-500 
-                        @enderror" value="{{old('email')}}">
-    
+                        <input type="email" name="email" id="email" placeholder="Email" class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('email') border-red-500 
+                            @enderror" value="{{ old('email') }}">
+
                         @error('email')
-                        <div class="text-red-500 mt-2 text-sm">
-                            {{$message}}
-                        </div>
+                            <div class="text-red-500 mt-2 text-sm">
+                                {{ $message }}
+                            </div>
                         @enderror
-    
+
                     </div>
 
                     <div class="mb-5">
                         <label for="username" class=sr-only>Username:</label>
-                        <input type="text" name="username" id="username" placeholder="Username"
-                        class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('username') border-red-500 
-                        @enderror" value="{{old('username')}}">
-    
+                        <input type="text" name="username" id="username" placeholder="Username" class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('username') border-red-500 
+                            @enderror" value="{{ old('username') }}">
+
                         @error('username')
-                        <div class="text-red-500 mt-2 text-sm">
-                            {{$message}}
-                        </div>
+                            <div class="text-red-500 mt-2 text-sm">
+                                {{ $message }}
+                            </div>
                         @enderror
-    
+
                     </div>
 
                     <div class="mb-5">
                         <label for="password" class=sr-only>Password:</label>
-                        <input type="password" name="password" id="password" placeholder="Password"
-                        class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('password') border-red-500 
-                        @enderror" value="">
-    
+                        <input type="password" name="password" id="password" placeholder="Password" class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('password') border-red-500 
+                            @enderror" value="">
+
                         @error('password')
-                        <div class="text-red-500 mt-2 text-sm">
-                            {{$message}}
-                        </div>
+                            <div class="text-red-500 mt-2 text-sm">
+                                {{ $message }}
+                            </div>
                         @enderror
-    
+
                     </div>
 
                     {{-- <div class="mb-5">
@@ -97,61 +93,61 @@
 
                     <div class="mb-5">
                         <label for="fname" class=sr-only>First Name:</label>
-                        <input type="text" name="fname" id="fname" placeholder="First Name"
-                        class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('fname') border-red-500 
-                        @enderror" value="{{old('fname')}}">
-    
+                        <input type="text" name="fname" id="fname" placeholder="First Name" class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('fname') border-red-500 
+                            @enderror" value="{{ old('fname') }}">
+
                         @error('fname')
                             <div class="text-red-500 mt-2 text-sm">
-                                {{$message}} <!-- Give us the first error message.-->
+                                {{ $message }}
+                                <!-- Give us the first error message.-->
                             </div>
                         @enderror
-    
+
                     </div>
 
                     <div class="mb-5">
                         <label for="lname" class=sr-only>Last Name:</label>
-                        <input type="text" name="lname" id="lname" placeholder="Last Name"
-                        class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('lname') border-red-500 
-                        @enderror" value="{{old('lname')}}">
-    
+                        <input type="text" name="lname" id="lname" placeholder="Last Name" class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('lname') border-red-500 
+                            @enderror" value="{{ old('lname') }}">
+
                         @error('lname')
                             <div class="text-red-500 mt-2 text-sm">
-                                {{$message}} <!-- Give us the first error message.-->
+                                {{ $message }}
+                                <!-- Give us the first error message.-->
                             </div>
                         @enderror
-    
+
                     </div>
 
                     <div class="mb-5">
                         <label for="address" class=sr-only>Address:</label>
-                        <input type="text" name="address" id="address" placeholder="Address"
-                        class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('address') border-red-500 
-                        @enderror" value="{{old('address')}}">
-    
+                        <input type="text" name="address" id="address" placeholder="Address" class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('address') border-red-500 
+                            @enderror" value="{{ old('address') }}">
+
                         @error('address')
                             <div class="text-red-500 mt-2 text-sm">
-                                {{$message}} <!-- Give us the first error message.-->
+                                {{ $message }}
+                                <!-- Give us the first error message.-->
                             </div>
                         @enderror
-    
+
                     </div>
 
                     <div class="inline-block relative w-full mb-5">
                         <select class="block appearance-none w-full h-14 bg-gray-100 border 
-                        border-gray-300 px-4 py-2 pr-8 rounded-lg border-2 text-gray-400">
+                            border-gray-300 px-4 py-2 pr-8 rounded-lg border-2 text-gray-400">
 
-                          <option>Date of Birth</option>
-                          <option>Option 2</option>
-                          <option>Option 3</option>
-                          
+                            <option>Date of Birth</option>
+                            <option>Option 2</option>
+                            <option>Option 3</option>
+
                         </select>
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex 
-                        items-center px-2 text-gray-700">
-                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" 
-                        viewBox="0 0 20 20">
-                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 
-                        6.586 4.343 8z"/></svg>
+                            items-center px-2 text-gray-700">
+                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 
+                            6.586 4.343 8z" />
+                            </svg>
                         </div>
                     </div>
 
@@ -177,30 +173,30 @@
                             Get updates from Sthaniya Basket on products and offers.
                         </label>
                     </div>
-                    
+
                     <div class="mb-5">
-                        <p class="text-center">By signing up, you agree to Sthaniya Basket's 
-                            <span class="underline font-bold">Privacy Policy</span> and 
+                        <p class="text-center">By signing up, you agree to Sthaniya Basket's
+                            <span class="underline font-bold">Privacy Policy</span> and
                             <span class="underline font-bold">Terms of Use.</span>
                         </p>
                     </div>
 
                     <div class="mb-5">
                         <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded
-                        font-medium w-full">Sign Up</button>
+                            font-medium w-full">Sign Up</button>
                     </div>
 
                     <hr class="mb-5 divide-solid border-0 h-0.5 bg-gray-200">
 
-                    <div class ="mb-2">
+                    <div class="mb-2">
                         <p class="text-center">Sign up as a
-                            <a href="{{route('registerCustomer')}}" class="underline font-bold">Customer?</a>
+                            <a href="{{ route('registerCustomer') }}" class="underline font-bold">Customer?</a>
                         </p>
                     </div>
 
                     <div>
-                        <p class="text-center">Already a member? 
-                            <a href="{{route('login')}}" class="underline font-bold">Sign In</a>
+                        <p class="text-center">Already a member?
+                            <a href="{{ route('login') }}" class="underline font-bold">Sign In</a>
                         </p>
                     </div>
 
