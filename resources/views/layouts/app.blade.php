@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <nav class="bg-gray-800 text-gray-100">
+    <nav class="bg-gray-200 text-black">
         <div class="flex justify-between">
             <div class="flex items-center">
                 <div>
@@ -27,7 +27,7 @@
 
 
             <div class="flex items-center">
-                <div class="relative bg-gray-600 p-2 rounded">
+                <div class="relative bg-gray-500 p-2 rounded">
                     <!--hero icons-->
                     <svg class="h-6 w-6 absolute ml-0.7" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
