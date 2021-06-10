@@ -71,7 +71,8 @@
             </div>
         </div>
     </nav>
-    <aside
+    <div class="flex">
+        <aside
         class="sidebar bg-gray-700 text-gray-100 w-64 space-y-6 px-2 transform -translate-x-full transition duration-200 ease-in-out">
         <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-600">Butcher</a>
         <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-600">Greengrocer</a>
@@ -81,8 +82,12 @@
         <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-600 lg:hidden">Sign in</a>
         <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-600 lg:hidden">Wishlist</a>
     </aside>
-
-    @yield('content')
+    <div class="flex-1">
+        @yield('content')
+    </div>
+    
+    </div>
+    
 
     <footer class="bg-gray-800 p-3 text-gray-100 ">
         <div class="flex justify-between ">
