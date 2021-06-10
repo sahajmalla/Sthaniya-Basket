@@ -9,7 +9,7 @@
             <h1 class="text-2xl text-center font-bold mb-8">Register</h1>
             
             <div>
-                <form action="{{route('register')}}" method="POST">
+                <form action="{{route('registerCustomer')}}" method="POST">
                     @csrf
                     <div class="mb-5">
                         <label for="email" class=sr-only>Email:</label>

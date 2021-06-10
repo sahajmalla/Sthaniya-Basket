@@ -81,11 +81,13 @@
                 </div>
 
                 <div class="mb-5 md:flex justify-center">                    
-                    <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded
-                    font-medium text-xs w-half mb-2 sm:w-full sm:mb-2 md:m-0 md:mr-2">SIGN UP AS CUSTOMER</button>
+                    <a href="{{route('registerCustomer')}}" class="bg-blue-500 text-white px-4 py-3 rounded
+                    font-medium text-xs w-full mb-2 sm:mb-2 md:m-0 md:mr-2 text-center">
+                    SIGN UP AS CUSTOMER</a>
                     
-                    <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded
-                    font-medium text-xs w-half mt-2 sm:w-full sm:mt-3 md:m-0 md:ml-2">SIGN UP AS TRADER</button>
+                    <a href="{{route('registerTrader')}}" class="bg-blue-500 text-white px-4 py-3 rounded
+                    font-medium text-xs w-full mt-2 sm:mt-3 md:m-0 md:ml-2 text-center">
+                    SIGN UP AS TRADER</a>
                 </div>
 
             </form>
