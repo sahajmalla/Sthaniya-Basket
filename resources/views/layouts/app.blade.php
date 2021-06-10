@@ -10,38 +10,44 @@
 </head>
 
 <body>
-    <nav class="bg-gray-800 text-gray-100 flex">
-        <div class="flex-1">
-            <div>
-                <button class="menu-button p-4 focus:outline-none focus:bg-gray-600">
-                    <!--hero icons-->
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
+    <nav class="bg-gray-800 text-gray-100">
+        <div class="flex justify-between">
+            <div class="flex">
+                <div>
+                    <button class="menu-button p-4 focus:outline-none focus:bg-gray-600">
+                        <!--hero icons-->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+                <span> <a href=""><img alt="Logo" src="/resources/images/sbl.png"> </a> </span>
             </div>
-            <span> <a href=""><img alt="Logo" src="/resources/images/sbl.png"> </a> </span>
-        </div>
+
+
+            <div class="flex">
+                <div class="relative bg-gray-600 p-2 rounded">
+                    <!--hero icons-->
+                    <svg class="h-6 w-6 absolute ml-0.7" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <input class="ml-6 bg-transparent" type="text" placeholder="Search">
+                </div>
+            </div>
 
 
 
-        <div class="flex-1 relative bg-gray-600 p-2 rounded">
-            <!--hero icons-->
-            <svg class="h-6 w-6 absolute ml-0.7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-            <input class="ml-6 bg-transparent" type="text" placeholder="Search">
-        </div>
 
-        <div class="flex-1">
-            <!--need to add buttons used this just to test-->
-            Sign in
-            WishList
-            Cart
+            <div class="flex">
+                <!--need to add buttons used this just to test-->
+                Sign in
+                WishList
+                Cart
+            </div>
         </div>
     </nav>
     <aside
@@ -54,7 +60,10 @@
         <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-600">Bakery</a>
         <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-600">Delicatessen</a>
     </aside>
-    @yield('content')
+    <div class="flex-1">
+        @yield('content')
+    </div>
+
 </body>
 
 
