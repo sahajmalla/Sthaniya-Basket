@@ -82,14 +82,14 @@
 
                     </div>
 
-                    {{-- <div class="mb-5">
+                    <div class="mb-5">
                         <label for="password_confirmation" class=sr-only>Re-type Password:</label>
                         <input type="password" name="password_confirmation" id="password_confirmation" 
                         placeholder="Re-type Password" class="bg-gray-100 h-14 border-2 w-full p-4 rounded-lg
                         @error('password') border-red-500 @enderror"
                         value="">
     
-                    </div> --}}
+                    </div>
 
                     <div class="mb-5">
                         <label for="fname" class=sr-only>First Name:</label>
