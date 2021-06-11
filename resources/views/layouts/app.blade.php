@@ -27,7 +27,7 @@
 
 
             <div class="flex items-center">
-                <div class="relative bg-gray-500 p-2 rounded">
+                <div class="relative bg-gray-300 p-2 rounded">
                     <!--hero icons-->
                     <svg class="h-6 w-6 absolute ml-0.7" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
@@ -95,7 +95,7 @@
     </div>
 
     <!---fixed w-full bottom-0 -->
-    <footer class="bg-gray-800 p-3 text-gray-100 ">
+    <footer class="bg-gray-200 text-black p-3 ">
         <div class="flex justify-between ">
             <div>
                 <img alt="Logo" src="/images/sbl.png">
