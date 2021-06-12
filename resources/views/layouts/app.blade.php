@@ -13,7 +13,7 @@
         <div class="flex justify-between">
             <div class="flex items-center">
                 <div>
-                    <button class="menu-button p-4 focus:outline-none focus:bg-gray-600">
+                    <button class="menu-button p-4 focus:outline-none hover:bg-gray-100">
                         <!--hero icons-->
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -41,58 +41,40 @@
             <div class="flex items-center space-x-4 mx-4">
 
                 <div class="flex">
-                    <a class="flex " href="{{ route('login') }}"><svg xmlns="http://www.w3.org/2000/svg"
-                            class="h-6 w-6 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg><span>Sign In</span></a>
+                    <a class="flex  space-x-2" href="{{ route('login') }}"><img class="" src="images/icons/sign-in.png"><span>Sign In</span></a>
                 </div>
 
                 <div class="flex">
-                    <a class="flex " href="{{ route('registerCustomer') }}"><svg xmlns="http://www.w3.org/2000/svg"
-                            class="h-6 w-6 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg><span>Sign Up</span></a>
+                    <a class="flex  space-x-2" href="{{ route('registerCustomer') }}"><img class="" src="images/icons/login.png"><span>Sign Up</span></a>
                 </div>
 
                 <div class="flex">
-                    <a class="flex" href=""><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                        </svg><span>Wishlist</span></a>
+                    <a class="flex space-x-2" href=""><img class="" src="images/icons/wishlist.png"><span>Wishlist</span></a>
                 </div>
 
                 <div class="flex">
-                    <a class="flex" href=""><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                        </svg><span>Cart</span></a>
+                    <a class="flex space-x-2" href=""><img class="" src="images/icons/cart.png"><span>Cart</span></a>
                 </div>
 
             </div>
         </div>
     </nav>
-     <!--add  here-->
-    <div class="sidebar-content flex justify-center">
         <!--add hidden here-->
-        <aside
-            class="sidebar bg-gray-700 text-gray-100 w-64 space-y-6 px-2 transform -translate-x-full transition duration-200 ease-in-out absolute inset-y-0 left-0">
-            <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-600">Butcher</a>
-            <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-600">Greengrocer</a>
-            <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-600">Fishmonger</a>
-            <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-600">Bakery</a>
-            <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-600">Delicatessen</a>
-            <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-600 lg:hidden">Sign in</a>
-            <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-600 lg:hidden">Wishlist</a>
-        </aside>
-        <div class="mb-10 mt-5">
-            @yield('content')
+        <div class="sideNav text-black h-full w-0 fixed top-13.6 left-0 bg-gray-200 overflow-x-hidden transition duration-500 ease-in-out">
+            <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-100 flex "><img class="mr-4" src="images/icons/butcher.png" ><span>Butcher</span> </a>
+            <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-100 flex "><img class="mr-4" src="images/icons/grocery.png" ><span>Greengrocer</span> </a>
+            <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-100 flex "><img class="mr-4" src="images/icons/fish.png" ><span>Fishmonger</span> </a>
+            <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-100 flex "><img class="mr-4" src="images/icons/bakery.png" ><span>Bakery</span> </a>
+            <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-100 flex "><img class="mr-4" src="images/icons/delicatessen.png" ><span>Delicatessen</span> </a>
+            <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-100 flex "><img class="mr-4" src="images/icons/sign-in.png" alt=""><span>Sign in</span> </a>
+            <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-100 flex "><img class="mr-4" src="images/icons/wishlist.png" alt=""><span>Wishlist</span> </a>
         </div>
+
+        <main class="flex justify-center">
+            @yield('content')
+        </main>
     
-    </div>
+    
 
     <!---fixed w-full bottom-0 -->
     <footer class="bg-gray-200 text-black p-3 ">
@@ -111,34 +93,18 @@
 
 
 <script>
-    const btn = document.querySelector(".menu-button");
-    const sidebar = document.querySelector(".sidebar");
-    const content = document.querySelector(".content-body");
-    const sideCont = document.querySelector(".sidebar-content");
-    
-    let clickBool = false;
-    // add our event listener for the click
-    btn.addEventListener("click", () => {
-        clickBool=!clickBool;
-        sidebar.classList.toggle("-translate-x-full");
-        /*sidebar.classList.toggle('hidden');*/
-        sideCont.classList.toggle('justify-center');
-        
-        
-        if(clickBool){
-            sidebar.classList.add('relative');
-            sidebar.classList.remove('absolute');
-           
-            
+    const btn = document.querySelector('.menu-button');
+    const sideNav = document.querySelector('.sideNav');
+
+   btn.addEventListener('click',()=>{
+        if(sideNav.classList.contains('w-0')){
+            sideNav.classList.remove('w-0');
+            sideNav.classList.add('w-2/12');
         }else{
-            sidebar.classList.remove('relative');
-            sidebar.classList.add('absolute');
-            
+            sideNav.classList.remove('w-2/12');
+            sideNav.classList.add('w-0');
         }
-        
-
-    });
-
+    })
 </script>
 
 </html>
