@@ -4,7 +4,7 @@
 
     <div class="border-2 border-gray-200 flex justify-center">
 
-        <div class="w-10/12 p-6 rounded-lg">
+        <div class="w-9/12 p-6 rounded-lg">
 
             @if (session('status'))
                 <div class="bg-red-500 p-4 rounded-lg mb-6 text-white text-center">
