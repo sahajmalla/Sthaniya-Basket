@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <nav class="bg-gray-200 text-black">
+    <nav class="bg-gray-200 text-black fixed w-full top-0">
         <div class="flex justify-between">
             <div class="flex items-center">
                 <div>
@@ -60,7 +60,7 @@
         </div>
     </nav>
         <!--add hidden here-->
-        <div class="sideNav text-black h-full w-0 fixed top-13.6 left-0 bg-gray-200 overflow-x-hidden transition duration-500 ease-in-out">
+        <div class="sideNav text-black h-full w-0 fixed top-12 mt-2 left-0 bg-gray-200 overflow-x-hidden transition duration-500 ease-in-out">
             <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-100 flex "><img class="mr-4" src="images/icons/butcher.png" ><span>Butcher</span> </a>
             <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-100 flex "><img class="mr-4" src="images/icons/grocery.png" ><span>Greengrocer</span> </a>
             <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-100 flex "><img class="mr-4" src="images/icons/fish.png" ><span>Fishmonger</span> </a>
@@ -70,7 +70,7 @@
             <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-100 flex "><img class="mr-4" src="images/icons/wishlist.png" alt=""><span>Wishlist</span> </a>
         </div>
 
-        <main class="flex justify-center my-5">
+        <main class="flex justify-center mb-5 mt-20">
             @yield('content')
         </main>
     
