@@ -70,7 +70,7 @@
             <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-100 flex "><img class="mr-4" src="images/icons/wishlist.png" alt=""><span>Wishlist</span> </a>
         </div>
 
-        <main class="flex justify-center">
+        <main class="flex justify-center my-5">
             @yield('content')
         </main>
     

@@ -2,9 +2,9 @@
 
 @section('content')
 
-    <div class="border-4 border-gray-600">
+    <div class="border-2 border-gray-200 flex justify-center">
 
-        <div class="w-full p-6 rounded-lg">
+        <div class="w-10/12 p-6 rounded-lg">
             
             <h1 class="text-2xl text-center font-bold mb-8">Sign Up (Customer)</h1>
             
