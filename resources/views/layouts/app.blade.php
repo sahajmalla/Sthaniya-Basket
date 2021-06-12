@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <nav class="bg-gray-200 text-black fixed w-full top-0">
+    <nav class=" text-black fixed w-full top-0">
         <div class="flex justify-between">
             <div class="flex items-center">
                 <div>
@@ -77,7 +77,7 @@
     
 
     <!---fixed w-full bottom-0 -->
-    <footer class="bg-gray-200 text-black p-3 ">
+    <footer class=" text-black p-3 ">
         <div class="flex justify-between ">
             <div>
                 <img alt="Logo" src="/images/sbl.png">
