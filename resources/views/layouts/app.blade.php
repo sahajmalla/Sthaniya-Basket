@@ -62,14 +62,14 @@
                 </div>
 
                 <div class=" space-x-2 p-1 m-0.5">
-                    <a class="flex items-center" href="">
+                    <a class="flex items-center" href="{{ route('wishlist') }}">
                         <img class="transform scale-60" src="images/icons/wishlist.png">
                         <span>Wishlist</span>
                     </a>
                 </div>
 
                 <div class=" space-x-2 p-1 m-0.5">
-                    <a class="flex items-center" href="">
+                    <a class="flex items-center" href="{{ route('cart') }}">
                         <img class="transform scale-60" src="images/icons/cart.png">
                         <span>Cart</span>
                     </a>
