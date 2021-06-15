@@ -2,7 +2,7 @@
 @section('content')
 
     <!-- component -->
-<div class="antialiased sans-serif min-h-screen bg-white" style="min-height: 900px">
+<div class="antialiased sans-serif min-h-screen bg-white w-10/12" style="min-height: 900px">
 	<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer></script>
 	<style>
 		[x-cloak] {
@@ -322,10 +322,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
-
-		<div class="py-10 text-center">
-			<p class="text-gray-600">Created by <a class="text-blue-600 hover:text-blue-500 border-b-2 border-blue-200 hover:border-blue-300" href="https://twitter.com/mithicher">@mithicher</a>. Built with <a class="text-blue-600 hover:text-blue-500 border-b-2 border-blue-200 hover:border-blue-300" href="https://tailwindcss.com/">tailwindCSS</a> and <a href="https://github.com/alpinejs/alpine" class="text-blue-600 hover:text-blue-500 border-b-2 border-blue-200 hover:border-blue-300">AlpineJS</a>. SVG icons from <a href="https://github.com/tabler/tabler-icons" class="text-blue-600 hover:text-blue-500 border-b-2 border-blue-200 hover:border-blue-300">Tabler Icons</a>.</p>
 		</div>
 
 		<!-- Print Template -->

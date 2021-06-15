@@ -17,6 +17,10 @@ Route::get('/invoice', function () {
     return view('invoice');
 });
 
+Route::get('/checkout', function () {
+    return view('checkout');
+});
+
 Route::get('/', function () {
     return view('home');
 });
