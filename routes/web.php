@@ -13,6 +13,9 @@ Route::get('/login', [LoginController::class,'index'])->name('login');
 Route::get('/cart', [CartController::class,'index'])->name('cart');
 Route::get('/wishlist', [WishlistController::class,'index'])->name('wishlist');
 
+Route::get('/invoice', function () {
+    return view('invoice');
+});
 
 Route::get('/', function () {
     return view('home');

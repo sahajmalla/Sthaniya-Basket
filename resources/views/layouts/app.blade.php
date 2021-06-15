@@ -102,8 +102,6 @@
         @yield('content')
     </main>
 
-
-
     <!---footer -->
     <footer class="bg-gray-100 body-font">
         <div class="container px-5 py-5 mx-auto flex items-center sm:flex-row flex-col">
