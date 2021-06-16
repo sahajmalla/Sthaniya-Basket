@@ -141,7 +141,7 @@
                 </div>
 
                 <div class="mb-5">
-                    <p class="text-center">By signing in, you agree to Sthaniya Basket's
+                    <p class="text-center italic">By signing in, you agree to Sthaniya Basket's
                         <span class="underline font-bold">Privacy Policy</span> and
                         <span class="underline font-bold">Terms of Use.</span>
                     </p>

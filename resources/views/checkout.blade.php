@@ -4,9 +4,299 @@
     <!-- component -->
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
-    <div x-data="{ cartOpen: false , isOpen: false }" class="bg-white w-10/12 bg-white shadow-lg">
+    <div x-data="{ cartOpen: false , isOpen: false }" class="bg-white w-11/12 bg-white shadow-lg">
 
-        {{-- <header>
+        <main class="my-8">
+
+            <div class="container mx-auto px-6">
+                <h3 class="text-gray-700 text-2xl font-medium">Checkout</h3>
+
+                <!-- Form and order summary -->
+
+                <div class="flex lg:flex-row mt-8">
+
+                    <!-- Form -->
+                        <form class="lg:w-3/4 p-5 border rounded-md">
+
+                            <h1 class="font-bold text-xl mb-8" >1. Collection Slot and Payment Method</h1>
+
+                            <div class="flex justify-evenly">
+
+                                <label class="font-medium text-lg mb-4">Collection Slot:</label>
+                                <div class="inline-block relative w-full mb-5">
+
+                                    <select class="block appearance-none w-full h-14 bg-gray-100 border 
+                                            border-gray-300 px-4 py-2 pr-8 rounded-lg border-2 text-gray-400">
+
+                                        <option>10-13</option>
+                                        <option>13-16</option>
+                                        <option>16-19</option>
+
+                                    </select>
+
+                                    <div class="pointer-events-none absolute inset-y-0 right-0 flex 
+                                            items-center px-2 text-gray-700">
+                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20">
+                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 
+                                            6.586 4.343 8z" />
+                                        </svg>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="flex justify-evenly">
+                                <label class="font-medium text-lg mb-4">Payment Method:</label>
+                                <div class="inline-block relative w-full mb-5">
+
+                                    <select class="block appearance-none w-full h-14 bg-gray-100 border 
+                                            border-gray-300 px-4 py-2 pr-8 rounded-lg border-2 text-gray-400">
+
+                                        <option>PayPal</option>
+                                        <option>Stripe</option>
+
+                                    </select>
+
+                                    <div class="pointer-events-none absolute inset-y-0 right-0 flex 
+                                            items-center px-2 text-gray-700">
+                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20">
+                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 
+                                            6.586 4.343 8z" />
+                                        </svg>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </form>
+
+                    <!-- Order Summary -->
+
+                    <div class="w-full mb-8 flex-shrink-0 order-1 lg:w-1/2 lg:mb-0 lg:order-2">
+
+                        <div class="flex justify-center lg:justify-end">
+
+                            <div class="border rounded-md max-w-md w-full px-4 py-3">
+
+                                <h1 class="text-center font-bold text-xl mb-2">3. Order Summary</h1>
+
+                                <!-- Order details. -->
+
+                                <div class="p-4">
+
+                                    <div class="flex justify-between border-b">
+                                        <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-center text-gray-800">
+                                            Items:
+                                        </div>
+                                        <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
+                                            2
+                                        </div>
+                                    </div>
+
+                                    <div class="flex justify-between border-b">
+                                        <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-center text-gray-800">
+                                            Payment Method:
+                                        </div>
+                                        <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
+                                            PayPal
+                                        </div>
+                                    </div>
+
+                                    <div class="flex justify-between pt-4 border-b">
+                                        <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-center text-gray-800">
+                                            Collection Time:
+                                        </div>
+                                        <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
+                                            10-13
+                                        </div>
+                                    </div>
+
+                                    <div class="flex justify-between pt-4 border-b">
+                                        <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-center text-gray-800">
+                                            Order Total:
+                                        </div>
+                                        <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
+                                            £30,000
+                                        </div>
+                                    </div>
+
+                                    <p class="text-center my-6 italic">By placing an order, you agree to Sthaniya Basket's
+                                        <span class="underline font-bold">Privacy Policy</span> and
+                                        <span class="underline font-bold">Terms of Use.</span>
+                                    </p>
+
+                                    <a href="#">
+                                        <button
+                                            class="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
+                                            <svg aria-hidden="true" data-prefix="far" data-icon="credit-card" class="w-8"
+                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                                <path fill="currentColor"
+                                                    d="M527.9 32H48.1C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48.1 48h479.8c26.6 0 48.1-21.5 48.1-48V80c0-26.5-21.5-48-48.1-48zM54.1 80h467.8c3.3 0 6 2.7 6 6v42H48.1V86c0-3.3 2.7-6 6-6zm467.8 352H54.1c-3.3 0-6-2.7-6-6V256h479.8v170c0 3.3-2.7 6-6 6zM192 332v40c0 6.6-5.4 12-12 12h-72c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h72c6.6 0 12 5.4 12 12zm192 0v40c0 6.6-5.4 12-12 12H236c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h136c6.6 0 12 5.4 12 12z" />
+                                            </svg>
+                                            <span class="ml-2 mt-5px">Place your order</span>
+                                        </button>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Review items -->
+
+                <div class="border rounded-md p-5 my-10 w-10/12">
+                    <h1 class="font-bold text-xl mb-4">2. Review Items</h1>
+                    <table class="w-full text-sm lg:text-base" cellspacing="0">
+
+                        <thead>
+                            <tr class="h-12">
+                                <th class="hidden md:table-cell"></th>
+                                <th class="text-left">Product</th>
+                                <th class="hidden text-center md:table-cell">Description</th>
+                                <th class="lg:text-right text-left pl-5 lg:pl-0">
+                                    <span class="lg:hidden" title="Quantity">Qtd</span>
+                                    <span class="hidden lg:inline">Quantity</span>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td class="hidden pb-4 md:table-cell">
+                                    <a href="#">
+                                        <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80"
+                                            class="w-20 rounded" alt="Thumbnail">
+                                    </a>
+                                </td>
+
+                                <td>
+                                    <a href="#">
+                                        <p class="mb-2 md:ml-4">MacBook Pro</p>
+                                    </a>
+                                </td>
+
+                                <td class="hidden text-center md:table-cell">
+                                    <span class="text-xs lg:text-base">
+                                        The 16-inch MacBook Pro has the highest-capacity battery we’ve
+                                        ever put in a notebook.
+                                    </span>
+                                </td>
+
+                                <td class="justify-center md:justify-end md:flex mt-6">
+                                    <div class="w-20 h-10 flex">
+                                        <div class="relative flex flex-row w-full h-8">
+                                            <input type="number" value="2"
+                                                class="w-8/12 font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td class="text-right">
+                                    <form action="" method="POST">
+                                        <button type="submit" class="text-black border-2 md:ml-4">
+                                            <small class="m-2">Remove item</small>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="hidden pb-4 md:table-cell">
+                                    <a href="#">
+                                        <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80"
+                                            class="w-20 rounded" alt="Thumbnail">
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="#">
+                                        <p class="mb-2 md:ml-4">MacBook Pro</p>
+                                    </a>
+                                </td>
+                                <td class="hidden text-center md:table-cell">
+                                    <span class="text-xs lg:text-base">
+                                        The 16-inch MacBook Pro has the highest-capacity battery we’ve
+                                        ever put in a notebook.
+                                    </span>
+                                </td>
+                                <td class="justify-center md:justify-end md:flex mt-6">
+                                    <div class="w-20 h-10 flex">
+                                        <div class="relative flex flex-row w-full h-8">
+                                            <input type="number" value="2"
+                                                class="w-8/12 font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-right">
+                                    <form action="" method="POST">
+                                        <button type="submit" class="text-black border-2 md:ml-4">
+                                            <small class="m-2">Remove item</small>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="hidden pb-4 md:table-cell">
+                                    <a href="#">
+                                        <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80"
+                                            class="w-20 rounded" alt="Thumbnail">
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="#">
+                                        <p class="mb-2 md:ml-4">MacBook Pro</p>
+                                    </a>
+                                </td>
+                                <td class="hidden text-center md:table-cell">
+                                    <span class="text-xs lg:text-base">
+                                        The 16-inch MacBook Pro has the highest-capacity battery we’ve
+                                        ever put in a notebook.
+                                    </span>
+                                </td>
+                                <td class="justify-center md:justify-end md:flex mt-6">
+                                    <div class="w-20 h-10 flex">
+                                        <div class="relative flex flex-row w-full h-8">
+                                            <input type="number" value="2"
+                                                class="w-8/12 font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-right">
+                                    <form action="" method="POST">
+                                        <button type="submit" class="text-black border-2 md:ml-4">
+                                            <small class="m-2">Remove item</small>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+@endsection
+
+{{-- <div class="flex justify-between">
+                            <div class="flex">
+
+                                <img class="h-20 w-20 object-cover rounded"
+                                    src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80"
+                                    alt="">
+
+                                <div class="mx-3">
+                                    <h3 class="lg:text-lg font-bold text-gray-800">Mac Book Pro</h3>
+                                </div>
+
+                            </div>
+                            <span class="text-gray-800 text-lg font-bold">£15,000</span>
+                        </div> --}}
+
+                        {{-- <header>
             <div class="container mx-auto px-6 py-3">
                 <div class="flex items-center justify-between">
                     <div class="hidden w-full text-gray-600 md:flex md:items-center">
@@ -189,136 +479,3 @@
                 </svg>
             </a>
         </div> --}}
-        <main class="my-8">
-            <div class="container mx-auto px-6">
-                <h3 class="text-gray-700 text-2xl font-medium">Checkout</h3>
-                <div class="flex flex-col lg:flex-row mt-8">
-                    <div class="w-full lg:w-1/2 order-2">
-                        <div class="flex items-center">
-                            <button class="flex text-sm text-blue-500 focus:outline-none"><span
-                                    class="flex items-center justify-center text-white bg-blue-500 rounded-full h-5 w-5 mr-2">1</span>
-                                Contacts</button>
-                            <button class="flex text-sm text-gray-700 ml-8 focus:outline-none"><span
-                                    class="flex items-center justify-center border-2 border-blue-500 rounded-full h-5 w-5 mr-2">2</span>
-                                Shipping</button>
-                            <button class="flex text-sm text-gray-500 ml-8 focus:outline-none" disabled><span
-                                    class="flex items-center justify-center border-2 border-gray-500 rounded-full h-5 w-5 mr-2">3</span>
-                                Payments</button>
-                        </div>
-                        <form class="mt-8 lg:w-3/4">
-                            <div>
-                                <h4 class="text-sm text-gray-500 font-medium">Delivery method</h4>
-                                <div class="mt-6">
-                                    <button
-                                        class="flex items-center justify-between w-full bg-white rounded-md border-2 border-blue-500 p-4 focus:outline-none">
-                                        <label class="flex items-center">
-                                            <input type="radio" class="form-radio h-5 w-5 text-blue-600" checked><span
-                                                class="ml-2 text-sm text-gray-700">MS Delivery</span>
-                                        </label>
-
-                                        <span class="text-gray-600 text-sm">$18</span>
-                                    </button>
-                                    <button
-                                        class="mt-6 flex items-center justify-between w-full bg-white rounded-md border p-4 focus:outline-none">
-                                        <label class="flex items-center">
-                                            <input type="radio" class="form-radio h-5 w-5 text-blue-600"><span
-                                                class="ml-2 text-sm text-gray-700">DC Delivery</span>
-                                        </label>
-
-                                        <span class="text-gray-600 text-sm">$26</span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="mt-8">
-                                <h4 class="text-sm text-gray-500 font-medium">Delivery address</h4>
-                                <div class="mt-6 flex">
-                                    <label class="block w-3/12">
-                                        <select class="form-select text-gray-700 mt-1 block w-full">
-                                            <option>NY</option>
-                                            <option>DC</option>
-                                            <option>MH</option>
-                                            <option>MD</option>
-                                        </select>
-                                    </label>
-                                    <label class="block flex-1 ml-3">
-                                        <input type="text" class="form-input mt-1 block w-full text-gray-700"
-                                            placeholder="Address">
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="mt-8">
-                                <h4 class="text-sm text-gray-500 font-medium">Date</h4>
-                                <div class="mt-6 flex">
-                                    <label class="block flex-1">
-                                        <input type="date" class="form-input mt-1 block w-full text-gray-700"
-                                            placeholder="Date">
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="flex items-center justify-between mt-8">
-                                <button
-                                    class="flex items-center text-gray-700 text-sm font-medium rounded hover:underline focus:outline-none">
-                                    <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path d="M7 16l-4-4m0 0l4-4m-4 4h18"></path>
-                                    </svg>
-                                    <span class="mx-2">Back step</span>
-                                </button>
-                                <button
-                                    class="flex items-center px-3 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
-                                    <span>Payment</span>
-                                    <svg class="h-5 w-5 mx-2" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                                    </svg>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="w-full mb-8 flex-shrink-0 order-1 lg:w-1/2 lg:mb-0 lg:order-2">
-                        <div class="flex justify-center lg:justify-end">
-                            <div class="border rounded-md max-w-md w-full px-4 py-3">
-                                <div class="flex items-center justify-between">
-                                    <h3 class="text-gray-700 font-medium">Order total (2)</h3>
-                                    <span class="text-gray-600 text-sm">Edit</span>
-                                </div>
-                                <div class="flex justify-between mt-6">
-                                    <div class="flex">
-                                        <img class="h-20 w-20 object-cover rounded"
-                                            src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80"
-                                            alt="">
-                                        <div class="mx-3">
-                                            <h3 class="text-sm text-gray-600">Mac Book Pro</h3>
-                                            <div class="flex items-center mt-2">
-                                                <button class="text-gray-500 focus:outline-none focus:text-gray-600">
-                                                    <svg class="h-5 w-5" fill="none" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                                        stroke="currentColor">
-                                                        <path
-                                                            d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z">
-                                                        </path>
-                                                    </svg>
-                                                </button>
-                                                <span class="text-gray-700 mx-2">2</span>
-                                                <button class="text-gray-500 focus:outline-none focus:text-gray-600">
-                                                    <svg class="h-5 w-5" fill="none" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                                        stroke="currentColor">
-                                                        <path d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <span class="text-gray-600">20$</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-
-    </div>
-
-@endsection
