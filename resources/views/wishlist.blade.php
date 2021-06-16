@@ -1,12 +1,10 @@
 @extends('layouts.app')
 @section('content')
     
-<div class="container mx-auto px-4 sm:px-8 max-w-3xl">
+<div class="container mx-auto px-4 sm:px-8 bg-white shadow-lg w-9/12">
     <div class="py-8">
         <div class="flex flex-row mb-1 sm:mb-0 justify-between w-full">
-            <h2 class="text-2xl leading-tight">
-                Users
-            </h2>
+            <h1 class="font-bold text-lg">Username</h1>
             <div class="text-end">
                 <form class="flex w-full max-w-sm space-x-3">
                     <div class=" relative ">
