@@ -31989,6 +31989,10 @@ video {
   --tw-backdrop-sepia: sepia(100%);
 }
 
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;

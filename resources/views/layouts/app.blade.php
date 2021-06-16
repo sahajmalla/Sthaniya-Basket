@@ -10,9 +10,9 @@
 </head>
 
 <body class="text-black">
-    <nav class="fixed w-full top-0 bg-gray-100">
+    <nav class="w-full bg-gray-100">
         <!--menu bar and logo-->
-        <div class="flex justify-between items-center">
+        <div class=" mx-auto flex justify-between items-center">
             <div class="flex items-center">
                 <div>
                     <button class="menu-button p-4 focus:outline-none hover:bg-gray-400">
@@ -28,20 +28,18 @@
             </div>
 
             <!--Search bar-->
-            <div class=" flex justify-center flex-grow pt-2 relative mx-auto text-gray-600">
-                <input
-                    class="w-8/12  border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
-                    type="search" name="search" placeholder="Search">
-
-                <button type="submit" class="absolute right-40 top-0 mt-5 mr-4">
-                    <svg class="text-gray-600 h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg"
-                        xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
-                        viewBox="0 0 56.966 56.966" style="enable-background:new 0 0 56.966 56.966;"
-                        xml:space="preserve" width="512px" height="512px">
+            <div class="relative max-w-lg mx-auto flex-grow">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
+                    <svg class="h-5 w-5 text-gray-500" viewBox="0 0 24 24" fill="none">
                         <path
-                            d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
+                            d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                </button>
+                </span>
+
+                <input
+                    class="w-full border rounded-md pl-10 pr-4 py-2 focus:border-blue-500 focus:outline-none focus:shadow-outline"
+                    type="text" placeholder="Search">
             </div>
 
             <!--signin signup wishlist cart-->
