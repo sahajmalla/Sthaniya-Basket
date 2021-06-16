@@ -131,8 +131,7 @@
 
                 <hr class="pb-6 mt-6">
 
-                <!-- Coupon code -->
-                {{-- <div class="my-4 mt-6 -mx-2 lg:flex">
+                <div class="my-4 mt-6 -mx-2 lg:flex">
                     <div class="lg:px-2 lg:w-1/2">
                         <div class="p-4 bg-gray-100 rounded-full">
                             <h1 class="ml-2 font-bold uppercase">Coupon Code</h1>
@@ -167,9 +166,8 @@
                                 below</p>
                             <textarea class="w-full h-24 p-2 bg-gray-100 rounded"></textarea>
                         </div>
-                    </div> --}}
+                    </div>
 
-                <div class="flex justify-center">
                     <!-- Added this div to center the elements. -->
                     <div class="lg:px-2 lg:w-1/2">
                         <div class="p-4 bg-gray-100 rounded-full">
@@ -217,7 +215,6 @@
                             </a>
                         </div>
                     </div>
-                </div>
 
             </div>
         </div>
