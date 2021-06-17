@@ -135,7 +135,7 @@
     </div>-->
 
     <!--content-->
-    <main class="mainContent bg-white flex justify-center mb-5 mt-20">
+    <main class="mainContent bg-white flex justify-center mb-5 mt-10">
         @yield('content')
     </main>
 

@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+
 <section class="w-10/12 space-y-10 shadow-lg rounded-lg p-5 text-gray-600 body-font overflow-hidden">
       
     <div class="container mx-auto p-2">
