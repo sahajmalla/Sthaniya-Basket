@@ -1,6 +1,6 @@
 @extends('layouts.app');
 @section('content')
-    <div class="flex flex-col shadow-lg p-4 h-full w-8/12">
+    <div class="flex flex-col shadow-lg p-4 h-full">
         <div class="grid grid-cols-2 md:gap-x-96 items-center border-b-2 border-gray-200">
             <div class="row-span-1"><img src="images/sbl.png" alt="logo"></div>
             <div>
