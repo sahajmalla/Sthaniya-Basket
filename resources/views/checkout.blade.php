@@ -16,11 +16,11 @@
                 <div class="flex lg:flex-row mt-8">
 
                     <!-- Form -->
-                        <form class="lg:w-3/4 p-5 border rounded-md">
+                    <form class="lg:w-3/4 p-5 border rounded-md">
 
-                            <h1 class="font-bold text-xl mb-8" >1. Collection Slot and Payment Method</h1>
+                        <h1 class="font-bold text-xl mb-8">1. Collection Slot and Payment Method</h1>
 
-                            <div class="flex justify-evenly">
+                        {{-- <div class="flex justify-evenly">
 
                                 <label class="font-medium text-lg mb-4">Collection Slot:</label>
                                 <div class="inline-block relative w-full mb-5">
@@ -68,9 +68,66 @@
                                     </div>
 
                                 </div>
-                            </div>
+                            </div> --}}
 
-                        </form>
+
+                        <div class="leading-loose">
+
+                            <form class="max-w-xl m-4 p-10 bg-white rounded shadow-xl">
+
+                                <p class="text-gray-800 font-medium mb-8 mt-8">Collection information</p>
+
+                                <div class="flex">
+
+                                    <label class="text-sm">Collection Slot:</label>
+
+                                    <select class="w-full h-8/12 px-5 py-1 text-gray-700 bg-gray-200 rounded">
+
+                                        <option>10-13</option>
+                                        <option>13-16</option>
+                                        <option>16-19</option>
+
+                                    </select>
+
+                                    <div class="pointer-events-none absolute inset-y-0 right-0 flex 
+                                        items-center px-2 text-gray-700">
+                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20">
+                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 
+                                        6.586 4.343 8z" />
+                                        </svg>
+                                    </div>
+
+                                </div>
+
+                                <p class="mt-8 mb-8 text-gray-800 font-medium">Payment information</p>
+
+                                <div class="flex">
+
+                                    <label class="text-sm">Payment Method:</label>
+
+                                    <select class="w-full h-8/12 px-5 py-1 text-gray-700 bg-gray-200 rounded">
+
+                                        <option>PayPal</option>
+                                        <option>Stripe</option>
+
+                                    </select>
+
+                                    <div class="pointer-events-none absolute inset-y-0 right-0 flex 
+                                            items-center px-2 text-gray-700">
+                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20">
+                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 
+                                            6.586 4.343 8z" />
+                                        </svg>
+                                    </div>
+
+                                </div>
+
+                            </form>
+                        </div>
+
+                    </form>
 
                     <!-- Order Summary -->
 
@@ -296,7 +353,7 @@
                             <span class="text-gray-800 text-lg font-bold">£15,000</span>
                         </div> --}}
 
-                        {{-- <header>
+{{-- <header>
             <div class="container mx-auto px-6 py-3">
                 <div class="flex items-center justify-between">
                     <div class="hidden w-full text-gray-600 md:flex md:items-center">
@@ -371,7 +428,7 @@
             </div>
         </header> --}}
 
-        {{-- <div :class="cartOpen ? 'translate-x-0 ease-out' : 'translate-x-full ease-in'"
+{{-- <div :class="cartOpen ? 'translate-x-0 ease-out' : 'translate-x-full ease-in'"
             class="fixed right-0 top-0 max-w-xs w-full h-full px-6 py-4 transition duration-300 transform overflow-y-auto bg-white border-l-2 border-gray-300">
             <div class="flex items-center justify-between">
                 <h3 class="text-2xl font-medium text-gray-700">Your cart</h3>
