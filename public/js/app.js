@@ -7,7 +7,28 @@
   \*****************************/
 /***/ (() => {
 
+//menu button close open
+var btn = document.querySelector('.menu-button');
+var menuOpen = document.querySelector('.menu-open');
+btn.addEventListener('click', function () {
+  if (menuOpen.classList.contains('hidden')) {
+    menuOpen.classList.remove('hidden');
+    menuOpen.classList.add('block');
+  } else {
+    menuOpen.classList.remove('block');
+    menuOpen.classList.add('hidden');
+  }
+}); //write comment open close
 
+var writeBtn = document.querySelector('.write-review');
+var writeCancel = document.querySelector('.write-cancel');
+var comntForm = document.querySelector('.comment-form');
+writeBtn.addEventListener('click', function () {
+  comntForm.classList.remove('hidden');
+});
+writeCancel.addEventListener('click', function () {
+  comntForm.classList.add('hidden');
+});
 
 /***/ }),
 
