@@ -2,7 +2,9 @@
 @section('content')
     <section class="body-font flex-col">
 
-        <div class="container px-5 py-10 mx-auto">
+        <div class="container p-10 mx-auto">
+
+            <!-- Heading -->
             <div class="flex flex-wrap w-full mb-10">
                 <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
                     <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2">Trending Items
@@ -10,7 +12,7 @@
                 </div>
             </div>
 
-            <!--items-->
+            <!-- Products -->
             <div class="flex flex-wrap lg:flex">
                 <div class="flex max-w-md mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
                     <div class="w-1/3 bg-cover"
