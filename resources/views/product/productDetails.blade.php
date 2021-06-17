@@ -1,8 +1,9 @@
 @extends('layouts.app')
 @section('content')
-    <section class="w-10/12 space-y-10 text-gray-600 body-font overflow-hidden">
+    <section class="w-10/12 space-y-10 shadow-lg rounded-lg p-5 text-gray-600 body-font overflow-hidden">
       
         <div class="container mx-auto">
+
             <div class="lg:w-4/5 mx-auto flex flex-wrap">
                 <!---image-->
                 <img alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"
@@ -196,8 +197,8 @@
             </div>
         
             <!-- review item -->
-            <div class="w-5/12">
-                <div class="my-5 mx-auto shadow-lg rounded-lg">
+            <div class="w-5/12 shadow-lg rounded-lg">
+                <div class="my-5 mx-auto">
                     <div class="mb-1 tracking-wide px-4 py-4">
                         <h2 class="text-gray-800 font-semibold mt-1">67 Users reviews</h2>
                         <div class="border-b -mx-8 px-8 pb-3">
