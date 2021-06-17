@@ -6,122 +6,119 @@
 
     <div x-data="{ cartOpen: false , isOpen: false }" class="bg-white w-11/12 bg-white shadow-lg">
 
-        <main class="my-8">
+        <main class="my-4">
 
             <div class="container mx-auto px-6">
                 <h3 class="text-gray-700 text-2xl font-medium">Checkout</h3>
 
                 <!-- Form and order summary -->
 
-                <div class="flex lg:flex-row mt-8">
+                <div class="flex lg:flex-row my-6">
 
                     <!-- Form -->
-                    <form class="lg:w-3/4 p-5 border rounded-md">
+                    <form class="lg:w-3/4 p-8 border rounded-md">
 
-                        <h1 class="font-bold text-xl mb-8">1. Collection Slot and Payment Method</h1>
-
-                        {{-- <div class="flex justify-evenly">
-
-                                <label class="font-medium text-lg mb-4">Collection Slot:</label>
-                                <div class="inline-block relative w-full mb-5">
-
-                                    <select class="block appearance-none w-full h-14 bg-gray-100 border 
-                                            border-gray-300 px-4 py-2 pr-8 rounded-lg border-2 text-gray-400">
-
-                                        <option>10-13</option>
-                                        <option>13-16</option>
-                                        <option>16-19</option>
-
-                                    </select>
-
-                                    <div class="pointer-events-none absolute inset-y-0 right-0 flex 
-                                            items-center px-2 text-gray-700">
-                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 20 20">
-                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 
-                                            6.586 4.343 8z" />
-                                        </svg>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="flex justify-evenly">
-                                <label class="font-medium text-lg mb-4">Payment Method:</label>
-                                <div class="inline-block relative w-full mb-5">
-
-                                    <select class="block appearance-none w-full h-14 bg-gray-100 border 
-                                            border-gray-300 px-4 py-2 pr-8 rounded-lg border-2 text-gray-400">
-
-                                        <option>PayPal</option>
-                                        <option>Stripe</option>
-
-                                    </select>
-
-                                    <div class="pointer-events-none absolute inset-y-0 right-0 flex 
-                                            items-center px-2 text-gray-700">
-                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 20 20">
-                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 
-                                            6.586 4.343 8z" />
-                                        </svg>
-                                    </div>
-
-                                </div>
-                            </div> --}}
-
+                        <h1 class="font-bold text-xl mb-8 uppercase">1. Final Details</h1>
 
                         <div class="leading-loose">
 
                             <form class="max-w-xl m-4 p-10 bg-white rounded shadow-xl">
 
-                                <p class="text-gray-800 font-medium mb-8 mt-8">Collection information</p>
+                                <!-- Collection slot select -->
+                                <div class="mb-8">
+                                    <div class="mb-8 p-4 bg-gray-100 rounded-full">
+                                        <h1 class="ml-2 font-bold uppercase">Collection Information</h1>
+                                    </div>
 
-                                <div class="flex">
+                                    <div class="flex">
 
-                                    <label class="text-sm">Collection Slot:</label>
+                                        <label class="text-sm w-4/12 font-bold text-gray-700">Collection Slot Time:</label>
 
-                                    <select class="w-full h-8/12 px-5 py-1 text-gray-700 bg-gray-200 rounded">
+                                        <select class="w-8/12 px-5 py-1 text-gray-700 bg-gray-200 rounded">
 
-                                        <option>10-13</option>
-                                        <option>13-16</option>
-                                        <option>16-19</option>
+                                            <option>10-13</option>
+                                            <option>13-16</option>
+                                            <option>16-19</option>
 
-                                    </select>
+                                        </select>
 
-                                    <div class="pointer-events-none absolute inset-y-0 right-0 flex 
-                                        items-center px-2 text-gray-700">
-                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 20 20">
-                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 
-                                        6.586 4.343 8z" />
-                                        </svg>
+                                        <div class="pointer-events-none absolute inset-y-0 right-0 flex 
+                                                items-center px-2 text-gray-700">
+                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20">
+                                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 
+                                                6.586 4.343 8z" />
+                                            </svg>
+                                        </div>
+
                                     </div>
 
                                 </div>
 
-                                <p class="mt-8 mb-8 text-gray-800 font-medium">Payment information</p>
-
-                                <div class="flex">
-
-                                    <label class="text-sm">Payment Method:</label>
-
-                                    <select class="w-full h-8/12 px-5 py-1 text-gray-700 bg-gray-200 rounded">
-
-                                        <option>PayPal</option>
-                                        <option>Stripe</option>
-
-                                    </select>
-
-                                    <div class="pointer-events-none absolute inset-y-0 right-0 flex 
-                                            items-center px-2 text-gray-700">
-                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 20 20">
-                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 
-                                            6.586 4.343 8z" />
-                                        </svg>
+                                <!-- Payment method select -->
+                                <div class="mb-8">
+                                    <div class="mb-8 p-4 bg-gray-100 rounded-full">
+                                        <h1 class="ml-2 font-bold uppercase">Payment Information</h1>
                                     </div>
 
+                                    <div class="flex">
+
+                                        <label class="text-sm w-4/12 font-bold text-gray-700">Payment Method:</label>
+
+                                        <select class="w-8/12 px-5 py-1 text-gray-700 bg-gray-200 rounded">
+
+                                            <option>PayPal</option>
+                                            <option>Stripe</option>
+
+                                        </select>
+
+                                        <div class="pointer-events-none absolute inset-y-0 right-0 flex 
+                                                    items-center px-2 text-gray-700">
+                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20">
+                                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 
+                                                    6.586 4.343 8z" />
+                                            </svg>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+                                <!-- Discount code -->
+                                <div class="mb-8">
+                                    <div class="p-4 bg-gray-100 rounded-full">
+                                        <h1 class="ml-2 font-bold uppercase">Discount Coupon Code</h1>
+                                    </div>
+                                    <div class="p-4">
+                                        <p class="mb-4 italic">If you have a Discount coupon code, please enter it in the box below</p>
+                                        <div class="justify-center md:flex">
+                                            <form action="" method="POST">
+                                                <div
+                                                    class="flex items-center w-full h-13 pl-3 bg-white bg-gray-100 border rounded-full">
+                                                    <input type="coupon" name="code" id="coupon" placeholder="Apply coupon"
+                                                        value="90off"
+                                                        class="w-full bg-gray-100 outline-none appearance-none focus:outline-none active:outline-none" />
+                                                    <button type="submit"
+                                                        class="text-sm flex items-center px-3 py-1 text-white bg-gray-800 rounded-full outline-none md:px-4 hover:bg-gray-700 focus:outline-none active:outline-none">
+                                                        <svg aria-hidden="true" data-prefix="fas" data-icon="gift" class="w-8"
+                                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                                            <path fill="currentColor"
+                                                                d="M32 448c0 17.7 14.3 32 32 32h160V320H32v128zm256 32h160c17.7 0 32-14.3 32-32V320H288v160zm192-320h-42.1c6.2-12.1 10.1-25.5 10.1-40 0-48.5-39.5-88-88-88-41.6 0-68.5 21.3-103 68.3-34.5-47-61.4-68.3-103-68.3-48.5 0-88 39.5-88 88 0 14.5 3.8 27.9 10.1 40H32c-17.7 0-32 14.3-32 32v80c0 8.8 7.2 16 16 16h480c8.8 0 16-7.2 16-16v-80c0-17.7-14.3-32-32-32zm-326.1 0c-22.1 0-40-17.9-40-40s17.9-40 40-40c19.9 0 34.6 3.3 86.1 80h-86.1zm206.1 0h-86.1c51.4-76.5 65.7-80 86.1-80 22.1 0 40 17.9 40 40s-17.9 40-40 40z" />
+                                                        </svg>
+                                                        <span class="font-medium">Apply discount coupon</span>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="p-4 mt-6 bg-gray-100 rounded-full">
+                                        <h1 class="ml-2 font-bold">Instruction for seller</h1>
+                                    </div>
+                                    <div class="p-4">
+                                        <p class="mb-4 italic">If you have some information for the seller you can leave them in the box
+                                            below</p>
+                                        <textarea class="w-full h-24 p-2 bg-gray-100 rounded"></textarea>
+                                    </div>
                                 </div>
 
                             </form>
@@ -137,7 +134,7 @@
 
                             <div class="border rounded-md max-w-md w-full px-4 py-3">
 
-                                <h1 class="text-center font-bold text-xl mb-2">3. Order Summary</h1>
+                                <h1 class="text-center font-bold text-xl mb-2 uppercase">3. Order Summary</h1>
 
                                 <!-- Order details. -->
 
@@ -170,12 +167,30 @@
                                         </div>
                                     </div>
 
+                                    <div class="flex justify-between border-b">
+                                        <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-center text-gray-800">
+                                            Subtotal
+                                        </div>
+                                        <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
+                                            £30,000
+                                        </div>
+                                    </div>
+
+                                    <div class="flex justify-between pt-4 border-b">
+                                        <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-center text-gray-800">
+                                            Discount
+                                        </div>
+                                        <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
+                                            £3,000 (10%)
+                                        </div>
+                                    </div>
+
                                     <div class="flex justify-between pt-4 border-b">
                                         <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-center text-gray-800">
                                             Order Total:
                                         </div>
                                         <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
-                                            £30,000
+                                            £27,000
                                         </div>
                                     </div>
 
@@ -204,9 +219,8 @@
                 </div>
 
                 <!-- Review items -->
-
-                <div class="border rounded-md p-5 my-10 w-10/12">
-                    <h1 class="font-bold text-xl mb-4">2. Review Items</h1>
+                <div class="border rounded-md p-5 mb-10 w-full">
+                    <h1 class="font-bold text-xl mb-4 uppercase">2. Review Items</h1>
                     <table class="w-full text-sm lg:text-base" cellspacing="0">
 
                         <thead>
