@@ -101,7 +101,7 @@
                 </div>
             </div>
 
-            <div class="flex justify-center py-3 mt-3 -mx-3 overflow-y-auto whitespace-nowrap">
+            <div class="flex md:justify-center py-3 mt-3 -mx-3 overflow-y-auto whitespace-nowrap">
                 <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
                     href="#">Bakery</a>
                 <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
@@ -115,25 +115,7 @@
             </div>
         </div>
     </nav>
-    <!--- sidnav
-    <div
-        class="sideNav h-full w-0 fixed top-12 mt-2 bg-gray-100 left-0 bg-white overflow-x-hidden transition delay-500 duration-700 ease-in-out">
-        <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-400 flex "><img class="mr-4"
-                src="images/icons/butcher.png"><span>Butcher</span> </a>
-        <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-400 flex "><img class="mr-4"
-                src="images/icons/grocery.png"><span>Greengrocer</span> </a>
-        <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-400 flex "><img class="mr-4"
-                src="images/icons/fish.png"><span>Fishmonger</span> </a>
-        <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-400 flex "><img class="mr-4"
-                src="images/icons/bakery.png"><span>Bakery</span> </a>
-        <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-400 flex "><img class="mr-4"
-                src="images/icons/delicatessen.png"><span>Delicatessen</span> </a>
-        <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-400 flex "><img class="mr-4"
-                src="images/icons/sign-in.png" alt=""><span>Sign in</span> </a>
-        <a href="" class="block py-2.5 px-4 rounded hover:bg-gray-400 flex "><img class="mr-4"
-                src="images/icons/wishlist.png" alt=""><span>Wishlist</span> </a>
-    </div>-->
-
+   
     <!--content-->
     <main class="mainContent bg-white flex justify-center my-10">
         @yield('content')
@@ -181,8 +163,4 @@
     </footer>
 <script src="{{ asset('js/app.js') }}"></script>
 </body>
-
-
-
-
 </html>
