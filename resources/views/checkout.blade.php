@@ -13,10 +13,10 @@
 
                 <!-- Form and order summary -->
 
-                <div class="flex lg:flex-row my-6">
+                <div class="space-y-6 lg:space-y-0 lg:space-x-16 lg:flex lg:flex-row my-6">
 
                     <!-- Form -->
-                    <form class="lg:w-3/4 p-8 border rounded-md">
+                    <form class=" p-8 border rounded-md">
 
                         <h1 class="font-bold text-xl mb-8 uppercase">1. Final Details</h1>
 
@@ -30,11 +30,11 @@
                                         <h1 class="ml-2 font-bold uppercase">Collection Information</h1>
                                     </div>
 
-                                    <div class="flex">
+                                    <div class="sm:flex">
 
                                         <label class="text-sm w-4/12 font-bold text-gray-700">Collection Slot Time:</label>
 
-                                        <select class="w-8/12 px-5 py-1 text-gray-700 bg-gray-200 rounded">
+                                        <select class="w-full md:w-8/12 px-5 py-1 text-gray-700 bg-gray-200 rounded">
 
                                             <option>10-13</option>
                                             <option>13-16</option>
@@ -61,11 +61,11 @@
                                         <h1 class="ml-2 font-bold uppercase">Payment Information</h1>
                                     </div>
 
-                                    <div class="flex">
+                                    <div class="sm:flex">
 
                                         <label class="text-sm w-4/12 font-bold text-gray-700">Payment Method:</label>
 
-                                        <select class="w-8/12 px-5 py-1 text-gray-700 bg-gray-200 rounded">
+                                        <select class="w-full sm:w-8/12 px-5 py-1 text-gray-700 bg-gray-200 rounded">
 
                                             <option>PayPal</option>
                                             <option>Stripe</option>
@@ -128,7 +128,7 @@
 
                     <!-- Order Summary -->
 
-                    <div class="w-full mb-8 flex-shrink-0 order-1 lg:w-1/2 lg:mb-0 lg:order-2">
+                    <div class="">
 
                         <div class="flex justify-center lg:justify-end">
 
@@ -141,55 +141,55 @@
                                 <div class="p-4">
 
                                     <div class="flex justify-between border-b">
-                                        <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-center text-gray-800">
+                                        <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
                                             Items:
                                         </div>
-                                        <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
+                                        <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
                                             2
                                         </div>
                                     </div>
 
                                     <div class="flex justify-between border-b">
-                                        <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-center text-gray-800">
+                                        <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
                                             Payment Method:
                                         </div>
-                                        <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
+                                        <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
                                             PayPal
                                         </div>
                                     </div>
 
                                     <div class="flex justify-between pt-4 border-b">
-                                        <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-center text-gray-800">
+                                        <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
                                             Collection Time:
                                         </div>
-                                        <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
+                                        <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
                                             10-13
                                         </div>
                                     </div>
 
                                     <div class="flex justify-between border-b">
-                                        <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-center text-gray-800">
+                                        <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
                                             Subtotal
                                         </div>
-                                        <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
+                                        <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
                                             £30,000
                                         </div>
                                     </div>
 
                                     <div class="flex justify-between pt-4 border-b">
-                                        <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-center text-gray-800">
+                                        <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
                                             Discount
                                         </div>
-                                        <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
+                                        <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
                                             £3,000 (10%)
                                         </div>
                                     </div>
 
                                     <div class="flex justify-between pt-4 border-b">
-                                        <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-center text-gray-800">
+                                        <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
                                             Order Total:
                                         </div>
-                                        <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
+                                        <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
                                             £27,000
                                         </div>
                                     </div>

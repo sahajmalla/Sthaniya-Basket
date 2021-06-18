@@ -155,23 +155,23 @@
                 </div>
             </div>
 
-            <div class="mb-5 md:flex justify-center">
+            <div class="mb-5 flex justify-center">
                 <div>
-                    <label for="male" class="mr-1">Male</label>
+                    <label for="male" class="mr-1 text-md">Male</label>
                     <input type="radio" id="male" value="male" class="mr-5">
                 </div>
                 <div>
-                    <label for="female" class="mr-1">Female</label>
+                    <label for="female" class="mr-1 text-md">Female</label>
                     <input type="radio" id="female" value="female" class="mr-5">
                 </div>
 
                 <div>
-                    <label for="others" class="mr-1">Others</label>
+                    <label for="others" class="mr-1 text-md">Others</label>
                     <input type="radio" id="others" value="others" class="mr-5">
                 </div>
             </div>
 
-            <div class="mb-5">
+            <div class="mb-5 text-center">
                 <input type="checkbox" class="mr-1">
                 <label>
                     Get updates from Sthaniya Basket on products and offers.

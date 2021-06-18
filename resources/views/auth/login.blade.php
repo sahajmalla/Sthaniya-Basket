@@ -8,6 +8,7 @@
         style="background-image:url('https://images.unsplash.com/photo-1606660265514-358ebbadc80d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1575&q=80')"></div>
         
         <div class="w-full px-6 py-8 md:px-8 lg:w-1/2">
+            
             <form action="{{ route('login') }}" method="POST">
                 <h1 class="text-2xl text-center font-bold mb-8">Sign In</h1>
                 @csrf
@@ -37,13 +38,14 @@
 
                 </div>
 
-                <div class="mb-5 sm:flex-col md:flex-row md:flex justify-between">
-                    <div class="flex items-center mb-4 md:mt-0">
-                        <input type="checkbox" name="remember" id="remember" class="mr-2">
-                        <label for="remember">Keep me signed in</label>
+                <div class="mb-5 flex justify-between items-baseline">
+                    <div>
+                        <input type="checkbox" name="remember" id="remember" class="mr-1">
+                        <label for="remember" class="text-sm md:text-md text-left">Keep me signed in</label>
                     </div>
-                    <div class="md:mt-0">
-                        <p><a>Forgot password?</a></p>
+
+                    <div>
+                        <p class="text-sm md:text-md text-right"><a>Forgot password?</a></p>
                     </div>
                 </div>
 
@@ -72,13 +74,13 @@
                     </p>
                 </div>
 
-                <div class="mb-5 md:flex justify-center">
+                <div class="mb-5 flex flex-col justify-center space-y-4">
                     <a href="{{ route('registerCustomer') }}" class="bg-blue-500 text-white px-4 py-3 rounded
-                        font-medium text-xs w-full mb-2 sm:mb-2 md:m-0 md:mr-2 text-center">
+                        font-medium text-xs w-full text-center">
                         SIGN UP AS CUSTOMER</a>
 
                     <a href="{{ route('registerTrader') }}" class="bg-blue-500 text-white px-4 py-3 rounded
-                        font-medium text-xs w-full mt-2 sm:mt-3 md:m-0 md:ml-2 text-center">
+                        font-medium text-xs w-full text-center">
                         SIGN UP AS TRADER</a>
                 </div>
 

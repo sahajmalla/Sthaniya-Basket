@@ -4,8 +4,12 @@
     <div class="flex w-full justify-center">
 
         <div class="flex flex-col p-8 text-gray-800 bg-white shadow-lg pin-r pin-y md:w-4/5 lg:w-9/12">
+            
             <div class="flex-1">
+
                 <h1 class="font-bold text-lg">Username</h1>
+
+                <!-- Products table-->
                 <table class="w-full text-sm lg:text-base" cellspacing="0">
                     <thead>
                         <tr class="h-12 uppercase">
@@ -131,6 +135,7 @@
 
                 <hr class="pb-6 mt-6">
 
+                <!-- Order Details -->
                 <div class="my-4 mt-6 -mx-2 flex justify-center">
 
                     <div class="lg:px-2 lg:w-1/2">
