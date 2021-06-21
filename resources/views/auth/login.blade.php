@@ -9,6 +9,13 @@
         
         <div class="w-full px-6 py-8 md:px-8 lg:w-1/2">
             
+            <!-- If the key status is set in the session's array, then display the invalid credentials
+                error.-->
+            @if(session('status'))
+                <div class="bg-red-500 p-4 rounded-lg mb-6 text-white text-center">
+                    {{session('status')}}
+                </div>
+            @endif
             <form action="{{ route('login') }}" method="POST">
                 <h1 class="text-2xl text-center font-bold mb-8">Sign In</h1>
                 @csrf
