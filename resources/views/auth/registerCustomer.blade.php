@@ -11,21 +11,20 @@
         <div class="w-full px-6 py-8 md:px-8 lg:w-1/2">
             <form action="{{ route('register') }}" method="POST">
                 <h1 class="text-2xl text-center font-bold mb-8">Sign Up</h1>
+                
                 @csrf
                 <!--user types-->
                 <div class="inline-block relative w-full mb-5">
-                    <select name="userType" onchange="displayForms()" id="select-user" class="block appearance-none w-full h-14 bg-gray-100 border 
-                                                                border-gray-300 px-4 py-2 pr-8 rounded-lg border-2 text-gray-400 @error('userType') border-red-500 
-                                                                @enderror" value="{{ old('userType') }}">
-
+                    <select name="userType" onchange="displayForms()" id="select-user" 
+                    class="block appearance-none w-full h-14 bg-gray-100 border border-gray-300 px-4 py-2 
+                    pr-8 rounded-lg border-2 text-gray-400 
+                    @error('userType') border-red-500 @enderror" value="{{ old('userType') }}">
 
                         <option value="" disabled selected>User type:</option>
-
-                        <option value="customer" {{ old('userType') == 'customer' ? 'selected' : '' }}>Customer</option>
-
-
-                        <option value="trader" {{ old('userType') == 'trader' ? 'selected' : '' }}>Trader</option>
-
+                        <option value="customer" {{ old('userType') == 'customer' ? 'selected' : '' }}>
+                            Customer</option>
+                        <option value="trader" {{ old('userType') == 'trader' ? 'selected' : '' }}>
+                            Trader</option>
 
                     </select>
 
@@ -43,11 +42,13 @@
                         </div>
                     @enderror
                 </div>
+                
                 <!--shop-->
-                <div class="trader-shop mb-5 hidden">
+                <div class="trader-shop mb-5 {{ old('userType') == 'trader' ? '' : 'hidden' }}">
                     <label for="shopname" class=sr-only>Shop Name:</label>
-                    <input type="text" name="shopname" id="shopname" placeholder="Shop Name" class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('shopname') border-red-500 
-                                                                @enderror" value="{{ old('shopname') }}">
+                    <input type="text" name="shopname" id="shopname" placeholder="Shop Name" 
+                    class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 
+                    @error('shopname') border-red-500 @enderror" value="{{ old('shopname') }}">
 
                     @error('shopname')
                         <div class="text-red-500 mt-2 text-sm">
@@ -56,11 +57,15 @@
                     @enderror
 
                 </div>
+
                 <!--business type-->
-                <div class="trader-business inline-block relative w-full mb-5 hidden">
+                <div class="trader-business inline-block relative w-full mb-5 
+                    {{ old('userType') == 'trader' ? '' : 'hidden' }}">
+
                     <select name="business" class="block appearance-none w-full h-14 bg-gray-100 border 
-                                                                border-gray-300 px-4 py-2 pr-8 rounded-lg border-2 text-gray-400 @error('business') border-red-500 
-                                                                @enderror" value="{{ old('business') }}">
+                    border-gray-300 px-4 py-2 pr-8 rounded-lg border-2 text-gray-400 @error('business') 
+                    border-red-500 @enderror" value="{{ old('business') }}">
+
                         <option value="" disabled selected>Business Type</option>
                         <option value=" bakery">Bakery</option>
                         <option value="butcher">Butcher</option>
@@ -88,8 +93,9 @@
                 <!--email-->
                 <div class="mb-5">
                     <label for="email" class=sr-only>Email:</label>
-                    <input type="email" name="email" id="email" placeholder="Email" class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('email') border-red-500 
-                                                            @enderror" value="{{ old('email') }}">
+                    <input type="email" name="email" id="email" placeholder="Email" class="bg-gray-100 
+                    border-2 w-full p-4 rounded-lg h-14 @error('email') border-red-500 
+                    @enderror" value="{{ old('email') }}">
 
                     @error('email')
                         <div class="text-red-500 mt-2 text-sm">
@@ -113,8 +119,9 @@
                 <!--password-->
                 <div class="mb-5">
                     <label for="password" class=sr-only>Password:</label>
-                    <input type="password" name="password" id="password" placeholder="Password" class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('password') border-red-500 
-                                                            @enderror" value="">
+                    <input type="password" name="password" id="password" placeholder="Password" 
+                    class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('password') border-red-500 
+                    @enderror" value="">
 
                     @error('password')
                         <div class="text-red-500 mt-2 text-sm">
@@ -127,15 +134,16 @@
                 <div class="mb-5">
                     <label for="password_confirmation" class=sr-only>Re-type Password:</label>
                     <input type="password" name="password_confirmation" id="password_confirmation"
-                        placeholder="Re-type Password" class="bg-gray-100 h-14 border-2 w-full p-4 rounded-lg
-                                                        @error('password') border-red-500 @enderror" value="">
+                        placeholder="Re-type Password" class="bg-gray-100 h-14 border-2 w-full p-4 
+                        rounded-lg @error('password') border-red-500 @enderror" value="">
 
                 </div>
                 <!--first name-->
                 <div class="mb-5">
                     <label for="firstname" class=sr-only>First Name:</label>
-                    <input type="text" name="firstname" id="firstname" placeholder="First Name" class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('firstname') border-red-500 
-                                                            @enderror" value="{{ old('firstname') }}">
+                    <input type="text" name="firstname" id="firstname" placeholder="First Name" 
+                    class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('firstname') border-red-500 
+                    @enderror" value="{{ old('firstname') }}">
 
                     @error('firstname')
                         <div class="text-red-500 mt-2 text-sm">
@@ -149,8 +157,9 @@
                 <!--last name-->
                 <div class="mb-5">
                     <label for="lastname" class=sr-only>Last Name:</label>
-                    <input type="text" name="lastname" id="lastname" placeholder="Last Name" class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('lastname') border-red-500 
-                                                            @enderror" value="{{ old('lastname') }}">
+                    <input type="text" name="lastname" id="lastname" placeholder="Last Name" 
+                    class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('lastname') border-red-500 
+                    @enderror" value="{{ old('lastname') }}">
 
                     @error('lastname')
                         <div class="text-red-500 mt-2 text-sm">
@@ -164,8 +173,9 @@
                 <!--address-->
                 <div class="mb-5">
                     <label for="address" class=sr-only>Address:</label>
-                    <input type="text" name="address" id="address" placeholder="Address" class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('address') border-red-500 
-                                                            @enderror" value="{{ old('address') }}">
+                    <input type="text" name="address" id="address" placeholder="Address" 
+                    class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('address') border-red-500 
+                    @enderror" value="{{ old('address') }}">
 
                     @error('address')
                         <div class="text-red-500 mt-2 text-sm">
@@ -177,17 +187,19 @@
                 </div>
 
                 <!--dob-->
-                <div class="inline-block relative w-full mb-5 bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('dob') border-red-500 
-                                                        @enderror" value="{{ old('dob') }}">
+                <div class="inline-block relative w-full mb-5 bg-gray-100 border-2 w-full p-4 rounded-lg 
+                h-14 @error('dob') border-red-500 @enderror" value="{{ old('dob') }}">
+                    
                     <input class="w-full text-gray-400 bg-gray-100" type="date" id="dob" name="dob">
 
-                    @error('dob')
-                        <div class="text-red-500 mt-2 text-sm">
-                            {{ $message }}
-                            <!-- Give us the first error message.-->
-                        </div>
-                    @enderror
                 </div>
+
+                @error('dob')
+                    <div class="text-red-500 mb-4 text-sm">
+                        {{ $message }}
+                        <!-- Give us the first error message.-->
+                    </div>
+                @enderror
 
                 <!--gender-->
                 <div class="mb-5 flex justify-center">
@@ -205,12 +217,13 @@
                         <input name="gender" type="radio" id="others" value="others" class="mr-5">
                     </div>
 
-                    @error('gender')
-                        <div class="text-red-500 mt-2 text-sm">
-                            {{ $message }}
-                        </div>
-                    @enderror
                 </div>
+
+                @error('gender')
+                    <div class="text-red-500 mt-2 text-sm mb-4">
+                        {{ $message }}
+                    </div>
+                @enderror
 
                 <div class="mb-5 text-center">
                     <input name="subscription" type="checkbox" class="mr-1">
@@ -232,12 +245,6 @@
                 </div>
 
                 <hr class="mb-5 divide-solid border-0 h-0.5 bg-gray-200">
-
-                <div class="mb-2">
-                    <p class="text-center">Sign up as a
-                        <a href="{{ route('registerTrader') }}" class="underline font-bold">Trader?</a>
-                    </p>
-                </div>
 
                 <div>
                     <p class="text-center">Already a member?
