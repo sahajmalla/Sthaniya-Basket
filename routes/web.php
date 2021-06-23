@@ -7,7 +7,6 @@ use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterTraderController;
-use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\product\ViewProductController;
 use App\Http\Controllers\Auth\RegisterCustomerController;
 
@@ -22,7 +21,7 @@ Route::post('/login', [LoginController::class,'read']);
 
 Route::get('/cart', [CartController::class,'index'])->name('cart');
 Route::get('/wishlist', [WishlistController::class,'index'])->name('wishlist');
-Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
+
 Route::get('/order', [OrderController::class,'index'])->name('order');
 
 
@@ -42,3 +41,5 @@ Route::get('/checkout', function () {
 Route::get('/', function () {
     return view('home');
 })->name('home');
+
+
