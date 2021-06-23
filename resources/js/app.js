@@ -22,3 +22,7 @@ writeCancel.addEventListener('click', () => {
     comntForm.classList.add('hidden');
 });
 
+
+
+
+

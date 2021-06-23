@@ -25,7 +25,7 @@ Route::get('/wishlist', [WishlistController::class,'index'])->name('wishlist');
 Route::get('/order', [OrderController::class,'index'])->name('order');
 
 
-Route::post('/logout', [LogoutController::class,'index'])->name('logout');
+// Route::post('/logout', [LogoutController::class,'index'])->name('logout');
 
 //TODO: change route of product
 Route::get('/product', [ViewProductController::class,'index'])->name('product');
@@ -34,12 +34,16 @@ Route::get('/invoice', function () {
     return view('invoice');
 });
 
-Route::get('/checkout', function () {
-    return view('checkout');
-});
+// Route::get('/checkout', function () {
+//     return view('checkout')->middleware(['auth', 'verified']);
+// })->name('checkout');
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::view('/checkout', 'checkout')->middleware(['auth', 'verified'])->name('home');
+
+// Route::get('/', function () {
+//     return view('home');
+// })->name('home');
+
+Route::view('/', 'home')->name('home');
 
 

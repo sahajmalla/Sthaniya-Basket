@@ -81,7 +81,7 @@
                     </p>
                 </div>
 
-                <div class="mb-5 flex flex-col justify-center space-y-4">
+              <div class="mb-5 flex flex-col justify-center space-y-4">
                     <a href="{{ route('registerCustomer') }}" class="bg-blue-500 text-white px-4 py-3 rounded
                         font-medium text-xs w-full text-center">
                         SIGN UP AS CUSTOMER</a>
@@ -89,6 +89,7 @@
                     <a href="{{ route('registerTrader') }}" class="bg-blue-500 text-white px-4 py-3 rounded
                         font-medium text-xs w-full text-center">
                         SIGN UP AS TRADER</a>
+                    
                 </div>
 
             </form>

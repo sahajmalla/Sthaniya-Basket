@@ -3,20 +3,93 @@
 @section('content')
 
     <div class="flex max-w-sm w-full overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 
-                        lg:max-w-4xl">
+                                            lg:max-w-4xl">
         <div class="hidden bg-cover lg:block lg:w-1/2"
             style="background-image:url('https://images.unsplash.com/photo-1606660265514-358ebbadc80d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1575&q=80')">
         </div>
 
         <div class="w-full px-6 py-8 md:px-8 lg:w-1/2">
-            <form action="{{ route('registerCustomer') }}" method="POST">
-                <h1 class="text-2xl text-center font-bold mb-8">Sign Up (Customer)</h1>
+            <form action="{{ route('register') }}" method="POST">
+                <h1 class="text-2xl text-center font-bold mb-8">Sign Up</h1>
                 @csrf
+                <!--user types-->
+                <div class="inline-block relative w-full mb-5">
+                    <select name="userType" onchange="displayForms()" id="select-user" class="block appearance-none w-full h-14 bg-gray-100 border 
+                                                                border-gray-300 px-4 py-2 pr-8 rounded-lg border-2 text-gray-400 @error('userType') border-red-500 
+                                                                @enderror" value="{{ old('userType') }}">
+
+
+                        <option value="" disabled selected>User type:</option>
+
+                        <option value="customer" {{ old('userType') == 'customer' ? 'selected' : '' }}>Customer</option>
+
+
+                        <option value="trader" {{ old('userType') == 'trader' ? 'selected' : '' }}>Trader</option>
+
+
+                    </select>
+
+                    <!--dropdown icon-->
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex 
+                                                                items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 
+                                                                6.586 4.343 8z" />
+                        </svg>
+                    </div>
+                    @error('userType')
+                        <div class="text-red-500 mt-2 text-sm">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <!--shop-->
+                <div class="trader-shop mb-5 hidden">
+                    <label for="shopname" class=sr-only>Shop Name:</label>
+                    <input type="text" name="shopname" id="shopname" placeholder="Shop Name" class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('shopname') border-red-500 
+                                                                @enderror" value="{{ old('shopname') }}">
+
+                    @error('shopname')
+                        <div class="text-red-500 mt-2 text-sm">
+                            {{ $message }}
+                        </div>
+                    @enderror
+
+                </div>
+                <!--business type-->
+                <div class="trader-business inline-block relative w-full mb-5 hidden">
+                    <select name="business" class="block appearance-none w-full h-14 bg-gray-100 border 
+                                                                border-gray-300 px-4 py-2 pr-8 rounded-lg border-2 text-gray-400 @error('business') border-red-500 
+                                                                @enderror" value="{{ old('business') }}">
+                        <option value="" disabled selected>Business Type</option>
+                        <option value=" bakery">Bakery</option>
+                        <option value="butcher">Butcher</option>
+                        <option value="delicatessen">Delicatessen</option>
+                        <option value="fishmonger">Fishmonger</option>
+                        <option value="greengrocer">Greengrocer</option>
+
+
+                    </select>
+
+                    <!--dropdown icon-->
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex 
+                                                                items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 
+                                                                6.586 4.343 8z" />
+                        </svg>
+                    </div>
+                    @error('business')
+                        <div class="text-red-500 mt-2 text-sm">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
                 <!--email-->
                 <div class="mb-5">
                     <label for="email" class=sr-only>Email:</label>
                     <input type="email" name="email" id="email" placeholder="Email" class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('email') border-red-500 
-                                        @enderror" value="{{ old('email') }}">
+                                                            @enderror" value="{{ old('email') }}">
 
                     @error('email')
                         <div class="text-red-500 mt-2 text-sm">
@@ -28,7 +101,7 @@
                 <div class="mb-5">
                     <label for="username" class=sr-only>Username:</label>
                     <input type="text" name="username" id="username" placeholder="Username" class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('username') border-red-500 
-                                        @enderror" value="{{ old('username') }}">
+                                                            @enderror" value="{{ old('username') }}">
 
                     @error('username')
                         <div class="text-red-500 mt-2 text-sm">
@@ -41,7 +114,7 @@
                 <div class="mb-5">
                     <label for="password" class=sr-only>Password:</label>
                     <input type="password" name="password" id="password" placeholder="Password" class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('password') border-red-500 
-                                        @enderror" value="">
+                                                            @enderror" value="">
 
                     @error('password')
                         <div class="text-red-500 mt-2 text-sm">
@@ -55,14 +128,14 @@
                     <label for="password_confirmation" class=sr-only>Re-type Password:</label>
                     <input type="password" name="password_confirmation" id="password_confirmation"
                         placeholder="Re-type Password" class="bg-gray-100 h-14 border-2 w-full p-4 rounded-lg
-                                    @error('password') border-red-500 @enderror" value="">
+                                                        @error('password') border-red-500 @enderror" value="">
 
                 </div>
                 <!--first name-->
                 <div class="mb-5">
                     <label for="firstname" class=sr-only>First Name:</label>
                     <input type="text" name="firstname" id="firstname" placeholder="First Name" class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('firstname') border-red-500 
-                                        @enderror" value="{{ old('firstname') }}">
+                                                            @enderror" value="{{ old('firstname') }}">
 
                     @error('firstname')
                         <div class="text-red-500 mt-2 text-sm">
@@ -77,7 +150,7 @@
                 <div class="mb-5">
                     <label for="lastname" class=sr-only>Last Name:</label>
                     <input type="text" name="lastname" id="lastname" placeholder="Last Name" class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('lastname') border-red-500 
-                                        @enderror" value="{{ old('lastname') }}">
+                                                            @enderror" value="{{ old('lastname') }}">
 
                     @error('lastname')
                         <div class="text-red-500 mt-2 text-sm">
@@ -92,7 +165,7 @@
                 <div class="mb-5">
                     <label for="address" class=sr-only>Address:</label>
                     <input type="text" name="address" id="address" placeholder="Address" class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('address') border-red-500 
-                                        @enderror" value="{{ old('address') }}">
+                                                            @enderror" value="{{ old('address') }}">
 
                     @error('address')
                         <div class="text-red-500 mt-2 text-sm">
@@ -105,7 +178,7 @@
 
                 <!--dob-->
                 <div class="inline-block relative w-full mb-5 bg-gray-100 border-2 w-full p-4 rounded-lg h-14 @error('dob') border-red-500 
-                                    @enderror" value="{{ old('dob') }}">
+                                                        @enderror" value="{{ old('dob') }}">
                     <input class="w-full text-gray-400 bg-gray-100" type="date" id="dob" name="dob">
 
                     @error('dob')
@@ -155,7 +228,7 @@
 
                 <div class="mb-5">
                     <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded
-                                        font-medium w-full">Sign Up</button>
+                                                            font-medium w-full">Sign Up</button>
                 </div>
 
                 <hr class="mb-5 divide-solid border-0 h-0.5 bg-gray-200">
@@ -175,7 +248,22 @@
             </form>
         </div>
     </div>
+    <script>
+        function displayForms() {
+            var selectUser = document.getElementById('select-user');
+            var selectedValue = selectUser.options[selectUser.selectedIndex].value;
+            const traShop = document.querySelector('.trader-shop');
+            const traBus = document.querySelector('.trader-business');
+            
 
+            if ((selectedValue == "trader")) {
+                traShop.classList.remove('hidden');
+                traBus.classList.remove('hidden');
+            }
+            if ((selectedValue == "customer")) {
+                traShop.classList.add('hidden');
+                traBus.classList.add('hidden');
+            }
+        }
+    </script>
 @endsection
-
-
