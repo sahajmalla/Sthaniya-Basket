@@ -36,6 +36,7 @@
                                                                 6.586 4.343 8z" />
                         </svg>
                     </div>
+
                     @error('userType')
                         <div class="text-red-500 mt-2 text-sm">
                             {{ $message }}
@@ -225,7 +226,7 @@
                     </div>
                 @enderror
 
-                <div class="mb-5 text-center">
+                <div class="subscription mb-5 text-center">
                     <input name="subscription" type="checkbox" class="mr-1">
                     <label>
                         Get updates from Sthaniya Basket on products and offers.
@@ -256,21 +257,25 @@
         </div>
     </div>
     <script>
+
         function displayForms() {
+
             var selectUser = document.getElementById('select-user');
             var selectedValue = selectUser.options[selectUser.selectedIndex].value;
             const traShop = document.querySelector('.trader-shop');
             const traBus = document.querySelector('.trader-business');
-            
+            const subscription = document.querySelector('.subscription');
 
-            if ((selectedValue == "trader")) {
+            if (selectedValue === "trader") {
+                subscription.classList.add('hidden');
                 traShop.classList.remove('hidden');
                 traBus.classList.remove('hidden');
-            }
-            if ((selectedValue == "customer")) {
+            }else {
+                subscription.classList.remove('hidden');
                 traShop.classList.add('hidden');
                 traBus.classList.add('hidden');
             }
         }
+
     </script>
 @endsection
