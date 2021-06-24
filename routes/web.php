@@ -10,11 +10,8 @@ use App\Http\Controllers\Auth\RegisterTraderController;
 use App\Http\Controllers\product\ViewProductController;
 use App\Http\Controllers\Auth\RegisterCustomerController;
 
-Route::get('/registerCustomer', [RegisterCustomerController::class,'index'])->name('registerCustomer');
-Route::post('/registerCustomer', [RegisterCustomerController::class,'store']);
-
-Route::get('/registerTrader', [RegisterTraderController::class,'index'])->name('registerTrader');
-Route::post('/registerTrader', [RegisterTraderController::class,'store']);
+// Route::get('/registerCustomer', [RegisterCustomerController::class,'index'])->name('registerCustomer');
+// Route::post('/registerCustomer', [RegisterCustomerController::class,'store']);
 
 Route::get('/login', [LoginController::class,'index'])->name('login');
 Route::post('/login', [LoginController::class,'read']);
@@ -39,6 +36,8 @@ Route::get('/invoice', function () {
 // })->name('checkout');
 
 Route::view('/checkout', 'checkout')->middleware(['auth', 'verified'])->name('home');
+
+Route::view('/forgotPassword', 'auth.forgot-password')->name('forgot-password');
 
 // Route::get('/', function () {
 //     return view('home');

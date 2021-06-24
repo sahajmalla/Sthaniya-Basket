@@ -2,6 +2,8 @@
 
 @section('content')
 
+<!-- Email Verification -->
+
 <div class="h-10/12 w-8/12 bg-white rounded-lg shadow-lg">
 
     <div class="">
@@ -13,7 +15,7 @@
         <div class="mb-4">
 
             @if (session('resent'))
-                <div class="alert alert-success" role="alert">
+                <div class="text-center font-bold text-white bg-green-600">
                     <p>A fresh verification link has been sent to your email address.</p>
                 </div>
             @endif
@@ -33,4 +35,5 @@
 
     </div>
 </div>
+
 @endsection
