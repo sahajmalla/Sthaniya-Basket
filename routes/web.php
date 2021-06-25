@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
@@ -28,7 +29,7 @@ Route::get('/order', [OrderController::class,'index'])->name('order');
 // Route::post('/logout', [LogoutController::class,'index'])->name('logout');
 
 //TODO: change route of product
-Route::get('/product', [ViewProductController::class,'index'])->name('product');
+//Route::get('/product', [ViewProductController::class,'index'])->name('product');
 
 Route::get('/invoice', function () {
     return view('invoice');
@@ -45,5 +46,9 @@ Route::view('/checkout', 'checkout')->middleware(['auth', 'verified'])->name('ho
 // })->name('home');
 
 Route::view('/', 'home')->name('home');
+
+Route::view('/verifyTrader', 'verifyTrader')->name('verifyTrader');
+
+Route::resource('products', ProductController::class);
 
 
