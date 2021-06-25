@@ -92,7 +92,7 @@
                     
                 <a href="{{ route('register') }}" class="bg-blue-500 text-white px-4 py-3 rounded
                     font-medium text-xs w-full text-center">
-                    SIGN UP AS CUSTOMER</a>
+                    SIGN UP</a>
                     
             </div>
 

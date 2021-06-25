@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Review;
 use App\Models\Product;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -56,5 +57,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function products(){
         return $this->hasMany(Product::class);
+    }
+
+    public function reviews(){
+        return $this->hasMany(Review::class);
     }
 }

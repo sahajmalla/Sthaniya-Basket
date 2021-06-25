@@ -12,7 +12,7 @@ class HomeController extends Controller
         $products = Product::latest()->paginate(6); 
 
         return view('home', [
-            'products' => $products
+            'products' => $products,
         ]);
     }
 }

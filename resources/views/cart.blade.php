@@ -7,7 +7,7 @@
             
             <div class="flex-1">
 
-                <h1 class="font-bold text-lg">Username</h1>
+                <h1 class="font-bold text-3xl mb-4">Items</h1>
 
                 <!-- Products table-->
                 <table class="w-full text-sm lg:text-base" cellspacing="0">
@@ -61,7 +61,7 @@
                                 </span>
                             </td>
                         </tr>
-                        <tr>
+                        {{-- <tr>
                             <td class="hidden pb-4 md:table-cell">
                                 <a href="#">
                                     <img src="https://limg.app/i/Cute-Constrictor-Super-Sexy-Military-Enforcer-W7mvBp.png"
@@ -129,7 +129,7 @@
                                     £7.50
                                 </span>
                             </td>
-                        </tr>
+                        </tr> --}}
                     </tbody>
                 </table>
 

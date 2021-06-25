@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\Auth\LoginController;
@@ -18,17 +19,18 @@ use App\Http\Controllers\Auth\RegisterCustomerController;
 Route::get('/login', [LoginController::class,'index'])->name('login');
 Route::post('/login', [LoginController::class,'read']);
 
-Route::get('/cart', [CartController::class,'index'])->name('cart');
-Route::get('/wishlist', [WishlistController::class,'index'])->name('wishlist');
-
-Route::get('/order', [OrderController::class,'index'])->name('order');
-
-
 // Route::post('/logout', [LogoutController::class,'index'])->name('logout');
 
 //TODO: change route of product
-Route::get('/product/{product:prod_name}/details', [ViewProductController::class,'index'])->name('product');
-Route::get('/users/{user:username}/posts', [UserPostController::class,'index'])->name('users.posts');
+Route::get('/product/{product:prod_name}', [ViewProductController::class,'index'])->name('product');
+
+Route::get('/wishlist', [WishlistController::class,'index'])->name('wishlist');
+Route::get('/wishlist/{product:prod_name}', [WishlistController::class,'add'])->name('addToWishlist');
+
+Route::get('/order', [OrderController::class,'index'])->name('order');
+
+Route::get('/cart', [CartController::class,'index'])->name('cart');
+Route::get('/cart/{product:prod_name}', [CartController::class,'add'])->name('addToCart');
 
 Route::get('/invoice', function () {
     return view('invoice');
@@ -53,3 +55,5 @@ Route::view('/verifyTrader', 'verifyTrader')->name('verifyTrader');
 Route::resource('products', ProductController::class);
 
 Route::get('/', [HomeController::class,'index'])->name('home');
+
+Route::post('/review/{product:prod_name}/create', [ReviewController::class,'store'])->name('review');
