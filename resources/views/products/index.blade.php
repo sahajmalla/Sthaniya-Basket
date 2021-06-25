@@ -1,15 +1,18 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container mx-auto px-4 sm:px-8 max-w-5xl ">
-        <div class="py-8">
+    <div class="container mx-auto px-4 sm:px-8 max-w-5xl">
+        
+        <div class="py-10 m-4">
 
-            <a href="{{ route('products.create') }}"
-                class="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md dark:bg-gray-800 hover:bg-blue-500 dark:hover:bg-gray-700 focus:outline-none focus:bg-blue-500 dark:focus:bg-gray-700">
-                Insert Product
-            </a>
+            <div class="my-2">
+                <a href="{{ route('products.create') }}"
+                    class="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md dark:bg-gray-800 hover:bg-blue-500 dark:hover:bg-gray-700 focus:outline-none focus:bg-blue-500 dark:focus:bg-gray-700">
+                    Insert Product
+                </a>
+            </div>
 
             @if ($message = Session::get('success'))
-                <div class="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
+                <div class="flex w-full max-w-sm mx-auto overflow-hidden rounded-lg shadow-lg bg-white dark:bg-gray-800">
                     <div class="flex items-center justify-center w-12 bg-green-500">
                         <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -53,7 +56,7 @@
                                 </th>
                                 <th scope="col"
                                     class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
-                                    Update
+                                    Update / Delete
                                 </th>
                             </tr>
                         </thead>
