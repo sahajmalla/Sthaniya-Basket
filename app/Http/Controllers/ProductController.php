@@ -30,13 +30,8 @@ class ProductController extends Controller
         ]);
         
         // $path = $request->prod_image->move(public_path('images'),$request->prod_image);
-        
        
-            $request->file('prod_image')->move(public_path('images/products/'), $request->file('prod_image')->getClientOriginalName());
-
-            
-        
-        
+        $request->file('prod_image')->move(public_path('images/products/'), $request->file('prod_image')->getClientOriginalName());
 
         // $product = new Product;
         // $product->prod_name= $request->prod_name;
@@ -75,21 +70,25 @@ class ProductController extends Controller
             'prod_name' => 'required',
             'prod_descrip' => 'required',
             'price' => 'required',
-            'prod_image' => 'required|image|mines:jpg,png,jpeg,svg|max:2048',
+            'prod_image' => 'required|image|mimes:jpg,png,jpeg,svg|max:2048',
             'prod_quantity' => 'required',
         ]);
 
-        //$product->update($request->all());
-        $request->user()->products()->update($request->all());
+        $product->prod_name = $request->prod_name;
+        $product->prod_descrip = $request->prod_descrip;
+        $product->price = $request->price;
+        $product->prod_image = $request->file('prod_image')->getClientOriginalName();
+        $product->prod_quantity = $request->prod_quantity;
+
+        $product->save();
 
         return redirect()->route('products.index')->with('Success!','Product updated successfully');
     }
 
     public function destroy(Product $product)
     {
-      $product->delete();
+        $product->delete();
 
-       return redirect()->route('products.index')
-                       ->with('Success!','Product deleted successfully');
+        return redirect()->route('products.index')->with('Success!','Product deleted successfully');
     }
 }

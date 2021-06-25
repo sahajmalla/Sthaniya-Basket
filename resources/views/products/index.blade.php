@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container mx-auto px-4 sm:px-8 max-w-3xl">
+    <div class="container mx-auto px-4 sm:px-8 max-w-5xl ">
         <div class="py-8">
 
             <a href="{{ route('products.create') }}"
@@ -51,6 +51,10 @@
                                     class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
                                     Quantity
                                 </th>
+                                <th scope="col"
+                                    class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
+                                    Update
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -78,9 +82,12 @@
                                         <div class="flex space-x-2 items-center">
                                             <p class="text-gray-900 whitespace-no-wrap">
                                                 {{ $product->prod_quantity }}
-                                            </p>
-
-                                            <a class="px-4 py-2 font-medium tracking-wide text-white 
+                                            </p>             
+                                        </div>
+                                    </td>
+                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                        <div class="flex">
+                                            <a class="px-4 mr-2 py-2 font-medium tracking-wide text-white 
                                                     capitalize transition-colors duration-200 
                                                     transform bg-blue-600 rounded-md  hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
                                                 href="{{ route('products.edit', $product->id) }}">Edit
