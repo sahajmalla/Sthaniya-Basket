@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <section class="body-font flex flex-col">
+    <section class="body-font flex flex-col rounded-lg w-10/12 shadow-xl">
         <div class="container p-10 mx-auto">
             <!--heading-->
             <div class="flex space-x-2">

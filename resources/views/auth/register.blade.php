@@ -117,7 +117,8 @@
                     @enderror
 
                 </div>
-                <!--password-->
+                
+                <!--Password-->
                 <div class="mb-5">
                     <label for="password" class=sr-only>Password:</label>
                     <input type="password" name="password" id="password" placeholder="Password" 
@@ -131,7 +132,8 @@
                     @enderror
 
                 </div>
-                <!--confirm pw-->
+
+                <!--Confirm password-->
                 <div class="mb-5">
                     <label for="password_confirmation" class=sr-only>Re-type Password:</label>
                     <input type="password" name="password_confirmation" id="password_confirmation"
@@ -139,6 +141,7 @@
                         rounded-lg @error('password') border-red-500 @enderror" value="">
 
                 </div>
+
                 <!--first name-->
                 <div class="mb-5">
                     <label for="firstname" class=sr-only>First Name:</label>
@@ -242,7 +245,7 @@
 
                 <div class="mb-5">
                     <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded
-                                                            font-medium w-full">Sign Up</button>
+                    font-medium w-full">Sign Up</button>
                 </div>
 
                 <hr class="mb-5 divide-solid border-0 h-0.5 bg-gray-200">
