@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers\product;
 
-use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ViewProductController extends Controller
 {
-    public function index() {
-        return view('product.productDetails');
+    public function index(Product $product) {
+
+        $trader = $product->user;
+
+        return view('products.productDetails', [
+            'product' => $product,
+            'trader' => $trader
+        ]);
     } 
 }

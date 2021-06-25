@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WishlistController;
@@ -26,7 +27,8 @@ Route::get('/order', [OrderController::class,'index'])->name('order');
 // Route::post('/logout', [LogoutController::class,'index'])->name('logout');
 
 //TODO: change route of product
-//Route::get('/product', [ViewProductController::class,'index'])->name('product');
+Route::get('/product/{product:prod_name}/details', [ViewProductController::class,'index'])->name('product');
+Route::get('/users/{user:username}/posts', [UserPostController::class,'index'])->name('users.posts');
 
 Route::get('/invoice', function () {
     return view('invoice');
@@ -44,10 +46,10 @@ Route::view('/forgotPassword', 'auth.forgot-password')->name('forgot-password');
 //     return view('home');
 // })->name('home');
 
-Route::view('/', 'home')->name('home');
+// Route::view('/', 'home')->name('home');
 
 Route::view('/verifyTrader', 'verifyTrader')->name('verifyTrader');
 
 Route::resource('products', ProductController::class);
 
-
+Route::get('/', [HomeController::class,'index'])->name('home');

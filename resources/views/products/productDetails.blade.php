@@ -1,20 +1,26 @@
 @extends('layouts.app')
 @section('content')
+
     <section class="w-10/12 space-y-10 shadow-lg rounded-lg p-5 text-gray-600 body-font overflow-hidden">
       
         <div class="container mx-auto">
 
             <div class="lg:w-4/5 mx-auto flex flex-wrap">
-                <!---image-->
+
+                <!---Image-->
                 <img alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"
-                    src="https://dummyimage.com/400x400">
-                <!---right side-->
+                    src="/images/products/{{ $product->prod_image }}">
+
+                <!---Right side-->
                 <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-                    <!---brand name-->
-                    <h2 class="text-sm title-font text-gray-500 tracking-widest">BRAND NAME</h2>
-                    <!---product name-->
-                    <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">The Catcher in the Rye</h1>
-                    <!---rating-->
+
+                    <!---Trader name-->
+                    <h2 class="text-sm title-font text-gray-500 tracking-widest">Trader: {{ $trader->firstname}} {{ $trader->lastname }}</h2>
+                    
+                    <!---Product name-->
+                    <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">{{ $product->prod_name }}</h1>
+                    
+                    <!---Rating-->
                     <div class="flex mb-4">
                         <span class="flex items-center">
                             <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -50,16 +56,16 @@
                             <span class="text-gray-600 ml-3">4 Reviews</span>
                         </span>
                     </div>
+
                     <!---description-->
-                    <p class="leading-relaxed border-b">Fam locavore kickstarter distillery. Mixtape chillwave tumeric
-                        sriracha
-                        taximy chia microdosing tilde DIY. XOXO fam indxgo juiceramps cornhole raw denim forage brooklyn.
-                        Everyday carry +1 seitan poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra
-                        jean shorts keytar banjo tattooed umami cardigan.</p>
+                    <div>
+                        <p class="leading-relaxed border-b">{{ $product->prod_descrip }}</p>
+                    </div>
+
                     <div class="flex mt-5">
-                        <span class="title-font font-medium text-2xl text-gray-900">$58.00</span>
+                        <span class="title-font font-medium text-2xl text-gray-900">£{{ $product->price }}</span>
                         <button
-                            class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Button</button>
+                            class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Add To Cart</button>
                         <button
                             class="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                             <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -272,7 +278,7 @@
                     <div class="w-full px-4 py-2">
                         <h3 class="font-medium tracking-tight">Review this item</h3>
                         <button
-                            class="write-review bg-gray-100 border border-gray-400 px-3 py-1 rounded text-gray-800 my-2">Write
+                            class="write-review bg-gray-700 border border-black px-3 py-1 rounded text-white my-2">Write
                             a review
                         </button>
                         <!-- comment form -->

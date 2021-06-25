@@ -2,7 +2,7 @@
 @section('content')
     <div class="container mx-auto px-4 sm:px-8 max-w-5xl">
         
-        <div class="py-10 m-4">
+        <div class="py-5">
 
             <div class="my-2">
                 <a href="{{ route('products.create') }}"
@@ -11,7 +11,7 @@
                 </a>
             </div>
 
-            @if ($message = Session::get('success'))
+            @if(session('success'))
                 <div class="flex w-full max-w-sm mx-auto overflow-hidden rounded-lg shadow-lg bg-white dark:bg-gray-800">
                     <div class="flex items-center justify-center w-12 bg-green-500">
                         <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
