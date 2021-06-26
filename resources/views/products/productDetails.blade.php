@@ -2,7 +2,7 @@
 @section('content')
 
     <section class="w-10/12 space-y-10 shadow-lg rounded-lg p-5 text-gray-600 body-font overflow-hidden">
-      
+
         <div class="container mx-auto">
 
             <div class="lg:w-4/5 mx-auto flex flex-wrap">
@@ -15,24 +15,26 @@
                 <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
 
                     <div class="space-y-4">
-                        
+
                         <!---Trader name-->
-                        <h2 class="text-sm title-font text-gray-500 tracking-widest">Trader: {{ $trader->firstname}} {{ $trader->lastname }}</h2>
-                        
+                        <h2 class="text-sm title-font text-gray-500 tracking-widest">Trader: {{ $trader->firstname }}
+                            {{ $trader->lastname }}</h2>
+
                         <!---Product name-->
                         <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">{{ $product->prod_name }}</h1>
-                        
+
                         <!---Rating-->
                         <div class="flex mb-4">
 
                             <!-- Product ratings -->
 
                             <span class="flex items-center">
-                               
+
                                 <!-- Add product's ratings out of 5. -->
-                                @for($i = 0; $i < $ratingsInStars; $i++)
-                                    <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" class="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
+                                @for ($i = 0; $i < $ratingsInStars; $i++)
+                                    <svg fill="currentColor" stroke="currentColor" stroke-linecap="round"
+                                        stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-indigo-500"
+                                        viewBox="0 0 24 24">
                                         <path
                                             d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
                                         </path>
@@ -40,18 +42,16 @@
                                 @endfor
 
                                 <!-- Add the remaining ratings without color. -->
-                                @if($ratingsInStars < 5)
-                                    @for($i = 0; $i < (5 - $ratingsInStars); $i++)
-                                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" class="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
-                                            <path
-                                                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
-                                            </path>
-                                        </svg>
-                                    @endfor
-                                @endif
-                                
-                                <span class="text-gray-600 ml-3">{{ $reviews->total() }} {{ Str::plural('rating', $reviews->count()) }}</span>
+                                @if ($ratingsInStars < 5)
+                                    @for ($i = 0; $i < 5 - $ratingsInStars; $i++) <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" class="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                                                </path>
+                                            </svg> @endfor @endif
+
+                                        <span class="text-gray-600 ml-3">{{ $reviews->total() }}
+                                            {{ Str::plural('rating', $reviews->count()) }}</span>
                             </span>
                         </div>
 
@@ -64,7 +64,8 @@
                     <div class="flex mt-5">
                         <span class="title-font font-medium text-2xl text-gray-900">£{{ $product->price }}</span>
                         <button
-                            class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Add To Cart</button>
+                            class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Add
+                            To Cart</button>
                         <button
                             class="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                             <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -84,13 +85,13 @@
         <div class="shadow-lg rounded-lg p-4">
             <h1 class="text-gray-600 text-2xl font-bold mb-8 mt-4">Top reviews</h1>
             <div class="grid grid-cols-2 gap-4">
-                
+
                 @if ($reviews->count())
 
                     @foreach ($reviews as $review)
-                    
+
                         <div class="flex items-start shadow-lg rounded-lg p-4">
-                            
+
                             <div class="flex-shrink-0">
                                 <div class="inline-block relative">
                                     <div class="relative w-16 h-16 rounded-full overflow-hidden">
@@ -110,40 +111,41 @@
 
                                 <!-- Verified user title-->
                                 <p class="flex items-baseline">
-                                    <span class="text-gray-600 font-bold text-lg">{{ $review->user->firstname }}  {{ $review->user->lastname }}</span>
+                                    <span class="text-gray-600 font-bold text-lg">{{ $review->user->firstname }}
+                                        {{ $review->user->lastname }}</span>
                                     <span class="ml-2 text-green-500 text-sm">Verified Buyer</span>
                                 </p>
-                                
+
                                 <div class="mt-4 text-gray-600">
 
                                     <!-- Heading and rating-->
 
                                     <div class="flex items-center">
                                         <span class="text-sm">Product Quality</span>
-                                        
+
                                         <!-- User ratings-->
                                         <div class="flex items-center ml-2">
 
                                             <!-- Add user's ratings out of 5. -->
-                                            @for($i = 0; $i < $review->review_rating; $i++)
-                                            
-                                                <svg class="w-3 h-3 fill-current text-yellow-600" xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20">
+                                            @for ($i = 0; $i < $review->review_rating; $i++)
+
+                                                <svg class="w-3 h-3 fill-current text-yellow-600"
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                                     <path
                                                         d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
                                                 </svg>
 
                                             @endfor
-                                        
+
                                             <!-- Add the remaining ratings without color. -->
-                                            @if($ratingsInStars < 5)
-                                                @for($i = 0; $i < (5 - $review->review_rating); $i++)
-                                                    <svg class="w-3 h-3 fill-current text-gray-400" xmlns="http://www.w3.org/2000/svg"
-                                                        viewBox="0 0 20 20">
-                                                        <path
-                                                            d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
-                                                    </svg>
-                                                @endfor
+                                            @if ($ratingsInStars < 5)
+                                                @for ($i = 0; $i < 5 - $review->review_rating; $i++) <svg class="w-3 h-3 fill-current text-gray-400"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 20 20">
+                                                    <path
+                                                    d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939
+                                                    5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                                                    </svg> @endfor
                                             @endif
 
                                         </div>
@@ -155,28 +157,28 @@
                                 </div>
                             </div>
 
-                        </div>  
+                        </div>
 
                     @endforeach
-        
+
                 @else
                     <p class="text-gray-600 font-medium text-lg">There are no reviews yet.</p>
                 @endif
 
-            </div>   
-        </div>   
+            </div>
+        </div>
 
         {{ $reviews->links() }}
 
         <!-- Post review: Trader and non-authenticated users can't post a review. -->
         @auth
-            @if(auth()->user()->user_type != "trader")
+            @if (auth()->user()->user_type != 'trader')
                 <div class="w-full">
                     <div class="shadow-lg rounded-lg">
                         <div class="my-5 mx-auto">
                             <div class="mb-1 tracking-wide px-4 py-4">
                                 <h2 class="text-gray-800 font-semibold mt-1">
-                                    {{ $product->reviews->count() }} 
+                                    {{ $product->reviews->count() }}
                                     User
                                     {{ Str::plural('review', $product->reviews->count()) }}
                                 </h2>
@@ -257,20 +259,18 @@
                                 <!-- comment form -->
 
                                 <form action="{{ route('review', $product) }}" method="POST" class="comment-form hidden w-full max-w-xl 
-                                    bg-white rounded-lg pt-2">
+                                            bg-white rounded-lg pt-2">
                                     @csrf
                                     <div class="flex flex-wrap -mx-3 mb-6">
-                                        
+
                                         {{-- <h2 class="px-4 pt-3 pb-2 text-gray-800 text-lg">Review</h2> --}}
-                                        
+
                                         <div class="w-full md:w-full px-3 mb-2 mt-2">
-                                            <textarea name="body" placeholder='Write Review'
-                                                class="bg-gray-100 rounded border border-gray-400 leading-normal resize-none 
-                                                w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white
-                                                @error('body') border-red-500 @enderror"
-                                            >
-                                            {{ old('body') }}
-                                            </textarea>
+                                            <textarea name="body" placeholder='Write Review' class="bg-gray-100 rounded border border-gray-400 leading-normal resize-none 
+                                                        w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white
+                                                        @error('body') border-red-500 @enderror">
+                                                    {{ old('body') }}
+                                                    </textarea>
 
                                             @error('body')
                                                 <div class="text-red-500 mt-2 text-sm">
@@ -281,10 +281,11 @@
                                         </div>
 
                                         <div class="mb-4 ml-3">
-                                            
+
                                             <select name="rating" class="w-full h-10 bg-gray-100 border 
-                                                border-gray-300 px-4 py-2 pr-8 rounded-lg border-2 text-gray-400 
-                                                @error('rating') border-red-500 @enderror" value="{{ old('rating') }}">
+                                                        border-gray-300 px-4 py-2 pr-8 rounded-lg border-2 text-gray-400 
+                                                        @error('rating') border-red-500 @enderror"
+                                                value="{{ old('rating') }}">
 
                                                 <option disabled selected>Rating</option>
                                                 <option value="5">5</option>
@@ -296,11 +297,12 @@
                                             </select>
 
                                             <div class="pointer-events-none absolute inset-y-0 right-0 flex 
-                                                items-center px-2 text-gray-700">
-                                                
-                                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                        items-center px-2 text-gray-700">
+
+                                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 20 20">
                                                     <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 
-                                                                                        6.586 4.343 8z" />
+                                                                                                6.586 4.343 8z" />
                                                 </svg>
 
                                             </div>
@@ -318,14 +320,12 @@
                                             <div class="-mr-1">
                                                 <input type='submit'
                                                     class="bg-white text-gray-700 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-100"
-                                                    value='Post Review'
-                                                >
+                                                    value='Post Review'>
                                             </div>
 
                                             <div class="-mr-1">
                                                 <a type='submit'
-                                                    class="write-cancel bg-white text-gray-700 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-100"
-                                                >Cancel</a>
+                                                    class="write-cancel bg-white text-gray-700 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-100">Cancel</a>
                                             </div>
 
                                         </div>
@@ -341,110 +341,125 @@
         <!-- Similar products -->
         <div class="w-full">
             <div class="shadow-lg rounded-lg p-4">
-                
+
                 <h1 class="text-2xl font-bold text-gray-600 mb-8 mt-2">Similar Products</h1>
 
                 <div class="grid grid-cols-2 gap-8">
                     @foreach ($products as $prod)
-                                
+
                         <!-- Exclude the product being displayed -->
-                        @if($prod->id !== $product->id)
-                            
+                        @if ($prod->id !== $product->id)
+
                             <div class="mb-4 flex overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
-                                
+
                                 <!-- Product Image -->
                                 <div>
-                                    <img src="/images/products/{{ $prod->prod_image }}" 
-                                    alt="{{ $product->prod_name }}" class="object-contain w-full h-52">
+                                    <img src="/images/products/{{ $prod->prod_image }}"
+                                        alt="{{ $product->prod_name }}" class="object-contain w-full h-52">
                                 </div>
 
                                 <!-- Product details -->
                                 <div class="p-4 md:p-4">
                                     <h1 class="text-2xl font-bold text-gray-800 dark:text-white">
-                                        <a href="{{ route('product', $prod) }}" 
-                                            class="font-bold">
+                                        <a href="{{ route('product', $prod) }}" class="font-bold">
                                             {{ $prod->prod_name }}
-                                        </a> 
+                                        </a>
                                     </h1>
-                                    
 
-                                    <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">{{ $prod->prod_descrip }}</p>
+
+                                    <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">{{ $prod->prod_descrip }}
+                                    </p>
 
                                     <div class="flex mt-2 item-center">
                                         <!-- If $ratingsInStars is set. (Means product has ratings)-->
-                                        @if($prod->reviews->count())
-                                                            
+                                        @if ($prod->reviews->count())
+
                                             <!-- Add user's ratings out of 5. -->
-                                            @for($i = 0; $i < round(($prod->reviews->sum('review_rating') / ($prod->reviews->count() * 5)) * 5); $i++)
-                                            
-                                                <svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300" viewBox="0 0 24 24">
+                                            @for($i = 0; $i < round(($prod->reviews->sum('review_rating') /
+                                                ($prod->reviews->count() * 5)) * 5); $i++)
+
+                                                <svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300"
+                                                    viewBox="0 0 24 24">
                                                     <path
                                                         d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
                                                 </svg>
 
-                                            @endfor
-                                        
-                                            <!-- Add the remaining ratings without color. -->
-                                            @if(round(($prod->reviews->sum('review_rating') / ($prod->reviews->count() * 5)) * 5) < 5)
-                                                @for($i = 0; $i < (5 - round(($prod->reviews->sum('review_rating') / ($prod->reviews->count() * 5)) * 5)); $i++)
-                                                    <svg class="w-5 h-5 text-gray-300 fill-current" viewBox="0 0 24 24">
-                                                        <path
-                                                            d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
-                                                    </svg>
-                                                @endfor
-                                            @endif
+                                        @endfor
 
-                                        @else
+                                        <!-- Add the remaining ratings without color. -->
+                                        @if(round(($prod->reviews->sum('review_rating') / ($prod->reviews->count() * 5)) *
+                                        5) < 5) @for($i=0; $i < (5 - round(($prod->reviews->sum('review_rating') /
+                                            ($prod->reviews->count() * 5)) * 5)); $i++)
+                                            <svg class="w-5 h-5 text-gray-300 fill-current" viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                        @endfor
+                    @endif
 
-                                            <!-- Display empty starts for no ratings -->
-                                            @for($i = 0; $i < 5; $i++)
-                                                <svg class="w-5 h-5 text-gray-300 fill-current" viewBox="0 0 24 24">
-                                                    <path
-                                                        d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
-                                                </svg>
-                                            @endfor
-                                        @endif
+                @else
 
-                                        <form action="{{ route('addToWishlist', $prod) }}" method="GET">
-                                            <button>
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-10" fill="none"
-                                                    viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                                </svg>
-                                            </button>
-                                        </form>
+                    <!-- Display empty starts for no ratings -->
+                    @for ($i = 0; $i < 5; $i++)
+                        <svg class="w-5 h-5 text-gray-300 fill-current" viewBox="0 0 24 24">
+                            <path
+                                d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                        </svg>
+                    @endfor
+                    @endif
 
-                                    </div>
+                    <form action="{{ route('addToWishlist', $prod) }}" method="GET">
+                        <button>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-10" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </button>
+                    </form>
 
-                                    <div class="mt-3 item-center space-y-2">
-                                        <h1 class="text-lg font-bold text-gray-700 dark:text-gray-200 md:text-xl">£{{ $prod->price }}</h1>
-
-                                        <form action="{{ route('addToCart', $prod) }}" method="GET">
-
-                                            <button
-                                                class="px-2 py-1 text-xs font-bold text-white uppercase 
-                                                transition-colors duration-200 transform bg-gray-800 rounded 
-                                                dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 
-                                                focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600"
-                                                >Add to Cart
-                                            </button>
-
-                                        </form>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                            
-                        @endif
-
-                @endforeach
                 </div>
 
+                <div class="mt-3 item-center space-y-2">
+                    <h1 class="text-lg font-bold text-gray-700 dark:text-gray-200 md:text-xl">£{{ $prod->price }}</h1>
+
+                    <form action="{{ route('addToCart', $prod) }}" method="GET">
+
+                        <button class="px-2 py-1 text-xs font-bold text-white uppercase 
+                                                    transition-colors duration-200 transform bg-gray-800 rounded 
+                                                    dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 
+                                                    focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600">Add to
+                            Cart
+                        </button>
+
+                    </form>
+
+                </div>
             </div>
+
         </div>
 
-        <script src="{{ asset('js/app.js') }}"></script>
+        @endif
+
+        @endforeach
+        </div>
+
+        </div>
+        </div>
+
+        <script>
+            //write comment open close
+            const writeBtn = document.querySelector('.write-review');
+            const writeCancel = document.querySelector('.write-cancel');
+            const comntForm = document.querySelector('.comment-form');
+
+            writeBtn.addEventListener('click', () => {
+                comntForm.classList.remove('hidden');
+            });
+
+            writeCancel.addEventListener('click', () => {
+                comntForm.classList.add('hidden');
+            });
+        </script>
     </section>
 @endsection

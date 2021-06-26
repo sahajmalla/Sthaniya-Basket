@@ -1,26 +1,13 @@
-//menu button close open
-const btn = document.querySelector('.menu-button');
-const menuOpen = document.querySelector('.menu-open');
+//show usericon details
+const userIcon = document.querySelector('.user-icon');
+const showIconDetails = document.querySelector('.show-icon-details');
 
-btn.addEventListener('click', () => {
-    if (menuOpen.classList.contains('hidden')) {
-        menuOpen.classList.remove('hidden');
-        menuOpen.classList.add('block');
-    } else {
-        menuOpen.classList.remove('block');
-        menuOpen.classList.add('hidden');
-    }
+userIcon.addEventListener('click', () => {
+    showIconDetails.classList.toggle('hidden');
 });
+const userIcon2 = document.querySelector('.user-icon2');
+const showIconDetails2 = document.querySelector('.show-icon-details2');
 
-//write comment open close
-const writeBtn = document.querySelector('.write-review');
-const writeCancel = document.querySelector('.write-cancel');
-const comntForm = document.querySelector('.comment-form');
-
-writeBtn.addEventListener('click', () => {
-    comntForm.classList.remove('hidden');
-});
-
-writeCancel.addEventListener('click', () => {
-    comntForm.classList.add('hidden');
+userIcon2.addEventListener('click', () => {
+    showIconDetails2.classList.toggle('hidden');
 });
