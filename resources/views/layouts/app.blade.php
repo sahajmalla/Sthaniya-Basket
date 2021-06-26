@@ -37,18 +37,52 @@
                         </div>
                     </div>
 
-                    <!-- Mobile menu button -->
-                    <div class="menu-button flex md:hidden">
-                        <button type="button"
-                            class="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400"
-                            aria-label="toggle menu">
-                            <svg viewBox="0 0 24 24" class="w-6 h-6 fill-current">
-                                <path fill-rule="evenodd"
-                                    d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z">
-                                </path>
-                            </svg>
-                        </button>
+                    <div class="flex space-x-2">
+                        @auth
+
+
+                            <div class="relative inline-block text-left md:hidden">
+                                <div>
+                                    <button type="button" class="user-icon space-x-2 focus:outline-none">
+                                        <span> Hi {{ auth()->user()->firstname }}</span>
+                                        <img class="inline object-cover w-8 h-8 mr-2 rounded-full"
+                                            src="https://images.pexels.com/photos/2589653/pexels-photo-2589653.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+                                            alt="Profile image" />
+                                    </button>
+                                </div>
+                                <div class="show-icon-details hidden absolute right-0 mt-2 w-56 py-2 bg-white rounded shadow-xl focus:outline-none"
+                                    role="menu" aria-orientation="vertical">
+                                    <div class="py-1">
+                                        <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
+                                        <a href="#" class="text-gray-700 block px-4 py-2 text-sm">Update Informations</a>
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <button type="submit"
+                                                class="text-gray-700 block w-full text-left px-4 py-2 text-sm">
+                                                Log Out
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        @endauth
+
+                        <!-- Mobile menu button -->
+                        <div class="menu-button flex md:hidden">
+                            <button type="button"
+                                class="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400"
+                                aria-label="toggle menu">
+                                <svg viewBox="0 0 24 24" class="w-6 h-6 fill-current">
+                                    <path fill-rule="evenodd"
+                                        d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
+
+
+
                 </div>
 
                 <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
@@ -64,8 +98,8 @@
                                 <span class="">Sign In</span></a>
 
                             <a class="my-1 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:mx-4 md:my-0 md:flex-col flex"
-                                href="{{ route('register') }}"><svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                href="{{ route('register') }}"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                                 </svg>
@@ -82,15 +116,15 @@
                         @endguest
 
                         @auth
-                            @if(auth()->user()->user_type == "customer")
+                            @if (auth()->user()->user_type == 'customer')
 
                                 <a class="my-1 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:mx-4 md:my-0 md:flex-col flex"
-                                href="{{ route('order') }}"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                                </svg>
-                                <span class="">Order</span></a>
+                                    href="{{ route('order') }}"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                                    </svg>
+                                    <span class="">Order</span></a>
 
                                 <a class="my-1 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:mx-4 md:my-0 md:flex-col flex"
                                     href="{{ route('wishlist') }}"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
@@ -111,9 +145,36 @@
                                     <span class="">Cart</span>
                                 </a>
                             @endif
-                        @endauth
 
-                        <!-- Only visible for guests that are logged in -->
+
+                            <div class="hidden md:block relative inline-block text-left">
+                                <div>
+                                    <button type="button" class="user-icon2 space-x-2 focus:outline-none">
+                                        <span> Hi {{ auth()->user()->firstname }}</span>
+                                        <img class="inline object-cover w-8 h-8 mr-2 rounded-full"
+                                            src="https://images.pexels.com/photos/2589653/pexels-photo-2589653.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+                                            alt="Profile image" />
+                                    </button>
+                                </div>
+                                <div class="show-icon-details2 hidden absolute right-0 mt-2 w-56 py-2 bg-white rounded shadow-xl focus:outline-none"
+                                    role="menu" aria-orientation="vertical">
+                                    <div class="py-1">
+                                        @if (auth()->user()->user_type != 'customer')
+                                            <a href="#" class="text-gray-700 block px-4 py-2 text-sm">Show CRUD</a>
+                                        @endif
+                                        <a href="#" class="text-gray-700 block px-4 py-2 text-sm">Update Informations</a>
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <button type="submit"
+                                                class="text-gray-700 block w-full text-left px-4 py-2 text-sm">
+                                                Log Out
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        @endauth
+                        {{-- <!-- Only visible for guests that are logged in -->
                         <div
                             class="my-1 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:mx-4 md:my-0 md:flex-col flex">
                             @auth
@@ -122,14 +183,14 @@
                                 </li>
                                 <li>
                                     <!--Using a form to wrap a button to use csrf so that we are not subjected 
-                                    to malicious log outs.-->
+                                                to malicious log outs.-->
                                     <form action="{{ route('logout') }}" method="POST" class="inline p-3">
                                         @csrf
                                         <button type="submit">Logout</button>
                                     </form>
                                 </li>
                             @endauth
-                        </div>
+                        </div> --}}
                     </div>
 
                     <!-- Search input on mobile screen -->
@@ -152,41 +213,24 @@
                 </div>
             </div>
 
-            @guest
 
-                <div class="flex md:justify-center py-3 mt-3 -mx-3 overflow-y-auto whitespace-nowrap">
-                    <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
-                        href="#">Bakery</a>
-                    <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
-                        href="#">Butcher</a>
-                    <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
-                        href="#">Delicatessen</a>
-                    <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
-                        href="#">Fishmonger</a>
-                    <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
-                        href="#">Greengrocer</a>
-                </div>
 
-            @endguest
 
-            @auth
 
-                @if(auth()->user()->user_type == "customer")
-                    <div class="flex md:justify-center py-3 mt-3 -mx-3 overflow-y-auto whitespace-nowrap">
-                        <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
-                            href="#">Bakery</a>
-                        <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
-                            href="#">Butcher</a>
-                        <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
-                            href="#">Delicatessen</a>
-                        <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
-                            href="#">Fishmonger</a>
-                        <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
-                            href="#">Greengrocer</a>
-                    </div>
-                @endif
+            <div class="flex md:justify-center py-3 mt-3 -mx-3 overflow-y-auto whitespace-nowrap">
+                <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
+                    href="#">Bakery</a>
+                <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
+                    href="#">Butcher</a>
+                <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
+                    href="#">Delicatessen</a>
+                <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
+                    href="#">Fishmonger</a>
+                <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
+                    href="#">Greengrocer</a>
+            </div>
 
-            @endauth
+
 
         </div>
     </nav>
@@ -236,6 +280,21 @@
             </span>
         </div>
     </footer>
+    <script>
+        //menu button close open
+        const btn = document.querySelector('.menu-button');
+        const menuOpen = document.querySelector('.menu-open');
+
+        btn.addEventListener('click', () => {
+            if (menuOpen.classList.contains('hidden')) {
+                menuOpen.classList.remove('hidden');
+                menuOpen.classList.add('block');
+            } else {
+                menuOpen.classList.remove('block');
+                menuOpen.classList.add('hidden');
+            }
+        });
+    </script>
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 

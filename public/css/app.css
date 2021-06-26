@@ -31989,6 +31989,11 @@ video {
   --tw-backdrop-sepia: sepia(100%);
 }
 
+.scroll-hidden::-webkit-scrollbar {
+  height: 0px;
+  background: transparent; /* make scrollbar transparent */
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;
@@ -188323,4 +188328,3 @@ video {
     --tw-backdrop-sepia: sepia(100%);
   }
 }
-

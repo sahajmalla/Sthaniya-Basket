@@ -21,6 +21,11 @@ use App\Http\Controllers\Auth\RegisterCustomerController;
 Route::get('/login', [LoginController::class,'index'])->name('login');
 Route::post('/login', [LoginController::class,'read']);
 
+<<<<<<< HEAD
+=======
+Route::post('/logout', [LogoutController::class,'index'])->name('logout');
+
+>>>>>>> 26fbb3769b1785670648f4d9562b0626026b72ee
 //TODO: change route of product
 Route::get('/product/{product:prod_name}', [ViewProductController::class,'index'])->name('product');
 

@@ -7,27 +7,16 @@
   \*****************************/
 /***/ (() => {
 
-//menu button close open
-var btn = document.querySelector('.menu-button');
-var menuOpen = document.querySelector('.menu-open');
-btn.addEventListener('click', function () {
-  if (menuOpen.classList.contains('hidden')) {
-    menuOpen.classList.remove('hidden');
-    menuOpen.classList.add('block');
-  } else {
-    menuOpen.classList.remove('block');
-    menuOpen.classList.add('hidden');
-  }
-}); //write comment open close
-
-var writeBtn = document.querySelector('.write-review');
-var writeCancel = document.querySelector('.write-cancel');
-var comntForm = document.querySelector('.comment-form');
-writeBtn.addEventListener('click', function () {
-  comntForm.classList.remove('hidden');
+//show usericon details
+var userIcon = document.querySelector('.user-icon');
+var showIconDetails = document.querySelector('.show-icon-details');
+userIcon.addEventListener('click', function () {
+  showIconDetails.classList.toggle('hidden');
 });
-writeCancel.addEventListener('click', function () {
-  comntForm.classList.add('hidden');
+var userIcon2 = document.querySelector('.user-icon2');
+var showIconDetails2 = document.querySelector('.show-icon-details2');
+userIcon2.addEventListener('click', function () {
+  showIconDetails2.classList.toggle('hidden');
 });
 
 /***/ }),
