@@ -22,8 +22,10 @@
                                     
                                     <!-- Product Image -->
                                     <div>
-                                        <img src="/images/products/{{ $product->prod_image }}" 
-                                        alt="{{ $product->prod_name }}" class="object-contain h-52 w-full">
+                                        <a href="{{ route('product', $product) }}">
+                                            <img src="/images/products/{{ $product->prod_image }}" 
+                                            alt="{{ $product->prod_name }}" class="object-contain h-52 w-full">
+                                        </a>
                                     </div>
 
                                     <!-- Product details -->
@@ -34,7 +36,6 @@
                                                 {{ $product->prod_name }}
                                             </a> 
                                         </h1>
-                                        
 
                                         <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">{{ $product->prod_descrip }}</p>
 
