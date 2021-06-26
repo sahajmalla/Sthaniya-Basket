@@ -213,10 +213,6 @@
                 </div>
             </div>
 
-
-
-
-
             <div class="flex md:justify-center py-3 mt-3 -mx-3 overflow-y-auto whitespace-nowrap">
                 <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
                     href="#">Bakery</a>
@@ -229,8 +225,6 @@
                 <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
                     href="#">Greengrocer</a>
             </div>
-
-
 
         </div>
     </nav>
@@ -246,7 +240,9 @@
             <span> <a href="/"><img alt="Logo" src="/images/sbl.png"> </a> </span>
             <p class="text-sm text-gray-400 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-800 sm:py-2 sm:mt-0 mt-4">©
                 2021 Sthaniya Basket</p>
-            <span class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
+            
+                <span class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
+                
                 <a class="text-gray-400">
                     <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         class="w-5 h-5" viewBox="0 0 24 24">
