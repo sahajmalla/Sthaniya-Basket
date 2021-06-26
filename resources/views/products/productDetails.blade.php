@@ -63,17 +63,35 @@
 
                     <div class="flex mt-5">
                         <span class="title-font font-medium text-2xl text-gray-900">£{{ $product->price }}</span>
+                       
+                        <!-- Add to cart button -->
                         <button
-                            class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Add To Cart</button>
-                        <button
-                            class="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
-                            <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                class="w-5 h-5" viewBox="0 0 24 24">
-                                <path
-                                    d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z">
-                                </path>
-                            </svg>
+                            class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+                            Add To Cart
                         </button>
+                        
+                        <!-- Wishlist icon -->
+                        @auth
+                            
+                            @if(auth()->user()->user_type === "customer")
+
+                                <form action="">
+
+                                    <button
+                                        class="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
+                                        <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            class="w-5 h-5" viewBox="0 0 24 24">
+                                            <path
+                                                d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z">
+                                            </path>
+                                        </svg>
+                                    </button>
+
+                                </form>
+
+                            @endif
+
+                        @endauth
                     </div>
                 </div>
             </div>
@@ -220,25 +238,33 @@
                     <div class="shadow-lg rounded-lg">
                         <div class="my-5 mx-auto">
                             <div class="mb-1 tracking-wide px-4 py-4">
-                                <h2 class="text-gray-800 font-semibold mt-1">
+                                
+                                <h2 class="text-gray-800 font-bold my-4 text-lg">
                                     {{ $product->reviews->count() }} 
                                     User
                                     {{ Str::plural('review', $product->reviews->count()) }}
                                 </h2>
+
                                 <div class="border-b -mx-8 px-8 pb-3">
+                                    
                                     <div class="flex items-center mt-1">
+                                        
                                         <div class=" w-1/5 text-indigo-500 tracking-tighter">
                                             <span>5 star</span>
                                         </div>
+                                        
                                         <div class="w-3/5">
                                             <div class="bg-gray-300 w-full rounded-lg h-2">
                                                 <div class=" w-7/12 bg-indigo-600 rounded-lg h-2"></div>
                                             </div>
                                         </div>
+                                        
                                         <div class="w-1/5 text-gray-700 pl-3">
                                             <span class="text-sm">51%</span>
                                         </div>
-                                    </div><!-- first -->
+                                    
+                                    </div>
+                                    
                                     <div class="flex items-center mt-1">
                                         <div class="w-1/5 text-indigo-500 tracking-tighter">
                                             <span>4 star</span>
@@ -251,7 +277,8 @@
                                         <div class="w-1/5 text-gray-700 pl-3">
                                             <span class="text-sm">17%</span>
                                         </div>
-                                    </div><!-- second -->
+                                    </div>
+
                                     <div class="flex items-center mt-1">
                                         <div class="w-1/5 text-indigo-500 tracking-tighter">
                                             <span>3 star</span>
@@ -264,7 +291,8 @@
                                         <div class="w-1/5 text-gray-700 pl-3">
                                             <span class="text-sm">19%</span>
                                         </div>
-                                    </div><!-- thierd -->
+                                    </div>
+
                                     <div class="flex items-center mt-1">
                                         <div class=" w-1/5 text-indigo-500 tracking-tighter">
                                             <span>2 star</span>
@@ -277,7 +305,8 @@
                                         <div class="w-1/5 text-gray-700 pl-3">
                                             <span class="text-sm">8%</span>
                                         </div>
-                                    </div><!-- 4th -->
+                                    </div>
+                                    
                                     <div class="flex items-center mt-1">
                                         <div class="w-1/5 text-indigo-500 tracking-tighter">
                                             <span>1 star</span>
@@ -290,15 +319,22 @@
                                         <div class="w-1/5 text-gray-700 pl-3">
                                             <span class="text-sm">5%</span>
                                         </div>
-                                    </div><!-- 5th -->
+                                    </div>
+
                                 </div>
                             </div>
+
                             <div class="w-full px-4 py-2">
+                            
                                 <h3 class="font-bold text-2xl tracking-tight mb-2">Review this item</h3>
+                            
+                                <!-- Write a review button -->
+
                                 <button
                                     class="write-review bg-gray-700 border border-black px-3 py-1 rounded text-white my-2">Write
                                     a review
                                 </button>
+                            
                                 <!-- comment form -->
 
                                 <form action="{{ route('review', $product) }}" method="POST" class="comment-form hidden w-full max-w-xl 
@@ -447,15 +483,21 @@
                                             @endfor
                                         @endif
 
-                                        <form action="{{ route('addToWishlist', $prod) }}" method="GET">
-                                            <button>
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-10" fill="none"
-                                                    viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                                </svg>
-                                            </button>
-                                        </form>
+                                        @auth
+                                            @if(auth()->user()->user_type == "customer")
+                                            
+                                                <form action="{{ route('addToWishlist', $prod) }}" method="GET">
+                                                    <button>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-10" fill="none"
+                                                            viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                                        </svg>
+                                                    </button>
+                                                </form>    
+
+                                            @endif
+                                        @endauth
 
                                     </div>
 

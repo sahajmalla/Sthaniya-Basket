@@ -16,10 +16,10 @@ use App\Http\Controllers\Auth\RegisterCustomerController;
 // Route::get('/registerCustomer', [RegisterCustomerController::class,'index'])->name('registerCustomer');
 // Route::post('/registerCustomer', [RegisterCustomerController::class,'store']);
 
+// Route::post('/logout', [LogoutController::class,'index'])->name('logout');
+
 Route::get('/login', [LoginController::class,'index'])->name('login');
 Route::post('/login', [LoginController::class,'read']);
-
-// Route::post('/logout', [LogoutController::class,'index'])->name('logout');
 
 //TODO: change route of product
 Route::get('/product/{product:prod_name}', [ViewProductController::class,'index'])->name('product');
@@ -33,19 +33,9 @@ Route::get('/invoice', function () {
     return view('invoice');
 });
 
-// Route::get('/checkout', function () {
-//     return view('checkout')->middleware(['auth', 'verified']);
-// })->name('checkout');
-
 Route::view('/checkout', 'checkout')->middleware(['auth', 'verified'])->name('home');
 
 Route::view('/forgotPassword', 'auth.forgot-password')->name('forgot-password');
-
-// Route::get('/', function () {
-//     return view('home');
-// })->name('home');
-
-// Route::view('/', 'home')->name('home');
 
 Route::view('/verifyTrader', 'verifyTrader')->name('verifyTrader');
 
@@ -57,4 +47,5 @@ Route::post('/review/{product:prod_name}/create', [ReviewController::class,'stor
 Route::delete('/review/{review}', [ReviewController::class,'destroy'])->name('review.destroy');
 
 Route::get('/wishlist', [WishlistController::class,'index'])->name('wishlist');
-Route::get('/wishlist/{product:prod_name}', [WishlistController::class,'add'])->name('addToWishlist');
+Route::get('/wishlist/{product:prod_name}', [WishlistController::class,'store'])->name('addToWishlist');
+Route::delete('/wishlist/{product}', [WishlistController::class,'destroy'])->name('wishlist.destroy');

@@ -12,6 +12,28 @@
 
                     @if ($products->count())
 
+                    <div class="mb-4">
+
+                        {{-- @if(session('wishlist') === "Successfully added item to your wishlist.")
+                        
+                            <div class="flex justify-center">
+                                <div class="bg-green-500 p-4 w-5/12 rounded-lg mb-6 text-white text-center">
+                                    {{session('wishlist')}}
+                                </div>
+                            </div>
+                        
+                        @elseif(session('wishlist') === "Item is already on your wishlist.")
+
+                            <div class="flex justify-center">
+                                <div class="bg-red-500 p-4 w-5/12 rounded-lg mb-6 text-white text-center">
+                                    {{session('wishlist')}}
+                                </div>
+                            </div>
+
+                        @endif
+         --}}
+                    </div>
+
                     <!--Products -->
 
                     <div class="md:grid grid-cols-2 lg:grid-cols-3 gap-10">
@@ -19,7 +41,7 @@
                             @foreach ($products as $product)
                                 
                                 <div class="mb-4 flex overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
-                                    
+
                                     <!-- Product Image -->
                                     <div>
                                         <a href="{{ route('product', $product) }}">
@@ -82,6 +104,8 @@
                                             
                                             <h1 class="text-lg font-bold text-gray-700 dark:text-gray-200 md:text-xl">£{{ $product->price }}</h1>
 
+                                            <!-- Add to wishlist -->
+
                                             <form action="{{ route('addToWishlist', $product) }}" method="GET">
                                                 <button>
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
@@ -92,6 +116,8 @@
                                                 </button>
                                             </form>
 
+                                            <!-- Add to cart -->
+                                            
                                             <form action="{{ route('addToCart', $product) }}" method="GET">
 
                                                 <button

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\User;
 use App\Models\Review;
+use App\Models\Wishlist;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -31,4 +32,9 @@ class product extends Model
     public function reviews(){
         return $this->hasMany(Review::class);
     }
+
+    public function wishlists(){
+        return $this->hasMany(Wishlist::class);
+    }
+
 }

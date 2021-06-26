@@ -21,12 +21,14 @@ class ViewProductController extends Controller
 
         $ratingsInStars = 0;
 
-        // A product's total rating out of 5 stars.
-        if ($product->reviews->count() > 0) {
+        if ($product->reviews->count()) {
+
+            // A product's total rating out of 5 stars.
             $totalRatingsValue = Review::where('product_id', $product->id)->sum('review_rating');
             $maxRatingValue = Review::where('product_id', $product->id)->count('review_rating') * 5;
             $ratingsInStars = round(($totalRatingsValue / $maxRatingValue) * 5);
-        }
+
+        }        
 
         return view('products.productDetails', [
             'product' => $product,

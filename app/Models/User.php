@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Review;
 use App\Models\Product;
+use App\Models\Wishlist;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -62,4 +63,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function reviews(){
         return $this->hasMany(Review::class);
     }
+
+    public function wishlists(){
+        return $this->hasMany(Wishlist::class);
+    }
+
 }
