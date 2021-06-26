@@ -38,9 +38,8 @@
                     </div>
 
                     <div class="flex space-x-2">
+                        
                         @auth
-
-
                             <div class="relative inline-block text-left md:hidden">
                                 <div>
                                     <button type="button" class="user-icon space-x-2 focus:outline-none">
@@ -81,13 +80,12 @@
                         </div>
                     </div>
 
-
-
                 </div>
 
                 <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
                 <div class="menu-open items-center md:flex hidden">
                     <div class="flex flex-col items-baseline mt-2 md:flex-row md:mt-0 md:mx-1">
+                        
                         @guest
                             <a class="my-1 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:mx-4 md:my-0 md:flex-col flex"
                                 href="{{ route('login') }}"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"

@@ -25,8 +25,17 @@ class CartController extends Controller
         })
         ->get();
 
+        $total_price = 0.0;
+
+        foreach ($products as $product) {
+            $total_price += $product->price;
+        }
+
+        $total_price_string_2dp = number_format($total_price, 2);
+
         return view('cart', [
-            "products" => $products
+            "products" => $products,
+            'total_price' => $total_price_string_2dp,
         ]);
     } 
 

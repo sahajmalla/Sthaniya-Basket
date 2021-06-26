@@ -115,39 +115,43 @@
                 <div class="my-4 mt-6 -mx-2 flex justify-center">
 
                     <div class="lg:px-2 lg:w-1/2">
+                        
                         <div class="p-4 bg-gray-100 rounded-full">
                             <h1 class="ml-2 font-bold uppercase">Order Details</h1>
                         </div>
+                        
                         <div class="p-4">
+
                             {{-- <p class="mb-6 italic">Total price may vary depending on the discount rate.</p> --}}
+                            
                             <div class="flex justify-between border-b">
                                 <div class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800">
-                                    Total Items
+                                    <p>Total Items</p>
                                 </div>
                                 <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
-                                    3
+                                    <p>{{ $products->count() }}</p>
                                 </div>
                             </div>
                             
                             <div class="flex justify-between pt-4 border-b">
                                 <div class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800">
-                                    Total Quantity
+                                    <p>Total Quantity</p>
                                 </div>
                                 <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
-                                    10
+                                    <p>10</p>
                                 </div>
                             </div>
 
                             <div class="flex justify-between pt-4 border-b">
                                 <div class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800">
-                                    Total Price
+                                    <p>Total Price</p>
                                 </div>
                                 <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
-                                    £147,339.26
+                                    £{{ $total_price }}
                                 </div>
                             </div>
 
-                            <a href="#">
+                            <a href="{{ route('checkout') }}">
                                 <button
                                     class="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
                                     <svg aria-hidden="true" data-prefix="far" data-icon="credit-card" class="w-8"
@@ -158,6 +162,7 @@
                                     <span class="ml-2 mt-5px">Procceed to checkout</span>
                                 </button>
                             </a>
+
                         </div>
                     </div>
             </div>
