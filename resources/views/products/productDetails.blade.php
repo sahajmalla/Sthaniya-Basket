@@ -328,7 +328,8 @@
                             
                                 <h3 class="font-bold text-2xl tracking-tight mb-2">Review this item</h3>
                             
-                                <div class=>
+                                <div class="mb-8">
+
                                     <!-- Write a review button -->
 
                                     <button
