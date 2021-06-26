@@ -17,7 +17,7 @@ class ReviewController extends Controller
 
         // Creating a review record through the product:
         $product->reviews()->create([
-            'user_id' => $request->user()->id, // Currently authenticated user that made an review.
+            'user_id' => $request->user()->id, // Current authenticated user that made an review.
             'review' => $request->body,
             'review_rating' => $request->rating
         ]); 

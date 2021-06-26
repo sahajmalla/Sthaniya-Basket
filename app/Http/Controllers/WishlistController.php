@@ -32,13 +32,14 @@ class WishlistController extends Controller
     
     public function store(Request $request, Product $product){
         
+        // Check if product already exists in user's wishlist before adding:
         $productCollection = Wishlist::get()->where('product_id', $product->id)
             ->where('user_id', auth()->user()->id);
 
         if (!$productCollection->count()) {
 
             $product->wishlists()->create([
-                'user_id' => $request->user()->id, // Currently authenticated user that made an review.
+                'user_id' => $request->user()->id, // Current authenticated user that added a prodcut.
             ]); 
 
             // $request->session()->put('wishlist', 'Successfully added item to your wishlist.');

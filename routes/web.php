@@ -57,4 +57,5 @@ Route::delete('/wishlist/{product}', [WishlistController::class,'destroy'])->nam
 
 // CART
 Route::get('/cart', [CartController::class,'index'])->name('cart');
-Route::post('/cart/{product:prod_name}', [CartController::class,'add'])->name('addToCart');
+Route::post('/cart/{product:prod_name}', [CartController::class,'store'])->name('addToCart');
+Route::delete('/cart/{product:prod_name}', [CartController::class,'destroy'])->name('cart.destroy');

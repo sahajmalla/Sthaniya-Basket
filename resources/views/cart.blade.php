@@ -7,131 +7,107 @@
             
             <div class="flex-1">
 
-                <h1 class="font-bold text-3xl mb-4">Items</h1>
+                <div class="flex space-x-2 p-4 mb-4">
+                    <h1 class="text-2xl font-medium">My Cart</h1>
+                    
+                    <!-- TODO: Add cart icon like wishlist's. -->
+
+                </div>
 
                 <!-- Products table-->
-                <table class="w-full text-sm lg:text-base" cellspacing="0">
-                    <thead>
-                        <tr class="h-12 uppercase">
-                            <th class="hidden md:table-cell"></th>
-                            <th class="text-left">Product</th>
-                            <th class="lg:text-right text-left pl-5 lg:pl-0">
-                                <span class="lg:hidden" title="Quantity">Qtd</span>
-                                <span class="hidden lg:inline">Quantity</span>
-                            </th>
-                            <th class="hidden text-right md:table-cell">Unit price</th>
-                            <th class="text-right">Total price</th>
-                        </tr>
-                    </thead>
+                @if ($products->count())
+                    
+                    <table class="w-full text-sm lg:text-base" cellspacing="0">
 
-                    <tbody>
-                        <tr>
-                            <td class="hidden pb-4 md:table-cell">
-                                <a href="#">
-                                    <img src="https://limg.app/i/Calm-Cormorant-Catholic-Pinball-Blaster-yM4oub.jpeg"
-                                        class="w-20 rounded" alt="Thumbnail">
-                                </a>
-                            </td>
-                            <td>
-                                <a href="#">
-                                    <p class="mb-2 md:ml-4">Earphone</p>
-                                    <form action="" method="POST">
-                                        <button type="submit" class="text-black border-2 md:ml-4">
-                                            <small class="m-2">Remove item</small>
-                                        </button>
-                                    </form>
-                                </a>
-                            </td>
-                            <td class="justify-center md:justify-end md:flex mt-6">
-                                <div class="w-20 h-10">
-                                    <div class="relative flex flex-row w-full h-8">
-                                        <input type="number" value="2"
-                                            class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="hidden text-right md:table-cell">
-                                <span class="text-sm lg:text-base font-medium">
-                                    £10.00
-                                </span>
-                            </td>
-                            <td class="text-right">
-                                <span class="text-sm lg:text-base font-medium">
-                                    £20.00
-                                </span>
-                            </td>
-                        </tr>
-                        {{-- <tr>
-                            <td class="hidden pb-4 md:table-cell">
-                                <a href="#">
-                                    <img src="https://limg.app/i/Cute-Constrictor-Super-Sexy-Military-Enforcer-W7mvBp.png"
-                                        class="w-20 rounded" alt="Thumbnail">
-                                </a>
-                            </td>
-                            <td>
-                                <p class="mb-2 md:ml-4">Tesla Model 3</p>
-                                <form action="" method="POST">
-                                    <button type="submit" class="text-gray-700 border-2 md:ml-4">
-                                        <small class="m-2">Remove item</small> 
-                                    </button>
-                                </form>
-                            </td>
-                            <td class="justify-center md:justify-end md:flex md:mt-4">
-                                <div class="w-20 h-10">
-                                    <div class="relative flex flex-row w-full h-8">
-                                        <input type="number" value="3"
-                                            class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="hidden text-right md:table-cell">
-                                <span class="text-sm lg:text-base font-medium">
-                                    £49,600.01
-                                </span>
-                            </td>
-                            <td class="text-right">
-                                <span class="text-sm lg:text-base font-medium">
-                                    £148,800.03
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="hidden pb-4 md:table-cell">
-                                <a href="#">
-                                    <img src="https://limg.app/i/Successful-Spider-Biblical-Mutant---Total-War-lKoE7D.jpeg"
-                                        class="w-20 rounded" alt="Thumbnail">
-                                </a>
-                            </td>
-                            <td>
-                                <p class="mb-2 md:ml-4">Bic 4 colour pen</p>
-                                <form action="" method="POST">
-                                    <button type="submit" class="text-gray-700 border-2	md:ml-4">
-                                        <small class="m-2">Remove item</small>
-                                    </button>
-                                </form>
-                            </td>
-                            <td class="justify-center md:justify-end md:flex md:mt-8">
-                                <div class="w-20 h-10">
-                                    <div class="relative flex flex-row w-full h-8">
-                                        <input type="number" value="5"
-                                            class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
-                                    </div>
-                                </div>
+                        <!-- Table headings -->
+                        <thead>
+                            <tr class="h-12 uppercase">
+                                <th class="hidden md:table-cell pb-4"></th>
+                                
+                                <th class="text-left pb-4">Product</th>
+                                
+                                <th class="pb-4 lg:text-right text-left pl-5 lg:pl-0 ">
+                                    <span class="lg:hidden" title="Quantity">Qtd</span>
+                                    <span class="hidden lg:inline">Quantity</span>
+                                </th>
+                                
+                                <th class="hidden pb-4 text-right md:table-cell">Unit price</th>
+                                
+                                <th class="text-right pb-4">Total price</th>
+                            
+                            </tr>
+                        </thead>
 
-                            </td>
-                            <td class="hidden text-right md:table-cell">
-                                <span class="text-sm lg:text-base font-medium">
-                                    £1.50
-                                </span>
-                            </td>
-                            <td class="text-right">
-                                <span class="text-sm lg:text-base font-medium">
-                                    £7.50
-                                </span>
-                            </td>
-                        </tr> --}}
-                    </tbody>
-                </table>
+                            <!-- Table body -->
+                            <tbody>
+
+                                @foreach ($products as $product)
+
+                                    <tr>
+                                        
+                                        <!-- Image -->
+                                        <td class="hidden pb-8 md:table-cell">
+                                            <a href="#">
+                                                <img src="/images/products/{{ $product->prod_image }}"
+                                                    class="w-20 rounded" alt="Thumbnail">
+                                            </a>
+                                        </td>
+
+                                        <!-- Name and remove button -->
+                                        <td class="pb-8">
+                                                
+                                            <p class="mb-2 text-md font-medium">{{ $product->prod_name }}</p>
+                                            
+                                            <!-- Remove product button -->
+                                            <form action="{{ route('cart.destroy', $product->product_id) }}" method="POST">
+                                                
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="text-white bg-red-600 rounded-lg p-1">
+                                                    <small class="m-2">Remove item</small>
+                                                </button>
+
+                                            </form>
+
+                                        </td>
+
+                                        <!-- Dynamic Quantity -->
+                                        <td class="justify-center md:justify-end md:flex mt-6">
+                                            <div class="w-20 h-10">
+                                                <div class="relative flex flex-row w-full h-8">
+                                                    <input type="number" value="2"
+                                                        class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <!-- Unit Price -->
+                                        <td class="hidden text-right md:table-cell pb-8">
+                                            <span class="text-sm lg:text-base font-medium">
+                                                £{{ $product->price }}
+                                            </span>
+                                        </td>
+
+                                        <!-- Total price -->
+                                        <td class="text-right pb-8">
+                                            <span class="text-sm lg:text-base font-medium">
+                                                £{{ $product->price }}
+                                            </span>
+                                        </td>
+
+                                    </tr>
+
+                                @endforeach
+
+                            </tbody>
+                        
+                    </table>   
+
+                @else
+                    <p class="p-4 mb-4 text-md font-bold text-gray-700">
+                        You have not added any items to your cart yet.
+                    </p>
+                @endif
 
                 <hr class="pb-6 mt-6">
 

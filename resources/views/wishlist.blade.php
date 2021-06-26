@@ -5,7 +5,7 @@
         <div class="container p-10 mx-auto">
             <!--heading-->
             <div class="flex space-x-2 p-4 mb-4">
-                <h1 class="text-2xl font-medium">My Wishlists</h1>
+                <h1 class="text-2xl font-medium">My Wishlist</h1>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd"
                         d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
@@ -35,16 +35,20 @@
                                 <div class="mb-8 flex flex-col items-center justify-center max-w-sm">
                                     
                                     <div class="w-full bg-gray-300 bg-center bg-cover rounded-lg shadow-md">
-                                        <img class="w-full h-64" src="/images/products/{{ $product->prod_image }}" alt="{{ $product->prod_name }}">
+                                        <a href=>
+                                            <img class="w-full h-64" src="/images/products/{{ $product->prod_image }}" alt="{{ $product->prod_name }}">
+                                        </a>
                                     </div>
 
                                     <div class="w-56 -mt-10 overflow-hidden bg-white rounded-lg shadow-lg md:w-64 dark:bg-gray-800">
                                         
                                         <div class="flex items-center justify-evenly px-3 py-2 dark:bg-gray-700">
 
-                                            <h3 class="py-2 font-bold tracking-wide text-center text-gray-800 uppercase dark:text-white">
-                                                {{ $product->prod_name }}
-                                            </h3>
+                                            <a href="">
+                                                <h3 class="py-2 font-bold tracking-wide text-center text-gray-800 uppercase dark:text-white">
+                                                    {{ $product->prod_name }}
+                                                </h3>
+                                            </a>
 
                                             <span class="font-bold text-gray-800 dark:text-gray-200">£{{ $product->price }}</span>
 
@@ -81,7 +85,7 @@
                     </div>
             @else
 
-                <h1 class="text-md font-medium text-gray-600">
+                <h1 class="p-4 mb-4 text-md font-medium text-gray-700">
                     You have not added any items to your wishlist yet.
                 </h1>
 

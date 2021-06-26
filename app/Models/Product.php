@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Cart;
 use App\Models\User;
 use App\Models\Review;
 use App\Models\Wishlist;
@@ -35,6 +36,10 @@ class product extends Model
 
     public function wishlists(){
         return $this->hasMany(Wishlist::class);
+    }
+
+    public function carts(){
+        return $this->hasMany(Cart::class);
     }
 
 }
