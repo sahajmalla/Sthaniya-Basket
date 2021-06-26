@@ -17,8 +17,8 @@ class WishlistController extends Controller
     }
     
     public function add(Product $product){
-        return view('wishlist', [
-            'products' => $product
-        ]);
+        
+        
+
     }
 }

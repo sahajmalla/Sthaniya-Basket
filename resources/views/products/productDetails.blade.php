@@ -84,8 +84,17 @@
         <!-- Top reviews -->
         <div class="shadow-lg rounded-lg p-4">
             <h1 class="text-gray-600 text-2xl font-bold mb-8 mt-4">Top reviews</h1>
-            <div class="grid grid-cols-2 gap-4">
 
+            @if(session('status'))
+                <div class="flex justify-center">
+                    <div class="bg-red-500 p-4 w-5/12 rounded-lg mb-6 text-white text-center">
+                        {{session('status')}}
+                    </div>
+                </div>
+            @endif
+
+            <div class="grid grid-cols-2 gap-8">
+                
                 @if ($reviews->count())
 
                     @foreach ($reviews as $review)
@@ -109,11 +118,11 @@
 
                             <div class="ml-6">
 
-                                <!-- Verified user title-->
-                                <p class="flex items-baseline">
-                                    <span class="text-gray-600 font-bold text-lg">{{ $review->user->firstname }}
-                                        {{ $review->user->lastname }}</span>
-                                    <span class="ml-2 text-green-500 text-sm">Verified Buyer</span>
+                                <!-- User's name and time review was made.-->
+                                <p class="flex items-baseline space-x-2">
+                                    <span class="text-gray-600 font-bold text-lg">{{ $review->user->firstname }}  {{ $review->user->lastname }}</span>
+                                    <span class="text-gray-600 text-xs">{{ $review->created_at->diffForHumans() }} </span>
+
                                 </p>
 
                                 <div class="mt-4 text-gray-600">
@@ -138,23 +147,58 @@
                                             @endfor
 
                                             <!-- Add the remaining ratings without color. -->
-                                            @if ($ratingsInStars < 5)
-                                                @for ($i = 0; $i < 5 - $review->review_rating; $i++) <svg class="w-3 h-3 fill-current text-gray-400"
-                                                    xmlns="http://www.w3.org/2000/svg"
+
+                                            @if($ratingsInStars < 5 && $review->review_rating < 4)
+                                                @for($i = 0; $i < (5 - $review->review_rating); $i++)
+                                                    <svg class="w-3 h-3 fill-current text-gray-400" xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 20 20">
+                                                        <path
+                                                            d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                                                    </svg>
+                                                @endfor
+                                            @endif
+
+                                            <!-- If user's rating is 4, the above loop will not add the remaining uncolored star so doing it below. -->
+                                            @if($review->review_rating === 4)
+                                                <svg class="w-3 h-3 fill-current text-gray-400" xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 20 20">
                                                     <path
-                                                    d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939
-                                                    5.955 6.572.955-4.756 4.635 1.123 6.545z" />
-                                                    </svg> @endfor
+                                                        d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                                                </svg>  
                                             @endif
 
                                         </div>
                                     </div>
 
                                 </div>
+
                                 <div class="mt-3">
                                     <span class="font-bold">- {{ $review->review }}</span>
                                 </div>
+
+                                @auth 
+
+                                    @if(auth()->user()->user_type === "customer")
+
+                                        <div class="mt-3">
+
+                                            @can('delete', $review)
+                                                <form action="{{ route('review.destroy', $review) }}" method="post">
+                                                    @csrf
+                                                    @method('DELETE') <!-- Method spoofing -->
+                                                    <button class="font-medium text-xs text-white bg-red-600 p-2 rounded-lg">
+                                                        Remove
+                                                    </button>
+
+                                                </form>
+                                            @endcan
+
+                                        </div>
+
+                                    @endif
+
+                                @endauth
+
                             </div>
 
                         </div>
@@ -266,11 +310,10 @@
                                         {{-- <h2 class="px-4 pt-3 pb-2 text-gray-800 text-lg">Review</h2> --}}
 
                                         <div class="w-full md:w-full px-3 mb-2 mt-2">
-                                            <textarea name="body" placeholder='Write Review' class="bg-gray-100 rounded border border-gray-400 leading-normal resize-none 
-                                                        w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white
-                                                        @error('body') border-red-500 @enderror">
-                                                    {{ old('body') }}
-                                                    </textarea>
+
+                                            <textarea name="body" id="body" cols="30" rows="4" class="bg-gray-100
+                                            border-2 w-full p-4 rounded-lg @error('body') border-red-500 @enderror"
+                                            placeholder='Write a Review!'>{{ old('body') }}</textarea>
 
                                             @error('body')
                                                 <div class="text-red-500 mt-2 text-sm">

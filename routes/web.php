@@ -24,9 +24,6 @@ Route::post('/logout', [LogoutController::class,'index'])->name('logout');
 //TODO: change route of product
 Route::get('/product/{product:prod_name}', [ViewProductController::class,'index'])->name('product');
 
-Route::get('/wishlist', [WishlistController::class,'index'])->name('wishlist');
-Route::get('/wishlist/{product:prod_name}', [WishlistController::class,'add'])->name('addToWishlist');
-
 Route::get('/order', [OrderController::class,'index'])->name('order');
 
 Route::get('/cart', [CartController::class,'index'])->name('cart');
@@ -57,3 +54,7 @@ Route::resource('products', ProductController::class);
 Route::get('/', [HomeController::class,'index'])->name('home');
 
 Route::post('/review/{product:prod_name}/create', [ReviewController::class,'store'])->name('review');
+Route::delete('/review/{review}', [ReviewController::class,'destroy'])->name('review.destroy');
+
+Route::get('/wishlist', [WishlistController::class,'index'])->name('wishlist');
+Route::get('/wishlist/{product:prod_name}', [WishlistController::class,'add'])->name('addToWishlist');

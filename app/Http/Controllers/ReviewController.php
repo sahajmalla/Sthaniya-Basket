@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Review;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -24,4 +25,15 @@ class ReviewController extends Controller
         return back();
 
     }
+
+    public function destroy (Review $review) {
+
+        $this->authorize('delete', $review); // Allows users to only delete their reviews.
+
+        $review->delete();
+
+        return back()->with('status', 'Successfully deleted your review.');
+
+    }
+
 }

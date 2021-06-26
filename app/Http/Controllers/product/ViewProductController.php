@@ -27,7 +27,6 @@ class ViewProductController extends Controller
             $maxRatingValue = Review::where('product_id', $product->id)->count('review_rating') * 5;
             $ratingsInStars = round(($totalRatingsValue / $maxRatingValue) * 5);
         }
-        
 
         return view('products.productDetails', [
             'product' => $product,

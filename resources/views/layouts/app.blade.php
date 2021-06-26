@@ -16,7 +16,7 @@
                 <div class="flex items-center justify-between">
                     <div class="flex items-center">
                         <a class="text-2xl font-bold text-gray-800 dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300"
-                            href="/"><img src="images/sbl.png" alt="logo"></a>
+                            href="/"><img src="/images/sbl.png" alt="logo"></a>
 
                         <!-- Search input on desktop screen -->
                         <div class="hidden mx-10 md:block">
