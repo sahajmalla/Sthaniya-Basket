@@ -18,34 +18,43 @@ use App\Http\Controllers\Auth\RegisterCustomerController;
 
 // Route::post('/logout', [LogoutController::class,'index'])->name('logout');
 
+// LOGIN
 Route::get('/login', [LoginController::class,'index'])->name('login');
 Route::post('/login', [LoginController::class,'read']);
 
 //TODO: change route of product
 Route::get('/product/{product:prod_name}', [ViewProductController::class,'index'])->name('product');
 
+// ORDER
 Route::get('/order', [OrderController::class,'index'])->name('order');
 
-Route::get('/cart', [CartController::class,'index'])->name('cart');
-Route::get('/cart/{product:prod_name}', [CartController::class,'add'])->name('addToCart');
-
+// INVOICE
 Route::get('/invoice', function () {
     return view('invoice');
 });
 
+// CHECKOUT
 Route::view('/checkout', 'checkout')->middleware(['auth', 'verified'])->name('home');
 
+// FORGOT PASSWORD
 Route::view('/forgotPassword', 'auth.forgot-password')->name('forgot-password');
 
 Route::view('/verifyTrader', 'verifyTrader')->name('verifyTrader');
 
 Route::resource('products', ProductController::class);
 
+// HOME
 Route::get('/', [HomeController::class,'index'])->name('home');
 
+// REVIEW
 Route::post('/review/{product:prod_name}/create', [ReviewController::class,'store'])->name('review');
 Route::delete('/review/{review}', [ReviewController::class,'destroy'])->name('review.destroy');
 
+// WISHLIST
 Route::get('/wishlist', [WishlistController::class,'index'])->name('wishlist');
-Route::get('/wishlist/{product:prod_name}', [WishlistController::class,'store'])->name('addToWishlist');
+Route::post('/wishlist/{product:prod_name}', [WishlistController::class,'store'])->name('addToWishlist');
 Route::delete('/wishlist/{product}', [WishlistController::class,'destroy'])->name('wishlist.destroy');
+
+// CART
+Route::get('/cart', [CartController::class,'index'])->name('cart');
+Route::post('/cart/{product:prod_name}', [CartController::class,'add'])->name('addToCart');

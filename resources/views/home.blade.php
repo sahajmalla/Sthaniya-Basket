@@ -85,7 +85,8 @@
 
                                     <!-- Add to wishlist -->
 
-                                    <form action="{{ route('addToWishlist', $product) }}" method="GET">
+                                    <form action="{{ route('addToWishlist', $product) }}" method="POST">
+                                        @csrf
                                         <button>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -97,8 +98,8 @@
 
                                     <!-- Add to cart -->
                                     
-                                    <form action="{{ route('addToCart', $product) }}" method="GET">
-
+                                    <form action="{{ route('addToCart', $product) }}" method="POST">
+                                        @csrf
                                         <button
                                             class="px-2 py-1 text-xs font-bold text-white uppercase 
                                             transition-colors duration-200 transform bg-gray-800 rounded 

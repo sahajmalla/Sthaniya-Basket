@@ -29,7 +29,6 @@
                             <div class="flex mb-4">
 
                                 <!-- Product ratings -->
-
                                 <span class="flex items-center">
 
                                     <!-- Add product's ratings out of 5. -->
@@ -67,20 +66,28 @@
                             <span class="title-font font-medium text-2xl text-gray-900">£{{ $product->price }}</span>
                         
                             <!-- Add to cart button -->
-                            <button
-                                class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-                                Add To Cart
-                            </button>
-                            
+                            @auth
+                                @if(auth()->user()->user_type === "customer")
+                                    
+                                    <div class="ml-auto">
+                                        <form action="{{ route('addToCart', $product )}}" method="POST">
+                                            @csrf
+                                            <button class="flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+                                                Add To Cart
+                                            </button>
+                                        </form>
+                                    </div>
+
+                                @endif
+                            @endauth
                             <!-- Wishlist icon -->
                             @auth
                                 
                                 @if(auth()->user()->user_type === "customer")
 
-                                    <form action="">
-
-                                        <button
-                                            class="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
+                                    <form action="{{route('addToWishlist', $product)}}" method="POST">
+                                        @csrf
+                                        <button class="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                                             <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 class="w-5 h-5" viewBox="0 0 24 24">
                                                 <path
@@ -503,7 +510,8 @@
 
                                             <!-- Add to wishlist -->
 
-                                            <form action="{{ route('addToWishlist', $prod) }}" method="GET">
+                                            <form action="{{ route('addToWishlist', $prod) }}" method="POST">
+                                                @csrf
                                                 <button>
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
                                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -515,8 +523,8 @@
 
                                             <!-- Add to cart -->
                                             
-                                            <form action="{{ route('addToCart', $prod) }}" method="GET">
-
+                                            <form action="{{ route('addToCart', $prod) }}" method="POST">
+                                                @csrf
                                                 <button
                                                     class="px-2 py-1 text-xs font-bold text-white uppercase 
                                                     transition-colors duration-200 transform bg-gray-800 rounded 
