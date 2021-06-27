@@ -346,8 +346,8 @@
                                         <!-- Write a review button -->
 
                                         <button
-                                            class="write-review bg-gray-700 border border-black px-3 py-1 rounded text-white mt-2">Write
-                                            a review
+                                            class="write-review bg-gray-700 px-3 py-1 rounded text-white mt-2">
+                                            Write a review
                                         </button>
                                     
                                         <!-- comment form -->
@@ -414,11 +414,6 @@
                                                         <input type='submit'
                                                             class="bg-white text-gray-700 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-100"
                                                             value='Post Review'>
-                                                    </div>
-
-                                                    <div class="-mr-1">
-                                                        <a type='submit'
-                                                            class="write-cancel bg-white text-gray-700 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-100">Cancel</a>
                                                     </div>
 
                                                 </div>
@@ -557,10 +552,17 @@
             const writeCancel = document.querySelector('.write-cancel');
             const comntForm = document.querySelector('.comment-form');
             writeBtn.addEventListener('click', () => {
-                comntForm.classList.remove('hidden');
-            });
-            writeCancel.addEventListener('click', () => {
-                comntForm.classList.add('hidden');
+                if (comntForm.classList.contains('hidden')) {
+                    comntForm.classList.remove('hidden');
+                    writeBtn.classList.remove('bg-gray-700');
+                    writeBtn.classList.add('bg-red-600');
+                    writeBtn.innerHTML = "Cancel";
+                }else {
+                    comntForm.classList.add('hidden');
+                    writeBtn.innerHTML = "Write a review";
+                    writeBtn.classList.remove('bg-red-600');
+                    writeBtn.classList.add('bg-gray-700');
+                }
             });
         </script>
 
