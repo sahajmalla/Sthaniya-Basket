@@ -78,7 +78,6 @@ class CartController extends Controller
             // If user is adding to cart while being logged out.
             $request->session()->put('products', $products);
             $request->session()->push('products', $product);
-            dd(session('products'));
 
         }
 

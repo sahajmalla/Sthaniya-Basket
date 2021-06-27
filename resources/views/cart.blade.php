@@ -7,7 +7,7 @@
             
             <div class="flex-1">
 
-                <div class="flex space-x-2 p-4 mb-4">
+                <div class="flex space-x-2 mb-4">
                     <h1 class="text-3xl font-medium">My Cart</h1>    
                     
                     <!-- TODO: Add cart icon like wishlist's. -->  
@@ -85,7 +85,10 @@
                                                     <div class="w-20 h-10">
                                                         <div class="relative flex flex-row w-full h-8">
                                                             <input type="number" value="2"
-                                                                class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
+                                                                class="w-full font-semibold text-center 
+                                                                text-gray-700 bg-gray-200 outline-none 
+                                                                focus:outline-none hover:text-black 
+                                                                focus:text-black" />
                                                         </div>
                                                     </div>
                                                 </td>
@@ -243,7 +246,7 @@
                                                 <td class="justify-center md:justify-end md:flex mt-6">
                                                     <div class="w-20 h-10">
                                                         <div class="relative flex flex-row w-full h-8">
-                                                            <input type="number" value="2"
+                                                            <input name="quantity" id="quantity" type="number" placeholder="1" min="1"
                                                                 class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
                                                         </div>
                                                     </div>
@@ -306,7 +309,7 @@
                                             <p>Total Quantity</p>
                                         </div>
                                         <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
-                                            <p>10</p>
+                                            <p class="total-quantity" id="total-quantity">2</p>
                                         </div>
                                     </div>
 
@@ -340,5 +343,9 @@
             </div>
         </div>
     </div>
-    </div>
+
+    <script>
+    
+    </script>
+    
 @endsection
