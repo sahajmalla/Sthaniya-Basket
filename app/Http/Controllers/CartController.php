@@ -112,5 +112,18 @@ class CartController extends Controller
 
     }
 
+    public function delete (Request $request, Product $product) {
+
+        if(($key = array_search($product, session('products'))) !== false){
+            $tempArray = session('products');
+            array_splice($tempArray , $key, 1);
+            $request->session()->forget('products');
+            $request->session()->put('products', $tempArray);
+        }
+
+        return back()->with('status', 'Successfully deleted product from your cart.');
+
+    }
+
 
 }

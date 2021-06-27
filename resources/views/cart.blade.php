@@ -13,6 +13,7 @@
                     <!-- TODO: Add cart icon like wishlist's. -->  
                 </div>
 
+                <!-- Guest user addign to cart from session's array. -->
                 @if(session('products') && !auth()->user())
 
                     <!-- 
@@ -68,8 +69,7 @@
                                                     <p class="mb-2 text-md font-medium">{{ $product->prod_name }}</p>
                                                     
                                                     <!-- Remove product button -->
-                                                    <form action="" method="POST">
-                                                        
+                                                    <form action="{{ route('cart.delete', $product) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="text-white text-sm bg-red-600 hover:bg-red-700 rounded-lg p-1">
