@@ -15,6 +15,7 @@
                 @csrf
                 <!--user types-->
                 <div class="inline-block relative w-full mb-5">
+                    
                     <select name="userType" onchange="displayForms()" id="select-user" 
                     class="block appearance-none w-full h-14 bg-gray-100 border border-gray-300 px-4 py-2 
                     pr-8 rounded-lg border-2 text-gray-400 
@@ -91,7 +92,7 @@
                             {{ $message }}
                         </div>
                     @enderror
-                    
+
                 </div>
 
                 <!--email-->
