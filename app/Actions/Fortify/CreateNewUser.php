@@ -83,7 +83,7 @@ class CreateNewUser implements CreatesNewUsers
                 'gender' => $input['gender'],
                 'address' => $input['address'],
                 'subscription' => $input['subscription'],
-                'user_image' => 'images/userpp.png',
+                'user_image' => 'userpp.png',
                 'user_type' => $input['userType'],
             ]);
 
@@ -102,7 +102,7 @@ class CreateNewUser implements CreatesNewUsers
                 'address' => $input['address'],
                 'shop' => $input['shopname'],
                 'business' => $input['business'],
-                'user_image' => 'images/userpp.png',
+                'user_image' => 'userpp.png',
                 'user_type' => $input['userType'],
             ]);
         }

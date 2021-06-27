@@ -45,7 +45,7 @@
                                     <button type="button" class="user-icon space-x-2 focus:outline-none">
                                         <span> Hi {{ auth()->user()->firstname }}</span>
                                         <img class="inline object-cover w-8 h-8 mr-2 rounded-full"
-                                            src="https://images.pexels.com/photos/2589653/pexels-photo-2589653.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+                                            src="/images/users/{{ auth()->user()->user_image}}"
                                             alt="Profile image" />
                                     </button>
                                 </div>
@@ -150,7 +150,7 @@
                                     <button type="button" class="user-icon2 space-x-2 focus:outline-none">
                                         <span> Hi {{ auth()->user()->firstname }}</span>
                                         <img class="inline object-cover w-8 h-8 mr-2 rounded-full"
-                                            src="https://images.pexels.com/photos/2589653/pexels-photo-2589653.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+                                        src="/images/users/{{ auth()->user()->user_image}}"
                                             alt="Profile image" />
                                     </button>
                                 </div>
