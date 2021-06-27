@@ -35,6 +35,8 @@ class CartController extends Controller
                 $total_price += $product->price;
             }
 
+        }else {
+            
         }
 
         $total_price_string_2dp = number_format($total_price, 2);
@@ -49,8 +51,6 @@ class CartController extends Controller
 
         // If user is logged in, add the item to the cart database.
         
-        $products = collect([]); // Creating a collection for un-authenticated users.
-
         if (auth()->user()) {
 
             // Check if product already exists in user's cart of products before adding:
@@ -75,9 +75,22 @@ class CartController extends Controller
 
         }else {
 
-            // If user is adding to cart while being logged out.
-            $request->session()->put('products', $products);
-            $request->session()->push('products', $product);
+            // If user is adding to cart while being logged in.
+
+            // Disallow duplicates:
+            $itemMatch = false;
+            if (session('products')) {
+                foreach (session('products') as $prod) {
+                    if ($prod->id === $product->id ) {
+                        $itemMatch = true;
+                    }            
+                }
+            }
+
+            // If duplicate not found add item to the session's products array.
+            if (!$itemMatch) {
+                $request->session()->push('products', $product);
+            }
 
         }
 

@@ -24,8 +24,8 @@
                      <div>
                          
                         <!-- Products table-->
-                        @if (session('products')->count())
-                            
+                        @if (count(session('products')))
+                        
                             <table class="w-full text-sm lg:text-base" cellspacing="0">
 
                                 <!-- Table headings -->
@@ -246,7 +246,7 @@
                                                 <td class="justify-center md:justify-end md:flex mt-6">
                                                     <div class="w-20 h-10">
                                                         <div class="relative flex flex-row w-full h-8">
-                                                            <input name="quantity" id="quantity" type="number" placeholder="1" min="1"
+                                                            <input name="quantity" id="quantity" type="number" value='1' min="1"
                                                                 class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
                                                         </div>
                                                     </div>
