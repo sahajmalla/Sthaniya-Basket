@@ -10,10 +10,6 @@ use Illuminate\Support\Facades\DB;
 class CartController extends Controller
 {
 
-    // public function __construct() {
-    //     $this->middleware(['auth']);
-    // }
-
     public function index() {
 
         // If user is not signed in, we will set the price to 0.0 and send over an empty 
@@ -97,16 +93,35 @@ class CartController extends Controller
         return back();
     }
 
-    public function destroy (String $productID) {
+    public function destroy (Request $request, String $productID) {
 
-        //Length aware paginator vs Collection products. 
+        // If user is logged in, delete from database.
+        if (auth()->user()) {
 
-        $product_id = (int) $productID;
+            //Length aware paginator vs Collection products. 
+            $product_id = (int) $productID;
 
-        // Delete from Cart table using the selected product's ID and the authenticated user's 
-        // ID.
-        $deletedRows = Cart::where('product_id', $product_id)
-            ->where('user_id', auth()->user()->id)->delete();
+            // Delete from Cart table using the selected product's ID and the authenticated user's 
+            // ID.
+            $deletedRows = Cart::where('product_id', $product_id)
+                ->where('user_id', auth()->user()->id)->delete();
+
+        }else {
+
+            // Deleting guest's cart items from session.
+
+            $product_id = (int) $productID;
+
+            foreach (session('products') as $prod) {
+                if ($prod->id === $product_id ) {
+                    $key = array_search($prod, session('products'));
+                    $tempArray = session('products');
+                    array_splice($tempArray , $key, 1); // Splice prevents gaps in the index position.
+                    $request->session()->forget('products');
+                    $request->session()->put('products', $tempArray);
+                }            
+            }
+        }
         
         return back()->with('status', 'Successfully deleted product.');
 
@@ -116,7 +131,7 @@ class CartController extends Controller
 
         if(($key = array_search($product, session('products'))) !== false){
             $tempArray = session('products');
-            array_splice($tempArray , $key, 1);
+            array_splice($tempArray , $key, 1); // Splice prevents gaps in the index position.
             $request->session()->forget('products');
             $request->session()->put('products', $tempArray);
         }

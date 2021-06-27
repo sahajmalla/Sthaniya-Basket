@@ -53,8 +53,7 @@
 
                                         @foreach (session('products') as $product)
 
-                                            <tr>
-                                                
+                                            <tr>                                      
                                                 <!-- Image -->
                                                 <td class="hidden pb-8 md:table-cell">
                                                     <a href="#">
@@ -62,24 +61,24 @@
                                                             class="w-20 rounded" alt="Thumbnail">
                                                     </a>
                                                 </td>
-
+                                            
                                                 <!-- Name and remove button -->
                                                 <td class="pb-8">
                                                         
                                                     <p class="mb-2 text-md font-medium">{{ $product->prod_name }}</p>
                                                     
                                                     <!-- Remove product button -->
-                                                    <form action="{{ route('cart.delete', $product) }}" method="POST">
+                                                    <form action="{{ route('cart.destroy', $product->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="text-white text-sm bg-red-600 hover:bg-red-700 rounded-lg p-1">
                                                             <small class="m-2">Remove item</small>
                                                         </button>
-
+                                            
                                                     </form>
-
+                                            
                                                 </td>
-
+                                            
                                                 <!-- Dynamic Quantity -->
                                                 <td class="justify-center md:justify-end md:flex mt-6">
                                                     <div class="w-20 h-10">
@@ -92,21 +91,21 @@
                                                         </div>
                                                     </div>
                                                 </td>
-
+                                            
                                                 <!-- Unit Price -->
                                                 <td class="hidden text-right md:table-cell pb-8">
                                                     <span class="text-sm lg:text-base font-medium">
                                                         £{{ $product->price }}
                                                     </span>
                                                 </td>
-
+                                            
                                                 <!-- Total price -->
                                                 <td class="text-right pb-8">
                                                     <span class="text-sm lg:text-base font-medium">
                                                         £{{ $product->price }}
                                                     </span>
                                                 </td>
-
+                                            
                                             </tr>
 
                                         @endforeach

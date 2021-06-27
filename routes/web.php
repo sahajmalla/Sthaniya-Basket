@@ -59,7 +59,6 @@ Route::delete('/wishlist/{product}', [WishlistController::class,'destroy'])->nam
 Route::get('/cart', [CartController::class,'index'])->name('cart');
 Route::post('/cart/{product:prod_name}', [CartController::class,'store'])->name('addToCart');
 Route::delete('/cart/{product:prod_name}', [CartController::class,'destroy'])->name('cart.destroy');
-Route::delete('/cart/{product:prod_name}', [CartController::class,'delete'])->name('cart.delete'); // For guest user.
 
 // CHECKOUT
 // Route::view('/checkout', 'checkout')->middleware(['auth', 'verified'])->name('checkout');
