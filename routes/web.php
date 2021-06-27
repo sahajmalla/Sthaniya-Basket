@@ -10,6 +10,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\UpdateDetailsController;
 use App\Http\Controllers\Auth\RegisterTraderController;
 use App\Http\Controllers\product\ViewProductController;
 use App\Http\Controllers\Auth\RegisterCustomerController;
@@ -62,3 +63,6 @@ Route::delete('/cart/{product:prod_name}', [CartController::class,'destroy'])->n
 // Route::view('/checkout', 'checkout')->middleware(['auth', 'verified'])->name('checkout');
 Route::get('/checkout', [CheckoutController::class,'index'])
     ->middleware(['auth', 'verified'])->name('checkout');
+
+//update details
+Route::get('/updateDetails',[UpdateDetailsController::class,'index'])->name('updateDetails')->middleware('auth');
