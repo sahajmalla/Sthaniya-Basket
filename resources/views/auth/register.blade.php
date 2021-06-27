@@ -85,12 +85,15 @@
                                                                 6.586 4.343 8z" />
                         </svg>
                     </div>
+
                     @error('business')
                         <div class="text-red-500 mt-2 text-sm">
                             {{ $message }}
                         </div>
                     @enderror
+                    
                 </div>
+
                 <!--email-->
                 <div class="mb-5">
                     <label for="email" class=sr-only>Email:</label>
@@ -104,6 +107,7 @@
                         </div>
                     @enderror
                 </div>
+
                 <!--username-->
                 <div class="mb-5">
                     <label for="username" class=sr-only>Username:</label>

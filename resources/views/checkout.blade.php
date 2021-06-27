@@ -34,7 +34,9 @@
 
                                         <label class="text-sm w-4/12 font-bold text-gray-700">Collection Slot Time:</label>
 
-                                        <select class="w-full h-10 md:w-8/12 px-5 py-1 text-gray-700 bg-gray-200 rounded">
+                                        <select name="collection" onchange="setCollectionTime()" 
+                                        id="select-collection-time" 
+                                        class="w-full h-10 md:w-8/12 px-5 py-1 text-gray-700 bg-gray-200 rounded">
 
                                             <option>10-13</option>
                                             <option>13-16</option>
@@ -65,7 +67,9 @@
 
                                         <label class="text-sm w-4/12 font-bold text-gray-700">Payment Method:</label>
 
-                                        <select class="w-full h-10 sm:w-8/12 px-5 py-1 text-gray-700 bg-gray-200 rounded">
+                                        <select name="payment" onchange="setPaymentMethod()" 
+                                        id="select-payment-method" 
+                                        class="w-full h-10 sm:w-8/12 px-5 py-1 text-gray-700 bg-gray-200 rounded">
 
                                             <option>PayPal</option>
                                             <option>Stripe</option>
@@ -154,16 +158,16 @@
                                             <p>Payment Method:</p>
                                         </div>
                                         <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
-                                            <p>PayPal</p>
+                                            <p class="payment-method">PayPal</p>
                                         </div>
                                     </div>
 
                                     <div class="flex justify-between pt-4 border-b">
                                         <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
-                                            Collection Time:
+                                            <p>Collection Time:</p>
                                         </div>
                                         <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
-                                            10-13
+                                            <p class="collection-time">10-13</p>
                                         </div>
                                     </div>
 
@@ -288,5 +292,29 @@
         </main>
 
     </div>
+
+    <script>
+
+        // Change collection time by the drop down select list:
+        function setCollectionTime() {
+            
+            var selectCollectionTime = document.getElementById('select-collection-time');
+            var selectedValue = selectCollectionTime.options[selectCollectionTime.selectedIndex].value;
+            const traShop = document.querySelector('.collection-time');
+
+            traShop.innerHTML = selectedValue;
+        }
+
+        // Change payment method by the drop down select list:
+        function setPaymentMethod() {
+            
+            var selectPaymentMethod = document.getElementById('select-payment-method');
+            var selectedValue = selectPaymentMethod.options[selectPaymentMethod.selectedIndex].value;
+            const traShop = document.querySelector('.payment-method');
+
+            traShop.innerHTML = selectedValue;
+        }
+
+    </script>
 
 @endsection
