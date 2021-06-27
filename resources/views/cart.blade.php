@@ -72,7 +72,7 @@
                                                         
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="text-white bg-red-600 rounded-lg p-1">
+                                                        <button type="submit" class="text-white text-sm bg-red-600 hover:bg-red-700 rounded-lg p-1">
                                                             <small class="m-2">Remove item</small>
                                                         </button>
 
@@ -175,7 +175,6 @@
                                 </div>
                         </div>
                     </div>
- 
 
                 @else
 
@@ -232,7 +231,7 @@
                                                         
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="text-white bg-red-600 rounded-lg p-1">
+                                                        <button type="submit" class="text-white text-sm hover:bg-red-700 bg-red-600 rounded-lg p-1">
                                                             <small class="m-2">Remove item</small>
                                                         </button>
 

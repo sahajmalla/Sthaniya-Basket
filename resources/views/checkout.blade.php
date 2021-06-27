@@ -251,8 +251,8 @@
                                         </td>
 
                                         <td>
-                                            <a href="#">
-                                                <p class="mb-2 md:ml-4">{{ $product->prod_name }}</p>
+                                            <a href="">
+                                                <p class="mb-2">{{ $product->prod_name }}</p>
                                             </a>
                                         </td>
 
@@ -262,13 +262,8 @@
                                             </span>
                                         </td>
 
-                                        <td class="justify-center md:justify-end md:flex mt-6">
-                                            <div class="w-20 h-10 flex">
-                                                <div class="relative flex flex-row w-full h-8">
-                                                    <input type="number" value="2"
-                                                        class="w-8/12 font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
-                                                </div>
-                                            </div>
+                                        <td class="flex justify-center md:justify-end md:mt-4">
+                                            <p>{{ $product->prod_quantity }}</p>
                                         </td>
 
                                         <td class="text-right">
