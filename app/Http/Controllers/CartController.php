@@ -110,7 +110,7 @@ class CartController extends Controller
 
             // Deleting guest's cart items from session.
 
-            $product_id = (int) $productID;
+            $product_id = (int) $productID; // Since collection's product can't be passed.
 
             foreach (session('products') as $prod) {
                 if ($prod->id === $product_id ) {
