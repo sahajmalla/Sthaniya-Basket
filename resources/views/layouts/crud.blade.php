@@ -33,7 +33,7 @@
                             role="menu" aria-orientation="vertical">
                             <div class="py-1">
                                 <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-                                <a href="#" class="text-gray-700 block px-4 py-2 text-sm">Update Informations</a>
+                                <a href="{{ route('updateDetails') }}" class="text-gray-700 block px-4 py-2 text-sm">Update Informations</a>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
                                     <button type="submit" class="text-gray-700 block w-full text-left px-4 py-2 text-sm">
