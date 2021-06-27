@@ -34,7 +34,7 @@
 
                                         <label class="text-sm w-4/12 font-bold text-gray-700">Collection Slot Time:</label>
 
-                                        <select class="w-full md:w-8/12 px-5 py-1 text-gray-700 bg-gray-200 rounded">
+                                        <select class="w-full h-10 md:w-8/12 px-5 py-1 text-gray-700 bg-gray-200 rounded">
 
                                             <option>10-13</option>
                                             <option>13-16</option>
@@ -65,7 +65,7 @@
 
                                         <label class="text-sm w-4/12 font-bold text-gray-700">Payment Method:</label>
 
-                                        <select class="w-full sm:w-8/12 px-5 py-1 text-gray-700 bg-gray-200 rounded">
+                                        <select class="w-full h-10 sm:w-8/12 px-5 py-1 text-gray-700 bg-gray-200 rounded">
 
                                             <option>PayPal</option>
                                             <option>Stripe</option>
@@ -142,19 +142,19 @@
 
                                     <div class="flex justify-between border-b">
                                         <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
-                                            Items:
+                                            <p>Items:</p>
                                         </div>
                                         <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
-                                            2
+                                            <p>{{ $products->count() }}</p>
                                         </div>
                                     </div>
 
                                     <div class="flex justify-between border-b">
                                         <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
-                                            Payment Method:
+                                            <p>Payment Method:</p>
                                         </div>
                                         <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
-                                            PayPal
+                                            <p>PayPal</p>
                                         </div>
                                     </div>
 
@@ -169,28 +169,28 @@
 
                                     <div class="flex justify-between border-b">
                                         <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
-                                            Subtotal
+                                            <p>Subtotal</p>
                                         </div>
                                         <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
-                                            £30,000
+                                            <p>£{{ $total_price }}</p>
                                         </div>
                                     </div>
 
                                     <div class="flex justify-between pt-4 border-b">
                                         <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
-                                            Discount
+                                            <p>Discount</p>
                                         </div>
                                         <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
-                                            £3,000 (10%)
+                                            <p>£3,000 (10%)</p>
                                         </div>
                                     </div>
 
                                     <div class="flex justify-between pt-4 border-b">
                                         <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
-                                            Order Total:
+                                            <p>Order Total:</p>
                                         </div>
                                         <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
-                                            £27,000
+                                            <p>£27,000</p>
                                         </div>
                                     </div>
 
@@ -220,130 +220,74 @@
 
                 <!-- Review items -->
                 <div class="border rounded-md p-5 mb-10 w-full">
+                    
                     <h1 class="font-bold text-xl mb-4 uppercase">2. Review Items</h1>
-                    <table class="w-full text-sm lg:text-base" cellspacing="0">
 
-                        <thead>
-                            <tr class="h-12">
-                                <th class="hidden md:table-cell"></th>
-                                <th class="text-left">Product</th>
-                                <th class="hidden text-center md:table-cell">Description</th>
-                                <th class="lg:text-right text-left pl-5 lg:pl-0">
-                                    <span class="lg:hidden" title="Quantity">Qtd</span>
-                                    <span class="hidden lg:inline">Quantity</span>
-                                </th>
-                            </tr>
-                        </thead>
+                    @if ($products->count())
 
-                        <tbody>
-                            <tr>
-                                <td class="hidden pb-4 md:table-cell">
-                                    <a href="#">
-                                        <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80"
-                                            class="w-20 rounded" alt="Thumbnail">
-                                    </a>
-                                </td>
+                        <table class="w-full text-sm lg:text-base" cellspacing="0">
 
-                                <td>
-                                    <a href="#">
-                                        <p class="mb-2 md:ml-4">MacBook Pro</p>
-                                    </a>
-                                </td>
+                            <thead>
+                                <tr class="h-12">
+                                    <th class="hidden md:table-cell"></th>
+                                    <th class="text-left">Product</th>
+                                    <th class="hidden text-center md:table-cell">Description</th>
+                                    <th class="lg:text-right text-left pl-5 lg:pl-0">
+                                        <span class="lg:hidden" title="Quantity">Qtd</span>
+                                        <span class="hidden lg:inline">Quantity</span>
+                                    </th>
+                                </tr>
+                            </thead>
 
-                                <td class="hidden text-center md:table-cell">
-                                    <span class="text-xs lg:text-base">
-                                        The 16-inch MacBook Pro has the highest-capacity battery we’ve
-                                        ever put in a notebook.
-                                    </span>
-                                </td>
+                            <tbody>
 
-                                <td class="justify-center md:justify-end md:flex mt-6">
-                                    <div class="w-20 h-10 flex">
-                                        <div class="relative flex flex-row w-full h-8">
-                                            <input type="number" value="2"
-                                                class="w-8/12 font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
-                                        </div>
-                                    </div>
-                                </td>
+                                @foreach ($products as $product)
+                                    <tr>
+                                        <td class="hidden pb-4 md:table-cell">
+                                            <a href="#">
+                                                <img src="/images/products/{{ $product->prod_image }}"
+                                                    class="w-20 rounded" alt="Thumbnail">
+                                            </a>
+                                        </td>
 
-                                <td class="text-right">
-                                    <form action="" method="POST">
-                                        <button type="submit" class="text-black border-2 md:ml-4">
-                                            <small class="m-2">Remove item</small>
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="hidden pb-4 md:table-cell">
-                                    <a href="#">
-                                        <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80"
-                                            class="w-20 rounded" alt="Thumbnail">
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="#">
-                                        <p class="mb-2 md:ml-4">MacBook Pro</p>
-                                    </a>
-                                </td>
-                                <td class="hidden text-center md:table-cell">
-                                    <span class="text-xs lg:text-base">
-                                        The 16-inch MacBook Pro has the highest-capacity battery we’ve
-                                        ever put in a notebook.
-                                    </span>
-                                </td>
-                                <td class="justify-center md:justify-end md:flex mt-6">
-                                    <div class="w-20 h-10 flex">
-                                        <div class="relative flex flex-row w-full h-8">
-                                            <input type="number" value="2"
-                                                class="w-8/12 font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-right">
-                                    <form action="" method="POST">
-                                        <button type="submit" class="text-black border-2 md:ml-4">
-                                            <small class="m-2">Remove item</small>
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="hidden pb-4 md:table-cell">
-                                    <a href="#">
-                                        <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80"
-                                            class="w-20 rounded" alt="Thumbnail">
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="#">
-                                        <p class="mb-2 md:ml-4">MacBook Pro</p>
-                                    </a>
-                                </td>
-                                <td class="hidden text-center md:table-cell">
-                                    <span class="text-xs lg:text-base">
-                                        The 16-inch MacBook Pro has the highest-capacity battery we’ve
-                                        ever put in a notebook.
-                                    </span>
-                                </td>
-                                <td class="justify-center md:justify-end md:flex mt-6">
-                                    <div class="w-20 h-10 flex">
-                                        <div class="relative flex flex-row w-full h-8">
-                                            <input type="number" value="2"
-                                                class="w-8/12 font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-right">
-                                    <form action="" method="POST">
-                                        <button type="submit" class="text-black border-2 md:ml-4">
-                                            <small class="m-2">Remove item</small>
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                        <td>
+                                            <a href="#">
+                                                <p class="mb-2 md:ml-4">{{ $product->prod_name }}</p>
+                                            </a>
+                                        </td>
+
+                                        <td class="hidden text-center md:table-cell">
+                                            <span class="text-xs lg:text-base">
+                                                {{ $product->prod_descrip }}
+                                            </span>
+                                        </td>
+
+                                        <td class="justify-center md:justify-end md:flex mt-6">
+                                            <div class="w-20 h-10 flex">
+                                                <div class="relative flex flex-row w-full h-8">
+                                                    <input type="number" value="2"
+                                                        class="w-8/12 font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <td class="text-right">
+                                            <form action="" method="POST">
+                                                <button type="submit" 
+                                                class="text-white bg-red-500 p-1 rounded-lg hover:bg-red-700 md:ml-4">
+                                                    <small class="m-2">Remove item</small>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+                            </tbody>
+
+                        </table>
+
+                    @endif
+
                 </div>
             </div>
         </main>
