@@ -11,13 +11,12 @@ use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\UserImageController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\UpdateDetailsController;
-use App\Http\Controllers\Auth\RegisterTraderController;
 use App\Http\Controllers\product\ViewProductController;
-use App\Http\Controllers\Auth\RegisterCustomerController;
 
-// Route::get('/registerCustomer', [RegisterCustomerController::class,'index'])->name('registerCustomer');
-// Route::post('/registerCustomer', [RegisterCustomerController::class,'store']);
+Route::get('/register', [RegisterController::class,'index'])->name('register');
+Route::post('/register', [RegisterController::class,'store']);
 
 // Route::post('/logout', [LogoutController::class,'index'])->name('logout');
 
@@ -70,3 +69,4 @@ Route::get('/updateDetails',[UpdateDetailsController::class,'index'])->name('upd
 
 //upload user image
 Route::post('/updateDetails',[UserImageController::class,'userImageUploadPost'])->name('image.upload')->middleware('auth');
+

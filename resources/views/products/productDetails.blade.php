@@ -286,7 +286,7 @@
                                         </div>
                                     </div>
                                     <div class="w-1/5 text-gray-700 pl-3">
-                                        <span class="text-sm">{{(($review->where('review_rating','4')->where('product_id', $product->id)->count())/($review->where('product_id', $product->id)->count()))*100 }}%</span>
+                                        <span class="text-sm">{{round((($review->where('review_rating','4')->where('product_id', $product->id)->count())/($review->where('product_id', $product->id)->count()))*100) }}%</span>
                                     </div>
                                 </div>
 
@@ -300,7 +300,7 @@
                                         </div>
                                     </div>
                                     <div class="w-1/5 text-gray-700 pl-3">
-                                        <span class="text-sm">{{(($review->where('review_rating','3')->where('product_id', $product->id)->count())/($review->where('product_id', $product->id)->count()))*100 }}%</span>
+                                        <span class="text-sm">{{round((($review->where('review_rating','3')->where('product_id', $product->id)->count())/($review->where('product_id', $product->id)->count()))*100) }}%</span>
                                     </div>
                                 </div>
 
@@ -314,7 +314,7 @@
                                         </div>
                                     </div>
                                     <div class="w-1/5 text-gray-700 pl-3">
-                                        <span class="text-sm">{{(($review->where('review_rating','2')->where('product_id', $product->id)->count())/($review->where('product_id', $product->id)->count()))*100 }}%</span>
+                                        <span class="text-sm">{{round((($review->where('review_rating','2')->where('product_id', $product->id)->count())/($review->where('product_id', $product->id)->count()))*100) }}%</span>
                                     </div>
                                 </div>
                                 
@@ -328,7 +328,7 @@
                                         </div>
                                     </div>
                                     <div class="w-1/5 text-gray-700 pl-3">
-                                        <span class="text-sm">{{(($review->where('review_rating','1')->where('product_id', $product->id)->count())/($review->where('product_id', $product->id)->count()))*100 }}%</span>
+                                        <span class="text-sm">{{round((($review->where('review_rating','1')->where('product_id', $product->id)->count())/($review->where('product_id', $product->id)->count()))*100) }}%</span>
                                     </div>
                                 </div>
 

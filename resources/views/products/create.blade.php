@@ -66,12 +66,11 @@
 
                             <div>
                                 <label class="text-gray-700 dark:text-gray-200" for="password">Description</label>
-                                <textarea id="prod_descrip" name="prod_descrip"
-                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 
-                                                                                        rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 
-                                                                                        focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring
-                                                                                        @error('prod_descrip') border-red-500 @enderror" value="{{ old('prod_descrip') }}">
-                                                                            </textarea>
+                                                                        
+                                <textarea name="prod_descrip" id="prod_descrip" cols="30" rows="4" class="
+                                border-2 w-full p-4 rounded-lg @error('prod_descrip') border-red-500 @enderror"
+                                >{{ old('prod_descrip') }}</textarea>
+
                                 @error('prod_descrip')
                                     <div class="text-red-500 mt-2 text-sm">
                                         {{ $message }}
