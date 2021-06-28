@@ -247,7 +247,7 @@
                 <div class="shadow-lg rounded-lg">
                     <div class="my-5 mx-auto">
                         
-                        <!-- Review chart for product-->
+                        <!-- Review chart and it's heading for product-->
                         <div class="mb-1 tracking-wide px-4 py-4">
                             
                             <h2 class="text-gray-800 font-bold my-4 text-lg">
@@ -256,83 +256,112 @@
                                 {{ Str::plural('review', $product->reviews->count()) }}
                             </h2>
 
-                            <div class="border-b -mx-8 px-8 pb-3">
+                            @if($product->reviews->count())
+                                <!-- Review chart and it's ratings percentage -->
+                                <div class="border-b -mx-8 px-8 pb-3">
                                 
-                                <div class="flex items-center mt-1">
+                                    <div class="flex items-center mt-1">
+                                        
+                                        <div class=" w-1/5 text-indigo-500 tracking-tighter">
+                                            <span>5 star</span>
+                                        </div>
+                                        
+                                        <div class="w-3/5">
+                                            <div class="bg-gray-300 w-full rounded-lg h-2">
+                                                <div style="width:{{(($review->where('review_rating','5')->where('product_id', $product->id)->count())/($review->where('product_id', $product->id)->count()))*100 }}%" class="bg-indigo-600 rounded-lg h-2"></div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="w-1/5 text-gray-700 pl-3">
+                                            <span class="text-sm">{{ round((($review->where('review_rating','5')->where('product_id', $product->id)->count())/($review->where('product_id', $product->id)->count()))*100) }}%</span>
+                                        </div>
                                     
-                                    <div class=" w-1/5 text-indigo-500 tracking-tighter">
-                                        <span>5 star</span>
                                     </div>
                                     
-                                    <div class="w-3/5">
-                                        <div class="bg-gray-300 w-full rounded-lg h-2">
-                                            <div style="width:{{(($review->where('review_rating','5')->where('product_id', $product->id)->count())/($review->where('product_id', $product->id)->count()))*100 }}%" class="bg-indigo-600 rounded-lg h-2"></div>
+                                    <div class="flex items-center mt-1">
+                                        <div class="w-1/5 text-indigo-500 tracking-tighter">
+                                            <span>4 star</span>
+                                        </div>
+                                        <div class="w-3/5">
+                                            <div class="bg-gray-300 w-full rounded-lg h-2">
+                                                <div style="width:{{(($review->where('review_rating','4')->where('product_id', $product->id)->count())/($review->where('product_id', $product->id)->count()))*100 }}%" class="bg-indigo-600 rounded-lg h-2"></div>
+                                            </div>
+                                        </div>
+                                        <div class="w-1/5 text-gray-700 pl-3">
+                                            <span class="text-sm">{{round((($review->where('review_rating','4')->where('product_id', $product->id)->count())/($review->where('product_id', $product->id)->count()))*100) }}%</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center mt-1">
+                                        <div class="w-1/5 text-indigo-500 tracking-tighter">
+                                            <span>3 star</span>
+                                        </div>
+                                        <div class="w-3/5">
+                                            <div class="bg-gray-300 w-full rounded-lg h-2">
+                                                <div style="width:{{(($review->where('review_rating','3')->where('product_id', $product->id)->count())/($review->where('product_id', $product->id)->count()))*100 }}%" class="bg-indigo-600 rounded-lg h-2"></div>
+                                            </div>
+                                        </div>
+                                        <div class="w-1/5 text-gray-700 pl-3">
+                                            <span class="text-sm">{{round((($review->where('review_rating','3')->where('product_id', $product->id)->count())/($review->where('product_id', $product->id)->count()))*100) }}%</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center mt-1">
+                                        <div class=" w-1/5 text-indigo-500 tracking-tighter">
+                                            <span>2 star</span>
+                                        </div>
+                                        <div class="w-3/5">
+                                            <div class="bg-gray-300 w-full rounded-lg h-2">
+                                                <div style="width:{{(($review->where('review_rating','2')->where('product_id', $product->id)->count())/($review->where('product_id', $product->id)->count()))*100 }}%" class="bg-indigo-600 rounded-lg h-2"></div>
+                                            </div>
+                                        </div>
+                                        <div class="w-1/5 text-gray-700 pl-3">
+                                            <span class="text-sm">{{round((($review->where('review_rating','2')->where('product_id', $product->id)->count())/($review->where('product_id', $product->id)->count()))*100) }}%</span>
                                         </div>
                                     </div>
                                     
-                                    <div class="w-1/5 text-gray-700 pl-3">
-                                        <span class="text-sm">{{ round((($review->where('review_rating','5')->where('product_id', $product->id)->count())/($review->where('product_id', $product->id)->count()))*100) }}%</span>
+                                    <div class="flex items-center mt-1">
+                                        <div class="w-1/5 text-indigo-500 tracking-tighter">
+                                            <span>1 star</span>
+                                        </div>
+                                        <div class="w-3/5">
+                                            <div class="bg-gray-300 w-full rounded-lg h-2">
+                                                <div style="width:{{(($review->where('review_rating','1')->where('product_id', $product->id)->count())/($review->where('product_id', $product->id)->count()))*100 }}%" class="bg-indigo-600 rounded-lg h-2"></div>
+                                            </div>
+                                        </div>
+                                        <div class="w-1/5 text-gray-700 pl-3">
+                                            <span class="text-sm">{{round((($review->where('review_rating','1')->where('product_id', $product->id)->count())/($review->where('product_id', $product->id)->count()))*100) }}%</span>
+                                        </div>
                                     </div>
+
+                                </div>
+                            @else
+                                <div class="border-b -mx-8 px-8 pb-3">
+                                    
+                                    @for($i = 1; $i <= 5; $i++)
+                                        <div class="flex items-center mt-1">
+                                            
+                                            <div class=" w-1/5 text-indigo-500 tracking-tighter">
+                                                <span>{{$i}} star</span>
+                                            </div>
+                                            
+                                            <div class="w-3/5">
+                                                <div class="bg-gray-300 w-full rounded-lg h-2">
+                                                    <div style="width:0%" class="bg-indigo-600 rounded-lg h-2"></div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="w-1/5 text-gray-700 pl-3">
+                                                <span class="text-sm">0%</span>
+                                            </div>
+                                        
+                                        </div>
+                                    @endfor
                                 
                                 </div>
-                                
-                                <div class="flex items-center mt-1">
-                                    <div class="w-1/5 text-indigo-500 tracking-tighter">
-                                        <span>4 star</span>
-                                    </div>
-                                    <div class="w-3/5">
-                                        <div class="bg-gray-300 w-full rounded-lg h-2">
-                                            <div style="width:{{(($review->where('review_rating','4')->where('product_id', $product->id)->count())/($review->where('product_id', $product->id)->count()))*100 }}%" class="bg-indigo-600 rounded-lg h-2"></div>
-                                        </div>
-                                    </div>
-                                    <div class="w-1/5 text-gray-700 pl-3">
-                                        <span class="text-sm">{{round((($review->where('review_rating','4')->where('product_id', $product->id)->count())/($review->where('product_id', $product->id)->count()))*100) }}%</span>
-                                    </div>
-                                </div>
-
-                                <div class="flex items-center mt-1">
-                                    <div class="w-1/5 text-indigo-500 tracking-tighter">
-                                        <span>3 star</span>
-                                    </div>
-                                    <div class="w-3/5">
-                                        <div class="bg-gray-300 w-full rounded-lg h-2">
-                                            <div style="width:{{(($review->where('review_rating','3')->where('product_id', $product->id)->count())/($review->where('product_id', $product->id)->count()))*100 }}%" class="bg-indigo-600 rounded-lg h-2"></div>
-                                        </div>
-                                    </div>
-                                    <div class="w-1/5 text-gray-700 pl-3">
-                                        <span class="text-sm">{{round((($review->where('review_rating','3')->where('product_id', $product->id)->count())/($review->where('product_id', $product->id)->count()))*100) }}%</span>
-                                    </div>
-                                </div>
-
-                                <div class="flex items-center mt-1">
-                                    <div class=" w-1/5 text-indigo-500 tracking-tighter">
-                                        <span>2 star</span>
-                                    </div>
-                                    <div class="w-3/5">
-                                        <div class="bg-gray-300 w-full rounded-lg h-2">
-                                            <div style="width:{{(($review->where('review_rating','2')->where('product_id', $product->id)->count())/($review->where('product_id', $product->id)->count()))*100 }}%" class="bg-indigo-600 rounded-lg h-2"></div>
-                                        </div>
-                                    </div>
-                                    <div class="w-1/5 text-gray-700 pl-3">
-                                        <span class="text-sm">{{round((($review->where('review_rating','2')->where('product_id', $product->id)->count())/($review->where('product_id', $product->id)->count()))*100) }}%</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-center mt-1">
-                                    <div class="w-1/5 text-indigo-500 tracking-tighter">
-                                        <span>1 star</span>
-                                    </div>
-                                    <div class="w-3/5">
-                                        <div class="bg-gray-300 w-full rounded-lg h-2">
-                                            <div style="width:{{(($review->where('review_rating','1')->where('product_id', $product->id)->count())/($review->where('product_id', $product->id)->count()))*100 }}%" class="bg-indigo-600 rounded-lg h-2"></div>
-                                        </div>
-                                    </div>
-                                    <div class="w-1/5 text-gray-700 pl-3">
-                                        <span class="text-sm">{{round((($review->where('review_rating','1')->where('product_id', $product->id)->count())/($review->where('product_id', $product->id)->count()))*100) }}%</span>
-                                    </div>
-                                </div>
-
-                            </div>
+                            @endif
+                            
+                        
                         </div>
 
                         @auth
@@ -412,7 +441,7 @@
 
                                                     <div class="-mr-1">
                                                         <input type='submit'
-                                                            class="bg-white text-gray-700 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-100"
+                                                            class="bg-green-600 text-white font-medium py-1 px-4 border border-green-600 rounded-lg tracking-wide mr-1 hover:bg-green-800"
                                                             value='Post Review'>
                                                     </div>
 

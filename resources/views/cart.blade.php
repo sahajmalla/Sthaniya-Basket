@@ -13,7 +13,7 @@
                     <!-- TODO: Add cart icon like wishlist's. -->  
                 </div>
 
-                <!-- Guest user addign to cart from session's array. -->
+                <!-- Guest user assign to cart from session's array. -->
                 @if(session('products') && !auth()->user())
 
                     <!-- 
@@ -83,7 +83,7 @@
                                                 <td class="justify-center md:justify-end md:flex mt-6">
                                                     <div class="w-20 h-10">
                                                         <div class="relative flex flex-row w-full h-8">
-                                                            <input type="number" value="2"
+                                                            <input type="number" value="1"
                                                                 class="w-full font-semibold text-center 
                                                                 text-gray-700 bg-gray-200 outline-none 
                                                                 focus:outline-none hover:text-black 
