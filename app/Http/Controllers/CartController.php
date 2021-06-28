@@ -20,7 +20,7 @@ class CartController extends Controller
         
         if (auth()->user()) {
 
-            // If user is signed in:
+            // If user is signed in, get user's cart products:
             
             $products = DB::table('products')
             ->join('carts', function ($join) {
@@ -35,8 +35,8 @@ class CartController extends Controller
 
         }else {
             
-            // User is not signed in and user has added to the cart:
-            
+            // User is not signed in and user has added to the cart as guest:
+
             if (session('products')) {
                 foreach (session('products') as $product) {
                     $total_price += $product->price;

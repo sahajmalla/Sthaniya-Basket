@@ -392,6 +392,8 @@
 
                                                 </div>
 
+                                                <!-- Ratings drop-down list -->
+
                                                 <div class="mb-4 ml-3">
 
                                                     <select name="rating" class="w-full h-10 bg-gray-100 border 
