@@ -6,7 +6,7 @@
                 @csrf
                 <div class="grid grid-cols-2 md:grid-cols-3 items-center">
                     <img class="inline object-cover w-28 h-28 rounded-full md:h-36 md:w-36"
-                        src="https://images.pexels.com/photos/2589653/pexels-photo-2589653.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+                        src="/images/users/{{ auth()->user()->user_image }}"
                         alt="Profile image" 
                         name="user_image"/>
                     <h1 class="font-bold">Update your picture</h1>

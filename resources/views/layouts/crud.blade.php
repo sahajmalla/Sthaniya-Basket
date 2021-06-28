@@ -16,7 +16,7 @@
                 <div class="flex items-center justify-between">
                     <div class="flex items-center">
                         <a class="text-2xl font-bold text-gray-800 dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300"
-                            href="/"><img src="images/sbl.png" alt="logo"></a>
+                            href="/"><img src="/images/sbl.png" alt="logo"></a>
                     </div>
                 </div>
                 @auth
@@ -25,7 +25,7 @@
                             <button type="button" class="user-icon space-x-2 focus:outline-none">
                                 <span> Hi {{ auth()->user()->firstname }}</span>
                                 <img class="inline object-cover w-8 h-8 mr-2 rounded-full"
-                                    src="https://images.pexels.com/photos/2589653/pexels-photo-2589653.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+                                    src="/images/users/{{ auth()->user()->user_image }}"
                                     alt="Profile image" />
                             </button>
                         </div>
@@ -51,7 +51,7 @@
                         <div
                             class="flex md:justify-center py-3 mt-3 -mx-3 overflow-y-auto whitespace-nowrap scroll-hidden">
                             <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
-                                href="#">Add Products</a>
+                                href="{{ route('products.create') }}">Add Products</a>
                             <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
                                 href="#">View Products</a>
                             <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"

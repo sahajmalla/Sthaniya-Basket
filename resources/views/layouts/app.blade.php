@@ -158,7 +158,7 @@
                                     role="menu" aria-orientation="vertical">
                                     <div class="py-1">
                                         @if (auth()->user()->user_type != 'customer')
-                                            <a href="#" class="text-gray-700 block px-4 py-2 text-sm">Show CRUD</a>
+                                            <a href="{{ route('products.index') }}" class="text-gray-700 block px-4 py-2 text-sm">Show CRUD</a>
                                         @endif
                                         <a href="{{ route('updateDetails') }}" class="text-gray-700 block px-4 py-2 text-sm">Update Informations</a>
                                         <form method="POST" action="{{ route('logout') }}">
