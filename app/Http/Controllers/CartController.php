@@ -17,8 +17,10 @@ class CartController extends Controller
 
         $total_price = 0.0;
         $products = collect();
-
+        
         if (auth()->user()) {
+
+            // If user is signed in:
             
             $products = DB::table('products')
             ->join('carts', function ($join) {
@@ -33,6 +35,14 @@ class CartController extends Controller
 
         }else {
             
+            // User is not signed in and user has added to the cart:
+            
+            if (session('products')) {
+                foreach (session('products') as $product) {
+                    $total_price += $product->price;
+                }
+            }
+
         }
 
         $total_price_string_2dp = number_format($total_price, 2);

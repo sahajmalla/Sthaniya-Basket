@@ -66,20 +66,16 @@
                             <span class="title-font font-medium text-2xl text-gray-900">£{{ $product->price }}</span>
                         
                             <!-- Add to cart button -->
-                            @auth
-                                @if(auth()->user()->user_type === "customer")
-                                    
-                                    <div class="ml-auto">
-                                        <form action="{{ route('addToCart', $product )}}" method="POST">
-                                            @csrf
-                                            <button class="flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-                                                Add To Cart
-                                            </button>
-                                        </form>
-                                    </div>
 
-                                @endif
-                            @endauth
+                            <div class="ml-auto">
+                                <form action="{{ route('addToCart', $product )}}" method="POST">
+                                    @csrf
+                                    <button class="flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+                                        Add To Cart
+                                    </button>
+                                </form>
+                            </div>
+                    
                             <!-- Wishlist icon -->
                             @auth
                                 
