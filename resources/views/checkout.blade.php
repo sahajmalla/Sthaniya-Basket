@@ -18,7 +18,7 @@
                     <!-- Form -->
                     <form class=" p-8 border rounded-md">
 
-                        <h1 class="font-bold text-xl mb-8 uppercase">1. Final Details</h1>
+                        <h1 class="font-bold text-xl mb-8 uppercase">Final Details</h1>
 
                         <div class="leading-loose">
 
@@ -36,23 +36,14 @@
 
                                         <select name="collection" onchange="setCollectionTime()" 
                                         id="select-collection-time" 
-                                        class="w-full h-10 md:w-8/12 px-5 py-1 text-gray-700 bg-gray-200 rounded">
+                                        class="w-full h-10 md:w-8/12 px-2 py-1 text-gray-700 bg-gray-200 rounded">
 
                                             <option>10-13</option>
                                             <option>13-16</option>
                                             <option>16-19</option>
 
                                         </select>
-
-                                        <div class="pointer-events-none absolute inset-y-0 right-0 flex 
-                                                items-center px-2 text-gray-700">
-                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 20 20">
-                                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 
-                                                6.586 4.343 8z" />
-                                            </svg>
-                                        </div>
-
+      
                                     </div>
 
                                 </div>
@@ -69,21 +60,12 @@
 
                                         <select name="payment" onchange="setPaymentMethod()" 
                                         id="select-payment-method" 
-                                        class="w-full h-10 sm:w-8/12 px-5 py-1 text-gray-700 bg-gray-200 rounded">
+                                        class="w-full h-10 sm:w-8/12 px-2 py-1 text-gray-700 bg-gray-200 rounded">
 
                                             <option>PayPal</option>
                                             <option>Stripe</option>
 
                                         </select>
-
-                                        <div class="pointer-events-none absolute inset-y-0 right-0 flex 
-                                                    items-center px-2 text-gray-700">
-                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 20 20">
-                                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 
-                                                    6.586 4.343 8z" />
-                                            </svg>
-                                        </div>
 
                                     </div>
                                 </div>
@@ -138,7 +120,7 @@
 
                             <div class="border rounded-md max-w-md w-full px-4 py-3">
 
-                                <h1 class="text-center font-bold text-xl mb-2 uppercase">3. Order Summary</h1>
+                                <h1 class="text-center font-bold text-xl mb-2 uppercase">Order Summary</h1>
 
                                 <!-- Order details. -->
 
@@ -147,6 +129,15 @@
                                     <div class="flex justify-between border-b">
                                         <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
                                             <p>Items:</p>
+                                        </div>
+                                        <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
+                                            <p>{{ $products->count() }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex justify-between border-b">
+                                        <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
+                                            <p>Items Quantity:</p>
                                         </div>
                                         <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
                                             <p>{{ $products->count() }}</p>
@@ -225,7 +216,7 @@
                 <!-- Review items -->
                 <div class="border rounded-md p-5 mb-10 w-full">
                     
-                    <h1 class="font-bold text-xl mb-4 uppercase">2. Review Items</h1>
+                    <h1 class="font-bold text-xl mb-4 uppercase">Review Items</h1>
 
                     @if ($products->count())
 
@@ -266,7 +257,7 @@
                                             </span>
                                         </td>
 
-                                        <td class="flex justify-center md:justify-end md:mt-4">
+                                        <td class="flex justify-center md:mt-4">
                                             <p>{{ $product->prod_quantity }}</p>
                                         </td>
 

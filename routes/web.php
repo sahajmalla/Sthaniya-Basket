@@ -58,9 +58,11 @@ Route::delete('/wishlist/{product}', [WishlistController::class,'destroy'])->nam
 Route::get('/cart', [CartController::class,'index'])->name('cart');
 Route::post('/cart/{product:prod_name}', [CartController::class,'store'])->name('addToCart');
 Route::delete('/cart/{product:prod_name}', [CartController::class,'destroy'])->name('cart.destroy');
+Route::put('/cart/{product:prod_name}', [CartController::class,'update'])->name('cart.update');
+Route::patch('/cart/{product:prod_name}', [CartController::class,'patch'])->name('cart.patch');
+
 
 // CHECKOUT
-// Route::view('/checkout', 'checkout')->middleware(['auth', 'verified'])->name('checkout');
 Route::get('/checkout', [CheckoutController::class,'index'])
     ->middleware(['auth', 'verified'])->name('checkout');
 

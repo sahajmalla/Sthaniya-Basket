@@ -82,11 +82,11 @@
                                                 <td class="justify-center md:flex mt-10">
                                                     <div class="w-24 h-10">
                                                         <div class="relative flex flex-row w-full h-8">
-                                                            <input type="number" id="quantity" value="1"
-                                                                class="w-full font-semibold text-center 
-                                                                text-gray-700 bg-gray-200 outline-none 
-                                                                focus:outline-none hover:text-black 
-                                                                focus:text-black" />
+                                                            <button class="bg-gray-400 rounded-sm shadow-lg w-4 my-1">+</button>
+
+                                                            <p class="mt-1">1</p>
+
+                                                            <button class="bg-gray-400 rounded-sm shadow-lg w-4 my-1">-</button>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -204,9 +204,22 @@
                                                 <!-- Dynamic Quantity -->
                                                 <td class="justify-center md:flex mt-10">
                                                     <div class="w-24 h-10">
-                                                        <div class="relative flex flex-row w-full h-8">
-                                                            <input name="quantity" id="quantity" type="number" value='1' min="1"
-                                                                class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
+                                                        <div class="flex justify-around rounded-lg bg-gray-200  flex flex-row w-full h-8">
+                                                          
+                                                            <form action="{{ route('cart.update', $product->product_id) }}" method="POST">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <button class="bg-gray-400 rounded-sm shadow-lg w-4 my-1" type="submit">+</button>
+                                                            </form>
+
+                                                            <p class="mt-1">1</p>
+
+                                                            <form action="{{ route('cart.update', $product->prod_name) }}" method="POST">
+                                                                @csrf
+                                                                @method('PATCH')
+                                                                <button class="bg-gray-400 rounded-sm shadow-lg w-4 my-1" type="submit">-</button>
+                                                            </form>
+
                                                         </div>
                                                     </div>
                                                 </td>
@@ -259,15 +272,6 @@
     </div>
 
     <script>
-
-        var totalQuantity = document.getElementById('total-quantity');
-
-        function changeTotalQuantity() {
-            
-            var selectQuantity = document.getElementById('quantity');
-            console.log(selectQuantity.options[selectQuantity.selectedIndex].value);
-
-        }
 
     </script>
     

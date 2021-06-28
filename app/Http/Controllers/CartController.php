@@ -150,5 +150,37 @@ class CartController extends Controller
 
     }
 
+    public function update (Request $request, int $product_id) {
+
+        // Increase quantity 
+        dd($product_id);
+
+        // if(($key = array_search($product, session('products'))) !== false){
+        //     $tempArray = session('products');
+        //     array_splice($tempArray , $key, 1); // Splice prevents gaps in the index position.
+        //     $request->session()->forget('products');
+        //     $request->session()->put('products', $tempArray);
+        // }
+
+        return back()->with('status', 'Successfully deleted product from your cart.');
+
+    }
+
+    public function patch (Request $request, String $product_name) {
+
+        // Decrease quantity
+        dd($product_name);
+
+        // if(($key = array_search($product, session('products'))) !== false){
+        //     $tempArray = session('products');
+        //     array_splice($tempArray , $key, 1); // Splice prevents gaps in the index position.
+        //     $request->session()->forget('products');
+        //     $request->session()->put('products', $tempArray);
+        // }
+
+        return back()->with('status', 'Successfully deleted product from your cart.');
+
+    }
+
 
 }

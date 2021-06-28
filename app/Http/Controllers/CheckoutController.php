@@ -9,10 +9,13 @@ use Illuminate\Database\Eloquent\Collection;
 
 class CheckoutController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
+
+        // dd($request->quantity);
 
         $total_price = 0.0;
 
+        // Retrive products related to user from cart.
         $products = DB::table('products')
         ->join('carts', function ($join) {
             $join->on('carts.product_id', '=', 'products.id')
