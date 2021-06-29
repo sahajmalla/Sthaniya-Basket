@@ -24,13 +24,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('address');
             $table->string('gender');
-            $table->string('shop')->nullable();
-            $table->string('business')->nullable();
-            $table->string('trader_type')->nullable();
-            $table->string('subscription')->nullable();
-            $table->string('verified_trader')->nullable();
-            $table->string('user_image');
             $table->string('user_type');
+            $table->string('user_image');
             $table->rememberToken();
             $table->timestamps();
         });

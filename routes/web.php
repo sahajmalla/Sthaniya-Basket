@@ -13,6 +13,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\UpdateDetailsController;
+use App\Http\Controllers\Auth\RegisterShopController;
 use App\Http\Controllers\product\ViewProductController;
 
 Route::get('/register', [RegisterController::class,'index'])->name('register');
@@ -71,4 +72,8 @@ Route::get('/updateDetails',[UpdateDetailsController::class,'index'])->name('upd
 
 //upload user image
 Route::post('/updateDetails',[UserImageController::class,'userImageUploadPost'])->name('image.upload')->middleware('auth');
+
+//register shop
+Route::get('/registerShop',[RegisterShopController::class,'index'])->name('registerShop');
+Route::post('/registerShop',[RegisterShopController::class,'store']);
 

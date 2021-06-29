@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\Cart;
 use App\Models\User;
+use App\Models\Trader;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -36,25 +38,10 @@ class RegisterController extends Controller
                 'address' => 'required|max:255',
                 'dob' => 'required',
                 'gender' => 'required',
-                'shopname' => 'required',
-                'business' => 'required'
+                'business' => 'required',
+                'userType' => 'required',
             ]);
-
-            User::create([
-                'username' => $request->username,
-                'firstname' => $request->firstname,
-                'lastname' => $request->lastname,
-                'dob' => $request->dob,
-                'email' => $request->email,
-                'password' => Hash::make($request->password), // Hash facade.
-                'address' => $request->address,
-                'gender' => $request->gender,
-                'shop' => $request->shopname,
-                'business' => $request->business,
-                'user_image' => 'userpp.png',
-                'user_type' => $request->userType,
-            ]);
-
+            
         }else {
 
             // For customers
@@ -67,36 +54,47 @@ class RegisterController extends Controller
                 'address' => 'required|max:255',
                 'dob' => 'required',
                 'gender' => 'required',
-                'userType' => 'required'
+                'userType' => 'required',
             ]);
+        }
+        User::create([
+            'username' => $request->username,
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'dob' => $request->dob,
+            'email' => $request->email,
+            'password' => Hash::make($request->password), // Hash facade.
+            'address' => $request->address,
+            'user_type'=>$request->user_type,
+            'gender' => $request->gender,
+            'user_image' => 'userpp.png',
+        ]);
+
+        
+        //logged in
+        auth()->attempt($request->only('email', 'password'));
+
+        if($request->userType==='customer'){
 
             // Subscription will be 'on' if set but nothing not even 'off' or 'null' if not set:
             if(!(isset($request['subscription']))){
                 $request['subscription']='off';
-            }
+            } 
 
-            User::create([
-                'username' => $request->username,
-                'firstname' => $request->firstname,
-                'lastname' => $request->lastname,
-                'dob' => $request->dob,
-                'email' => $request->email,
-                'password' => Hash::make($request->password), // Hash facade.
-                'address' => $request->address,
-                'gender' => $request->gender,
-                'subscription'=> $request->subscription, // For customer
-                'user_image' => 'userpp.png',
-                'user_type' => $request->userType,
+            $request->user()->customers()->create([
+                'subscription'=>$request->subscription,
             ]);
-
         }
 
-        auth()->attempt($request->only('email', 'password'));
-
+        if($request->userType==='trader'){
+            $request->user()->traders()->create([
+                'business' => $request->business,
+            ]);
+        }
         // When user registers, if they have items in the cart, add items to the
         // registered user's record in the cart table.
 
-        if (session('products') && auth()->user()->user_type === 'customer') {
+        if (session('products') && auth()->user()->user_type=='customer') {
 
             foreach (session('products') as $product) {
                 
@@ -126,6 +124,11 @@ class RegisterController extends Controller
 
         Event::dispatch(new Registered(auth()->user())); // Dispatching email verification event.
 
-        return redirect()->route('home');
+        if($request->userType==='trader'){
+            return redirect()->route('registerShop');
+        }else{
+            return redirect()->route('home');
+        }
+        
     }
 }

@@ -44,22 +44,6 @@
                         </div>
                     @enderror
                 </div>
-                
-                <!--shop-->
-                <div class="trader-shop mb-5 {{ old('userType') == 'trader' ? '' : 'hidden' }}">
-                    <label for="shopname" class=sr-only>Shop Name:</label>
-                    <input type="text" name="shopname" id="shopname" placeholder="Shop Name" 
-                    class="bg-gray-100 border-2 w-full p-4 rounded-lg h-14 
-                    @error('shopname') border-red-500 @enderror" value="{{ old('shopname') }}">
-
-                    @error('shopname')
-                        <div class="text-red-500 mt-2 text-sm">
-                            {{ $message }}
-                        </div>
-                    @enderror
-
-                </div>
-
                 <!--business type-->
                 <div class="trader-business inline-block relative w-full mb-5 
                     {{ old('userType') == 'trader' ? '' : 'hidden' }}">
@@ -270,17 +254,14 @@
 
             var selectUser = document.getElementById('select-user');
             var selectedValue = selectUser.options[selectUser.selectedIndex].value;
-            const traShop = document.querySelector('.trader-shop');
             const traBus = document.querySelector('.trader-business');
             const subscription = document.querySelector('.subscription');
 
             if (selectedValue === "trader") {
                 subscription.classList.add('hidden');
-                traShop.classList.remove('hidden');
                 traBus.classList.remove('hidden');
             }else {
                 subscription.classList.remove('hidden');
-                traShop.classList.add('hidden');
                 traBus.classList.add('hidden');
             }
         }

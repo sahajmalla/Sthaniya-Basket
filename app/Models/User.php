@@ -4,7 +4,9 @@ namespace App\Models;
 
 use App\Models\Cart;
 use App\Models\Review;
+use App\Models\Trader;
 use App\Models\Product;
+use App\Models\Customer;
 use App\Models\Wishlist;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -29,13 +31,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'dob',
         'address',
         'gender',
-        'shop',
-        'trader_type',
-        'subscription',
-        'verified_trader',
         'user_image',
         'user_type',
-        'business',
     ];
 
     /**
@@ -73,4 +70,12 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Cart::class);
     }
 
-}
+    public function customers(){
+        return $this->hasMany(Customer::class);
+    }
+
+    public function traders(){
+        return $this->hasMany(Trader::class);
+    }
+
+}   
