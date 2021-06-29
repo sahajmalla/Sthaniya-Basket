@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Trader;
 use App\Models\Product;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
@@ -18,12 +19,20 @@ class WishlistController extends Controller
 
         //TODO: Get all products that the user wishlisted.
 
-        $products = DB::table('products')
-        ->join('wishlists', function ($join) {
-            $join->on('wishlists.product_id', '=', 'products.id')
-                 ->where('wishlists.user_id', '=', auth()->user()->id);
-        })
-        ->get();
+        $customers = auth()->user()->customers;
+
+        foreach ($customers as $customer) {
+            
+            $id = $customer->id;
+
+            $products = DB::table('products')
+            ->join('wishlists', function ($join) use($customer) {
+                $join->on('wishlists.product_id', '=', 'products.id')
+                    ->where('wishlists.customer_id', '=', $customer->id);
+            })
+            ->get();
+
+        }
 
         return view('wishlist', [
             "products" => $products
@@ -34,12 +43,12 @@ class WishlistController extends Controller
         
         // Check if product already exists in user's wishlist before adding:
         $productCollection = Wishlist::get()->where('product_id', $product->id)
-            ->where('user_id', auth()->user()->id);
+            ->where('customer_id', auth()->user()->customers->first()->id);
 
         if (!$productCollection->count()) {
 
             $product->wishlists()->create([
-                'user_id' => $request->user()->id, // Current authenticated user that added a prodcut.
+                'customer_id' => auth()->user()->customers->first()->id, // Current authenticated user that added a prodcut.
             ]); 
 
             // $request->session()->put('wishlist', 'Successfully added item to your wishlist.');
@@ -63,7 +72,7 @@ class WishlistController extends Controller
         // ID.
 
         $deletedRows = Wishlist::where('product_id', $product_id)
-            ->where('user_id', auth()->user()->id)->delete();
+            ->where('customer_id', auth()->user()->customers->first()->id)->delete();
         
         return back()->with('status', 'Successfully deleted product.');
 
