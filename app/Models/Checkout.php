@@ -12,6 +12,7 @@ class Checkout extends Model
     protected $fillable =[
         'order_quantity',
         'order_description',
+        'customer_id'
     ];
 
 }

@@ -18,7 +18,7 @@ class CreateCartsTable extends Migration
             $table->decimal('total_price', $precision = 8, $scale = 2);
             $table->integer('product_quantity');
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('customer_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use App\Models\Cart;
+use App\Models\Shop;
 use App\Models\User;
 use App\Models\Review;
+use App\Models\Trader;
 use App\Models\Wishlist;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,14 +22,19 @@ class product extends Model
         'price',
         'prod_image',
         'prod_quantity',
+        'shop_id'
     ];
 
     protected $casts = [
         'price' => 'float'
     ];
 
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function trader(){
+        return $this->belongsTo(Trader::class);
+    }
+
+    public function shop(){
+        return $this->belongsTo(Shop::class);
     }
 
     public function reviews(){

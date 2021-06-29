@@ -17,6 +17,8 @@ class CreateCheckoutsTable extends Migration
             $table->id();
             $table->integer('order_quantity');
             $table->text('order_description');
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->foreignId('customer_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

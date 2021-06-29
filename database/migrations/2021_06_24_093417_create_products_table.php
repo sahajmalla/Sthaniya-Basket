@@ -21,7 +21,8 @@ class CreateProductsTable extends Migration
             $table->decimal('price', $precision = 8, $scale = 2);
             $table->string('prod_image');
             $table->integer('prod_quantity');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('shop_id')->constrained()->onDelete('cascade');
+            $table->foreignId('trader_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
