@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Shop;
+use App\Models\Trader;
 use App\Models\Product;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Symfony\Component\Console\Input\Input;
 
@@ -10,13 +13,32 @@ class ProductController extends Controller
 {
     
     public function index(){
-        $products = Product::where('user_id',auth()->user()->id)->get();
+
+        $traders = Trader::get()->where('user_id', auth()->user()->id);
+
+        $products = collect();
+
+        foreach ($traders as $trader){
+            $products = Product::where('trader_id', $trader->id)->get();
+        }
+
         return view('products.index', compact('products'));
     }
 
     public function create()
     {
-       return view('products.create');
+    
+        $traders = Trader::get()->where('user_id', auth()->user()->id);
+
+        $shops = collect();
+
+        foreach ($traders as $trader){
+            $shops = Shop::get()->where('trader_id', $trader->id);
+        }
+
+        return view('products.create',  [
+            'shops' => $shops,
+        ]);
     }
 
     public function store(Request $request)
@@ -27,6 +49,7 @@ class ProductController extends Controller
             'price' => 'required',
             'prod_image' => 'required',
             'prod_quantity' => 'required',
+            'shop' => 'required'
         ]);
         
         // $path = $request->prod_image->move(public_path('images'),$request->prod_image);
@@ -42,14 +65,40 @@ class ProductController extends Controller
         // $product->prod_quantity= $request->prod_quantity;
         // $product->save();
 
-        $request->user()->products()->create([
-            'prod_name' => $request->prod_name,
-            'prod_descrip' => $request->prod_descrip,
-            'price' => $request->price,
-            'prod_type' => $request->user()->business,
-            'prod_image' => $request->file('prod_image')->getClientOriginalName(),
-            'prod_quantity' => $request->prod_quantity,
-        ]);
+        // $request->user()->products()->create([
+        
+        // ]);
+
+        $traders = Trader::get()->where('user_id', auth()->user()->id);
+
+        foreach ($traders as $trader){
+
+            if ($trader->user_id === auth()->user()->id) {
+
+                $shops = Shop::get()->where('trader_id', $trader->id);
+
+                foreach ($shops as $shop){
+
+                    if (Str::contains($shop->shopName, $request->shop)) {
+
+                        $trader->products()->create([
+                            'prod_name' => $request->prod_name,
+                            'prod_descrip' => $request->prod_descrip,
+                            'price' => $request->price,
+                            'prod_type' => $trader->business,
+                            'prod_image' => $request->file('prod_image')->getClientOriginalName(),
+                            'prod_quantity' => $request->prod_quantity,
+                            'shop_id' => $shop->id
+                        ]);
+
+                    }
+                
+                }
+
+            }
+
+        }
+
 
         return redirect()->route('products.index')->with('Success!','Product inserted successfully.');
     }

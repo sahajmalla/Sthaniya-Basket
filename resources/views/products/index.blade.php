@@ -1,13 +1,16 @@
 @extends('layouts.crud')
 @section('content')
-    <div class="container mx-auto px-4 sm:px-8 max-w-5xl">
+    <div class="container mx-auto px-4 sm:px-8 max-w-5xl rounded-lg shadow-lg">
         
         <div class="py-5">
 
-            <div class="my-2">
+            <div class="my-2 flex space-x-5">
+
+                <h1 class="text-3xl font-bold text-gray-800">Your Products</h1>
+
                 <a href="{{ route('products.create') }}"
-                    class="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md dark:bg-gray-800 hover:bg-blue-500 dark:hover:bg-gray-700 focus:outline-none focus:bg-blue-500 dark:focus:bg-gray-700">
-                    Insert Product
+                    class="px-3 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md dark:bg-gray-800 hover:bg-blue-500 dark:hover:bg-gray-700 focus:outline-none focus:bg-blue-500 dark:focus:bg-gray-700">
+                    Insert New Product
                 </a>
             </div>
 

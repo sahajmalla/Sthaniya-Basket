@@ -23,6 +23,30 @@
                                     </div>
                                 @enderror
                             </div>
+                            
+                            <div class="space-y-2">
+
+                                <label class="text-gray-700 dark:text-gray-200" for="username">Shop Name</label>
+
+                                <select name="shop" class="w-full h-11 border 
+                                    border-gray-300 px-2 py-2 pr-8 rounded-lg border-2 text-gray-400 
+                                    @error('shop') border-red-500 @enderror"
+                                    value="{{ old('shop') }}">
+
+                                    <option disabled selected>Shop</option>
+                                    @foreach ($shops as $shop)
+                                        <option value={{ $shop->shopName }}>{{ $shop->shopName }}</option>
+                                    @endforeach
+
+                                </select>
+
+                                @error('shop')
+                                    <div class="text-red-500 mt-2 text-sm">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+
+                            </div>
 
                             <div>
                                 <label class="text-gray-700 dark:text-gray-200" for="emailAddress">Price</label>

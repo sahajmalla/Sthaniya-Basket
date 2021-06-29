@@ -57,6 +57,7 @@ class RegisterController extends Controller
                 'userType' => 'required',
             ]);
         }
+
         User::create([
             'username' => $request->username,
             'firstname' => $request->firstname,
@@ -65,16 +66,15 @@ class RegisterController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password), // Hash facade.
             'address' => $request->address,
-            'user_type'=>$request->user_type,
+            'user_type'=>$request->userType,
             'gender' => $request->gender,
             'user_image' => 'userpp.png',
         ]);
-
         
         //logged in
         auth()->attempt($request->only('email', 'password'));
 
-        if($request->userType==='customer'){
+        if($request->userType === 'customer'){
 
             // Subscription will be 'on' if set but nothing not even 'off' or 'null' if not set:
             if(!(isset($request['subscription']))){
