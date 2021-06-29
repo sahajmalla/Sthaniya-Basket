@@ -16,21 +16,23 @@ class CartController extends Controller
         // collection of products to cart.blade.php page.
 
         $total_price = 0.0;
-        $products = collect();
+        $cartAndProductRecords = collect();
+        $total_quantity = 0;
         
         if (auth()->user()) {
 
-            // If user is signed in, get user's cart products:
+            // If user is signed in, get user's cart products: Note that it gets carts and products details.
             
-            $products = DB::table('products')
+            $cartAndProductRecords = DB::table('products')
             ->join('carts', function ($join) {
                 $join->on('carts.product_id', '=', 'products.id')
                     ->where('carts.user_id', '=', auth()->user()->id);
             })
             ->get();
-
-            foreach ($products as $product) {
-                $total_price += $product->price;
+            
+            foreach ($cartAndProductRecords as $cartAndProductRecord) {
+                $total_price += ($cartAndProductRecord->price * $cartAndProductRecord->product_quantity);
+                $total_quantity += $cartAndProductRecord->product_quantity;
             }
 
         }else {
@@ -39,7 +41,8 @@ class CartController extends Controller
 
             if (session('products')) {
                 foreach (session('products') as $product) {
-                    $total_price += $product->price;
+                    $total_price += ($product->price * session($product->prod_name));
+                    $total_quantity += session($product->prod_name);
                 }
             }
 
@@ -48,8 +51,9 @@ class CartController extends Controller
         $total_price_string_2dp = number_format($total_price, 2);
 
         return view('cart', [
-            "products" => $products,
+            "cart_products" => $cartAndProductRecords,
             'total_price' => $total_price_string_2dp,
+            'total_items_quantity' => $total_quantity
         ]);
     } 
 
@@ -96,6 +100,9 @@ class CartController extends Controller
             // If duplicate not found add item to the session's products array.
             if (!$itemMatch) {
                 $request->session()->push('products', $product);
+
+                 // Store the product quantity under the key which is product's name.
+                $request->session()->put($product->prod_name, 1);
             }
 
         }
@@ -152,31 +159,89 @@ class CartController extends Controller
 
     public function update (Request $request, int $product_id) {
 
-        // Increase quantity 
-        dd($product_id);
+        if (auth()->user()) {
 
-        // if(($key = array_search($product, session('products'))) !== false){
-        //     $tempArray = session('products');
-        //     array_splice($tempArray , $key, 1); // Splice prevents gaps in the index position.
-        //     $request->session()->forget('products');
-        //     $request->session()->put('products', $tempArray);
-        // }
+            // Increase product quantity in cart when user is authenticated.
+
+            $cartRecords = DB::table('products')
+            ->join('carts', function ($join) {
+                $join->on('carts.product_id', '=', 'products.id')
+                    ->where('carts.user_id', '=', auth()->user()->id);
+            })
+            ->get();
+
+            $selectedProduct = Product::find($product_id);
+
+            foreach ($cartRecords as $cartRecord) {
+            
+                // Update only if product id matches in the cart that is linked to the user and
+                // if product's quantity in the cart is smaller than the product quantity.
+
+                if ($cartRecord->product_id === $product_id && 
+                $cartRecord->product_quantity < $selectedProduct->prod_quantity) {
+                    
+                    Cart::where('user_id', auth()->user()->id)->where('product_id', $product_id)
+                    ->update(['product_quantity' => $cartRecord->product_quantity + 1]);
+
+                }
+
+            }
+
+        }else {
+
+            // When user is not authenticated and increases product's quantity.
+            foreach (session('products') as $prod) {
+
+                if ($prod->id === $product_id && session($prod->prod_name) < $prod->prod_quantity) {
+                    $oldQuantity = session($prod->prod_name);
+                    $request->session()->put($prod->prod_name, ++$oldQuantity);
+                }
+
+            }
+
+        }
 
         return back()->with('status', 'Successfully deleted product from your cart.');
 
     }
 
-    public function patch (Request $request, String $product_name) {
+    public function patch (Request $request, int $product_id) {
 
-        // Decrease quantity
-        dd($product_name);
+        if (auth()->user()) {
 
-        // if(($key = array_search($product, session('products'))) !== false){
-        //     $tempArray = session('products');
-        //     array_splice($tempArray , $key, 1); // Splice prevents gaps in the index position.
-        //     $request->session()->forget('products');
-        //     $request->session()->put('products', $tempArray);
-        // }
+            // Decrease product quantity in cart.
+
+            $cartRecords = DB::table('products')
+            ->join('carts', function ($join) {
+                $join->on('carts.product_id', '=', 'products.id')
+                    ->where('carts.user_id', '=', auth()->user()->id);
+            })
+            ->get();
+
+            foreach ($cartRecords as $cartRecord) {
+            
+                if ($cartRecord->product_id === $product_id && $cartRecord->product_quantity > 1) {
+                    
+                    Cart::where('user_id', auth()->user()->id)->where('product_id', $product_id)
+                    ->update(['product_quantity' => $cartRecord->product_quantity - 1]);
+
+                }
+
+            }
+
+        }else {
+
+            // When user is not authenticated and decreases product's quantity.
+            foreach (session('products') as $prod) {
+
+                if ($prod->id === $product_id && session($prod->prod_name) > 1) {
+                    $oldQuantity = session($prod->prod_name);
+                    $request->session()->put($prod->prod_name, --$oldQuantity);
+                }
+
+            }
+
+        }
 
         return back()->with('status', 'Successfully deleted product from your cart.');
 

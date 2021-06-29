@@ -77,16 +77,26 @@
                                                     </form>
                                             
                                                 </td>
-                                            
+
                                                 <!-- Dynamic Quantity -->
                                                 <td class="justify-center md:flex mt-10">
                                                     <div class="w-24 h-10">
-                                                        <div class="relative flex flex-row w-full h-8">
-                                                            <button class="bg-gray-400 rounded-sm shadow-lg w-4 my-1">+</button>
+                                                        <div class="flex justify-around rounded-lg bg-gray-200 flex flex-row w-full h-8">
+                                                          
+                                                            <form action="{{ route('cart.update', $product->id) }}" method="POST">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <button class="bg-gray-400 rounded-sm shadow-lg w-4 my-1" type="submit">+</button>
+                                                            </form>
 
-                                                            <p class="mt-1">1</p>
+                                                            <p class="mt-1">{{ session($product->prod_name) }}</p>
 
-                                                            <button class="bg-gray-400 rounded-sm shadow-lg w-4 my-1">-</button>
+                                                            <form action="{{ route('cart.update', $product->id) }}" method="POST">
+                                                                @csrf
+                                                                @method('PATCH')
+                                                                <button class="bg-gray-400 rounded-sm shadow-lg w-4 my-1" type="submit">-</button>
+                                                            </form>
+
                                                         </div>
                                                     </div>
                                                 </td>
@@ -109,24 +119,60 @@
                             <hr class="pb-6 mt-6">
 
                             <!-- Un-Authenticated User's Order Details -->
+                        
+                            <div class="">
 
-                            <div class="my-4 mt-6 -mx-2 flex justify-center">
+                                <div class="flex justify-center">
+        
+                                    <div class="border rounded-md max-w-md w-full px-4 py-3">
+        
+                                        <h1 class="text-center font-bold text-xl mb-2 uppercase">Order Details</h1>
+            
+                                        <div class="p-4">
+        
+                                            <div class="flex justify-between border-b">
+                                                <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
+                                                    <p>Items:</p>
+                                                </div>
+                                                <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
+                                                    <p>{{ count(session('products')) }}</p>
+                                                </div>
+                                            </div>
+        
+                                            <div class="flex justify-between border-b">
+                                                <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
+                                                    <p>Items Quantity:</p>
+                                                </div>
+                                                <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
+                                                    <p>{{ $total_items_quantity }}</p>
+                                                </div>
+                                            </div>
 
-                                <div class="lg:px-2 lg:w-1/2">
-                                    
-                                    <a href="{{ route('checkout') }}">
-                                        <button
-                                            class="flex justify-center w-full px-10 py-3 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
-                                            <svg aria-hidden="true" data-prefix="far" data-icon="credit-card" class="w-8"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-                                                <path fill="currentColor"
-                                                    d="M527.9 32H48.1C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48.1 48h479.8c26.6 0 48.1-21.5 48.1-48V80c0-26.5-21.5-48-48.1-48zM54.1 80h467.8c3.3 0 6 2.7 6 6v42H48.1V86c0-3.3 2.7-6 6-6zm467.8 352H54.1c-3.3 0-6-2.7-6-6V256h479.8v170c0 3.3-2.7 6-6 6zM192 332v40c0 6.6-5.4 12-12 12h-72c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h72c6.6 0 12 5.4 12 12zm192 0v40c0 6.6-5.4 12-12 12H236c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h136c6.6 0 12 5.4 12 12z" />
-                                            </svg>
-                                            <span class="ml-2 mt-5px">Procceed to checkout</span>
-                                        </button>
-                                    </a>
-    
+                                            <div class="flex justify-between border-b">
+                                                <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
+                                                    <p>Order Total Price:</p>
+                                                </div>
+                                                <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
+                                                    <p>£{{ $total_price }}</p>
+                                                </div>
+                                            </div>
+        
+                                            <a href="{{ route('checkout') }}">
+                                                <button
+                                                    class="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
+                                                    <svg aria-hidden="true" data-prefix="far" data-icon="credit-card" class="w-8"
+                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                                        <path fill="currentColor"
+                                                            d="M527.9 32H48.1C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48.1 48h479.8c26.6 0 48.1-21.5 48.1-48V80c0-26.5-21.5-48-48.1-48zM54.1 80h467.8c3.3 0 6 2.7 6 6v42H48.1V86c0-3.3 2.7-6 6-6zm467.8 352H54.1c-3.3 0-6-2.7-6-6V256h479.8v170c0 3.3-2.7 6-6 6zM192 332v40c0 6.6-5.4 12-12 12h-72c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h72c6.6 0 12 5.4 12 12zm192 0v40c0 6.6-5.4 12-12 12H236c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h136c6.6 0 12 5.4 12 12z" />
+                                                    </svg>
+                                                    <span class="ml-2 mt-5px">Proceed To Checkout</span>
+                                                </button>
+                                            </a>
+                                        </div>
+        
+                                    </div>
                                 </div>
+                                
                             </div>
 
                         @else
@@ -145,7 +191,7 @@
                     <!-- Products and Order summary -->
                     <div>
                         <!-- Products table-->
-                        @if ($products->count())
+                        @if ($cart_products->count())
                             
                             <table class="w-full text-sm lg:text-base" cellspacing="0">
 
@@ -169,14 +215,14 @@
                                     <!-- Table body -->
                                     <tbody>
 
-                                        @foreach ($products as $product)
+                                        @foreach ($cart_products as $cart_product)
 
                                             <tr>
                                                 
                                                 <!-- Image -->
                                                 <td class="hidden pb-8 md:table-cell">
                                                     <a href="#">
-                                                        <img src="/images/products/{{ $product->prod_image }}"
+                                                        <img src="/images/products/{{ $cart_product->prod_image }}"
                                                             class="w-28 h-28 rounded" alt="Thumbnail">
                                                     </a>
                                                 </td>
@@ -184,10 +230,10 @@
                                                 <!-- Name and remove button -->
                                                 <td class="pb-8">
                                                         
-                                                    <p class="mb-2 text-center text-md font-medium">{{ $product->prod_name }}</p>
+                                                    <p class="mb-2 text-center text-md font-medium">{{ $cart_product->prod_name }}</p>
                                                     
                                                     <!-- Remove product button -->
-                                                    <form action="{{ route('cart.destroy', $product->product_id) }}" method="POST"
+                                                    <form action="{{ route('cart.destroy', $cart_product->product_id) }}" method="POST"
                                                     class="flex justify-center"    
                                                     >
                                                         
@@ -204,17 +250,17 @@
                                                 <!-- Dynamic Quantity -->
                                                 <td class="justify-center md:flex mt-10">
                                                     <div class="w-24 h-10">
-                                                        <div class="flex justify-around rounded-lg bg-gray-200  flex flex-row w-full h-8">
+                                                        <div class="flex justify-around rounded-lg bg-gray-200 flex flex-row w-full h-8">
                                                           
-                                                            <form action="{{ route('cart.update', $product->product_id) }}" method="POST">
+                                                            <form action="{{ route('cart.update', $cart_product->product_id) }}" method="POST">
                                                                 @csrf
                                                                 @method('PUT')
                                                                 <button class="bg-gray-400 rounded-sm shadow-lg w-4 my-1" type="submit">+</button>
                                                             </form>
 
-                                                            <p class="mt-1">1</p>
+                                                            <p class="mt-1">{{ $cart_product->product_quantity }}</p>
 
-                                                            <form action="{{ route('cart.update', $product->prod_name) }}" method="POST">
+                                                            <form action="{{ route('cart.update', $cart_product->product_id) }}" method="POST">
                                                                 @csrf
                                                                 @method('PATCH')
                                                                 <button class="bg-gray-400 rounded-sm shadow-lg w-4 my-1" type="submit">-</button>
@@ -227,7 +273,7 @@
                                                 <!-- Unit Price -->
                                                 <td class="text-center pb-8">
                                                     <span class="text-sm lg:text-base font-medium">
-                                                        £{{ $product->price }}
+                                                        £{{ $cart_product->price }}
                                                     </span>
                                                 </td>
 
@@ -248,24 +294,62 @@
                         <hr class="pb-6 mt-6">
 
                         <!-- Order Details -->
-                        <div class="my-4 mt-6 -mx-2 flex justify-center">
+                        
+                        <div class="">
 
-                            <div class="lg:px-2 lg:w-1/2">
-                                
-                                <a href="{{ route('checkout') }}">
-                                    <button
-                                        class="flex justify-center w-full px-10 py-3 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
-                                        <svg aria-hidden="true" data-prefix="far" data-icon="credit-card" class="w-8"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-                                            <path fill="currentColor"
-                                                d="M527.9 32H48.1C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48.1 48h479.8c26.6 0 48.1-21.5 48.1-48V80c0-26.5-21.5-48-48.1-48zM54.1 80h467.8c3.3 0 6 2.7 6 6v42H48.1V86c0-3.3 2.7-6 6-6zm467.8 352H54.1c-3.3 0-6-2.7-6-6V256h479.8v170c0 3.3-2.7 6-6 6zM192 332v40c0 6.6-5.4 12-12 12h-72c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h72c6.6 0 12 5.4 12 12zm192 0v40c0 6.6-5.4 12-12 12H236c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h136c6.6 0 12 5.4 12 12z" />
-                                        </svg>
-                                        <span class="ml-2 mt-5px">Procceed to checkout</span>
-                                    </button>
-                                </a>
+                            <div class="flex justify-center">
+    
+                                <div class="border rounded-md max-w-md w-full px-4 py-3">
+    
+                                    <h1 class="text-center font-bold text-xl mb-2 uppercase">Order Details</h1>
+        
+                                    <div class="p-4">
+    
+                                        <div class="flex justify-between border-b">
+                                            <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
+                                                <p>Items:</p>
+                                            </div>
+                                            <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
+                                                <p>{{ $cart_products->count() }}</p>
+                                            </div>
+                                        </div>
+    
+                                        <div class="flex justify-between border-b">
+                                            <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
+                                                <p>Items Quantity:</p>
+                                            </div>
+                                            <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
+                                                <p>{{ $total_items_quantity }}</p>
+                                            </div>
+                                        </div>
 
+                                        <div class="flex justify-between border-b">
+                                            <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
+                                                <p>Order Total Price:</p>
+                                            </div>
+                                            <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
+                                                <p>£{{ $total_price }}</p>
+                                            </div>
+                                        </div>
+    
+                                        <a href="{{ route('checkout') }}">
+                                            <button
+                                                class="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
+                                                <svg aria-hidden="true" data-prefix="far" data-icon="credit-card" class="w-8"
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                                    <path fill="currentColor"
+                                                        d="M527.9 32H48.1C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48.1 48h479.8c26.6 0 48.1-21.5 48.1-48V80c0-26.5-21.5-48-48.1-48zM54.1 80h467.8c3.3 0 6 2.7 6 6v42H48.1V86c0-3.3 2.7-6 6-6zm467.8 352H54.1c-3.3 0-6-2.7-6-6V256h479.8v170c0 3.3-2.7 6-6 6zM192 332v40c0 6.6-5.4 12-12 12h-72c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h72c6.6 0 12 5.4 12 12zm192 0v40c0 6.6-5.4 12-12 12H236c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h136c6.6 0 12 5.4 12 12z" />
+                                                </svg>
+                                                <span class="ml-2 mt-5px">Proceed To Checkout</span>
+                                            </button>
+                                        </a>
+                                    </div>
+    
+                                </div>
                             </div>
+                            
                         </div>
+
                     </div>
                 @endif       
         </div>

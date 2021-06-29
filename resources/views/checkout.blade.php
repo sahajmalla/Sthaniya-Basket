@@ -131,7 +131,7 @@
                                             <p>Items:</p>
                                         </div>
                                         <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
-                                            <p>{{ $products->count() }}</p>
+                                            <p>{{ $cartAndProductRecords->count() }}</p>
                                         </div>
                                     </div>
 
@@ -140,7 +140,7 @@
                                             <p>Items Quantity:</p>
                                         </div>
                                         <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
-                                            <p>{{ $products->count() }}</p>
+                                            <p>{{ $total_items_quantity }}</p>
                                         </div>
                                     </div>
 
@@ -209,6 +209,7 @@
 
                             </div>
                         </div>
+                        
                     </div>
 
                 </div>
@@ -218,7 +219,7 @@
                     
                     <h1 class="font-bold text-xl mb-4 uppercase">Review Items</h1>
 
-                    @if ($products->count())
+                    @if ($cartAndProductRecords->count())
 
                         <table class="w-full text-sm lg:text-base" cellspacing="0">
 
@@ -236,29 +237,29 @@
 
                             <tbody>
 
-                                @foreach ($products as $product)
+                                @foreach ($cartAndProductRecords as $cartAndProductRecord)
                                     <tr>
                                         <td class="hidden pb-4 md:table-cell">
                                             <a href="#">
-                                                <img src="/images/products/{{ $product->prod_image }}"
+                                                <img src="/images/products/{{ $cartAndProductRecord->prod_image }}"
                                                     class="w-20 rounded" alt="Thumbnail">
                                             </a>
                                         </td>
 
                                         <td>
                                             <a href="">
-                                                <p class="mb-2">{{ $product->prod_name }}</p>
+                                                <p class="mb-2">{{ $cartAndProductRecord->prod_name }}</p>
                                             </a>
                                         </td>
 
                                         <td class="hidden text-center md:table-cell">
                                             <span class="text-xs lg:text-base">
-                                                {{ $product->prod_descrip }}
+                                                {{ $cartAndProductRecord->prod_descrip }}
                                             </span>
                                         </td>
 
                                         <td class="flex justify-center md:mt-4">
-                                            <p>{{ $product->prod_quantity }}</p>
+                                            <p>{{ $cartAndProductRecord->product_quantity }}</p>
                                         </td>
 
                                         <td class="text-right">
