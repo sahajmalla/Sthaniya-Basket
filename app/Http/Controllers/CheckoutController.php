@@ -11,27 +11,28 @@ class CheckoutController extends Controller
 {
     public function index(Request $request) {
 
-        // dd($request->quantity);
-
         $total_price = 0.0;
+        $total_items_quantity = 0;
 
         // Retrive products related to user from cart.
-        $products = DB::table('products')
+        $cartAndProductRecords = DB::table('products')
         ->join('carts', function ($join) {
             $join->on('carts.product_id', '=', 'products.id')
                 ->where('carts.user_id', '=', auth()->user()->id);
         })
         ->get();
 
-        foreach ($products as $product) {
-            $total_price += $product->price;
+        foreach ($cartAndProductRecords as $cartAndProductRecord) {
+            $total_price += ($cartAndProductRecord->price * $cartAndProductRecord->product_quantity);
+            $total_items_quantity += $cartAndProductRecord->product_quantity;
         }
 
         $total_price_string_2dp = number_format($total_price, 2);
 
         return view('checkout', [
-            "products" => $products,
+            "cartAndProductRecords" => $cartAndProductRecords,
             'total_price' => $total_price_string_2dp,
+            'total_items_quantity' => $total_items_quantity,
         ]);
     }
 }

@@ -107,7 +107,7 @@ class RegisterController extends Controller
                     $product->carts()->create([
                         'user_id' => $request->user()->id,
                         'total_price' => $product->price,
-                        'product_quantity' => 1,
+                        'product_quantity' => session($product->prod_name),
                     ]); 
 
                     //TODO: Add success message
