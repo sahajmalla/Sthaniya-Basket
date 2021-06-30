@@ -7,44 +7,44 @@
                 <span class="md: lg:text-6xl  text-gray-300">INVOICE</span>
                 <div class="flex ">
                     <span>Invoice No:</span>
-                    <span>001</span>
+                    <span class="ml-1.5">001</span>
                 </div>
             </div>
         </div>
         <div class="sm:grid grid-cols-2 gap-x-10 md:gap-x-96 items-center border-b-2 border-gray-200 mt-5">
             <div class="flex items-baseline">
                 <span class="text-lg" >Trader:</span>
-                <span>Bakery</span>
+                <span class="ml-1.5">Bakery</span>
             </div>
             <div class="flex items-baseline">
-                <span class="text-lg">Client:</span>
-                <span>0001</span>
+                <span class="text-lg ">Client:</span>
+                <span class="ml-1.5">0001</span>
             </div>
             <div class="flex items-baseline">
                 <span class="text-lg">Trader Name:</span>
-                <span>Jhonny</span>
+                <span class="ml-1.5">Jhonny</span>
             </div>
             <div class="flex items-baseline">
                 <span class="text-lg">Client Name:</span>
-                <span>Jack</span>
+                <span class="ml-1.5">Jack</span>
             </div>
         </div>
         <div class=" sm:grid grid-cols-2 gap-x-10 md:gap-x-96 items-center border-b-2 border-gray-200 mt-5">
             <div class="flex items-baseline">
                 <span class="text-lg">Payment Method:</span>
-                <span>PayPal</span>
+                <span class="ml-1.5">PayPal</span>
             </div>
             <div class="flex items-baseline">
                 <span class="text-lg">Issue Date:</span>
-                <span>16/06/2021</span>
+                <span class="ml-1.5">16/06/2021</span>
             </div>
             <div class="flex items-baseline">
                 <span class="text-lg">Collection Slot:</span>
-                <span>10-13</span>
+                <span class="ml-1.5">10-13</span>
             </div>
             <div class="flex items-baseline">
                 <span class="text-lg">Order Number:</span>
-                <span>00001</span>
+                <span class="ml-1.5">00001</span>
             </div>
         </div>
 
@@ -91,15 +91,15 @@
         <div class="font-semibold sm:text-lg flex flex-col items-end m-8">
             <div class="flex">
                 <span>Subtotal:</span>
-                <span>$300</span>
+                <span class="ml-1.5">$300</span>
             </div>
             <div class="flex">
                 <span>Discount:</span>
-                <span>10%</span>
+                <span class="ml-1.5">10%</span>
             </div>
             <div class="flex text-red-450">
                 <span text-red-450>GRAND TOTAL:</span>
-                <span text-red-450>$270</span>
+                <span text-red-450 class="ml-1.5">$270</span>
             </div>
         </div>
     </div>
