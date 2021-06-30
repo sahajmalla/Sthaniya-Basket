@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Collection;
@@ -18,7 +19,7 @@ class CheckoutController extends Controller
         $cartAndProductRecords = DB::table('products')
         ->join('carts', function ($join) {
             $join->on('carts.product_id', '=', 'products.id')
-                ->where('carts.user_id', '=', auth()->user()->id);
+                ->where('carts.customer_id', '=', auth()->user()->customers->first()->id);
         })
         ->get();
 
@@ -35,4 +36,25 @@ class CheckoutController extends Controller
             'total_items_quantity' => $total_items_quantity,
         ]);
     }
-}
+
+    public function store(Request $request, float $totalPrice, int $totalQuantity, int $totalItems) {
+
+        $orderDescription = "A total of ".$totalItems." "
+            .Str::plural('item', $totalItems)." with a total quantity of ".$totalQuantity
+            ." and a total price of €".number_format((float)$totalPrice, 2, '.', '').".";
+        
+        // Creating a checkout record through the customer:
+        auth()->user()->customers->first()->checkouts()->create([
+            'order_total' => $totalPrice,
+            'order_quantity' => $totalQuantity,
+            'total_items' => $totalItems,
+            'payment_type' => $request->payment,
+            'collection_time' => $request->collection,
+            'order_description' => $orderDescription
+        ]); 
+
+        return redirect()->route('order');
+
+    }
+
+}   

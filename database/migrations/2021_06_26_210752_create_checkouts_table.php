@@ -16,8 +16,11 @@ class CreateCheckoutsTable extends Migration
         Schema::create('checkouts', function (Blueprint $table) {
             $table->id();
             $table->integer('order_quantity');
+            $table->decimal('order_total', $precision = 8, $scale = 2);
             $table->text('order_description');
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->string('payment_type');
+            $table->string('collection_time');
+            $table->integer('total_items');
             $table->foreignId('customer_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

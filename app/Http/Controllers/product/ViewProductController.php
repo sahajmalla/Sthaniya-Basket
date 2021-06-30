@@ -12,12 +12,12 @@ class ViewProductController extends Controller
 {
     public function index(Product $product, Request $request) {
 
-        $trader = $product->user;
+        $trader = $product->trader->user;
         
         $reviews = Review::latest()->where('product_id', $product->id)
-        ->with(['user', 'product'])->paginate(4); // Getting the reviews for that product.
+        ->with(['customer', 'product'])->paginate(4); // Getting the reviews for that product.
 
-        $products = $product->user->products; // Getting products from same trader for 'similar products'
+        $products = $product->trader->products; // Getting products from same trader for 'similar products'
 
         $ratingsInStars = 0;
 

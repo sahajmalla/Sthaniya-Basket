@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Customer;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Checkout extends Model
 {
@@ -11,8 +12,15 @@ class Checkout extends Model
 
     protected $fillable =[
         'order_quantity',
+        'order_total',
         'order_description',
-        'customer_id'
+        'payment_type',
+        'collection_time',
+        'total_items',
     ];
+
+    public function customer() {
+        return $this->belongsTo(Customer::class);
+    }
 
 }

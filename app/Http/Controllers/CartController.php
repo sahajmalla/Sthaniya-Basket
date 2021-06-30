@@ -26,7 +26,7 @@ class CartController extends Controller
             $cartAndProductRecords = DB::table('products')
             ->join('carts', function ($join) {
                 $join->on('carts.product_id', '=', 'products.id')
-                    ->where('carts.user_id', '=', auth()->user()->id);
+                    ->where('carts.customer_id', '=', auth()->user()->customers->first()->id);
             })
             ->get();
             
@@ -65,12 +65,12 @@ class CartController extends Controller
 
             // Check if product already exists in user's cart of products before adding:
             $productCollection = Cart::get()->where('product_id', $product->id)
-                ->where('user_id', auth()->user()->id);
+                ->where('customer_id', auth()->user()->customers->first()->id);
             
             if (!$productCollection->count()) {
 
                 $product->carts()->create([
-                    'user_id' => $request->user()->id,
+                    'customer_id' => $request->user()->customers->first()->id,
                     'total_price' => $product->price,
                     'product_quantity' => 1,
                 ]); 
@@ -121,7 +121,7 @@ class CartController extends Controller
             // Delete from Cart table using the selected product's ID and the authenticated user's 
             // ID.
             $deletedRows = Cart::where('product_id', $product_id)
-                ->where('user_id', auth()->user()->id)->delete();
+                ->where('customer_id', auth()->user()->customers->first()->id)->delete();
 
         }else {
 
@@ -144,18 +144,18 @@ class CartController extends Controller
 
     }
 
-    public function delete (Request $request, Product $product) {
+    // public function delete (Request $request, Product $product) {
 
-        if(($key = array_search($product, session('products'))) !== false){
-            $tempArray = session('products');
-            array_splice($tempArray , $key, 1); // Splice prevents gaps in the index position.
-            $request->session()->forget('products');
-            $request->session()->put('products', $tempArray);
-        }
+    //     if(($key = array_search($product, session('products'))) !== false){
+    //         $tempArray = session('products');
+    //         array_splice($tempArray , $key, 1); // Splice prevents gaps in the index position.
+    //         $request->session()->forget('products');
+    //         $request->session()->put('products', $tempArray);
+    //     }
 
-        return back()->with('status', 'Successfully deleted product from your cart.');
+    //     return back()->with('status', 'Successfully deleted product from your cart.');
 
-    }
+    // }
 
     public function update (Request $request, int $product_id) {
 
@@ -166,7 +166,7 @@ class CartController extends Controller
             $cartRecords = DB::table('products')
             ->join('carts', function ($join) {
                 $join->on('carts.product_id', '=', 'products.id')
-                    ->where('carts.user_id', '=', auth()->user()->id);
+                    ->where('carts.customer_id', '=', auth()->user()->customers->first()->id);
             })
             ->get();
 
@@ -180,7 +180,8 @@ class CartController extends Controller
                 if ($cartRecord->product_id === $product_id && 
                 $cartRecord->product_quantity < $selectedProduct->prod_quantity) {
                     
-                    Cart::where('user_id', auth()->user()->id)->where('product_id', $product_id)
+                    Cart::where('customer_id', auth()->user()->customers->first()->id)
+                    ->where('product_id', $product_id)
                     ->update(['product_quantity' => $cartRecord->product_quantity + 1]);
 
                 }
@@ -214,7 +215,7 @@ class CartController extends Controller
             $cartRecords = DB::table('products')
             ->join('carts', function ($join) {
                 $join->on('carts.product_id', '=', 'products.id')
-                    ->where('carts.user_id', '=', auth()->user()->id);
+                    ->where('carts.customer_id', '=', auth()->user()->customers->first()->id);
             })
             ->get();
 
@@ -222,7 +223,8 @@ class CartController extends Controller
             
                 if ($cartRecord->product_id === $product_id && $cartRecord->product_quantity > 1) {
                     
-                    Cart::where('user_id', auth()->user()->id)->where('product_id', $product_id)
+                    Cart::where('customer_id', auth()->user()->customers->first()->id)
+                    ->where('product_id', $product_id)
                     ->update(['product_quantity' => $cartRecord->product_quantity - 1]);
 
                 }

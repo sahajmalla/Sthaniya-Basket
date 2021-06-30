@@ -25,7 +25,7 @@ class WishlistController extends Controller
             
             $id = $customer->id;
 
-            $products = DB::table('products')
+            $products= DB::table('products')
             ->join('wishlists', function ($join) use($customer) {
                 $join->on('wishlists.product_id', '=', 'products.id')
                     ->where('wishlists.customer_id', '=', $customer->id);

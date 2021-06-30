@@ -100,12 +100,12 @@ class RegisterController extends Controller
                 
                 // Check if product already exists in user's cart of products before adding:
                 $productCollection = Cart::get()->where('product_id', $product->id)
-                ->where('user_id', auth()->user()->id);
+                ->where('customer_id', auth()->user()->customers->first()->id);
             
                 if (!$productCollection->count()) {
 
                     $product->carts()->create([
-                        'user_id' => $request->user()->id,
+                        'customer_id' => $request->user()->customers->first()->id,
                         'total_price' => $product->price,
                         'product_quantity' => session($product->prod_name),
                     ]); 

@@ -137,7 +137,7 @@
 
                                     <!-- User's name and time review was made.-->
                                     <p class="flex items-baseline space-x-2">
-                                        <span class="text-gray-600 font-bold text-lg">{{ $review->user->firstname }}  {{ $review->user->lastname }}</span>
+                                        <span class="text-gray-600 font-bold text-lg">{{ $review->customer->user->firstname }}  {{ $review->customer->user->lastname }}</span>
                                         <span class="text-gray-600 text-xs">{{ $review->created_at->diffForHumans() }} </span>
 
                                     </p>
@@ -355,7 +355,7 @@
                         </div>
 
                         @auth
-                            @if (auth()->user()->user_type != 'trader')
+                            @if (auth()->user()->user_type !== 'trader')
                                 <div class="w-full px-4 py-2">
                                 
                                     <h3 class="font-bold text-2xl tracking-tight mb-2">Review this item</h3>
