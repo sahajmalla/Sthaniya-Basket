@@ -38,22 +38,22 @@
                     </div>
 
                     <div class="flex space-x-2">
-                        
+
                         @auth
                             <div class="relative inline-block text-left md:hidden">
                                 <div>
                                     <button type="button" class="user-icon space-x-2 focus:outline-none">
                                         <span> Hi {{ auth()->user()->firstname }}</span>
                                         <img class="inline object-cover w-8 h-8 mr-2 rounded-full"
-                                            src="/images/users/{{ auth()->user()->user_image}}"
-                                            alt="Profile image" />
+                                            src="/images/users/{{ auth()->user()->user_image }}" alt="Profile image" />
                                     </button>
                                 </div>
                                 <div class="show-icon-details hidden absolute right-0 mt-2 w-56 py-2 bg-white rounded shadow-xl focus:outline-none"
                                     role="menu" aria-orientation="vertical">
                                     <div class="py-1">
                                         <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-                                        <a href="{{ route('updateDetails') }}" class="text-gray-700 block px-4 py-2 text-sm">Update Informations</a>
+                                        <a href="{{ route('updateDetails') }}"
+                                            class="text-gray-700 block px-4 py-2 text-sm">Update Informations</a>
                                         <form method="POST" action="{{ route('logout') }}">
                                             @csrf
                                             <button type="submit"
@@ -85,7 +85,7 @@
                 <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
                 <div class="menu-open items-center md:flex hidden">
                     <div class="flex flex-col items-baseline mt-2 md:flex-row md:mt-0 md:mx-1">
-                        
+
                         @guest
                             <a class="my-1 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:mx-4 md:my-0 md:flex-col flex"
                                 href="{{ route('login') }}"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
@@ -150,17 +150,18 @@
                                     <button type="button" class="user-icon2 space-x-2 focus:outline-none">
                                         <span> Hi {{ auth()->user()->firstname }}</span>
                                         <img class="inline object-cover w-8 h-8 mr-2 rounded-full"
-                                        src="/images/users/{{ auth()->user()->user_image}}"
-                                            alt="Profile image" />
+                                            src="/images/users/{{ auth()->user()->user_image }}" alt="Profile image" />
                                     </button>
                                 </div>
                                 <div class="show-icon-details2 hidden absolute right-0 mt-2 w-56 py-2 bg-white rounded shadow-xl focus:outline-none"
                                     role="menu" aria-orientation="vertical">
                                     <div class="py-1">
                                         @if (auth()->user()->user_type != 'customer')
-                                            <a href="{{ route('products.index') }}" class="text-gray-700 block px-4 py-2 text-sm">Show CRUD</a>
+                                            <a href="{{ route('products.index') }}"
+                                                class="text-gray-700 block px-4 py-2 text-sm">Show CRUD</a>
                                         @endif
-                                        <a href="{{ route('updateDetails') }}" class="text-gray-700 block px-4 py-2 text-sm">Update Informations</a>
+                                        <a href="{{ route('updateDetails') }}"
+                                            class="text-gray-700 block px-4 py-2 text-sm">Update Informations</a>
                                         <form method="POST" action="{{ route('logout') }}">
                                             @csrf
                                             <button type="submit"
@@ -238,9 +239,9 @@
             <span> <a href="/"><img alt="Logo" src="/images/sbl.png"> </a> </span>
             <p class="text-sm text-gray-400 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-800 sm:py-2 sm:mt-0 mt-4">©
                 2021 Sthaniya Basket</p>
-            
-                <span class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
-                
+
+            <span class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
+
                 <a class="text-gray-400">
                     <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         class="w-5 h-5" viewBox="0 0 24 24">
@@ -274,6 +275,23 @@
             </span>
         </div>
     </footer>
+    <script>
+        //menu button close open
+        const btn = document.querySelector('.menu-button');
+        const menuOpen = document.querySelector('.menu-open');
+
+        btn.addEventListener('click', () => {
+            menuOpen.classList.toggle('hidden');
+        });
+
+        //user icon 2
+        const userIconbtn2 = document.querySelector('.user-icon2');
+        const showIconDetails2 = document.querySelector('.show-icon-details2');
+
+        userIconbtn2.addEventListener('click', () => {
+            showIconDetails2.classList.toggle('hidden');
+        });
+    </script>
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 

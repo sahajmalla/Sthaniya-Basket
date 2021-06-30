@@ -7,23 +7,11 @@
   \*****************************/
 /***/ (() => {
 
-//menu button close open
-var btn = document.querySelector('.menu-button');
-var menuOpen = document.querySelector('.menu-open');
-btn.addEventListener('click', function () {
-  menuOpen.classList.toggle('hidden');
-}); //user icon 
-
+//user icon 
 var userIconbtn1 = document.querySelector('.user-icon');
 var showIconDetails1 = document.querySelector('.show-icon-details');
 userIconbtn1.addEventListener('click', function () {
   showIconDetails1.classList.toggle('hidden');
-}); //user icon 2
-
-var userIconbtn2 = document.querySelector('.user-icon2');
-var showIconDetails2 = document.querySelector('.show-icon-details2');
-userIconbtn2.addEventListener('click', function () {
-  showIconDetails2.classList.toggle('hidden');
 });
 
 /***/ }),
