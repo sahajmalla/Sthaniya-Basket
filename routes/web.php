@@ -41,7 +41,7 @@ Route::view('/forgotPassword', 'auth.forgot-password')->name('forgot-password');
 
 Route::view('/verifyTrader', 'verifyTrader')->name('verifyTrader');
 
-Route::resource('products', ProductController::class);
+Route::resource('products', ProductController::class)->middleware(['auth','checkUserTrader','isShopAvailable']);
 
 // HOME
 Route::get('/', [HomeController::class,'index'])->name('home');
