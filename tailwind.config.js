@@ -1,3 +1,5 @@
+const colors = require('tailwindcss/colors')
+
 module.exports = {
   purge: [],
   darkMode: false, // or 'media' or 'class'
@@ -18,7 +20,21 @@ module.exports = {
       '150': '1.5',
       '200': '2',
     },
-    extend: {},
+    extend: {
+    
+      colors: {
+        // Build your palette here
+        red: {
+          450: '#C70039'
+        },
+        yellow: {
+          450: '#FF5733'
+        },
+        rose: colors.rose,
+        orange: colors.orange,
+        amber:colors.amber,
+      }
+    },
   },
   variants: {
     extend: {},
