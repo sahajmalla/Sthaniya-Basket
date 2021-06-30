@@ -274,21 +274,6 @@
             </span>
         </div>
     </footer>
-    <script>
-        //menu button close open
-        const btn = document.querySelector('.menu-button');
-        const menuOpen = document.querySelector('.menu-open');
-
-        btn.addEventListener('click', () => {
-            if (menuOpen.classList.contains('hidden')) {
-                menuOpen.classList.remove('hidden');
-                menuOpen.classList.add('block');
-            } else {
-                menuOpen.classList.remove('block');
-                menuOpen.classList.add('hidden');
-            }
-        });
-    </script>
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 

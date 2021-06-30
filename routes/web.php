@@ -41,7 +41,7 @@ Route::view('/forgotPassword', 'auth.forgot-password')->name('forgot-password');
 
 Route::view('/verifyTrader', 'verifyTrader')->name('verifyTrader');
 
-Route::resource('products', ProductController::class)->middleware(['auth','checkUserTrader','isShopAvailable']);
+Route::resource('products', ProductController::class)->middleware(['auth','verified','checkUserTrader','isShopAvailable']);
 
 // HOME
 Route::get('/', [HomeController::class,'index'])->name('home');
@@ -77,6 +77,6 @@ Route::get('/updateDetails',[UpdateDetailsController::class,'index'])->name('upd
 Route::post('/updateDetails',[UserImageController::class,'userImageUploadPost'])->name('image.upload')->middleware('auth');
 
 //register shop
-Route::get('/registerShop',[RegisterShopController::class,'index'])->name('registerShop');
+Route::get('/registerShop',[RegisterShopController::class,'index'])->name('registerShop')->middleware(['auth','verified','checkUserTrader']);
 Route::post('/registerShop',[RegisterShopController::class,'store']);
 

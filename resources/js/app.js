@@ -3,24 +3,21 @@ const btn = document.querySelector('.menu-button');
 const menuOpen = document.querySelector('.menu-open');
 
 btn.addEventListener('click', () => {
-    if (menuOpen.classList.contains('hidden')) {
-        menuOpen.classList.remove('hidden');
-        menuOpen.classList.add('block');
-    } else {
-        menuOpen.classList.remove('block');
-        menuOpen.classList.add('hidden');
-    }
+   menuOpen.classList.toggle('hidden');
 });
 
-//write comment open close
-const writeBtn = document.querySelector('.write-review');
-const writeCancel = document.querySelector('.write-cancel');
-const comntForm = document.querySelector('.comment-form');
+//user icon 
+const userIconbtn1 = document.querySelector('.user-icon');
+const showIconDetails1 = document.querySelector('.show-icon-details');
 
-writeBtn.addEventListener('click', () => {
-    comntForm.classList.remove('hidden');
+userIconbtn1.addEventListener('click', () => {
+    showIconDetails1.classList.toggle('hidden');
 });
 
-writeCancel.addEventListener('click', () => {
-    comntForm.classList.add('hidden');
+//user icon 2
+const userIconbtn2 = document.querySelector('.user-icon2');
+const showIconDetails2 = document.querySelector('.show-icon-details2');
+
+userIconbtn2.addEventListener('click', () => {
+    showIconDetails2.classList.toggle('hidden');
 });
