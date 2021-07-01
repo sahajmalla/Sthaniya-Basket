@@ -18,6 +18,7 @@ class Checkout extends Model
         'collection_time',
         'total_items',
         'paypal_orderid',
+        'collection_day',
     ];
 
     public function customer() {

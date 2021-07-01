@@ -5,6 +5,14 @@
 
         <div class="flex flex-col p-8 text-gray-800 bg-white shadow-lg pin-r pin-y md:w-4/5 lg:w-9/12">
             
+            <div class="flex w-12/12 justify-center mb-4">
+
+                @if(session('deleteFromCart'))
+                    <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium mb-6">{{ session('deleteFromCart') }}</p>
+                @endif
+
+            </div>
+
             <div class="flex-1">
 
                 <div class="flex space-x-2 mb-4">
@@ -54,7 +62,7 @@
                                             <tr>                                      
                                                 <!-- Image -->
                                                 <td class="hidden pb-8 md:table-cell">
-                                                    <a href="#">
+                                                    <a href="{{ route('product', $product->id) }}">
                                                         <img src="/images/products/{{ $product->prod_image }}"
                                                             class="w-28 h-28 rounded" alt="Thumbnail">
                                                     </a>
@@ -120,60 +128,62 @@
 
                             <!-- Un-Authenticated User's Order Details -->
                         
-                            <div class="">
+                            @if(count(session('products')) !== 0 )
+                                <div class="">
 
-                                <div class="flex justify-center">
-        
-                                    <div class="border rounded-md max-w-md w-full px-4 py-3">
-        
-                                        <h1 class="text-center font-bold text-xl mb-2 uppercase">Order Details</h1>
+                                    <div class="flex justify-center">
             
-                                        <div class="p-4">
-        
-                                            <div class="flex justify-between border-b">
-                                                <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
-                                                    <p>Items:</p>
+                                        <div class="border rounded-md max-w-md w-full px-4 py-3">
+            
+                                            <h1 class="text-center font-bold text-xl mb-2 uppercase">Order Details</h1>
+                
+                                            <div class="p-4">
+            
+                                                <div class="flex justify-between border-b">
+                                                    <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
+                                                        <p>Items:</p>
+                                                    </div>
+                                                    <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
+                                                        <p>{{ count(session('products')) }}</p>
+                                                    </div>
                                                 </div>
-                                                <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
-                                                    <p>{{ count(session('products')) }}</p>
+            
+                                                <div class="flex justify-between border-b">
+                                                    <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
+                                                        <p>Items Quantity:</p>
+                                                    </div>
+                                                    <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
+                                                        <p>{{ $total_items_quantity }}</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-        
-                                            <div class="flex justify-between border-b">
-                                                <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
-                                                    <p>Items Quantity:</p>
-                                                </div>
-                                                <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
-                                                    <p>{{ $total_items_quantity }}</p>
-                                                </div>
-                                            </div>
 
-                                            <div class="flex justify-between border-b">
-                                                <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
-                                                    <p>Order Total Price:</p>
+                                                <div class="flex justify-between border-b">
+                                                    <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
+                                                        <p>Order Total Price:</p>
+                                                    </div>
+                                                    <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
+                                                        <p>£{{ $total_price }}</p>
+                                                    </div>
                                                 </div>
-                                                <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
-                                                    <p>£{{ $total_price }}</p>
-                                                </div>
+            
+                                                <a href="{{ route('checkout') }}">
+                                                    <button
+                                                        class="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
+                                                        <svg aria-hidden="true" data-prefix="far" data-icon="credit-card" class="w-8"
+                                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                                            <path fill="currentColor"
+                                                                d="M527.9 32H48.1C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48.1 48h479.8c26.6 0 48.1-21.5 48.1-48V80c0-26.5-21.5-48-48.1-48zM54.1 80h467.8c3.3 0 6 2.7 6 6v42H48.1V86c0-3.3 2.7-6 6-6zm467.8 352H54.1c-3.3 0-6-2.7-6-6V256h479.8v170c0 3.3-2.7 6-6 6zM192 332v40c0 6.6-5.4 12-12 12h-72c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h72c6.6 0 12 5.4 12 12zm192 0v40c0 6.6-5.4 12-12 12H236c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h136c6.6 0 12 5.4 12 12z" />
+                                                        </svg>
+                                                        <span class="ml-2 mt-5px">Proceed To Checkout</span>
+                                                    </button>
+                                                </a>
                                             </div>
-        
-                                            <a href="{{ route('checkout') }}">
-                                                <button
-                                                    class="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
-                                                    <svg aria-hidden="true" data-prefix="far" data-icon="credit-card" class="w-8"
-                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-                                                        <path fill="currentColor"
-                                                            d="M527.9 32H48.1C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48.1 48h479.8c26.6 0 48.1-21.5 48.1-48V80c0-26.5-21.5-48-48.1-48zM54.1 80h467.8c3.3 0 6 2.7 6 6v42H48.1V86c0-3.3 2.7-6 6-6zm467.8 352H54.1c-3.3 0-6-2.7-6-6V256h479.8v170c0 3.3-2.7 6-6 6zM192 332v40c0 6.6-5.4 12-12 12h-72c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h72c6.6 0 12 5.4 12 12zm192 0v40c0 6.6-5.4 12-12 12H236c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h136c6.6 0 12 5.4 12 12z" />
-                                                    </svg>
-                                                    <span class="ml-2 mt-5px">Proceed To Checkout</span>
-                                                </button>
-                                            </a>
+            
                                         </div>
-        
                                     </div>
+                                    
                                 </div>
-                                
-                            </div>
+                            @endif
 
                         @else
                             <p class="p-4 mb-4 text-md font-bold text-gray-700">
@@ -221,7 +231,7 @@
                                                 
                                                 <!-- Image -->
                                                 <td class="hidden pb-8 md:table-cell">
-                                                    <a href="#">
+                                                    <a href="{{ route('product', $cart_product->product_id) }}">
                                                         <img src="/images/products/{{ $cart_product->prod_image }}"
                                                             class="w-28 h-28 rounded" alt="Thumbnail">
                                                     </a>
@@ -236,7 +246,6 @@
                                                     <form action="{{ route('cart.destroy', $cart_product->product_id) }}" method="POST"
                                                     class="flex justify-center"    
                                                     >
-                                                        
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="text-white text-sm hover:bg-red-700 bg-red-600 rounded-lg p-1">
@@ -295,60 +304,62 @@
 
                         <!-- Order Details -->
                         
-                        <div class="">
+                        @if($cart_products->count() !== 0 )
+                            <div class="">
 
-                            <div class="flex justify-center">
-    
-                                <div class="border rounded-md max-w-md w-full px-4 py-3">
-    
-                                    <h1 class="text-center font-bold text-xl mb-2 uppercase">Order Details</h1>
+                                <div class="flex justify-center">
         
-                                    <div class="p-4">
-    
-                                        <div class="flex justify-between border-b">
-                                            <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
-                                                <p>Items:</p>
+                                    <div class="border rounded-md max-w-md w-full px-4 py-3">
+        
+                                        <h1 class="text-center font-bold text-xl mb-2 uppercase">Order Details</h1>
+            
+                                        <div class="p-4">
+        
+                                            <div class="flex justify-between border-b">
+                                                <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
+                                                    <p>Items:</p>
+                                                </div>
+                                                <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
+                                                    <p>{{ $cart_products->count() }}</p>
+                                                </div>
                                             </div>
-                                            <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
-                                                <p>{{ $cart_products->count() }}</p>
+        
+                                            <div class="flex justify-between border-b">
+                                                <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
+                                                    <p>Items Quantity:</p>
+                                                </div>
+                                                <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
+                                                    <p>{{ $total_items_quantity }}</p>
+                                                </div>
                                             </div>
-                                        </div>
-    
-                                        <div class="flex justify-between border-b">
-                                            <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
-                                                <p>Items Quantity:</p>
-                                            </div>
-                                            <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
-                                                <p>{{ $total_items_quantity }}</p>
-                                            </div>
-                                        </div>
 
-                                        <div class="flex justify-between border-b">
-                                            <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
-                                                <p>Order Total Price:</p>
+                                            <div class="flex justify-between border-b">
+                                                <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
+                                                    <p>Order Total Price:</p>
+                                                </div>
+                                                <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
+                                                    <p>£{{ $total_price }}</p>
+                                                </div>
                                             </div>
-                                            <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
-                                                <p>£{{ $total_price }}</p>
-                                            </div>
+        
+                                            <a href="{{ route('checkout') }}">
+                                                <button
+                                                    class="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
+                                                    <svg aria-hidden="true" data-prefix="far" data-icon="credit-card" class="w-8"
+                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                                        <path fill="currentColor"
+                                                            d="M527.9 32H48.1C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48.1 48h479.8c26.6 0 48.1-21.5 48.1-48V80c0-26.5-21.5-48-48.1-48zM54.1 80h467.8c3.3 0 6 2.7 6 6v42H48.1V86c0-3.3 2.7-6 6-6zm467.8 352H54.1c-3.3 0-6-2.7-6-6V256h479.8v170c0 3.3-2.7 6-6 6zM192 332v40c0 6.6-5.4 12-12 12h-72c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h72c6.6 0 12 5.4 12 12zm192 0v40c0 6.6-5.4 12-12 12H236c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h136c6.6 0 12 5.4 12 12z" />
+                                                    </svg>
+                                                    <span class="ml-2 mt-5px">Proceed To Checkout</span>
+                                                </button>
+                                            </a>
                                         </div>
-    
-                                        <a href="{{ route('checkout') }}">
-                                            <button
-                                                class="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
-                                                <svg aria-hidden="true" data-prefix="far" data-icon="credit-card" class="w-8"
-                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-                                                    <path fill="currentColor"
-                                                        d="M527.9 32H48.1C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48.1 48h479.8c26.6 0 48.1-21.5 48.1-48V80c0-26.5-21.5-48-48.1-48zM54.1 80h467.8c3.3 0 6 2.7 6 6v42H48.1V86c0-3.3 2.7-6 6-6zm467.8 352H54.1c-3.3 0-6-2.7-6-6V256h479.8v170c0 3.3-2.7 6-6 6zM192 332v40c0 6.6-5.4 12-12 12h-72c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h72c6.6 0 12 5.4 12 12zm192 0v40c0 6.6-5.4 12-12 12H236c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h136c6.6 0 12 5.4 12 12z" />
-                                                </svg>
-                                                <span class="ml-2 mt-5px">Proceed To Checkout</span>
-                                            </button>
-                                        </a>
+        
                                     </div>
-    
                                 </div>
+                                
                             </div>
-                            
-                        </div>
+                        @endif
 
                     </div>
                 @endif       

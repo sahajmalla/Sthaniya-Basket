@@ -57,14 +57,16 @@ class CartController extends Controller
         ]);
     } 
 
-    public function store(Request $request, Product $product){
+    public function store(Request $request, int $productID){
+
+        $product = Product::find($productID);
 
         // If user is logged in, add the item to the cart database.
         
         if (auth()->user()) {
 
             // Check if product already exists in user's cart of products before adding:
-            $productCollection = Cart::get()->where('product_id', $product->id)
+            $productCollection = Cart::get()->where('product_id', $productID)
                 ->where('customer_id', auth()->user()->customers->first()->id);
             
             if (!$productCollection->count()) {
@@ -75,11 +77,13 @@ class CartController extends Controller
                     'product_quantity' => 1,
                 ]); 
 
-                //TODO: Add success message
+                //Success message
+                $request->session()->flash('addedToCart', 'Successfully added item to your cart!');
 
             }else {
                 
-                //TODO: Add error message(item is already in cart)
+                //Error message(item is already in cart)
+                $request->session()->flash('failedToAddToCart', 'Item already exists in cart.');
 
             }
 
@@ -97,12 +101,19 @@ class CartController extends Controller
                 }
             }
 
-            // If duplicate not found add item to the session's products array.
+            // If duplicate not found, add item to the session's products array.
             if (!$itemMatch) {
                 $request->session()->push('products', $product);
 
                  // Store the product quantity under the key which is product's name.
                 $request->session()->put($product->prod_name, 1);
+
+                // Success message
+                $request->session()->flash('addedToCart', 'Successfully added item to your cart!');
+
+            }else {
+                //Error message(item is already in cart)
+                $request->session()->flash('failedToAddToCart', 'Item already exists in cart.');
             }
 
         }
@@ -122,6 +133,9 @@ class CartController extends Controller
             // ID.
             $deletedRows = Cart::where('product_id', $product_id)
                 ->where('customer_id', auth()->user()->customers->first()->id)->delete();
+            
+            $request->session()->flash('deleteFromCart', 'Successfully removed item from cart.');
+
 
         }else {
 
@@ -138,6 +152,9 @@ class CartController extends Controller
                     $request->session()->put('products', $tempArray);
                 }            
             }
+
+            $request->session()->flash('deleteFromCart', 'Successfully removed item from cart.');
+
         }
         
         return back()->with('status', 'Successfully deleted product.');

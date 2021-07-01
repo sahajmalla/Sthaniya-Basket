@@ -3,14 +3,26 @@
     
     <!-- Trending products -->
 
+
     <section class="body-font flex flex-col w-10/12 shadow-lg rounded-lg">
+
+        <div class="flex w-12/12 justify-center">
+            @if(session('order-success'))
+                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">{{ session('order-success') }}</p>
+            @elseif(session('addedToWishlist'))
+                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">{{ session('addedToWishlist') }}</p>
+            @elseif(session('failedToAddToWishlist'))
+                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">{{ session('failedToAddToWishlist') }}</p>
+            @elseif(session('addedToCart'))
+                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">{{ session('addedToCart') }}</p>
+            @elseif(session('failedToAddToCart'))
+                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">{{ session('failedToAddToCart') }}</p>
+            @endif
+        </div>
+
         <div class="container p-10 mx-auto space-y-10">
 
             <!-- Heading -->
-
-            @if(session('order-success'))
-                <p class="p-4 text-2xl text-center text-white rounded-lg bg-green-500 font-medium">{{ session('order-success') }}</p>
-            @endif
 
             <h1 class="text-3xl font-bold">Trending Items</h1>
 
@@ -26,7 +38,7 @@
 
                             <!-- Product Image -->
                             <div>
-                                <a href="{{ route('product', $product) }}">
+                                <a href="{{ route('product', $product->id) }}">
                                     <img src="/images/products/{{ $product->prod_image }}" 
                                     alt="{{ $product->prod_name }}" class="object-contain h-52 w-full">
                                 </a>
@@ -36,7 +48,7 @@
                             <div class="p-4 md:p-4">
                                 
                                 <h1 class="text-2xl font-bold text-gray-800 dark:text-white">
-                                    <a href="{{ route('product', $product) }}" 
+                                    <a href="{{ route('product', $product->id) }}" 
                                         class="font-bold">
                                         {{ $product->prod_name }}
                                     </a> 
@@ -87,32 +99,81 @@
                                     
                                     <h1 class="text-lg font-bold text-gray-700 dark:text-gray-200 md:text-xl">£{{ $product->price }}</h1>
 
-                                    <!-- Add to wishlist -->
+                                    <h1 class="text-sm font-medium text-gray-700 dark:text-gray-200 md:text-lg">
 
-                                    <form action="{{ route('addToWishlist', $product) }}" method="POST">
-                                        @csrf
-                                        <button>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                                                viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                            </svg>
-                                        </button>
-                                    </form>
+                                        @if($product->prod_quantity > 0)
+                                            In Stock
+                                        @else
+                                            Out Of Stock
+                                        @endif
 
-                                    <!-- Add to cart -->
+                                    </h1>
+
+                                    @if(auth()->user())
+
+                                        @if(auth()->user()->user_type === "customer") 
+
+                                            <!-- Add to wishlist -->
+
+                                            <form action="{{ route('addToWishlist', $product) }}" method="POST">
+                                                @csrf
+                                                <button>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                                        viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                                    </svg>
+                                                </button>
+                                            </form>
+
+                                            <!-- Add to cart -->
+                                            
+                                            <form action="{{ route('addToCart', $product->id) }}" method="POST">
+                                                @csrf
+                                                <button
+                                                    class="px-2 py-1 text-xs font-bold text-white uppercase 
+                                                    transition-colors duration-200 transform bg-gray-800 rounded 
+                                                    dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 
+                                                    focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600"
+                                                    >Add to Cart
+                                                </button>
+
+                                            </form>
+
+                                        @endif
+
+                                    @endif
+
+                                    @guest 
                                     
-                                    <form action="{{ route('addToCart', $product) }}" method="POST">
-                                        @csrf
-                                        <button
-                                            class="px-2 py-1 text-xs font-bold text-white uppercase 
-                                            transition-colors duration-200 transform bg-gray-800 rounded 
-                                            dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 
-                                            focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600"
-                                            >Add to Cart
-                                        </button>
+                                        <!-- Add to wishlist -->
 
-                                    </form>
+                                        <form action="{{ route('addToWishlist', $product) }}" method="POST">
+                                            @csrf
+                                            <button>
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                                </svg>
+                                            </button>
+                                        </form>
+
+                                        <!-- Add to cart -->
+                                        
+                                        <form action="{{ route('addToCart', $product->id) }}" method="POST">
+                                            @csrf
+                                            <button
+                                                class="px-2 py-1 text-xs font-bold text-white uppercase 
+                                                transition-colors duration-200 transform bg-gray-800 rounded 
+                                                dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 
+                                                focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600"
+                                                >Add to Cart
+                                            </button>
+
+                                        </form>
+
+                                    @endguest
 
                                 </div>
                             </div>

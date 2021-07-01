@@ -20,6 +20,7 @@ class CreateCheckoutsTable extends Migration
             $table->text('order_description');
             $table->string('payment_type');
             $table->string('collection_time');
+            $table->string('collection_day');
             $table->integer('total_items');
             $table->string('paypal_orderid')->nullable();
             $table->boolean('is_paid')->default(false);
