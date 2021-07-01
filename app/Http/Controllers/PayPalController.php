@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use App\Mail\OrderPaid;
+use App\Models\Product;
 use App\Models\Checkout;
 use Illuminate\Http\Request;
 use App\Services\PaypalService;
@@ -56,10 +57,29 @@ class PayPalController extends Controller
         if ($response->result->status == 'COMPLETED') {
             $order->is_paid = 1;
             $order->save();
+
+            // Decrease product quantity.
+            $cartAndProductRecords = DB::table('products')
+            ->join('carts', function ($join) {
+                $join->on('carts.product_id', '=', 'products.id')
+                    ->where('carts.customer_id', '=', auth()->user()->customers->first()->id);
+            })
+            ->get();
+
+            foreach ($cartAndProductRecords as $cartAndProductRecord) {
+                $product = Product::find($cartAndProductRecord->product_id);
+                if ($product->prod_quantity > 0) {
+                    $product->prod_quantity--;
+                    $product->save();
+                }else {
+                    //product out of stock.
+                }
+            }
+            
             DB::table('carts')->truncate(); // Clear cart items.
 
             // Mail::to($order->user->email)->send(new OrderPaid($order)); // Send email to user.
-            return redirect()->route('home')->with('order-success', 'Order has been placed.');
+            return redirect()->route('home')->with('order-success', 'Your order has been placed.');
 
         }
 

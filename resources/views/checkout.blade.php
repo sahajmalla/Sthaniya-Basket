@@ -29,17 +29,36 @@
 
                                         <h1 class="text-center font-bold text-xl mb-8 uppercase">Final Details</h1>
 
-                                        <!-- Collection slot select -->
                                         <div class="mb-8">
                                             <div class="mb-8 p-4 bg-gray-100 rounded-full">
                                                 <h1 class="ml-2 font-bold uppercase">Collection Information</h1>
                                             </div>
 
-                                            <div class="sm:flex">
+                                        <!-- Collection day select -->
+
+                                        <div class="sm:flex mb-6">
+
+                                            <label class="text-sm w-4/12 font-bold text-gray-700 mr-2">Collection Day:</label>
+
+                                            <select name="collectionDay" onchange="setCollectionDay()"
+                                            id="select-collection-day" 
+                                            class="w-full h-10 md:w-8/12 px-2 py-1 text-gray-700 bg-gray-200 rounded">
+
+                                                <option>Wednesday</option>
+                                                <option>Thursday</option>
+                                                <option>Friday</option>
+
+                                            </select>
+        
+                                        </div>
+
+                                        <!-- Collection slot select -->
+
+                                        <div class="sm:flex">
 
                                                 <label class="text-sm w-4/12 font-bold text-gray-700 mr-2">Collection Slot Time:</label>
 
-                                                <select name="collection" onchange="setCollectionTime()" 
+                                                <select name="collectionTime" onchange="setCollectionTime()" 
                                                 id="select-collection-time" 
                                                 class="w-full h-10 md:w-8/12 px-2 py-1 text-gray-700 bg-gray-200 rounded">
 
@@ -63,12 +82,11 @@
 
                                                 <label class="mr-2 text-sm w-4/12 font-bold text-gray-700">Payment Method:</label>
 
-                                                <select name="payment" onchange="setPaymentMethod()" 
+                                                <select name="payment" 
                                                 id="select-payment-method" 
                                                 class="w-full h-10 sm:w-8/12 px-2 py-1 text-gray-700 bg-gray-200 rounded">
 
                                                     <option>PayPal</option>
-                                                    <option>Stripe</option>
 
                                                 </select>
 
@@ -146,6 +164,15 @@
                                                 </div>
                                                 <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
                                                     <p class="payment-method">PayPal</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="flex justify-between pt-4 border-b">
+                                                <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
+                                                    <p>Collection Day:</p>
+                                                </div>
+                                                <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
+                                                    <p class="collection-day">Wednesday</p>
                                                 </div>
                                             </div>
         
@@ -272,7 +299,9 @@
                                         </td>
 
                                         <td class="text-right">
-                                            <form action="" method="POST">
+                                            <form action="{{ route('cart.destroy', $cartAndProductRecord->product_id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
                                                 <button type="submit" 
                                                 class="text-white bg-red-500 p-1 rounded-lg hover:bg-red-700 md:ml-4">
                                                     <small class="m-2">Remove item</small>
@@ -309,14 +338,14 @@
             traShop.innerHTML = selectedValue;
         }
 
-        // Change payment method by the drop down select list:
-        function setPaymentMethod() {
+        // Change collection day method by the drop down select list:
+        function setCollectionDay() {
             
-            var selectPaymentMethod = document.getElementById('select-payment-method');
-            var selectedValue = selectPaymentMethod.options[selectPaymentMethod.selectedIndex].value;
-            const traShop = document.querySelector('.payment-method');
+            var selectColelctionDay = document.getElementById('select-collection-day');
+            var selectedValue = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
+            const collectionDay = document.querySelector('.collection-day');
 
-            traShop.innerHTML = selectedValue;
+            collectionDay.innerHTML = selectedValue;
         }
 
     </script>

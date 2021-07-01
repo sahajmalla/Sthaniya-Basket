@@ -5,16 +5,19 @@ namespace App\Http\Controllers\product;
 use App\Models\Review;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Collection;
 
 class ViewProductController extends Controller
 {
-    public function index(Product $product, Request $request) {
+    public function index(int $productID, Request $request) {
+
+        $product = Product::find($productID);
 
         $trader = $product->trader->user;
         
-        $reviews = Review::latest()->where('product_id', $product->id)
+        $reviews = Review::latest()->where('product_id', $productID)
         ->with(['customer', 'product'])->paginate(4); // Getting the reviews for that product.
 
         $products = $product->trader->products; // Getting products from same trader for 'similar products'

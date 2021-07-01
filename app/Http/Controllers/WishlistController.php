@@ -51,20 +51,20 @@ class WishlistController extends Controller
                 'customer_id' => auth()->user()->customers->first()->id, // Current authenticated user that added a prodcut.
             ]); 
 
-            // $request->session()->put('wishlist', 'Successfully added item to your wishlist.');
+            $request->session()->flash('addedToWishlist', 'Successfully added item to your wishlist!');
 
         }else {
             
             // Inform user that user has already added the product to the wishlist.
-            // $request->session()->put('wishlist', 'Item is already on your wishlist.');
 
+            $request->session()->flash('failedToAddToWishlist', 'Item already exists in wishlist.');
         }
 
         return back();
 
     }
 
-    public function destroy (String $productID) {
+    public function destroy (Request $request, String $productID) {
 
         $product_id = (int) $productID;
 
@@ -74,7 +74,9 @@ class WishlistController extends Controller
         $deletedRows = Wishlist::where('product_id', $product_id)
             ->where('customer_id', auth()->user()->customers->first()->id)->delete();
         
-        return back()->with('status', 'Successfully deleted product.');
+        $request->session()->flash('deleteFromWishlist', 'Successfully removed item from wishlist.');
+
+        return back();
 
     }
 

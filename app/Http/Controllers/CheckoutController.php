@@ -49,7 +49,8 @@ class CheckoutController extends Controller
                     'order_quantity' => $totalQuantity,
                     'total_items' => $totalItems,
                     'payment_type' => $request->payment,
-                    'collection_time' => $request->collection,
+                    'collection_time' => $request->collectionTime,
+                    'collection_day' => $request->collectionDay,
                     'order_description' => $orderDescription,
                 ]); 
 
