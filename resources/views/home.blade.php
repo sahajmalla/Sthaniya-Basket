@@ -8,6 +8,10 @@
 
             <!-- Heading -->
 
+            @if(session('order-success'))
+                <p class="p-4 text-2xl text-center text-white rounded-lg bg-green-500 font-medium">{{ session('order-success') }}</p>
+            @endif
+
             <h1 class="text-3xl font-bold">Trending Items</h1>
 
             @if ($products->count())

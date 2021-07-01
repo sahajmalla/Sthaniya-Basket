@@ -44,14 +44,20 @@ class CheckoutController extends Controller
             ." and a total price of €".number_format((float)$totalPrice, 2, '.', '').".";
         
         // Creating a checkout record through the customer:
-        auth()->user()->customers->first()->checkouts()->create([
-            'order_total' => $totalPrice,
-            'order_quantity' => $totalQuantity,
-            'total_items' => $totalItems,
-            'payment_type' => $request->payment,
-            'collection_time' => $request->collection,
-            'order_description' => $orderDescription
-        ]); 
+        $order = auth()->user()->customers->first()->checkouts()->create([
+                    'order_total' => $totalPrice,
+                    'order_quantity' => $totalQuantity,
+                    'total_items' => $totalItems,
+                    'payment_type' => $request->payment,
+                    'collection_time' => $request->collection,
+                    'order_description' => $orderDescription,
+                ]); 
+
+        if ($request->payment === 'PayPal') {
+
+            return redirect()->route('paypal.checkout', $order->id);
+
+        }
 
         return redirect()->route('order');
 

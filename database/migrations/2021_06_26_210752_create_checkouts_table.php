@@ -21,6 +21,8 @@ class CreateCheckoutsTable extends Migration
             $table->string('payment_type');
             $table->string('collection_time');
             $table->integer('total_items');
+            $table->string('paypal_orderid')->nullable();
+            $table->boolean('is_paid')->default(false);
             $table->foreignId('customer_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
