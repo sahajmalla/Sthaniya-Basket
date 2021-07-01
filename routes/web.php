@@ -12,13 +12,18 @@ use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\UserImageController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\VerifyTraderController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\UpdateDetailsController;
 use App\Http\Controllers\Auth\RegisterShopController;
+use App\Http\Controllers\Auth\RegisterAdminController;
 use App\Http\Controllers\product\ViewProductController;
 
 Route::get('/register', [RegisterController::class,'index'])->name('register');
 Route::post('/register', [RegisterController::class,'store']);
+
+Route::get('/registerAdmin',[RegisterAdminController::class,'index'])->name('register.admin');
+Route::post('/registerAdmin',[RegisterAdminController::class,'store']);
 
 // Route::post('/logout', [LogoutController::class,'index'])->name('logout');
 
@@ -40,7 +45,8 @@ Route::get('/invoice', function () {
 // FORGOT PASSWORD
 Route::view('/forgotPassword', 'auth.forgot-password')->name('forgot-password');
 
-Route::view('/verifyTrader', 'verifyTrader')->name('verifyTrader');
+//verify trader
+Route::get('/verifyTrader', [VerifyTraderController::class,'index'])->name('verifyTrader');
 
 Route::resource('products', ProductController::class)->middleware(['auth','verified','checkUserTrader','isShopAvailable']);
 

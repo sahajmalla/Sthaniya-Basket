@@ -89,6 +89,7 @@ class RegisterController extends Controller
         if($request->userType==='trader'){
             $request->user()->traders()->create([
                 'business' => $request->business,
+                'verified_trader' => 'no',
             ]);
         }
         // When user registers, if they have items in the cart, add items to the

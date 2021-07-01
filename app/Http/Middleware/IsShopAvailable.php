@@ -6,6 +6,7 @@ use Closure;
 use App\Models\Shop;
 use App\Models\Trader;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class IsShopAvailable
 {
@@ -18,10 +19,9 @@ class IsShopAvailable
      */
     public function handle(Request $request, Closure $next)
     {
-        $traders = Trader::get()->where('user_id', auth()->user()->id);
-        $currentUserId = auth()->user()->user_id;
+        $traders = Trader::get()->where('user_id', auth()->user()->id);   
         foreach($traders as $trader){
-            $traderUserId = (int) $trader->user_id;
+            $traderUserId = $trader->id;
             $query = Shop::get()->where('trader_id', $traderUserId)->count();
             if($query){
                 return $next($request);

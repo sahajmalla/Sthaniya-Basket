@@ -52,6 +52,16 @@
                                     role="menu" aria-orientation="vertical">
                                     <div class="py-1">
                                         <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
+                                        @if (auth()->user()->user_type == 'trader')
+                                            <a href="{{ route('products.index') }}"
+                                                class="text-gray-700 block px-4 py-2 text-sm">Show CRUD</a>
+                                        @endif
+
+                                        @if (auth()->user()->user_type == 'admin')
+                                            <a href="{{ route('verifyTrader') }}"
+                                                class="text-gray-700 block px-4 py-2 text-sm">Show Trader verification</a>
+                                        @endif
+
                                         <a href="{{ route('updateDetails') }}"
                                             class="text-gray-700 block px-4 py-2 text-sm">Update Informations</a>
                                         <form method="POST" action="{{ route('logout') }}">
@@ -125,8 +135,8 @@
                                     <span class="">Order</span></a>
 
                                 <a class="my-1 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:mx-4 md:my-0 md:flex-col flex"
-                                    href="{{ route('wishlist') }}"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
-                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    href="{{ route('wishlist') }}"><svg xmlns="http://www.w3.org/2000/svg"
+                                        class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                                     </svg>
@@ -156,10 +166,16 @@
                                 <div class="show-icon-details2 hidden absolute right-0 mt-2 w-56 py-2 bg-white rounded shadow-xl focus:outline-none"
                                     role="menu" aria-orientation="vertical">
                                     <div class="py-1">
-                                        @if (auth()->user()->user_type != 'customer')
+                                        @if (auth()->user()->user_type == 'trader')
                                             <a href="{{ route('products.index') }}"
                                                 class="text-gray-700 block px-4 py-2 text-sm">Show CRUD</a>
                                         @endif
+
+                                        @if (auth()->user()->user_type == 'admin')
+                                            <a href="{{ route('verifyTrader') }}"
+                                                class="text-gray-700 block px-4 py-2 text-sm">Show Trader verification</a>
+                                        @endif
+
                                         <a href="{{ route('updateDetails') }}"
                                             class="text-gray-700 block px-4 py-2 text-sm">Update Informations</a>
                                         <form method="POST" action="{{ route('logout') }}">
