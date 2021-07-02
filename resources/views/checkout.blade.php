@@ -50,17 +50,17 @@
                                             class="w-full h-10 md:w-8/12 px-2 py-1 text-gray-700 bg-gray-200 rounded">
 
                                             @if($currentDateTime->format('l') === 'Wednesday')
-                                                <option>Wednesday (next week)</option>
+                                                <option disabled>Wednesday</option>
                                                 <option>Thursday</option>
                                                 <option>Friday</option>
                                             @elseif($currentDateTime->format('l') === 'Thursday')
                                                 <option>Wednesday</option>
-                                                <option>Thursday (next week)</option>
+                                                <option disabled>Thursday</option>
                                                 <option>Friday</option>
                                             @elseif($currentDateTime->format('l') === 'Friday')
                                                 <option>Wednesday</option>
                                                 <option>Thursday</option>
-                                                <option>Friday (next week)</option>
+                                                <option disabled>Friday</option>
                                             @else
                                                 <option>Wednesday</option>
                                                 <option>Thursday</option>
@@ -202,7 +202,7 @@
                                             </div>
                                             <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
                                                 @if($currentDateTime->format('l') === 'Wednesday')
-                                                    <p class="collection-day">Wednesday (next week)</p>
+                                                    <p class="collection-day">Thursday</p>
                                                 @else
                                                     <p class="collection-day">Wednesday</p>
                                                 @endif

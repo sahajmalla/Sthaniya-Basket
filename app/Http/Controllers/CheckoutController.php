@@ -47,7 +47,7 @@ class CheckoutController extends Controller
     public function store(Request $request, float $totalPrice, int $totalQuantity, 
                             int $totalItems, Carbon $currentDateTime) {
 
-        dd($currentDateTime);
+        dd($request);
 
         $orderDescription = "A total of ".$totalItems." "
             .Str::plural('item', $totalItems)." with a total quantity of ".$totalQuantity
