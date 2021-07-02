@@ -1,6 +1,9 @@
 @extends('layouts.app')
 @section('content')
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/themes/dark.css">
+
     <!-- component -->
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
@@ -16,7 +19,9 @@
                 <div class="space-y-6 lg:space-y-0 lg:space-x-16 lg:flex lg:flex-row my-6">
 
                     <!-- Form -->
-                    <form action="{{ route('checkout.add', [$total_price, $total_items_quantity, $cartAndProductRecords->count()]) }}" method="POST" class="p-8 border rounded-md">
+                    <form action="{{ route('checkout.add', [$total_price, $total_items_quantity, 
+                    $cartAndProductRecords->count(), $currentDateTime]) }}" 
+                    method="POST" class="p-8 border rounded-md">
 
                         @csrf
                         <div class="leading-loose">
@@ -49,12 +54,12 @@
                                                 <option>Thursday</option>
                                                 <option>Friday</option>
                                             @elseif($currentDateTime->format('l') === 'Thursday')
-                                                <option>Wednesday</option>
+                                                <option>Wednesday (next week)</option>
                                                 <option>Thursday (next week)</option>
                                                 <option>Friday</option>
                                             @elseif($currentDateTime->format('l') === 'Friday')
-                                                <option>Wednesday</option>
-                                                <option>Thursday</option>
+                                                <option>Wednesday (next week)</option>
+                                                <option>Thursday (next week)</option>
                                                 <option>Friday (next week)</option>
                                             @else
                                                 <option>Wednesday</option>
@@ -66,14 +71,15 @@
         
                                         </div>
 
-                                        <div class="sm:flex mb-6">
+                                        <!-- Collection date -->
+                                        {{-- <div class="sm:flex mb-6">
 
                                             <label class="text-sm w-4/12 font-bold text-gray-700 mr-2">Collection Date:</label>
 
-                                            <input class="w-full h-10 md:w-8/12 p-2 text-gray-700 bg-gray-200" type="date" 
-                                            id="dob" name="dob" min="{{ $tomorrowDateTime->toDateString() }}">
+                                            <input name="collectionDate" type="date" id="date1" placeholder="MM/DD/YYYY" data-input
+                                            class="w-full h-10 md:w-8/12 px-2 py-1 text-gray-700 bg-gray-200 rounded"/>
         
-                                        </div>
+                                        </div> --}}
 
                                         <!-- Collection time slot select -->
 
@@ -195,7 +201,9 @@
                                                 <p>Collection Day:</p>
                                             </div>
                                             <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
-                                                @if($currentDateTime->format('l') === 'Wednesday')
+                                                @if($currentDateTime->format('l') === 'Wednesday' 
+                                                || $currentDateTime->format('l') === 'Thursday'
+                                                || $currentDateTime->format('l') === 'Friday')
                                                     <p class="collection-day">Wednesday (next week)</p>
                                                 @else
                                                     <p class="collection-day">Wednesday</p>
@@ -262,17 +270,6 @@
                         </div>
 
                     </form>
-
-                    {{-- <!-- Order Summary -->
-
-                    <div class="">
-
-                        <div class="flex justify-center lg:justify-end">
-
-                          
-                        </div>
-                        
-                    </div> --}}
 
                 </div>
 
@@ -353,7 +350,30 @@
 
     </div>
 
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--  Flatpickr  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script> --}}
+
+
     <script>
+
+        // $("#date1").flatpickr({
+        //     enableTime: true,
+        //     minDate: "today",
+        //     dateFormat: "m-d-Y",
+        //     "disable": [
+        //         function(date) {
+        //             return (date.getDay() === 0 || 
+        //                     date.getDay() === 1 || 
+        //                     date.getDay() === 2 || 
+        //                     date.getDay() === 6);  // disable weekends
+        //         }
+        //     ],
+        //     "locale": {
+        //         "firstDayOfWeek": 1 // set start day of week to Wednesday
+        //     }
+        // });
+
 
         // Change collection time by the drop down select list:
         function setCollectionTime() {

@@ -35,18 +35,19 @@ class CheckoutController extends Controller
 
         // Current date and time:
         $currentDateTime = Carbon::now();
-        $tomorrowDateTime = Carbon::tomorrow();
 
         return view('checkout', [
             "cartAndProductRecords" => $cartAndProductRecords,
             'total_price' => $total_price_string_2dp,
             'total_items_quantity' => $total_items_quantity,
             'currentDateTime' => $currentDateTime,
-            'tomorrowDateTime' => $tomorrowDateTime,
         ]);
     }
 
-    public function store(Request $request, float $totalPrice, int $totalQuantity, int $totalItems) {
+    public function store(Request $request, float $totalPrice, int $totalQuantity, 
+                            int $totalItems, Carbon $currentDateTime) {
+
+        dd($currentDateTime);
 
         $orderDescription = "A total of ".$totalItems." "
             .Str::plural('item', $totalItems)." with a total quantity of ".$totalQuantity
