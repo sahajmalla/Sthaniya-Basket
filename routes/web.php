@@ -15,10 +15,16 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\VerifyTraderController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\UpdateDetailsController;
+use App\Http\Controllers\ViewBakeryShopController;
 use App\Http\Controllers\ShowShopProductController;
+use App\Http\Controllers\ViewButcherShopController;
+use App\Http\Controllers\ViewShopProductController;
 use App\Http\Controllers\Auth\RegisterShopController;
 use App\Http\Controllers\Auth\RegisterAdminController;
+use App\Http\Controllers\ViewFishmongerShopController;
 use App\Http\Controllers\product\ViewProductController;
+use App\Http\Controllers\ViewGreengrocerShopController;
+use App\Http\Controllers\ViewDelicatessenShopController;
 
 Route::get('/register', [RegisterController::class,'index'])->name('register');
 Route::post('/register', [RegisterController::class,'store']);
@@ -34,6 +40,14 @@ Route::post('/login', [LoginController::class,'read']);
 
 //TODO: change route of product
 Route::get('/product/{product:prod_name}', [ViewProductController::class,'index'])->name('product');
+
+//shops
+Route::get('/bakery',[ViewBakeryShopController::class,'index'])->name('bakery.shop');
+Route::get('/butcher',[ViewButcherShopController::class,'index'])->name('butcher.shop');
+Route::get('/delicatessen',[ViewDelicatessenShopController::class,'index'])->name('delicatessen.shop');
+Route::get('/fishmonger',[ViewFishmongerShopController::class,'index'])->name('fishmonger.shop');
+Route::get('/greengrocer',[ViewGreengrocerShopController::class,'index'])->name('greengrocer.shop');
+Route::get('/shop/{shop:shop_name}',[ViewShopProductController::class,'showProduct'])->name('show.products');
 
 // ORDER
 Route::get('/order', [OrderController::class,'index'])->name('order');
