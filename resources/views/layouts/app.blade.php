@@ -235,15 +235,15 @@
 
             <div class="flex md:justify-center py-3 mt-3 -mx-3 overflow-y-auto whitespace-nowrap">
                 <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
-                    href="#">Bakery</a>
+                    href="{{ route('bakery.shop') }}">Bakery</a>
                 <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
-                    href="#">Butcher</a>
+                    href="{{ route('butcher.shop') }}">Butcher</a>
                 <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
-                    href="#">Delicatessen</a>
+                    href="{{ route('delicatessen.shop') }}">Delicatessen</a>
                 <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
-                    href="#">Fishmonger</a>
+                    href="{{ route('fishmonger.shop') }}">Fishmonger</a>
                 <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
-                    href="#">Greengrocer</a>
+                    href="{{ route('greengrocer.shop') }}">Greengrocer</a>
             </div>
 
         </div>
