@@ -21,7 +21,7 @@ class IsShopAvailable
         $traders = Trader::get()->where('user_id', auth()->user()->id);
         $currentUserId = auth()->user()->user_id;
         foreach($traders as $trader){
-            $traderUserId = (int) $trader->user_id;
+            $traderUserId = (int) $trader->id;
             $query = Shop::get()->where('trader_id', $traderUserId)->count();
             if($query){
                 return $next($request);

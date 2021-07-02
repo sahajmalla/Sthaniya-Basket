@@ -67,7 +67,6 @@ Route::patch('/cart/{product:prod_name}', [CartController::class,'patch'])->name
 // CHECKOUT
 Route::get('/checkout', [CheckoutController::class,'index'])
     ->middleware(['auth', 'verified'])->name('checkout');
-
 Route::post('/checkout/{total_price}/{total_quantity}/{total_items}', 
     [CheckoutController::class,'store'])->middleware(['auth', 'verified'])->name('checkout.add');
 

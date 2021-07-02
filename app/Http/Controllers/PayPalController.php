@@ -7,6 +7,7 @@ use App\Mail\OrderPaid;
 use App\Models\Product;
 use App\Models\Checkout;
 use Illuminate\Http\Request;
+use App\Mail\OrderSuccessful;
 use App\Services\PaypalService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -78,7 +79,9 @@ class PayPalController extends Controller
             
             DB::table('carts')->truncate(); // Clear cart items.
 
-            // Mail::to($order->user->email)->send(new OrderPaid($order)); // Send email to user.
+            // Send email to user.
+            Mail::to(auth()->user())->send(new OrderSuccessful($order));
+
             return redirect()->route('home')->with('order-success', 'Your order has been placed.');
 
         }
