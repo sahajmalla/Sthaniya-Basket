@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -30,10 +31,18 @@ class CheckoutController extends Controller
 
         $total_price_string_2dp = number_format($total_price, 2);
 
+        // dd(Carbon::now()->toDateString()." | ".Carbon::now()->format('l'));
+
+        // Current date and time:
+        $currentDateTime = Carbon::now();
+        $tomorrowDateTime = Carbon::tomorrow();
+
         return view('checkout', [
             "cartAndProductRecords" => $cartAndProductRecords,
             'total_price' => $total_price_string_2dp,
             'total_items_quantity' => $total_items_quantity,
+            'currentDateTime' => $currentDateTime,
+            'tomorrowDateTime' => $tomorrowDateTime,
         ]);
     }
 

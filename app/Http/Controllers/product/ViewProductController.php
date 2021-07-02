@@ -20,7 +20,8 @@ class ViewProductController extends Controller
         $reviews = Review::latest()->where('product_id', $productID)
         ->with(['customer', 'product'])->paginate(4); // Getting the reviews for that product.
 
-        $products = $product->trader->products; // Getting products from same trader for 'similar products'
+        //$products = $product->trader->products; Getting products from same trader for 'similar products'
+        $products = Product::get()->where('shop_id', $product->shop_id);
 
         $ratingsInStars = 0;
 

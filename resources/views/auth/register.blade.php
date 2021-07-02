@@ -178,7 +178,7 @@
                 <div class="inline-block relative w-full mb-5 bg-gray-100 border-2 w-full p-4 rounded-lg 
                             h-14 @error('dob') border-red-500 @enderror" value="{{ old('dob') }}">
 
-                    <input class="w-full text-gray-400 bg-gray-100" type="date" id="dob" name="dob">
+                    <input class="w-full text-gray-400 bg-gray-100" type="date" max="2009-12-31" min="1901-01-01" id="dob" name="dob">
 
                 </div>
 
