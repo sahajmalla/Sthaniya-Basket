@@ -79,7 +79,7 @@ class ProductController extends Controller
 
                 foreach ($shops as $shop){
 
-                    if (Str::contains($shop->shopName, $request->shop)) {
+                    if ($shop->shopName === $request->shop) {
 
                         $trader->products()->create([
                             'prod_name' => $request->prod_name,
