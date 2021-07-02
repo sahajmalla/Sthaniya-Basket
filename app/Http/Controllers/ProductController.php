@@ -15,14 +15,18 @@ class ProductController extends Controller
     public function index(){
 
         $traders = Trader::get()->where('user_id', auth()->user()->id);
-
         $products = collect();
+        $shops = collect();
 
         foreach ($traders as $trader){
             $products = Product::where('trader_id', $trader->id)->get();
+            $shops = Shop::where('trader_id', $trader->id)->get();
         }
 
-        return view('products.index', compact('products'));
+        return view('products.index', [
+            'products' =>$products,
+            'shops' => $shops,
+        ]);
     }
 
     public function create()
@@ -88,6 +92,7 @@ class ProductController extends Controller
                             'prod_type' => $trader->business,
                             'prod_image' => $request->file('prod_image')->getClientOriginalName(),
                             'prod_quantity' => $request->prod_quantity,
+                            'allergy' => $request->allergy,
                             'shop_id' => $shop->id
                         ]);
 
@@ -119,14 +124,17 @@ class ProductController extends Controller
             'prod_name' => 'required',
             'prod_descrip' => 'required',
             'price' => 'required',
-            'prod_image' => 'required|image|mimes:jpg,png,jpeg,svg|max:2048',
+            'prod_image' => 'image|mimes:jpg,png,jpeg,svg|max:2048',
             'prod_quantity' => 'required',
         ]);
 
         $product->prod_name = $request->prod_name;
         $product->prod_descrip = $request->prod_descrip;
         $product->price = $request->price;
-        $product->prod_image = $request->file('prod_image')->getClientOriginalName();
+        if($request->hasFile('prod_image')){
+            $product->prod_image = $request->file('prod_image')->getClientOriginalName();
+        }
+        $product->allergy = $request->allergy;
         $product->prod_quantity = $request->prod_quantity;
 
         $product->save();

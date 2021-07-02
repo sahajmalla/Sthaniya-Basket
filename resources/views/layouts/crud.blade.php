@@ -25,15 +25,25 @@
                             <button type="button" class="user-icon space-x-2 focus:outline-none">
                                 <span> Hi {{ auth()->user()->firstname }}</span>
                                 <img class="inline object-cover w-8 h-8 mr-2 rounded-full"
-                                    src="/images/users/{{ auth()->user()->user_image }}"
-                                    alt="Profile image" />
+                                    src="/images/users/{{ auth()->user()->user_image }}" alt="Profile image" />
                             </button>
                         </div>
                         <div class="show-icon-details hidden absolute right-0 mt-2 w-56 py-2 bg-white rounded shadow-xl focus:outline-none"
                             role="menu" aria-orientation="vertical">
                             <div class="py-1">
                                 <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-                                <a href="{{ route('updateDetails') }}" class="text-gray-700 block px-4 py-2 text-sm">Update Informations</a>
+                                @if (auth()->user()->user_type == 'trader')
+                                    <a href="{{ route('registerShop') }}"
+                                        class="text-gray-700 block px-4 py-2 text-sm">Add Shop</a>
+
+                                @endif
+
+                                @if (auth()->user()->user_type == 'admin')
+                                    <a href="{{ route('verifyTrader') }}"
+                                        class="text-gray-700 block px-4 py-2 text-sm">Show Trader verification</a>
+                                @endif
+                                <a href="{{ route('updateDetails') }}"
+                                    class="text-gray-700 block px-4 py-2 text-sm">Update Informations</a>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
                                     <button type="submit" class="text-gray-700 block w-full text-left px-4 py-2 text-sm">
@@ -48,14 +58,14 @@
             <div>
                 @auth
                     @if (auth()->user()->user_type == 'trader')
-                        <div
-                            class="flex md:justify-center py-3 mt-3 -mx-3 overflow-y-auto whitespace-nowrap scroll-hidden">
+                        <div class="flex md:justify-center py-3 mt-3 -mx-3 overflow-y-auto whitespace-nowrap scroll-hidden">
                             <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
                                 href="{{ route('products.create') }}">Add Products</a>
                             <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
                                 href="#">View Products</a>
                             <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
                                 href="{{ route('home') }}">View Main Website</a>
+
                         </div>
                     @endif
                 @endauth

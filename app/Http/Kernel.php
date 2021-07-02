@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckUserAdmin;
 use App\Http\Middleware\CheckUserTrader;
 use App\Http\Middleware\IsShopAvailable;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -66,5 +67,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'checkUserTrader' => \App\Http\Middleware\CheckUserTrader::class,
         'isShopAvailable' => \App\Http\MIddleware\IsShopAvailable::class,
+        'checkUserAdmin' => \App\Http\Middleware\CheckUserAdmin::class,
     ];
 }

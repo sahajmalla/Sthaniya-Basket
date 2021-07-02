@@ -22,7 +22,8 @@ class product extends Model
         'price',
         'prod_image',
         'prod_quantity',
-        'shop_id'
+        'shop_id',
+        'allergy'
     ];
 
     protected $casts = [

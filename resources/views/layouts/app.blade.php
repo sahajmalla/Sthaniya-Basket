@@ -55,6 +55,8 @@
                                         @if (auth()->user()->user_type == 'trader')
                                             <a href="{{ route('products.index') }}"
                                                 class="text-gray-700 block px-4 py-2 text-sm">Show CRUD</a>
+                                            <a href="{{ route('registerShop') }}"
+                                                class="text-gray-700 block px-4 py-2 text-sm">Add Shop</a>
                                         @endif
 
                                         @if (auth()->user()->user_type == 'admin')
@@ -169,6 +171,9 @@
                                         @if (auth()->user()->user_type == 'trader')
                                             <a href="{{ route('products.index') }}"
                                                 class="text-gray-700 block px-4 py-2 text-sm">Show CRUD</a>
+                                            <a href="{{ route('registerShop') }}"
+                                                class="text-gray-700 block px-4 py-2 text-sm">Add Shop</a>
+
                                         @endif
 
                                         @if (auth()->user()->user_type == 'admin')

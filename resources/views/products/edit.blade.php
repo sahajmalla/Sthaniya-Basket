@@ -13,7 +13,7 @@
                         @method('PUT')
                         <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
                             <div>
-                                <label class="text-gray-700 dark:text-gray-200" for="username">Name</label>
+                                <label class="text-gray-700 dark:text-gray-200" for="name">Name</label>
                                 <input id="prod_name" type="text" name="prod_name"
                                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 
                                                                 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 
@@ -75,6 +75,21 @@
                                 @error('prod_descrip') border-red-500 @enderror">{{ $product->prod_descrip }}
                             </textarea>
                                 @error('prod_descrip')
+                                    <div class="text-red-500 mt-2 text-sm">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label class="text-gray-700 dark:text-gray-200" for="password">Allergy</label>
+                                <textarea id="allergy" name="allergy"
+                                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 
+                                rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 
+                                focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring
+                                @error('allergy') border-red-500 @enderror">{{ $product->allergy }}
+                            </textarea>
+                                @error('allergy')
                                     <div class="text-red-500 mt-2 text-sm">
                                         {{ $message }}
                                     </div>
