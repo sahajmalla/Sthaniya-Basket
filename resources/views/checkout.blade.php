@@ -54,12 +54,12 @@
                                                 <option>Thursday</option>
                                                 <option>Friday</option>
                                             @elseif($currentDateTime->format('l') === 'Thursday')
-                                                <option>Wednesday (next week)</option>
+                                                <option>Wednesday</option>
                                                 <option>Thursday (next week)</option>
                                                 <option>Friday</option>
                                             @elseif($currentDateTime->format('l') === 'Friday')
-                                                <option>Wednesday (next week)</option>
-                                                <option>Thursday (next week)</option>
+                                                <option>Wednesday</option>
+                                                <option>Thursday</option>
                                                 <option>Friday (next week)</option>
                                             @else
                                                 <option>Wednesday</option>
@@ -201,9 +201,7 @@
                                                 <p>Collection Day:</p>
                                             </div>
                                             <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
-                                                @if($currentDateTime->format('l') === 'Wednesday' 
-                                                || $currentDateTime->format('l') === 'Thursday'
-                                                || $currentDateTime->format('l') === 'Friday')
+                                                @if($currentDateTime->format('l') === 'Wednesday')
                                                     <p class="collection-day">Wednesday (next week)</p>
                                                 @else
                                                     <p class="collection-day">Wednesday</p>
