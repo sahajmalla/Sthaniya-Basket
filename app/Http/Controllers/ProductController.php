@@ -7,22 +7,34 @@ use App\Models\Trader;
 use App\Models\Product;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\Console\Input\Input;
 
 class ProductController extends Controller
 {
     
-    public function index(){
-
+    public function index(Request $request){
+        
         $traders = Trader::get()->where('user_id', auth()->user()->id);
         $products = collect();
         $shops = collect();
-
+        
         foreach ($traders as $trader){
             $products = Product::where('trader_id', $trader->id)->get();
             $shops = Shop::where('trader_id', $trader->id)->get();
         }
-
+        if($request){
+            foreach ($shops as $shop){
+                // dd($shop->shopName);
+                if($request->sort==$shop->shopName){
+                    $products = DB::table('products')
+                        ->join('shops', 'shops.id', '=', 'products.shop_id')
+                        ->where('shops.shopName',$shop->shopName)
+                        ->get(); 
+                }
+            }  
+        }
+        
         return view('products.index', [
             'products' =>$products,
             'shops' => $shops,
