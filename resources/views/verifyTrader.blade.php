@@ -30,7 +30,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($result as $result)
+                            @foreach ($results as $result)
                                 <tr>
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                         <div class="flex items-center">
@@ -42,7 +42,7 @@
                                             </div>
                                             <div class="ml-3">
                                                 <p class="text-gray-900 whitespace-no-wrap">
-                                                    {{ $result->firstname }} {{ $result->lastname }} 
+                                                    {{ $result->firstname }} {{ $result->lastname }}
                                                 </p>
                                             </div>
                                         </div>
@@ -63,27 +63,37 @@
                                         </p>
                                     </td>
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+
                                         <div class="flex items-center">
-                                            <div class="">
-                                                <button
-                                                    class="flex bg-green-500 rounded-full font-bold text-white px-4 py-4 transition duration-300 ease-in-out hover:bg-green-700 mr-6">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
-                                                        viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2" d="M5 13l4 4L19 7" />
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                            <div class="">
-                                                <button
-                                                    class="flex bg-red-500 rounded-full font-bold text-white px-4 py-4 transition duration-300 ease-in-out hover:bg-red-700 mr-6">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
-                                                        viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                                    </svg>
-                                                </button>
-                                            </div>
+                                            <form action="{{ route('verifyTrader.verify',$result->id) }}" method="POST">
+                                                @csrf
+                                                @method('patch')
+                                                <div>
+                                                    <button
+                                                        class="flex bg-green-500 rounded-full font-bold text-white px-4 py-4 transition duration-300 ease-in-out hover:bg-green-700 mr-6">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                                            viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M5 13l4 4L19 7" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </form>
+
+                                            <form action="{{ route('verifyTrader.unverify', $result->id) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <div>
+                                                    <button
+                                                        class="flex bg-red-500 rounded-full font-bold text-white px-4 py-4 transition duration-300 ease-in-out hover:bg-red-700 mr-6">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                                            viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>

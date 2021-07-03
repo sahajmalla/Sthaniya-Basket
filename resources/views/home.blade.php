@@ -86,8 +86,12 @@
                 <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
                     {{ session('productOutOfStock') }}
                 </p>
+            @elseif(session('notVerified'))
+            <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                {{ session('notVerified') }}
+            </p>
             @endif
-            
+
         </div>
 
         <div class="carousel relative container mx-auto" style="max-width:1600px;">
@@ -236,7 +240,7 @@
 
         <section class="bg-white py-8">
 
-           
+
 
             <div class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
 
@@ -250,7 +254,26 @@
 
                         <div class="flex items-center" id="store-nav-content">
 
-                            <div class="relative">
+                            <div>
+                                <form action="{{ route('home') }}" method="POST">
+                                    @csrf
+                                    <select name="sortBy" id="sortBy">
+                                        <button>
+                                            <option value="Popularity">Popularity</option>
+                                        </button>
+                                        <button>
+                                            <option value="High">High to Low price</option>
+                                        </button>
+                                        <button>
+                                            <option value="Low">Low to High Price</option>
+                                        </button>
+                                        <button>
+                                            <option value="Latest">Latest</option>
+                                        </button>
+                                    </select>
+                                </form>
+                            </div>
+                            {{-- <div class="relative">
                                 <!-- Dropdown toggle button -->
                                 <button
                                     class="filter-btn relative z-10 block p-2 bg-white rounded-md dark:bg-gray-800 focus:outline-none">
@@ -281,7 +304,7 @@
                                         Latest
                                     </a>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -395,9 +418,9 @@
                                 @csrf
                                 <button
                                     class="px-2 py-1 text-xs font-bold text-white uppercase 
-                                                                                        transition-colors duration-200 transform bg-gray-800 rounded 
-                                                                                        dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 
-                                                                                        focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600">Add
+                                                                                                transition-colors duration-200 transform bg-gray-800 rounded 
+                                                                                                dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 
+                                                                                                focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600">Add
                                     to
                                     Cart
                                 </button>
@@ -429,9 +452,9 @@
                             @csrf
                             <button
                                 class="px-2 py-1 text-xs font-bold text-white uppercase 
-                                                                                                                            transition-colors duration-200 transform bg-gray-800 rounded 
-                                                                                                                            dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 
-                                                                                                                            focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600">Add
+                                                                                                                                            transition-colors duration-200 transform bg-gray-800 rounded 
+                                                                                                                                            dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 
+                                                                                                                                            focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600">Add
                                 to
                                 Cart
                             </button>
@@ -461,7 +484,6 @@
     </div>
     </section>
     <script>
-        
         // Menu button close open
         const filterBtn = document.querySelector('.filter-btn');
         const showFilter = document.querySelector('.show-filter');
@@ -469,6 +491,5 @@
         filterBtn.addEventListener('click', () => {
             showFilter.classList.toggle('hidden');
         });
-
     </script>
 @endsection

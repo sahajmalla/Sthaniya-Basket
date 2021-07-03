@@ -250,7 +250,7 @@
     </nav>
 
     <!--content-->
-    <main class="mainContent bg-white flex justify-center my-10">
+    <main class="mainContent bg-white flex justify-center mt-10 mb-4">
         @yield('content')
     </main>
 

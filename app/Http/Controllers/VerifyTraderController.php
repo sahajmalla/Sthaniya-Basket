@@ -10,16 +10,23 @@ class VerifyTraderController extends Controller
 {
     public function index() {
         
-        $query = DB::table('traders')
-                    ->join('users','users.id','=','traders.user_id')
-                    ->select('users.user_image','users.firstname','users.lastname',
-                            'traders.business','traders.verified_trader','users.email')
+        $query = DB::table('users')
+                    ->join('traders','users.id','=','traders.user_id')
                     ->get();
         // dd($query);
-        return view('verifyTrader',['result'=>$query]);
+        return view('verifyTrader',['results'=>$query]);
     }
 
-    public function verify(){
-        
-    }   
+    public function verify(int $traderid){
+        $trader=Trader::find($traderid);
+        $trader->verified_trader = 'yes';
+        $trader->save();
+        return back();
+    }
+    public function unverify(int $traderid){
+        $trader=Trader::find($traderid);
+        $trader->verified_trader = 'no';
+        $trader->save();
+        return back();
+    } 
 }

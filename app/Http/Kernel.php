@@ -5,6 +5,7 @@ namespace App\Http;
 use App\Http\Middleware\CheckUserAdmin;
 use App\Http\Middleware\CheckUserTrader;
 use App\Http\Middleware\IsShopAvailable;
+use App\Http\Middleware\VerifiedByAdmin;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -68,5 +69,6 @@ class Kernel extends HttpKernel
         'checkUserTrader' => \App\Http\Middleware\CheckUserTrader::class,
         'isShopAvailable' => \App\Http\MIddleware\IsShopAvailable::class,
         'checkUserAdmin' => \App\Http\Middleware\CheckUserAdmin::class,
+        'verifiedByAdmin' => \App\Http\Middleware\VerifiedByAdmin::class,
     ];
 }

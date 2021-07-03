@@ -62,15 +62,16 @@ Route::view('/forgotPassword', 'auth.forgot-password')->name('forgot-password');
 
 //verify trader
 Route::get('/verifyTrader', [VerifyTraderController::class,'index'])->name('verifyTrader')->middleware(['auth','checkUserAdmin']);
-Route::put('/verifyTrader', [VerifyTraderController::class,'verify'])->name('verify');
-Route::put('/verifyTrader', [VerifyTraderController::class,'unverify'])->name('unverify');
+Route::patch('/verifyTrader/{traderId}', [VerifyTraderController::class,'verify'])->name('verifyTrader.verify');
+Route::put('/verifyTrader/{traderId}', [VerifyTraderController::class,'unverify'])->name('verifyTrader.unverify');
 
-Route::resource('products', ProductController::class)->middleware(['auth','verified','checkUserTrader','isShopAvailable']);
+Route::resource('products', ProductController::class)->middleware(['auth','verified','checkUserTrader','isShopAvailable','verifiedByAdmin']);
 
 Route::get('/products/shop-products',[ShowShopProductController::class,'showProducts'])->name('show.shop.products');
 
 // HOME
 Route::get('/', [HomeController::class,'index'])->name('home');
+Route::post('/', [HomeController::class,'index'])->name('home');
 
 // REVIEW
 Route::post('/review/{product:prod_name}/create', [ReviewController::class,'store'])->name('review');
@@ -102,7 +103,7 @@ Route::get('/updateDetails',[UpdateDetailsController::class,'index'])->name('upd
 Route::post('/updateDetails',[UserImageController::class,'userImageUploadPost'])->name('image.upload')->middleware('auth');
 
 //register shop
-Route::get('/registerShop',[RegisterShopController::class,'index'])->name('registerShop')->middleware(['auth','verified','checkUserTrader']);
+Route::get('/registerShop',[RegisterShopController::class,'index'])->name('registerShop')->middleware(['auth','verified','checkUserTrader','verifiedByAdmin']);
 Route::post('/registerShop',[RegisterShopController::class,'store']);
 
 // PayPal
