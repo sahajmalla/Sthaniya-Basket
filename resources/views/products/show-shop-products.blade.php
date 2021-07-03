@@ -30,7 +30,7 @@
         
                 @foreach ($products as $product)
                             
-                    <div class="mb-4 flex overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
+                    <div class="mb-4 lg:flex overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
 
                         <!-- Product Image -->
                         <div>
@@ -50,7 +50,10 @@
                                 </a> 
                             </h1>
 
-                            <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">{{ $product->prod_descrip }}</p>
+                            @php 
+                                preg_match("/^([^.]+)/",$product->prod_descrip, $firstSentence )
+                            @endphp
+                            <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">{{ $firstSentence[1] }}</p>
 
                                 <!-- Product ratings -->
                             <div class="flex mt-2 item-center">
