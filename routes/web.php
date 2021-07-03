@@ -71,7 +71,6 @@ Route::get('/products/shop-products',[ShowShopProductController::class,'showProd
 
 // HOME
 Route::get('/', [HomeController::class,'index'])->name('home');
-Route::post('/', [HomeController::class,'index'])->name('home');
 
 // REVIEW
 Route::post('/review/{product:prod_name}/create', [ReviewController::class,'store'])->name('review');

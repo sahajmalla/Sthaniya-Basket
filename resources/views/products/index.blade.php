@@ -1,49 +1,7 @@
 @extends('layouts.crud')
 @section('content')
-    <div class="container mx-auto px-4 sm:px-8 max-w-5xl rounded-lg shadow-lg">
-
+    <div class="container mx-auto px-4 sm:px-8 max-w-5xl rounded-lg shadow-lg">   
         <div class="py-5">
-            <div class="my-2 flex ">
-
-                <div class="flex space-x-5">
-                    <h1 class="text-3xl font-bold text-gray-800">Your Products</h1>
-
-                    <a href="{{ route('products.create') }}"
-                        class="px-3 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md dark:bg-gray-800 hover:bg-blue-500 dark:hover:bg-gray-700 focus:outline-none focus:bg-blue-500 dark:focus:bg-gray-700">
-                        Insert New Product
-                    </a>
-                </div>
-            </div>
-            <div>
-                <div class="relative">
-                    <!-- Dropdown toggle button -->
-                    <button
-                        class="filter-by-button relative flex z-10 block p-2 bg-white rounded-md dark:bg-gray-800 focus:outline-none"><span>Filter
-                            By Shop</span>
-                        <svg class="w-5 h-5 text-gray-800 dark:text-white" xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd" />
-                        </svg>
-                    </button>
-    
-                    <!-- Dropdown menu -->
-    
-                    <div
-                        class="filter-by-show absolute hidden right-0 z-20 w-48 py-2 mt-2 bg-white rounded-md shadow-xl dark:bg-gray-800">
-                        @foreach ($shops as $shop)
-                            <a href="#"
-                                class="block px-4 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-blue-500 hover:text-white dark:hover:text-white">
-                                {{ $shop->shopName }}
-                            </a>
-                        @endforeach
-                    </div>
-    
-                </div>
-            </div>
-            
-
             @if (session('success'))
                 <div class="flex w-full max-w-sm mx-auto overflow-hidden rounded-lg shadow-lg bg-white dark:bg-gray-800">
                     <div class="flex items-center justify-center w-12 bg-green-500">
@@ -61,6 +19,67 @@
                     </div>
                 </div>
             @endif
+            <div class="my-2">
+
+                <div class="flex justify-center space-x-6">
+                    <h1 class="text-3xl font-bold text-gray-800">Your Products</h1>
+
+                    <a href="{{ route('products.create') }}"
+                        class="mb-3 rounded-full flex items-center shadow bg-blue-500 px-4 py-2 text-white hover:bg-blue-400">
+                        Insert New Product
+                    </a>
+
+                    <div>
+                        <div class="relative">
+                            <!-- Dropdown toggle button -->
+                            <button
+                                class="sort-btn relative z-10 block p-2 bg-white rounded-md dark:bg-gray-800 focus:outline-none">
+                                <svg class="fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg" width="24"
+                                    height="24" viewBox="0 0 24 24">
+                                    <path d="M7 11H17V13H7zM4 7H20V9H4zM10 15H14V17H10z" />
+                                </svg>
+                            </button>
+        
+                            <!-- Dropdown menu -->
+                            <div
+                                class="show-sort absolute right-0 z-20 w-48 py-2 mt-2 bg-white rounded-md shadow-xl dark:bg-gray-800 hidden">
+                                <a href="{{ URL::current() }}"
+                                    class="block px-4 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-blue-500 hover:text-white dark:hover:text-white">
+                                    All Products
+                                </a>
+                                @foreach ($shops as $shop)
+                                <a href="{{ URL::current()."?sort=". $shop->shopName }}"
+                                    class="block px-4 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-blue-500 hover:text-white dark:hover:text-white">
+                                    {{ $shop->shopName }}
+                                </a>
+                                @endforeach
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- <div>
+                <form action="product.index" method="POST">
+                    @csrf
+                    <select name="sortByShop" id="sortByShop">
+                        <option value="" disabled>Sort by your Shop</option>
+                        <a href="{{ url()->current() . '?sort=heelo' }}">
+                            <option value="test">test</option>
+                        </a>
+                        <a href="{{ url()->current() . '?sort=heelo2' }}">
+                            <option value="test">test2</option>
+                        </a>
+                        
+                        @foreach ($shops as $shop)
+                            <button href="{{ url()->current() . '?sort=heelo' }}">
+                                <option value={{ $shop->shopName }}>{{ $shop->shopName }}</option>
+                            </button>
+                        @endforeach
+                    </select>
+                </form>
+            </div> --}}
+            
 
             <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
                 <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
@@ -134,8 +153,8 @@
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                         <div class="flex">
                                             <a class="px-4 mr-2 py-2 font-medium tracking-wide text-white 
-                                                                                                capitalize transition-colors duration-200 
-                                                                                                transform bg-blue-600 rounded-md  hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
+                                                                                                                capitalize transition-colors duration-200 
+                                                                                                                transform bg-blue-600 rounded-md  hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
                                                 href="{{ route('products.edit', $product->id) }}">Edit
                                             </a>
                                             <form action="{{ route('products.destroy', $product->id) }}" method="POST">
@@ -143,8 +162,8 @@
                                                 @method('DELETE')
                                                 <button type="submit"
                                                     class="px-4 py-2 font-medium tracking-wide text-white 
-                                                                                                capitalize transition-colors duration-200 
-                                                                                                transform bg-red-600 rounded-md  hover:bg-red-500 focus:outline-none focus:bg-red-500">
+                                                                                                                capitalize transition-colors duration-200 
+                                                                                                                transform bg-red-600 rounded-md  hover:bg-red-500 focus:outline-none focus:bg-red-500">
                                                     Delete
                                                 </button>
                                             </form>
@@ -159,12 +178,12 @@
         </div>
     </div>
     <script>
-        //filter button close open
-        const filterBtn = document.querySelector('.filter-by-button ');
-        const filterShow = document.querySelector('.filter-by-show ');
+        // Menu button close open
+        const sortBtn = document.querySelector('.sort-btn');
+        const showSort = document.querySelector('.show-sort');
 
-        filterBtn.addEventListener('click', () => {
-            filterShow.classList.toggle('hidden');
+        sortBtn.addEventListener('click', () => {
+            showSort.classList.toggle('hidden');
         });
     </script>
 @endsection

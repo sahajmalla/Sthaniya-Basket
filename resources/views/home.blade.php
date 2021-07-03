@@ -87,9 +87,9 @@
                     {{ session('productOutOfStock') }}
                 </p>
             @elseif(session('notVerified'))
-            <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
-                {{ session('notVerified') }}
-            </p>
+                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                    {{ session('notVerified') }}
+                </p>
             @endif
 
         </div>
@@ -254,8 +254,8 @@
 
                         <div class="flex items-center" id="store-nav-content">
 
-                            <div>
-                                <form action="{{ route('home') }}" method="POST">
+                            {{-- <div>
+                                <form action="{{ route('home.sort') }}" method="POST">
                                     @csrf
                                     <select name="sortBy" id="sortBy">
                                         <button>
@@ -272,8 +272,8 @@
                                         </button>
                                     </select>
                                 </form>
-                            </div>
-                            {{-- <div class="relative">
+                            </div> --}}
+                            <div class="relative">
                                 <!-- Dropdown toggle button -->
                                 <button
                                     class="filter-btn relative z-10 block p-2 bg-white rounded-md dark:bg-gray-800 focus:outline-none">
@@ -286,25 +286,28 @@
                                 <!-- Dropdown menu -->
                                 <div
                                     class="show-filter absolute right-0 z-20 w-48 py-2 mt-2 bg-white rounded-md shadow-xl dark:bg-gray-800 hidden">
-
-                                    <a href="#"
+                                    <a href="{{ URL::current() }}"
+                                        class="block px-4 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-blue-500 hover:text-white dark:hover:text-white">
+                                        Default
+                                    </a>
+                                    <a href="{{ URL::current() . '?sort=popularity' }}"
                                         class="block px-4 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-blue-500 hover:text-white dark:hover:text-white">
                                         Popularity
                                     </a>
-                                    <a href="#"
+                                    <a href="{{ URL::current() . '?sort=high-price' }}"
                                         class="block px-4 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-blue-500 hover:text-white dark:hover:text-white">
                                         High to Low price
                                     </a>
-                                    <a href="#"
+                                    <a href="{{ URL::current() . '?sort=low-price' }}"
                                         class="block px-4 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-blue-500 hover:text-white dark:hover:text-white">
                                         Low to High Price
                                     </a>
-                                    <a href="#"
+                                    <a href="{{ URL::current() . '?sort=latest' }}"
                                         class="block px-4 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-blue-500 hover:text-white dark:hover:text-white">
                                         Latest
                                     </a>
                                 </div>
-                            </div> --}}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -418,9 +421,9 @@
                                 @csrf
                                 <button
                                     class="px-2 py-1 text-xs font-bold text-white uppercase 
-                                                                                                transition-colors duration-200 transform bg-gray-800 rounded 
-                                                                                                dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 
-                                                                                                focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600">Add
+                                                                                                            transition-colors duration-200 transform bg-gray-800 rounded 
+                                                                                                            dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 
+                                                                                                            focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600">Add
                                     to
                                     Cart
                                 </button>
@@ -451,12 +454,8 @@
                         <form action="{{ route('addToCart', $product->id) }}" method="POST">
                             @csrf
                             <button
-                                class="px-2 py-1 text-xs font-bold text-white uppercase 
-                                                                                                                                            transition-colors duration-200 transform bg-gray-800 rounded 
-                                                                                                                                            dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 
-                                                                                                                                            focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600">Add
-                                to
-                                Cart
+                                class="px-2 py-1 text-xs font-bold text-white uppercase transition-colors duration-200 transform bg-gray-800 rounded dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600">Add
+                                to Cart
                             </button>
 
                         </form>
