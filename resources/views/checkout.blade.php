@@ -1,9 +1,6 @@
 @extends('layouts.app')
 @section('content')
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/themes/dark.css">
-
     <!-- component -->
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
@@ -15,7 +12,7 @@
                 <h3 class="text-gray-700 text-center text-3xl font-bold mb-8">Checkout</h3>
 
                  <!-- Review items -->
-                 <div class="border rounded-md p-5 mb-10 w-full">
+                 <div class="border rounded-md p-8 mb-10 w-full">
                     
                     <h1 class="font-bold text-xl mb-4 uppercase">Review Items</h1>
 
@@ -154,6 +151,14 @@
                                         </div> --}}
 
                                         <!-- Collection time slot select -->
+
+                                        @if($currentDateTime->format('l') === "Tuesday")
+                                            <p>Tuesday</p>
+                                        @elseif($currentDateTime->format('l') === "Wednesday")
+                                            <p>Wednesday</p>
+                                        @elseif($currentDateTime->format('l') === "Thursday")
+                                            <p>Thursday</p>
+                                        @endif
 
                                         <div class="sm:flex">
 
@@ -348,30 +353,7 @@
 
     </div>
 
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!--  Flatpickr  -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script> --}}
-
-
     <script>
-
-        // $("#date1").flatpickr({
-        //     enableTime: true,
-        //     minDate: "today",
-        //     dateFormat: "m-d-Y",
-        //     "disable": [
-        //         function(date) {
-        //             return (date.getDay() === 0 || 
-        //                     date.getDay() === 1 || 
-        //                     date.getDay() === 2 || 
-        //                     date.getDay() === 6);  // disable weekends
-        //         }
-        //     ],
-        //     "locale": {
-        //         "firstDayOfWeek": 1 // set start day of week to Wednesday
-        //     }
-        // });
-
 
         // Change collection time by the drop down select list:
         function setCollectionTime() {

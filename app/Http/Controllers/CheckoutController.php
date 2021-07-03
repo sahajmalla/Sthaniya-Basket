@@ -34,7 +34,15 @@ class CheckoutController extends Controller
         // dd(Carbon::now()->toDateString()." | ".Carbon::now()->format('l'));
 
         // Current date and time:
-        $currentDateTime = Carbon::now();
+        $currentDateTime = Carbon::now()->addDays(2);
+
+        $firstTimeSlot = Carbon::parse('10:00:00')->addDays(1);
+        $secondTimeSlot = Carbon::parse('01:00:00')->addDays(1);
+        $thirdTimeSlot = Carbon::parse('04:00:00')->addDays(1);
+
+        // dd($currentDateTimePlus24Hrs);
+        // dd(((strtotime($currentDateTimePlus24Hrs) - 24 * 60 * 60) / 60 / 60)." ".strtotime($currentDateTime) / 60 / 60);
+        // dd($currentDateTime->format('l')." | ".date('h:i A', strtotime($currentDateTime)));
 
         return view('checkout', [
             "cartAndProductRecords" => $cartAndProductRecords,
