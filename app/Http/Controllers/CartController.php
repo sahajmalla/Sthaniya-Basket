@@ -65,55 +65,78 @@ class CartController extends Controller
         
         if (auth()->user()) {
 
-            // Check if product already exists in user's cart of products before adding:
-            $productCollection = Cart::get()->where('product_id', $productID)
+            // If product still has quantity.
+
+            if ($product->prod_quantity > 0) {
+
+                // Check if product already exists in user's cart of products before adding:
+
+                $productCollection = Cart::get()->where('product_id', $productID)
                 ->where('customer_id', auth()->user()->customers->first()->id);
-            
-            if (!$productCollection->count()) {
+                
+                if (!$productCollection->count()) {
 
-                $product->carts()->create([
-                    'customer_id' => $request->user()->customers->first()->id,
-                    'total_price' => $product->price,
-                    'product_quantity' => 1,
-                ]); 
+                    $product->carts()->create([
+                        'customer_id' => $request->user()->customers->first()->id,
+                        'total_price' => $product->price,
+                        'product_quantity' => 1,
+                    ]); 
 
-                //Success message
-                $request->session()->flash('addedToCart', 'Successfully added item to your cart!');
+                    //Success message
+                    $request->session()->flash('addedToCart', 'Successfully added item to your cart!');
+
+                }else {
+                    
+                    //Error message(item is already in cart)
+                    $request->session()->flash('failedToAddToCart', 'Item already exists in cart.');
+
+                }
 
             }else {
-                
-                //Error message(item is already in cart)
-                $request->session()->flash('failedToAddToCart', 'Item already exists in cart.');
+
+                // Product out of stock message
+                $request->session()->flash('productOutOfStock', 'There is no stock available for '
+                .$product->prod_name);
 
             }
 
         }else {
 
-            // If user is adding to cart while being logged in.
+            // If user is adding to cart without being logged in.
 
-            // Disallow duplicates:
-            $itemMatch = false;
-            if (session('products')) {
-                foreach (session('products') as $prod) {
-                    if ($prod->id === $product->id ) {
-                        $itemMatch = true;
-                    }            
+            if ($product->prod_quantity > 0) {
+
+                // Disallow duplicates:
+                $itemMatch = false;
+                if (session('products')) {
+                    foreach (session('products') as $prod) {
+                        if ($prod->id === $product->id ) {
+                            $itemMatch = true;
+                        }            
+                    }
                 }
-            }
 
-            // If duplicate not found, add item to the session's products array.
-            if (!$itemMatch) {
-                $request->session()->push('products', $product);
+                // If duplicate not found, add item to the session's products array.
+                if (!$itemMatch) {
+                    $request->session()->push('products', $product);
 
-                 // Store the product quantity under the key which is product's name.
-                $request->session()->put($product->prod_name, 1);
+                    // Store the product quantity under the key which is product's name.
+                    $request->session()->put($product->prod_name, 1);
 
-                // Success message
-                $request->session()->flash('addedToCart', 'Successfully added item to your cart!');
+                    // Success message
+                    $request->session()->flash('addedToCart', 'Successfully added item to your cart!');
+
+                }else {
+                    //Error message(item is already in cart)
+                    $request->session()->flash('failedToAddToCart', 'Item already exists in cart.');
+                }
 
             }else {
-                //Error message(item is already in cart)
-                $request->session()->flash('failedToAddToCart', 'Item already exists in cart.');
+
+                // Product out of stock message
+                $request->session()->flash('productOutOfStock', 'There is no stock available for this 
+                product '.$product->prod_name);
+
             }
 
         }
@@ -160,19 +183,6 @@ class CartController extends Controller
         return back()->with('status', 'Successfully deleted product.');
 
     }
-
-    // public function delete (Request $request, Product $product) {
-
-    //     if(($key = array_search($product, session('products'))) !== false){
-    //         $tempArray = session('products');
-    //         array_splice($tempArray , $key, 1); // Splice prevents gaps in the index position.
-    //         $request->session()->forget('products');
-    //         $request->session()->put('products', $tempArray);
-    //     }
-
-    //     return back()->with('status', 'Successfully deleted product from your cart.');
-
-    // }
 
     public function update (Request $request, int $product_id) {
 

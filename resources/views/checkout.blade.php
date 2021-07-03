@@ -12,7 +12,79 @@
         <main class="my-4">
 
             <div class="container mx-auto px-6">
-                <h3 class="text-gray-700 text-2xl font-medium">Checkout</h3>
+                <h3 class="text-gray-700 text-center text-3xl font-bold mb-8">Checkout</h3>
+
+                 <!-- Review items -->
+                 <div class="border rounded-md p-5 mb-10 w-full">
+                    
+                    <h1 class="font-bold text-xl mb-4 uppercase">Review Items</h1>
+
+                    @if ($cartAndProductRecords->count())
+
+                        <table class="w-full text-sm lg:text-base" cellspacing="0">
+
+                            <thead>
+                                <tr class="h-12">
+                                    <th class="hidden md:table-cell"></th>
+                                    <th class="text-left">Product</th>
+                                    <th class="hidden text-center md:table-cell">Description</th>
+                                    <th class="text-left lg:text-center pl-5 lg:pl-0">
+                                        <span class="lg:hidden" title="Quantity">Qtd</span>
+                                        <span class="hidden lg:inline">Quantity</span>
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                @foreach ($cartAndProductRecords as $cartAndProductRecord)
+                                
+                                    <tr>
+                                        <td class="hidden pb-4 md:table-cell">
+                                            <a href="#">
+                                                <img src="/images/products/{{ $cartAndProductRecord->prod_image }}"
+                                                    class="w-20 rounded" alt="Thumbnail">
+                                            </a>
+                                        </td>
+
+                                        <td>
+                                            <a href="">
+                                                <p class="mb-2">{{ $cartAndProductRecord->prod_name }}</p>
+                                            </a>
+                                        </td>
+
+                                        <td class="hidden text-center md:table-cell mb-1">
+                                            <span class="text-xs lg:text-base">
+                                                {{ $cartAndProductRecord->prod_descrip }}
+                                            </span>
+                                        </td>
+
+                                        <td class="text-left md:text-center md:mt-8">
+                                            <p>{{ $cartAndProductRecord->product_quantity }}</p>
+                                        </td>
+
+                                        {{-- <td class="text-right">
+                                            <form action="{{ route('cart.destroy', $cartAndProductRecord->product_id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" 
+                                                class="text-white bg-red-500 p-1 rounded-lg hover:bg-red-700 md:ml-4">
+                                                    <small class="m-2">Remove item</small>
+                                                </button>
+                                            </form>
+                                        </td> --}}
+
+                                    </tr>
+
+                                @endforeach
+
+                            </tbody>
+
+                        </table>
+
+                    @endif
+
+                </div>
 
                 <!-- Form and order summary -->
 
@@ -268,78 +340,6 @@
                         </div>
 
                     </form>
-
-                </div>
-
-                <!-- Review items -->
-                <div class="border rounded-md p-5 mb-10 w-full">
-                    
-                    <h1 class="font-bold text-xl mb-4 uppercase">Review Items</h1>
-
-                    @if ($cartAndProductRecords->count())
-
-                        <table class="w-full text-sm lg:text-base" cellspacing="0">
-
-                            <thead>
-                                <tr class="h-12">
-                                    <th class="hidden md:table-cell"></th>
-                                    <th class="text-left">Product</th>
-                                    <th class="hidden text-center md:table-cell">Description</th>
-                                    <th class="lg:text-right text-left pl-5 lg:pl-0">
-                                        <span class="lg:hidden" title="Quantity">Qtd</span>
-                                        <span class="hidden lg:inline">Quantity</span>
-                                    </th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-
-                                @foreach ($cartAndProductRecords as $cartAndProductRecord)
-                                
-                                    <tr>
-                                        <td class="hidden pb-4 md:table-cell">
-                                            <a href="#">
-                                                <img src="/images/products/{{ $cartAndProductRecord->prod_image }}"
-                                                    class="w-20 rounded" alt="Thumbnail">
-                                            </a>
-                                        </td>
-
-                                        <td>
-                                            <a href="">
-                                                <p class="mb-2">{{ $cartAndProductRecord->prod_name }}</p>
-                                            </a>
-                                        </td>
-
-                                        <td class="hidden text-center md:table-cell">
-                                            <span class="text-xs lg:text-base">
-                                                {{ $cartAndProductRecord->prod_descrip }}
-                                            </span>
-                                        </td>
-
-                                        <td class="flex justify-center md:mt-4">
-                                            <p>{{ $cartAndProductRecord->product_quantity }}</p>
-                                        </td>
-
-                                        <td class="text-right">
-                                            <form action="{{ route('cart.destroy', $cartAndProductRecord->product_id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" 
-                                                class="text-white bg-red-500 p-1 rounded-lg hover:bg-red-700 md:ml-4">
-                                                    <small class="m-2">Remove item</small>
-                                                </button>
-                                            </form>
-                                        </td>
-
-                                    </tr>
-
-                                @endforeach
-
-                            </tbody>
-
-                        </table>
-
-                    @endif
 
                 </div>
 

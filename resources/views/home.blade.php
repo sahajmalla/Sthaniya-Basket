@@ -59,6 +59,36 @@
 
     </style>
     <div>
+
+        <div class="flex w-12/12 justify-center mb-10">
+
+            @if (session('order-success'))
+                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
+                    {{ session('order-success') }}
+                </p>
+            @elseif(session('addedToWishlist'))
+                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
+                    {{ session('addedToWishlist') }}
+                </p>
+            @elseif(session('failedToAddToWishlist'))
+                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                    {{ session('failedToAddToWishlist') }}
+                </p>
+            @elseif(session('addedToCart'))
+                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
+                    {{ session('addedToCart') }}
+                </p>
+            @elseif(session('failedToAddToCart'))
+                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                    {{ session('failedToAddToCart') }}
+                </p>
+            @elseif(session('productOutOfStock'))
+                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                    {{ session('productOutOfStock') }}
+                </p>
+            @endif
+        </div>
+
         <div class="carousel relative container mx-auto" style="max-width:1600px;">
             <div class="carousel-inner relative overflow-hidden w-full">
                 <!--Slide 1-->
@@ -204,24 +234,9 @@
         </div>
 
         <section class="bg-white py-8">
-            <div class="flex w-12/12 justify-center">
-                @if (session('order-success'))
-                    <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
-                        {{ session('order-success') }}</p>
-                @elseif(session('addedToWishlist'))
-                    <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
-                        {{ session('addedToWishlist') }}</p>
-                @elseif(session('failedToAddToWishlist'))
-                    <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
-                        {{ session('failedToAddToWishlist') }}</p>
-                @elseif(session('addedToCart'))
-                    <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
-                        {{ session('addedToCart') }}</p>
-                @elseif(session('failedToAddToCart'))
-                    <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
-                        {{ session('failedToAddToCart') }}</p>
-                @endif
-            </div>
+
+           
+
             <div class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
 
                 <div id="store" class="w-full z-30 top-0 px-6 py-1">

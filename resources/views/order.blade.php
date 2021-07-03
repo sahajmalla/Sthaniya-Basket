@@ -11,39 +11,39 @@
                     <div>
                         <h1 class="text-2xl font-medium text-gray-800 mb-6">Order details</h1>
                     
-                        <!-- Order details table -->
-                        <table class="min-w-full leading-normal mb-8 rounded-lg shadow-lg border border-2">
-                            <thead>
-                                <tr>
-                                    <th scope="col"
-                                        class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
-                                        Order No
-                                    </th>
-                                    <th scope="col"
-                                        class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
-                                        Order Date
-                                    </th>
-                                    <th scope="col"
-                                        class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
-                                        Order Description
-                                    </th>
-                                    <th scope="col"
-                                        class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
-                                        Total Items
-                                    </th>
-                                    <th scope="col"
-                                        class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
-                                        Total Quantity
-                                    </th>
-                                    <th scope="col"
-                                        class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
-                                        Discount
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                @if($orders->count()) 
+                        @if($orders->count()) 
+                        
+                            <!-- Order details table -->
+                            <table class="min-w-full leading-normal mb-8 rounded-lg shadow-lg border border-2">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"
+                                            class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
+                                            Order No
+                                        </th>
+                                        <th scope="col"
+                                            class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
+                                            Order Date
+                                        </th>
+                                        <th scope="col"
+                                            class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
+                                            Order Description
+                                        </th>
+                                        <th scope="col"
+                                            class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
+                                            Total Items
+                                        </th>
+                                        <th scope="col"
+                                            class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
+                                            Total Quantity
+                                        </th>
+                                        <th scope="col"
+                                            class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
+                                            Discount
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
                                     @foreach ($orders as $order)
 
@@ -81,98 +81,99 @@
                                         </tr>
 
                                     @endforeach
+                                    
+                                </tbody>
+                            </table>
 
-                                @else 
-                                    <p class="text-lg font-medium text-gray-800 mb-6 ml-1">You have not made any orders yet.</p> 
-                                @endif
+                            <h1 class="text-2xl font-medium text-gray-800 mb-6">Payment details</h1>
 
-                            </tbody>
-                        </table>
+                            <!-- Payment details table -->
+                            <table class="min-w-full leading-normal mb-8 rounded-lg shadow-lg border border-2">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"
+                                            class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
+                                            Payment No
+                                        </th>
+                                        <th scope="col"
+                                            class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
+                                            Total Price
+                                        </th>
+                                        <th scope="col"
+                                            class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
+                                            Payment Method
+                                        </th>
+                                        <th scope="col"
+                                            class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
+                                            Payment Status
+                                        </th>
+                                        <th scope="col"
+                                            class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
+                                            Collection Time
+                                        </th>
+                                        <th scope="col"
+                                            class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
+                                            Collection Day
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
-                        <h1 class="text-2xl font-medium text-gray-800 mb-6">Payment details</h1>
+                                    @if($orders->count()) 
 
-                        <!-- Payment details table -->
-                        <table class="min-w-full leading-normal mb-8 rounded-lg shadow-lg border border-2">
-                            <thead>
-                                <tr>
-                                    <th scope="col"
-                                        class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
-                                        Payment No
-                                    </th>
-                                    <th scope="col"
-                                        class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
-                                        Total Price
-                                    </th>
-                                    <th scope="col"
-                                        class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
-                                        Payment Method
-                                    </th>
-                                    <th scope="col"
-                                        class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
-                                        Payment Status
-                                    </th>
-                                    <th scope="col"
-                                        class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
-                                        Collection Time
-                                    </th>
-                                    <th scope="col"
-                                        class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
-                                        Collection Day
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                                        @foreach ($orders as $order)
 
-                                @if($orders->count()) 
+                                            <tr>
+                                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                    <p class="text-gray-900 whitespace-no-wrap">
+                                                        {{ $order->id}}
+                                                    </p>
+                                                </td>
+                                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                    <p class="text-gray-900 whitespace-no-wrap">
+                                                        £{{ $order->order_total}}
+                                                    </p>
+                                                </td>
+                                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                    <p class="text-gray-900 whitespace-no-wrap">
+                                                        {{ $order->payment_type }}
+                                                    </p>
+                                                </td>
+                                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                    <p class="text-gray-900 whitespace-no-wrap">
+                                                        @if($order->is_paid === 1)
+                                                            Complete
+                                                        @else
+                                                            Pending
+                                                        @endif
+                                                        
+                                                    </p>
+                                                </td>
+                                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                    <p class="text-gray-900 whitespace-no-wrap">
+                                                        {{ $order->collection_time }}
+                                                    </p>
+                                                </td>
+                                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                    <p class="text-gray-900 whitespace-no-wrap">
+                                                        {{ $order->collection_day }}
+                                                    </p>
+                                                </td>
+                                            </tr>
 
-                                    @foreach ($orders as $order)
+                                        @endforeach
 
-                                        <tr>
-                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                <p class="text-gray-900 whitespace-no-wrap">
-                                                    {{ $order->id}}
-                                                </p>
-                                            </td>
-                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                <p class="text-gray-900 whitespace-no-wrap">
-                                                    £{{ $order->order_total}}
-                                                </p>
-                                            </td>
-                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                <p class="text-gray-900 whitespace-no-wrap">
-                                                    {{ $order->payment_type }}
-                                                </p>
-                                            </td>
-                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                <p class="text-gray-900 whitespace-no-wrap">
-                                                    @if($order->is_paid === 1)
-                                                        Complete
-                                                    @else
-                                                        Pending
-                                                    @endif
-                                                    
-                                                </p>
-                                            </td>
-                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                <p class="text-gray-900 whitespace-no-wrap">
-                                                    {{ $order->collection_time }}
-                                                </p>
-                                            </td>
-                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                <p class="text-gray-900 whitespace-no-wrap">
-                                                    {{ $order->collection_day }}
-                                                </p>
-                                            </td>
-                                        </tr>
+                                    @else 
+                                        <p class="text-lg font-medium text-gray-800 mb-6 ml-1">You have not made any orders yet.</p> 
+                                    @endif
 
-                                    @endforeach
+                                </tbody>
+                            </table>
 
-                                @else 
-                                    <p class="text-lg font-medium text-gray-800 mb-6 ml-1">You have not made any orders yet.</p> 
-                                @endif
+                        @else 
+                            <p class="text-lg font-medium text-gray-800 mb-6 ml-1">You have not made any orders yet.</p> 
+                        @endif
 
-                            </tbody>
-                        </table>
                     </div>
 
                 </div>

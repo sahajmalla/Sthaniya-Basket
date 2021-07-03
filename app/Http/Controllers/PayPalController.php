@@ -68,10 +68,27 @@ class PayPalController extends Controller
             ->get();
 
             foreach ($cartAndProductRecords as $cartAndProductRecord) {
+
                 $product = Product::find($cartAndProductRecord->product_id);
+                
                 if ($product->prod_quantity > 0) {
-                    $product->prod_quantity--;
+
+                    // Decrease product quantity.
+                    $productOldQuantity = $product->prod_quantity;
+
+                    $product->prod_quantity = $product->prod_quantity - $cartAndProductRecord->product_quantity;
                     $product->save();
+
+                    // Add data to report table.
+                    $productsSoldQuantity = $productOldQuantity - $product->prod_quantity;
+                    $productSales = $productsSoldQuantity * $product->price;
+
+                    $product->trader->reports()->create([
+                        'report_type' => 'daily',
+                        'report_sales_quantity' => $productsSoldQuantity,
+                        'report_earnings' => $productSales,
+                    ]);
+
                 }else {
                     //product out of stock.
                 }

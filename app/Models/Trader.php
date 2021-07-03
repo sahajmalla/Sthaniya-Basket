@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Shop;
 use App\Models\User;
+use App\Models\Report;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -27,6 +28,10 @@ class Trader extends Model
 
     public function products(){
         return $this->hasMany(Product::class);
+    }
+
+    public function reports(){
+        return $this->hasMany(Report::class);
     }
 
 }
