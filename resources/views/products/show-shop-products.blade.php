@@ -20,8 +20,6 @@
 
         <!-- Heading -->
 
-        <h1 class="text-3xl font-bold">Trending Items</h1>
-
         @if ($products->count())
 
             <!--Products -->

@@ -204,7 +204,24 @@
         </div>
 
         <section class="bg-white py-8">
-
+            <div class="flex w-12/12 justify-center">
+                @if (session('order-success'))
+                    <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
+                        {{ session('order-success') }}</p>
+                @elseif(session('addedToWishlist'))
+                    <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
+                        {{ session('addedToWishlist') }}</p>
+                @elseif(session('failedToAddToWishlist'))
+                    <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                        {{ session('failedToAddToWishlist') }}</p>
+                @elseif(session('addedToCart'))
+                    <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
+                        {{ session('addedToCart') }}</p>
+                @elseif(session('failedToAddToCart'))
+                    <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                        {{ session('failedToAddToCart') }}</p>
+                @endif
+            </div>
             <div class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
 
                 <div id="store" class="w-full z-30 top-0 px-6 py-1">
@@ -253,7 +270,9 @@
                     </div>
                 </div>
 
+
                 <div class="md:grid grid-cols-2 lg:grid-cols-3 gap-10">
+
 
                     @foreach ($products as $product)
 
@@ -360,9 +379,9 @@
                                 @csrf
                                 <button
                                     class="px-2 py-1 text-xs font-bold text-white uppercase 
-                                                                            transition-colors duration-200 transform bg-gray-800 rounded 
-                                                                            dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 
-                                                                            focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600">Add
+                                                                                        transition-colors duration-200 transform bg-gray-800 rounded 
+                                                                                        dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 
+                                                                                        focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600">Add
                                     to
                                     Cart
                                 </button>
@@ -394,9 +413,9 @@
                             @csrf
                             <button
                                 class="px-2 py-1 text-xs font-bold text-white uppercase 
-                                                                                                    transition-colors duration-200 transform bg-gray-800 rounded 
-                                                                                                    dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 
-                                                                                                    focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600">Add
+                                                                                                                            transition-colors duration-200 transform bg-gray-800 rounded 
+                                                                                                                            dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 
+                                                                                                                            focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600">Add
                                 to
                                 Cart
                             </button>
@@ -413,7 +432,13 @@
     @endforeach
 
     </div>
-    {{ $products->links() }}
+    <div class="mt-6 flex justify-center">
+        <div>
+            {{ $products->links() }}
+        </div>
+
+    </div>
+
     </div>
 
     </section>
