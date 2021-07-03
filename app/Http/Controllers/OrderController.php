@@ -9,7 +9,7 @@ class OrderController extends Controller
 {
     public function index() {
 
-        $orders = Checkout::get()->where('customer_id', auth()->user()->customers->first()->id);
+        $orders = Checkout::latest()->paginate(20)->where('customer_id', auth()->user()->customers->first()->id);
 
         return view('order', [
             "orders" => $orders,

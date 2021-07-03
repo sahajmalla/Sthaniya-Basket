@@ -60,7 +60,7 @@
     </style>
     <div>
 
-        <div class="flex w-12/12 justify-center mb-10">
+        <div class="flex w-12/12 justify-center mb-10" id="messages">
 
             @if (session('order-success'))
                 <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
@@ -87,6 +87,7 @@
                     {{ session('productOutOfStock') }}
                 </p>
             @endif
+            
         </div>
 
         <div class="carousel relative container mx-auto" style="max-width:1600px;">
@@ -460,12 +461,14 @@
     </div>
     </section>
     <script>
-        //menu button close open
+        
+        // Menu button close open
         const filterBtn = document.querySelector('.filter-btn');
         const showFilter = document.querySelector('.show-filter');
 
         filterBtn.addEventListener('click', () => {
             showFilter.classList.toggle('hidden');
         });
+
     </script>
 @endsection

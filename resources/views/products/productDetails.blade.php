@@ -554,7 +554,7 @@
 
                                                     <div class="-mr-1">
                                                         <input type='submit'
-                                                            class="bg-green-600 text-white font-medium py-1 px-4 border border-green-600 rounded-lg tracking-wide mr-1 hover:bg-green-800"
+                                                            class="bg-blue-600 text-white font-medium py-1 px-4 border border-blue-800 rounded-lg tracking-wide mr-1 hover:bg-blue-800"
                                                             value='Post Review'>
                                                     </div>
 
@@ -761,14 +761,10 @@
             writeBtn.addEventListener('click', () => {
                 if (comntForm.classList.contains('hidden')) {
                     comntForm.classList.remove('hidden');
-                    writeBtn.classList.remove('bg-gray-700');
-                    writeBtn.classList.add('bg-red-600');
                     writeBtn.innerHTML = "Cancel";
                 } else {
                     comntForm.classList.add('hidden');
                     writeBtn.innerHTML = "Write a review";
-                    writeBtn.classList.remove('bg-red-600');
-                    writeBtn.classList.add('bg-gray-700');
                 }
             });
         </script>

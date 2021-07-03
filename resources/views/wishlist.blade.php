@@ -2,13 +2,17 @@
 @section('content')
     <section class="body-font flex flex-col rounded-lg w-10/12 shadow-xl">
 
-        <div class="flex w-12/12 justify-center mb-4">
+        <div class="flex w-12/12 justify-center mb-4" id="messages">
                 @if(session('deleteFromWishlist'))
                     <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">{{ session('deleteFromWishlist') }}</p>
                 @elseif(session('addedToCart'))
                     <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">{{ session('addedToCart') }}</p>
                 @elseif(session('failedToAddToCart'))
                     <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">{{ session('failedToAddToCart') }}</p>
+                @elseif(session('productOutOfStock'))
+                    <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                        {{ session('productOutOfStock') }}
+                    </p>
                 @endif
         </div>
 
@@ -41,7 +45,7 @@
 
                                     <div class="w-56 -mt-10 overflow-hidden bg-white rounded-lg shadow-lg md:w-64 dark:bg-gray-800">
                                         
-                                        <div class="flex flex-col items-center justify-evenly px-3 py-2 dark:bg-gray-700">
+                                        <div class="flex flex-col justify-evenly px-3 py-2 dark:bg-gray-700">
 
                                             <a href="{{ route('product', $product->product_id) }}">
                                                 <div class="flex space-x-1 py-2 font-bold tracking-wide text-gray-800 dark:text-white">
