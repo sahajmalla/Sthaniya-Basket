@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Checkout;
 use Illuminate\Http\Request;
 use App\Mail\OrderSuccessful;
+use App\Mail\ProductOutOfStock;
 use App\Services\PaypalService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -71,27 +72,28 @@ class PayPalController extends Controller
 
                 $product = Product::find($cartAndProductRecord->product_id);
                 
-                if ($product->prod_quantity > 0) {
+                // Decrease product quantity.
+                $productOldQuantity = $product->prod_quantity;
 
-                    // Decrease product quantity.
-                    $productOldQuantity = $product->prod_quantity;
+                $product->prod_quantity = $product->prod_quantity - $cartAndProductRecord->product_quantity;
+                $product->save();
 
-                    $product->prod_quantity = $product->prod_quantity - $cartAndProductRecord->product_quantity;
-                    $product->save();
+                // Add data to report table.
+                $productsSoldQuantity = $productOldQuantity - $product->prod_quantity;
+                $productSales = $productsSoldQuantity * $product->price;
 
-                    // Add data to report table.
-                    $productsSoldQuantity = $productOldQuantity - $product->prod_quantity;
-                    $productSales = $productsSoldQuantity * $product->price;
+                $product->trader->reports()->create([
+                    'report_type' => 'daily',
+                    'report_sales_quantity' => $productsSoldQuantity,
+                    'report_earnings' => $productSales,
+                ]);
 
-                    $product->trader->reports()->create([
-                        'report_type' => 'daily',
-                        'report_sales_quantity' => $productsSoldQuantity,
-                        'report_earnings' => $productSales,
-                    ]);
 
-                }else {
-                    //product out of stock.
+                // If product quantity is 0 after sales, then send an email to trader.
+                if ($product->prod_quantity === 0) {
+                    Mail::to($product->trader->user)->send(new ProductOutOfStock($product, $product->trader->user));
                 }
+
             }
             
             DB::table('carts')->truncate(); // Clear cart items.
