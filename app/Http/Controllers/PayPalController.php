@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\Models\Cart;
 use App\Mail\OrderPaid;
 use App\Models\Product;
 use App\Models\Checkout;
@@ -96,7 +97,8 @@ class PayPalController extends Controller
 
             }
             
-            DB::table('carts')->truncate(); // Clear cart items.
+            // Clear cart items for the current customer.
+            Cart::where('customer_id', auth()->user()->customers->first()->id)->delete();
 
             // Send email to user.
             Mail::to(auth()->user())->send(new OrderSuccessful($order));
