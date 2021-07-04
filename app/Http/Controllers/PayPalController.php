@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use App\Models\Cart;
+use App\Models\Trader;
 use App\Mail\OrderPaid;
 use App\Models\Product;
 use App\Models\Checkout;
@@ -12,6 +13,7 @@ use App\Mail\OrderSuccessful;
 use App\Mail\ProductOutOfStock;
 use App\Services\PaypalService;
 use Illuminate\Support\Facades\DB;
+use App\Models\ProductQuantitySales;
 use Illuminate\Support\Facades\Mail;
 
 class PayPalController extends Controller
@@ -46,10 +48,12 @@ class PayPalController extends Controller
 
     }
 
+
     public function cancelPage()
     {
         dd('payment failed');
     }
+
 
     public function getExpressCheckoutSuccess(Request $request, $orderId)
     {
@@ -58,6 +62,7 @@ class PayPalController extends Controller
         $response = $this->paypalService->captureOrder($order->paypal_orderid);
 
         if ($response->result->status == 'COMPLETED') {
+
             $order->is_paid = 1;
             $order->save();
 
@@ -79,16 +84,14 @@ class PayPalController extends Controller
                 $product->prod_quantity = $product->prod_quantity - $cartAndProductRecord->product_quantity;
                 $product->save();
 
-                // Add data to report table.
+                // Create data to report table.
                 $productsSoldQuantity = $productOldQuantity - $product->prod_quantity;
                 $productSales = $productsSoldQuantity * $product->price;
 
-                $product->trader->reports()->create([
-                    'report_type' => 'daily',
-                    'report_sales_quantity' => $productsSoldQuantity,
-                    'report_earnings' => $productSales,
-                ]);
+                $this->generateTraderReport($product, $productsSoldQuantity, $productSales);
 
+                // Create or update the product's total sales and quantity sold details.
+                $this->createOrUpdateProductSales($product, $product->trader, $productsSoldQuantity, $productSales);
 
                 // If product quantity is 0 after sales, then send an email to trader.
                 if ($product->prod_quantity === 0) {
@@ -97,17 +100,72 @@ class PayPalController extends Controller
 
             }
             
-            // Clear cart items for the current customer.
-            Cart::where('customer_id', auth()->user()->customers->first()->id)->delete();
+            $this->clearCustomerCartAndSendEmail($order);
 
-            // Send email to user.
-            Mail::to(auth()->user())->send(new OrderSuccessful($order));
-
-            return redirect()->route('home')->with('order-success', 'Your order has been placed.');
+            return redirect()->route('home')->with('order-success', 'Your order has been successfully placed.');
 
         }
 
         return redirect()->route('home')->withError('Payment UnSuccessful! Something went wrong!');
 
     }
+
+
+    public function generateTraderReport(Product $product, int $productsSoldQuantity, float $productSales) {
+
+        // Generating product sales report for trader.
+        $product->trader->reports()->create([
+            'report_type' => 'daily',
+            'report_sales_quantity' => $productsSoldQuantity,
+            'report_earnings' => $productSales,
+        ]);
+
+    }
+
+
+    public function createOrUpdateProductSales(Product $product, Trader $trader,
+        int $productsSoldQuantity, float $productSales) {
+            
+        // Update total earnings and total product sold data in product_quantity_sales:
+
+        $productQuantitySalesRecords = ProductQuantitySales::get()->where('product_id', $product->id)
+        ->where('trader_id', $product->trader->id);      
+
+        if ($productQuantitySalesRecords->count()) {
+
+            // If product's sales has a record in the ProductQuantitySales table, 
+            // update the existing data.   
+
+            foreach ($productQuantitySalesRecords as $productQuantitySalesRecord) {
+
+                $productQuantitySalesRecord->total_quantity_sold += $productsSoldQuantity;
+                $productQuantitySalesRecord->total_earnings += $productSales; 
+                $productQuantitySalesRecord->save();
+
+            }
+
+        }else {
+
+            // Else, create a new data for the product's sales record.
+
+            $product->productQuantitySales()->create([
+            'total_quantity_sold' => $productsSoldQuantity,
+            'total_earnings' => $productSales,
+            'trader_id' => $product->trader->id,
+            ]);
+
+        }
+    }
+
+    
+    public function clearCustomerCartAndSendEmail(Checkout $order) {
+
+        // Clear cart items for the current customer.
+        Cart::where('customer_id', auth()->user()->customers->first()->id)->delete();
+
+        // Send email to user.
+        Mail::to(auth()->user())->send(new OrderSuccessful($order));
+
+    }
+
 }

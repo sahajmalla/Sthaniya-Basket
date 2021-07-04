@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function index(Request $request) {
-        // dd($request);
+
         $products = Product::inRandomOrder()->paginate(20);
         
         if($request->sort=='latest'){

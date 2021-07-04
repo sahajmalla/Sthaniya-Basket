@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Review;
 use App\Models\Trader;
 use App\Models\Wishlist;
+use App\Models\ProductQuantitySales;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -50,4 +51,8 @@ class product extends Model
         return $this->hasMany(Cart::class);
     }
 
+    public function productQuantitySales(){
+        return $this->hasMany(ProductQuantitySales::class);
+    }
+    
 }
