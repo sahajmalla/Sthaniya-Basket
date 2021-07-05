@@ -58,6 +58,7 @@
         }
 
     </style>
+
     <div>
 
         <div class="flex w-12/12 justify-center mb-10" id="messages">
@@ -89,6 +90,10 @@
             @elseif(session('notVerified'))
                 <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
                     {{ session('notVerified') }}
+                </p>
+            @elseif(session('slotsFull'))
+                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                    {{ session('slotsFull') }}
                 </p>
             @endif
 
@@ -240,8 +245,6 @@
 
         <section class="bg-white py-8">
 
-
-
             <div class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
 
                 <div id="store" class="w-full z-30 top-0 px-6 py-1">
@@ -313,7 +316,7 @@
                 </div>
 
 
-                <div class="md:grid grid-cols-2 lg:grid-cols-3 gap-10">
+                <div class="md:grid grid-cols-2 lg:grid-cols-3 gap-10 p-6">
 
 
                     @foreach ($products as $product)
