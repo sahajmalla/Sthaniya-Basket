@@ -51,7 +51,7 @@ Route::get('/greengrocer',[ViewGreengrocerShopController::class,'index'])->name(
 Route::get('/shop/{shop:shop_name}',[ViewShopProductController::class,'showProduct'])->name('show.products');
 
 // ORDER
-Route::get('/order', [OrderController::class,'index'])->name('order');
+Route::get('/order', [OrderController::class,'index'])->name('order')->middleware(['auth']);
 
 // INVOICE
 Route::get('/invoice', function () {
@@ -93,6 +93,7 @@ Route::patch('/cart/{product:prod_name}', [CartController::class,'patch'])->name
 // CHECKOUT
 Route::get('/checkout', [CheckoutController::class,'index'])
     ->middleware(['auth', 'verified'])->name('checkout');
+    
 Route::post('/checkout/{total_price}/{total_quantity}/{total_items}/{current_day_time}', 
     [CheckoutController::class,'store'])->middleware(['auth', 'verified'])->name('checkout.add');
 

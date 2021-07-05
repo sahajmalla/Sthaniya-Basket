@@ -1,9 +1,6 @@
 @extends('layouts.app')
 @section('content')
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/themes/dark.css">
-
     <!-- component -->
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
@@ -15,7 +12,7 @@
                 <h3 class="text-gray-700 text-center text-3xl font-bold mb-8">Checkout</h3>
 
                  <!-- Review items -->
-                 <div class="border rounded-md p-5 mb-10 w-full">
+                 <div class="border rounded-md p-8 mb-10 w-full">
                     
                     <h1 class="font-bold text-xl mb-4 uppercase">Review Items</h1>
 
@@ -122,17 +119,17 @@
                                             class="w-full h-10 md:w-8/12 px-2 py-1 text-gray-700 bg-gray-200 rounded">
 
                                             @if($currentDateTime->format('l') === 'Wednesday')
-                                                <option disabled>Wednesday</option>
+                                                <option>Wednesday (next week)</option>
                                                 <option>Thursday</option>
                                                 <option>Friday</option>
                                             @elseif($currentDateTime->format('l') === 'Thursday')
-                                                <option>Wednesday</option>
-                                                <option disabled>Thursday</option>
+                                                <option>Wednesday (next week)</option>
+                                                <option>Thursday (next week)</option>
                                                 <option>Friday</option>
                                             @elseif($currentDateTime->format('l') === 'Friday')
-                                                <option>Wednesday</option>
-                                                <option>Thursday</option>
-                                                <option disabled>Friday</option>
+                                                <option>Wednesday (next week)</option>
+                                                <option>Thursday (next week)</option>
+                                                <option>Friday (next week)</option>
                                             @else
                                                 <option>Wednesday</option>
                                                 <option>Thursday</option>
@@ -143,17 +140,7 @@
         
                                         </div>
 
-                                        <!-- Collection date -->
-                                        {{-- <div class="sm:flex mb-6">
-
-                                            <label class="text-sm w-4/12 font-bold text-gray-700 mr-2">Collection Date:</label>
-
-                                            <input name="collectionDate" type="date" id="date1" placeholder="MM/DD/YYYY" data-input
-                                            class="w-full h-10 md:w-8/12 px-2 py-1 text-gray-700 bg-gray-200 rounded"/>
-        
-                                        </div> --}}
-
-                                        <!-- Collection time slot select -->
+                                        <!-- Collection time slot select -->              
 
                                         <div class="sm:flex">
 
@@ -163,9 +150,529 @@
                                             id="select-collection-time" 
                                             class="w-full h-10 md:w-8/12 px-2 py-1 text-gray-700 bg-gray-200 rounded">
 
+
+                                            @if($currentDateTime->format('l') === "Tuesday") 
+                                                                                        
+                                                @if(((strtotime($thirdTimeSlot) / 3600) - (strtotime($currentDateTime) / 3600)) < 24)
+                                                    
+                                                    <!-- Show everything because the wednesday will be disabled -->
+
+                                                    <script>
+
+                                                        // Change order summary's collection day:
+                                                        function setCollectionDay() {
+
+                                                            var selectColelctionDay = document.getElementById('select-collection-day');
+                                                            var selectedValue = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
+                                                            const collectionDay = document.querySelector('.collection-day');
+                                                            collectionDay.innerHTML = selectedValue;                          
+
+                                                        }
+                                                        
+                                                        var selectColelctionDay = document.getElementById('select-collection-day');
+                                                        var todaysDay = new Date().getDay(); // Sunday = 0 and monday = 6
+                                                        console.log(todaysDay);
+                                                        
+                                                        if(todaysDay === 2) {
+
+                                                            selectColelctionDay.options[0].innerHTML = "Wednesday (next week)";
+
+                                                        }else if (todaysDay === 3) {
+
+                                                            selectColelctionDay.options[0].innerHTML = "Wednesday (next week)";
+                                                            selectColelctionDay.options[1].innerHTML = "Thursday (next week)";
+
+
+                                                        }else {
+
+                                                            selectColelctionDay.options[0].innerHTML = "Wednesday (next week)";
+                                                            selectColelctionDay.options[1].innerHTML = "Thursday (next week)";
+                                                            selectColelctionDay.options[2].innerHTML = "Friday (next week)";
+
+                                                        }
+
+                                                    </script>
+
+                                                    <option>10-13</option>
+                                                    <option>13-16</option>
+                                                    <option>16-19</option>
+
+                                                @elseif(((strtotime($secondTimeSlot) / 3600) - (strtotime($currentDateTime) / 3600)) < 24)
+                                                    
+                                                    <!-- Display every time slot if day has been changed from wednesday: -->
+
+                                                    <script>
+
+                                                        function setCollectionDay() {
+
+                                                            // Change order summary's collection day:
+                                                            var selectColelctionDay = document.getElementById('select-collection-day');
+                                                            var selectedValue = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
+                                                            const collectionDay = document.querySelector('.collection-day');
+                                                            collectionDay.innerHTML = selectedValue;
+
+                                                            // Show all the select options if the selected day isn't wednesday.
+                                                            var selectCollectionTime = document.getElementById('select-collection-time');
+                                                            var selectedDay = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
+                                                           
+                                                            if (selectedDay === "Thursday" || selectedDay === "Friday" ) {
+                                                                
+                                                                for (let i = 0; i < selectCollectionTime.options.length; i++) {
+
+                                                                    if (i === 0) {
+                                                                        selectCollectionTime.options[i].selected = true;
+                                                                    }
+
+                                                                    selectCollectionTime.options[i].disabled = false;
+                                                                    setCollectionTime();
+
+                                                                }
+
+                                                            }else {
+
+                                                                // If wednesday is chosen again:
+                                                                selectCollectionTime.options[0].disabled = true;
+                                                                selectCollectionTime.options[1].disabled = true;
+                                                                selectCollectionTime.options[2].selected = true;
+                                                                setCollectionTime();
+
+                                                            }
+
+                                                        }
+
+                                                    </script>
+
+                                                    <option disabled>10-13</option>
+                                                    <option disabled>13-16</option>
+                                                    <option>16-19</option>
+
+                                                @elseif(((strtotime($firstTimeSlot) / 3600) - (strtotime($currentDateTime) / 3600)) < 24)
+                                                    
+                                                    <!-- Display every time slot if day has been changed from wednesday: -->
+
+                                                    <script>
+
+                                                        function setCollectionDay() {
+
+                                                            // Change order summary's collection day:
+                                                            var selectColelctionDay = document.getElementById('select-collection-day');
+                                                            var selectedValue = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
+                                                            const collectionDay = document.querySelector('.collection-day');
+                                                            collectionDay.innerHTML = selectedValue;
+
+                                                            // Show all the select options if the selected day isn't wednesday.
+                                                            var selectCollectionTime = document.getElementById('select-collection-time');
+                                                            var selectedDay = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
+                                                           
+                                                            if (selectedDay === "Thursday" || selectedDay === "Friday" ) {
+                                                                
+                                                                var selectedValue = selectCollectionTime.options[selectCollectionTime.selectedIndex].value;
+                                                                for (let i = 0; i < selectCollectionTime.options.length; i++) {
+
+                                                                    if (i === 0) {
+                                                                        selectCollectionTime.options[i].selected = true;
+                                                                    }
+
+                                                                    selectCollectionTime.options[i].disabled = false;
+                                                                    setCollectionTime();
+
+                                                                }
+
+                                                            }else {
+
+                                                                // If wednesday is chosen again:
+                                                                selectCollectionTime.options[0].disabled = true;
+                                                                selectCollectionTime.options[1].selected = true;
+                                                                setCollectionTime();
+
+                                                            }
+
+                                                        }
+
+                                                    </script>
+
+                                                    <option disabled>10-13</option>
+                                                    <option>13-16</option>
+                                                    <option>16-19</option>
+                                                
+                                                @else
+
+                                                    <script>
+
+                                                        // Change order summary's collection day:
+                                                        function setCollectionDay() {
+
+                                                            var selectColelctionDay = document.getElementById('select-collection-day');
+                                                            var selectedValue = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
+                                                            const collectionDay = document.querySelector('.collection-day');
+                                                            collectionDay.innerHTML = selectedValue;                          
+
+                                                        }
+                                                        
+                                                    </script>
+
+                                                    <option>10-13</option>
+                                                    <option>13-16</option>
+                                                    <option>16-19</option>
+
+                                                @endif
+
+                                            @elseif($currentDateTime->format('l') === "Wednesday")
+
+                                                @if(((strtotime($thirdTimeSlot) / 3600) - (strtotime($currentDateTime) / 3600)) < 24)
+                                                        
+                                                    <!-- Show everything because the wednesday will be disabled -->
+
+                                                    <script>
+
+                                                        // Change order summary's collection day:
+                                                        function setCollectionDay() {
+
+                                                            var selectColelctionDay = document.getElementById('select-collection-day');
+                                                            var selectedValue = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
+                                                            const collectionDay = document.querySelector('.collection-day');
+                                                            collectionDay.innerHTML = selectedValue;                          
+
+                                                        }
+                                                        
+                                                        var selectColelctionDay = document.getElementById('select-collection-day');
+                                                        var todaysDay = new Date().getDay(); // Sunday = 0 and monday = 6
+                                                        console.log(todaysDay);
+                                                        
+                                                        if(todaysDay === 2) {
+
+                                                            selectColelctionDay.options[0].innerHTML = "Wednesday (next week)";
+
+                                                        }else if (todaysDay === 3) {
+
+                                                            selectColelctionDay.options[0].innerHTML = "Wednesday (next week)";
+                                                            selectColelctionDay.options[1].innerHTML = "Thursday (next week)";
+
+
+                                                        }else {
+
+                                                            selectColelctionDay.options[0].innerHTML = "Wednesday (next week)";
+                                                            selectColelctionDay.options[1].innerHTML = "Thursday (next week)";
+                                                            selectColelctionDay.options[2].innerHTML = "Friday (next week)";
+
+                                                        }
+
+                                                    </script>
+
+                                                    <option>10-13</option>
+                                                    <option>13-16</option>
+                                                    <option>16-19</option>
+
+                                                @elseif(((strtotime($secondTimeSlot) / 3600) - (strtotime($currentDateTime) / 3600)) < 24)
+                                                    
+                                                    <!-- Display every time slot if day has been changed from wednesday: -->
+
+                                                    <script>
+
+                                                        function setCollectionDay() {
+
+                                                            // Change order summary's collection day:
+                                                            var selectColelctionDay = document.getElementById('select-collection-day');
+                                                            var selectedValue = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
+                                                            const collectionDay = document.querySelector('.collection-day');
+                                                            collectionDay.innerHTML = selectedValue;
+
+                                                            // Show all the select options if the selected day isn't wednesday.
+                                                            var selectCollectionTime = document.getElementById('select-collection-time');
+                                                            var selectedDay = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
+                                                        
+                                                            if (selectedDay === "Wednesday (next week)" || selectedDay === "Friday" ) {
+                                                                
+                                                                var selectedValue = selectCollectionTime.options[selectCollectionTime.selectedIndex].value;
+                                                                for (let i = 0; i < selectCollectionTime.options.length; i++) {
+
+                                                                    if (i === 0) {
+                                                                        selectCollectionTime.options[i].selected = true;
+                                                                    }
+
+                                                                    selectCollectionTime.options[i].disabled = false;
+                                                                    setCollectionTime();
+
+                                                                }
+
+                                                            }else {
+
+                                                                // If wednesday is chosen again:
+                                                                selectCollectionTime.options[0].disabled = true;
+                                                                selectCollectionTime.options[1].disabled = true;
+                                                                selectCollectionTime.options[2].selected = true;
+                                                                setCollectionTime();
+
+                                                            }
+
+                                                        }
+
+                                                    </script>
+
+                                                    <option>10-13</option>
+                                                    <option>13-16</option>
+                                                    <option>16-19</option>
+
+                                                @elseif(((strtotime($firstTimeSlot) / 3600) - (strtotime($currentDateTime) / 3600)) < 24)
+                                                    
+                                                    <!-- Display every time slot if day has been changed from wednesday: -->
+
+                                                    <script>
+
+                                                        function setCollectionDay() {
+
+                                                            // Change order summary's collection day:
+                                                            var selectColelctionDay = document.getElementById('select-collection-day');
+                                                            var selectedValue = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
+                                                            const collectionDay = document.querySelector('.collection-day');
+                                                            collectionDay.innerHTML = selectedValue;
+
+                                                            // Show all the select options if the selected day isn't wednesday.
+                                                            var selectCollectionTime = document.getElementById('select-collection-time');
+                                                            var selectedDay = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
+                                                        
+                                                            if (selectedDay === "Wednesday (next week)" || selectedDay === "Friday" ) {
+                                                                
+                                                                var selectedValue = selectCollectionTime.options[selectCollectionTime.selectedIndex].value;
+                                                                for (let i = 0; i < selectCollectionTime.options.length; i++) {
+
+                                                                    if (i === 0) {
+                                                                        selectCollectionTime.options[i].selected = true;
+                                                                    }
+
+                                                                    selectCollectionTime.options[i].disabled = false;
+                                                                    setCollectionTime();
+
+
+                                                                }
+
+                                                            }else {
+
+                                                                // If wednesday is chosen again:
+                                                                selectCollectionTime.options[0].disabled = true;
+                                                                selectCollectionTime.options[1].selected = true;
+                                                                setCollectionTime();
+
+                                                            }
+
+                                                        }
+
+                                                    </script>
+
+                                                    <option>10-13</option>
+                                                    <option>13-16</option>
+                                                    <option>16-19</option>
+                                            
+                                                @else
+
+                                                    <script>
+
+                                                        // Change order summary's collection day:
+                                                        function setCollectionDay() {
+
+                                                            var selectColelctionDay = document.getElementById('select-collection-day');
+                                                            var selectedValue = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
+                                                            const collectionDay = document.querySelector('.collection-day');
+                                                            collectionDay.innerHTML = selectedValue;                          
+
+                                                        }
+                                                        
+                                                    </script>
+
+                                                    <option>10-13</option>
+                                                    <option>13-16</option>
+                                                    <option>16-19</option>
+
+                                                @endif
+
+                                            @elseif($currentDateTime->format('l') === "Thursday")
+
+                                                @if(((strtotime($thirdTimeSlot) / 3600) - (strtotime($currentDateTime) / 3600)) < 24)
+                                                        
+                                                    <!-- Show everything because the wednesday will be disabled -->
+
+                                                    <script>
+
+                                                        // Change order summary's collection day:
+                                                        function setCollectionDay() {
+
+                                                            var selectColelctionDay = document.getElementById('select-collection-day');
+                                                            var selectedValue = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
+                                                            const collectionDay = document.querySelector('.collection-day');
+                                                            collectionDay.innerHTML = selectedValue;                          
+
+                                                        }
+                                                        
+                                                        var selectColelctionDay = document.getElementById('select-collection-day');
+                                                        var todaysDay = new Date().getDay(); // Sunday = 0 and monday = 6
+                                                        console.log(todaysDay);
+                                                        
+                                                        if(todaysDay === 2) {
+
+                                                            selectColelctionDay.options[0].innerHTML = "Wednesday (next week)";
+
+                                                        }else if (todaysDay === 3) {
+
+                                                            selectColelctionDay.options[0].innerHTML = "Wednesday (next week)";
+                                                            selectColelctionDay.options[1].innerHTML = "Thursday (next week)";
+
+
+                                                        }else {
+
+                                                            selectColelctionDay.options[0].innerHTML = "Wednesday (next week)";
+                                                            selectColelctionDay.options[1].innerHTML = "Thursday (next week)";
+                                                            selectColelctionDay.options[2].innerHTML = "Friday (next week)";
+
+                                                        }
+
+                                                    </script>
+
+                                                    <option>10-13</option>
+                                                    <option>13-16</option>
+                                                    <option>16-19</option>
+
+                                                @elseif(((strtotime($secondTimeSlot) / 3600) - (strtotime($currentDateTime) / 3600)) < 24)
+                                                    
+                                                    <!-- Display every time slot if day has been changed from wednesday: -->
+
+                                                    <script>
+
+                                                        function setCollectionDay() {
+
+                                                            // Change order summary's collection day:
+                                                            var selectColelctionDay = document.getElementById('select-collection-day');
+                                                            var selectedValue = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
+                                                            const collectionDay = document.querySelector('.collection-day');
+                                                            collectionDay.innerHTML = selectedValue;
+
+                                                            // Show all the select options if the selected day isn't wednesday.
+                                                            var selectCollectionTime = document.getElementById('select-collection-time');
+                                                            var selectedDay = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
+                                                        
+                                                            if (selectedDay === "Wednesday (next week)" || selectedDay === "Thursday (next week)" ) {
+                                                                
+                                                                var selectedValue = selectCollectionTime.options[selectCollectionTime.selectedIndex].value;
+                                                                for (let i = 0; i < selectCollectionTime.options.length; i++) {
+
+                                                                    if (i === 0) {
+                                                                        selectCollectionTime.options[i].selected = true;
+                                                                    }
+
+                                                                    selectCollectionTime.options[i].disabled = false;
+                                                                    setCollectionTime();
+
+                                                                }
+
+                                                            }else {
+
+                                                                // If Friday is chosen again:
+                                                                selectCollectionTime.options[0].disabled = true;
+                                                                selectCollectionTime.options[1].disabled = true;
+                                                                selectCollectionTime.options[2].selected = true;
+                                                                setCollectionTime();
+
+                                                            }
+
+                                                        }
+
+                                                    </script>
+
+                                                    <option>10-13</option>
+                                                    <option>13-16</option>
+                                                    <option>16-19</option>
+
+                                                @elseif(((strtotime($firstTimeSlot) / 3600) - (strtotime($currentDateTime) / 3600)) < 24)
+                                                    
+                                                    <!-- Display every time slot if day has been changed from wednesday: -->
+
+                                                    <script>
+
+                                                        function setCollectionDay() {
+
+                                                            // Change order summary's collection day:
+                                                            var selectColelctionDay = document.getElementById('select-collection-day');
+                                                            var selectedValue = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
+                                                            const collectionDay = document.querySelector('.collection-day');
+                                                            collectionDay.innerHTML = selectedValue;
+
+                                                            // Show all the select options if the selected day isn't wednesday.
+                                                            var selectCollectionTime = document.getElementById('select-collection-time');
+                                                            var selectedDay = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
+                                                        
+                                                            if (selectedDay === "Wednesday (next week)" || selectedDay === "Thursday (next week)" ) {
+                                                                
+                                                                var selectedValue = selectCollectionTime.options[selectCollectionTime.selectedIndex].value;
+                                                                for (let i = 0; i < selectCollectionTime.options.length; i++) {
+
+                                                                    if (i === 0) {
+                                                                        selectCollectionTime.options[i].selected = true;
+                                                                    }
+
+                                                                    selectCollectionTime.options[i].disabled = false;
+                                                                    setCollectionTime();
+
+                                                                }
+
+                                                            }else {
+
+                                                                // If wednesday is chosen again:
+                                                                selectCollectionTime.options[0].disabled = true;
+                                                                selectCollectionTime.options[1].selected = true;
+                                                                setCollectionTime();
+
+                                                            }
+
+                                                        }
+
+                                                    </script>
+
+                                                    <option>10-13</option>
+                                                    <option>13-16</option>
+                                                    <option>16-19</option>
+                                            
+                                                @else
+
+                                                    <script>
+
+                                                        // Change order summary's collection day:
+                                                        function setCollectionDay() {
+
+                                                            var selectColelctionDay = document.getElementById('select-collection-day');
+                                                            var selectedValue = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
+                                                            const collectionDay = document.querySelector('.collection-day');
+                                                            collectionDay.innerHTML = selectedValue;                          
+
+                                                        }
+
+                                                    </script>
+
+                                                    <option>10-13</option>
+                                                    <option>13-16</option>
+                                                    <option>16-19</option>
+
+                                                @endif
+
+                                            @else
+                                                    
+                                                <script>
+
+                                                    // Change order summary's collection day:
+                                                    function setCollectionDay() {
+
+                                                        var selectColelctionDay = document.getElementById('select-collection-day');
+                                                        var selectedValue = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
+                                                        const collectionDay = document.querySelector('.collection-day');
+                                                        collectionDay.innerHTML = selectedValue;                          
+
+                                                    }
+                                                    
+                                                </script>
+
                                                 <option>10-13</option>
                                                 <option>13-16</option>
                                                 <option>16-19</option>
+
+                                            @endif
 
                                             </select>
         
@@ -273,8 +780,10 @@
                                                 <p>Collection Day:</p>
                                             </div>
                                             <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
-                                                @if($currentDateTime->format('l') === 'Wednesday')
-                                                    <p class="collection-day">Thursday</p>
+                                                @if($currentDateTime->format('l') === 'Wednesday' || 
+                                                    $currentDateTime->format('l') === 'Thursday' ||
+                                                    $currentDateTime->format('l') === 'Friday')
+                                                    <p class="collection-day">Wednesday (next week)</p>
                                                 @else
                                                     <p class="collection-day">Wednesday</p>
                                                 @endif
@@ -348,50 +857,39 @@
 
     </div>
 
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!--  Flatpickr  -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script> --}}
-
-
     <script>
 
-        // $("#date1").flatpickr({
-        //     enableTime: true,
-        //     minDate: "today",
-        //     dateFormat: "m-d-Y",
-        //     "disable": [
-        //         function(date) {
-        //             return (date.getDay() === 0 || 
-        //                     date.getDay() === 1 || 
-        //                     date.getDay() === 2 || 
-        //                     date.getDay() === 6);  // disable weekends
-        //         }
-        //     ],
-        //     "locale": {
-        //         "firstDayOfWeek": 1 // set start day of week to Wednesday
-        //     }
-        // });
+        // Setting the order summary's value for collection time and collection when page loads.
 
+        var selectCollectionTime = document.getElementById('select-collection-time');
+        var selectedValue = selectCollectionTime.options[selectCollectionTime.selectedIndex].value;
+        const collectionTime = document.querySelector('.collection-time');
+        collectionTime.innerHTML = selectedValue;
+
+        var selectColelctionDay = document.getElementById('select-collection-day');
+        var selectedValue = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
+        const collectionDay = document.querySelector('.collection-day');
+        collectionDay.innerHTML = selectedValue;
 
         // Change collection time by the drop down select list:
         function setCollectionTime() {
             
             var selectCollectionTime = document.getElementById('select-collection-time');
             var selectedValue = selectCollectionTime.options[selectCollectionTime.selectedIndex].value;
-            const traShop = document.querySelector('.collection-time');
-
-            traShop.innerHTML = selectedValue;
+            const collectionTime = document.querySelector('.collection-time');
+            collectionTime.innerHTML = selectedValue;
         }
 
         // Change collection day method by the drop down select list:
-        function setCollectionDay() {
+        // function setCollectionDay() {
             
-            var selectColelctionDay = document.getElementById('select-collection-day');
-            var selectedValue = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
-            const collectionDay = document.querySelector('.collection-day');
+        //     var selectColelctionDay = document.getElementById('select-collection-day');
+        //     var selectedValue = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
+        //     const collectionDay = document.querySelector('.collection-day');
 
-            collectionDay.innerHTML = selectedValue;
-        }
+        //     collectionDay.innerHTML = selectedValue;
+
+        // }
 
     </script>
 

@@ -31,16 +31,24 @@ class CheckoutController extends Controller
 
         $total_price_string_2dp = number_format($total_price, 2);
 
-        // dd(Carbon::now()->toDateString()." | ".Carbon::now()->format('l'));
+        // dd(Carbon::now()->toDateString() get date as string 
+        // Carbon::now()->format('l')); get day as a string
 
         // Current date and time:
         $currentDateTime = Carbon::now();
+
+        $firstTimeSlot = Carbon::parse('10:00:00')->addDays(1);
+        $secondTimeSlot = Carbon::parse('13:00:00')->addDays(1);
+        $thirdTimeSlot = Carbon::parse('16:00:00')->addDays(1);
 
         return view('checkout', [
             "cartAndProductRecords" => $cartAndProductRecords,
             'total_price' => $total_price_string_2dp,
             'total_items_quantity' => $total_items_quantity,
             'currentDateTime' => $currentDateTime,
+            'firstTimeSlot' => $firstTimeSlot,
+            'secondTimeSlot' => $secondTimeSlot,
+            'thirdTimeSlot' => $thirdTimeSlot,
         ]);
     }
 
