@@ -364,7 +364,7 @@
 
                                     <!-- Add the remaining ratings without color. -->
                                     @if(round(($product->reviews->sum('review_rating') / ($product->reviews->count() * 5)) *
-                                    5) < 5) @for($i=0; $i <div (5 - round(($product->reviews->sum('review_rating') /
+                                    5) < 5) @for($i=0; $i < (5 - round(($product->reviews->sum('review_rating') /
                                         ($product->reviews->count() * 5)) * 5)); $i++)
                                         <svg class="w-5 h-5 text-gray-300 fill-current" viewBox="0 0 24 24">
                                             <path
