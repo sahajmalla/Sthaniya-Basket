@@ -6,9 +6,7 @@
                 @csrf
                 <div class="grid grid-cols-2 md:grid-cols-3 items-center">
                     <img class="inline object-cover w-28 h-28 rounded-full md:h-36 md:w-36"
-                        src="/images/users/{{ auth()->user()->user_image }}"
-                        alt="Profile image" 
-                        name="user_image"/>
+                        src="/images/users/{{ auth()->user()->user_image }}" alt="Profile image" name="user_image" />
                     <h1 class="font-bold">Update your picture</h1>
                     <input type="file" name="user_image" class="mt-2 col-span-2 md:col-span-1 ">
                 </div>
@@ -53,7 +51,8 @@
                         <label class="text-gray-700 dark:text-gray-200" for="username">Username</label>
                         <input id="username" name="username" type="text"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring @error('username') border-red-500 
-                                                                                                                    @enderror" value="{{ auth()->user()->username }}">
+                                                                                                                                                    @enderror"
+                            value="{{ auth()->user()->username }}">
 
                         @error('username')
                             <div class="text-red-500 mt-2 text-sm">
@@ -64,8 +63,9 @@
 
                     <div>
                         <label class="text-gray-700 dark:text-gray-200" for="firstname">First Name</label>
-                        <input id="firstname" name="firstname" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring @error('firstname') border-red-500 
-                                                                                                                @enderror"
+                        <input id="firstname" name="firstname" type="text"
+                            class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring @error('firstname') border-red-500 
+                                                                                                                                                @enderror"
                             value="{{ auth()->user()->firstname }}">
                         @error('firstname')
                             <div class="text-red-500 mt-2 text-sm">
@@ -77,8 +77,9 @@
 
                     <div>
                         <label class="text-gray-700 dark:text-gray-200" for="lastname">Last Name</label>
-                        <input id="lastname" name="lastname" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring @error('lastname') border-red-500 
-                                                                                                            @enderror"
+                        <input id="lastname" name="lastname" type="text"
+                            class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring @error('lastname') border-red-500 
+                                                                                                                                            @enderror"
                             value="{{ auth()->user()->lastname }}">
                         @error('lastname')
                             <div class="text-red-500 mt-2 text-sm">
@@ -90,8 +91,9 @@
 
                     <div>
                         <label class="text-gray-700 dark:text-gray-200" for="email">Email Address</label>
-                        <input id="email" name="email" type="email" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring @error('email') border-red-500 
-                                                                                                    @enderror"
+                        <input id="email" name="email" type="email"
+                            class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring @error('email') border-red-500 
+                                                                                                                                    @enderror"
                             value="{{ auth()->user()->email }}">
                         @error('email')
                             <div class="text-red-500 mt-2 text-sm">
@@ -115,8 +117,9 @@
 
                     <div>
                         <label class="text-gray-700 dark:text-gray-200" for="address">Address</label>
-                        <input id="address" name="address" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring  @error('address') border-red-500 
-                                                                                                @enderror"
+                        <input id="address" name="address" type="text"
+                            class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring  @error('address') border-red-500 
+                                                                                                                                @enderror"
                             value="{{ auth()->user()->address }}">
 
                         @error('address')
@@ -152,53 +155,12 @@
                         </div>
                     @enderror --}}
 
-                    @if (auth()->user()->user_type == 'trader')
-                        <div>
-                            <label class="text-gray-700 dark:text-gray-200" for="shopname">Shop Name</label>
-                            <input id="shopname" name="shopname" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring @error('shopname') border-red-500 
-                                                            @enderror" value="{{ auth()->user()->shop }}">
-                            @error('shopname')
-                                <div class="text-red-500 mt-2 text-sm">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div>
-                            <div class="trader-business inline-block relative w-full mb-5">
-
-                                <select name="business" class="block appearance-none w-full h-14 border 
-                                        border-gray-300 px-4 py-2 pr-8 rounded-lg border-2 text-gray-400 @error('business') 
-                                        border-red-500 @enderror">
-
-                                    <option value="" disabled selected>Business Type</option>
-                                    <option value="bakery" @if (auth()->user()->business == 'bakery') {{ 'selected' }} @endif>Bakery</option>
-                                    <option value="butcher" @if (auth()->user()->business == 'butcher') {{ 'selected' }} @endif>Butcher</option>
-                                    <option value="delicatessen" @if (auth()->user()->business == 'delicatessen') {{ 'selected' }} @endif>Delicatessen</option>
-                                    <option value="fishmonger" @if (auth()->user()->business == 'fishmonger') {{ 'selected' }} @endif>Fishmonger</option>
-                                    <option value="greengrocer" @if (auth()->user()->business == 'greengrocer') {{ 'selected' }} @endif>Greengrocer</option>
-
-
-                                </select>
-
-                                <!--dropdown icon-->
-                                <div class="pointer-events-none absolute inset-y-0 right-0 flex 
-                                                                                    items-center px-2 text-gray-700">
-                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 20 20">
-                                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 
-                                                                                    6.586 4.343 8z" />
-                                    </svg>
-                                </div>
-                            </div>
-                    @endif
-                </div>
-
-                <div class="flex justify-end mt-6">
-                    <button type="submit"
-                        class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
-                        Update
-                    </button>
-                </div>
+                    <div class="flex justify-end mt-6">
+                        <button type="submit"
+                            class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
+                            Update
+                        </button>
+                    </div>
             </form>
         </div>
 
@@ -272,6 +234,53 @@
                 </div>
             </form>
         </div>
-    </div>
 
+        @if (auth()->user()->user_type === 'trader')
+            <div>
+
+                <section class="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
+                    <h2 class="text-lg font-semibold text-gray-700 capitalize dark:text-white">Update your shop</h2>
+
+                    <form>
+                        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+
+                            <select name="trader-shop" id="tra-shop" onchange="setShop(this)">
+                                @foreach ($shop as $shop)
+                                    <option value="{{ $shop->shopname }}">{{ $shop->shopname }}</option>
+                                @endforeach
+                            </select>
+
+                            <div>
+                                <label class="text-gray-700 dark:text-gray-200" for="shopname">Shop Name</label>
+                                <input id="shop-val" name="shopname" type="text"
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                                    value="">
+                            </div>
+                            <div class="grid grid-cols-2 md:grid-cols-3 items-center">
+                                <img class="inline object-cover w-28 h-28 rounded-full md:h-36 md:w-36"
+                                    src="/images/traders/shop/{{ auth()->user()->user_image }}" alt="Profile image"
+                                    name="user_image" />
+                                <h1 class="font-bold">Update your picture</h1>
+                                <input type="file" name="user_image" class="mt-2 col-span-2 md:col-span-1 ">
+                            </div>
+
+                        </div>
+
+                        <div class="flex justify-end mt-6">
+                            <button
+                                class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Save</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        @endif
+
+    </div>
+    <script>
+        function setShop(shop) {
+            var selectShop = shop.value;
+            console.log(selectedShop);
+            document.getElementById("shop-val").value = selectShop;
+        }
+    </script>
 @endsection

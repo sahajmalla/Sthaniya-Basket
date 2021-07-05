@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\WishlistController;
@@ -114,4 +115,7 @@ Route::get('paypal/checkout-cancel', [PayPalController::class,'cancelPage'])->na
 // Route::get('paypal/checkout/{order}', 'PayPalController@getExpressCheckout')->name('paypal.checkout');
 // Route::get('paypal/checkout-success/{order}', 'PayPalController@getExpressCheckoutSuccess')->name('paypal.success');
 // Route::get('paypal/checkout-cancel', 'PayPalController@cancelPage')->name('paypal.cancel');
+
+//search
+Route::get('/search',[SearchController::class,'search'])->name('search');
 

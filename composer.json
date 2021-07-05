@@ -12,7 +12,8 @@
         "laravel/fortify": "^1.7",
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
-        "paypal/paypal-checkout-sdk": "1.0.1"
+        "paypal/paypal-checkout-sdk": "1.0.1",
+        "yajra/laravel-oci8": "8"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",

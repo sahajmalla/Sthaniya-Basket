@@ -48,9 +48,9 @@
                                     All Products
                                 </a>
                                 @foreach ($shops as $shop)
-                                <a href="{{ URL::current()."?sort=". $shop->shopName }}"
+                                <a href="{{ URL::current()."?sort=". $shop->shopname }}"
                                     class="block px-4 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-blue-500 hover:text-white dark:hover:text-white">
-                                    {{ $shop->shopName }}
+                                    {{ $shop->shopname }}
                                 </a>
                                 @endforeach
                                 

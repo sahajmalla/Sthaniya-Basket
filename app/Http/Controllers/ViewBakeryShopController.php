@@ -15,6 +15,7 @@ class ViewBakeryShopController extends Controller
                     ->join('shops','traders.id','=','shops.trader_id')
                     ->where('traders.business','bakery')
                     ->get();
+        // dd($shopTraders);
         
         return view('shops.bakery',[
             'shopTraders'=>$shopTraders,

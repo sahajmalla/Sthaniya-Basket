@@ -12,8 +12,8 @@ class Shop extends Model
     use HasFactory;
 
     protected $fillable = [
-        'shopName',
-        'shopPic',
+        'shopname',
+        'shoppic',
     ];
 
     public function trader() {

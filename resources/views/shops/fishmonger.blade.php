@@ -4,12 +4,12 @@
         @foreach ($shopTraders as $shopTrader)
             <div
                 class="max-w-xs my-6 mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 hover:bg-gray-200">
-                <img class="object-cover w-full h-56" src="/images/traders/shop/{{ $shopTrader->shopPic }}" alt="avatar">
+                <img class="object-cover w-full h-56" src="/images/traders/shop/{{ $shopTrader->shoppic }}" alt="avatar">
 
                 <div class="py-5 text-center">
                     <a href="{{ route('show.products',$shopTrader->id) }}"
                         
-                        class="block text-2xl font-bold text-gray-800 dark:text-white">{{ $shopTrader->shopName }}</a>
+                        class="block text-2xl font-bold text-gray-800 dark:text-white">{{ $shopTrader->shopname }}</a>
                 </div>
             </div>
         @endforeach
