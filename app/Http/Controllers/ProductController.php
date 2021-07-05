@@ -26,15 +26,15 @@ class ProductController extends Controller
         if($request){
             foreach ($shops as $shop){
                 // dd($shop->shopName);
-                if($request->sort==$shop->shopName){
+                if($request->sort==$shop->shopname){
                     $products = DB::table('products')
                         ->join('shops', 'shops.id', '=', 'products.shop_id')
-                        ->where('shops.shopName',$shop->shopName)
+                        ->where('shops.shopname',$shop->shopname)
                         ->get(); 
                 }
             }  
         }
-        
+        // dd($products);
         return view('products.index', [
             'products' =>$products,
             'shops' => $shops,
@@ -95,7 +95,7 @@ class ProductController extends Controller
 
                 foreach ($shops as $shop){
 
-                    if ($shop->shopName === $request->shop) {
+                    if ($shop->shopname === $request->shop) {
 
                         $trader->products()->create([
                             'prod_name' => $request->prod_name,

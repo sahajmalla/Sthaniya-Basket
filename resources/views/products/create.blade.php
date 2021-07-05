@@ -36,7 +36,7 @@
                                     <option disabled selected>Shop</option>
                                     @foreach ($shops as $shop)
 
-                                        <option value="{{ $shop->shopName }}">{{ $shop->shopName }}</option>
+                                        <option value="{{ $shop->shopname }}">{{ $shop->shopname }}</option>
                                     @endforeach
 
                                 </select>

@@ -19,7 +19,6 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
      */
     public function update($user, array $input)
     {
-        if(Auth::user()->user_type=='cutomer'){
             Validator::make($input, [
                 'username' => ['required', 'string', 'max:255'],
                 'firstname'=>['required','string','max:255'],
@@ -46,38 +45,6 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                     'address' => $input['address'],
                 ])->save();
             }
-        }else{
-            Validator::make($input, [
-                'username' => ['required', 'string', 'max:255'],
-                'firstname'=>['required','string','max:255'],
-                'lastname'=>['required','string','max:255'],
-                'email' => [
-                    'required',
-                    'string',
-                    'email',
-                    'max:255',
-                    Rule::unique('users')->ignore($user->id),
-                ],
-                'address' => ['required', 'string', 'max:255'],
-                'business'=>['required'],
-                'shopname'=>['required'],
-            ])->validateWithBag('updateProfileInformation');
-    
-            if ($input['email'] !== $user->email &&
-                $user instanceof MustVerifyEmail) {
-                $this->updateVerifiedUser($user, $input);
-            } else {
-                $user->forceFill([
-                    'username' => $input['username'],
-                    'firstname' => $input['firstname'],
-                    'lastname' => $input['lastname'],
-                    'email' => $input['email'],
-                    'address' => $input['address'],
-                    'shop' => $input['shopname'],
-                    'business' => $input['business'],
-                ])->save();
-            }
-        }
         
     }
 
