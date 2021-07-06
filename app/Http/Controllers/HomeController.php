@@ -24,7 +24,7 @@ class HomeController extends Controller
         // if($request->sort=='popularity'){
         //     $products = Product::latest()->paginate(20); 
         // }
-
+// dd($products);
         return view('home', [
             'products' => $products,
         ]);

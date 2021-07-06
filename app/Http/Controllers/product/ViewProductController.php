@@ -14,7 +14,7 @@ class ViewProductController extends Controller
     public function index(int $productID, Request $request) {
 
         $product = Product::find($productID);
-        dd($product->trader);
+        // dd($product->trader);
 
         $trader = $product->trader->user;
         

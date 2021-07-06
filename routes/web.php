@@ -12,6 +12,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\UserImageController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\UpdateShopController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\VerifyTraderController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -103,6 +104,10 @@ Route::get('/updateDetails',[UpdateDetailsController::class,'index'])->name('upd
 //upload user image
 Route::post('/updateDetails',[UserImageController::class,'userImageUploadPost'])->name('image.upload')->middleware('auth');
 
+//update shop
+Route::get('/updateDetail/shop',[UpdateShopController::class,'index'])->name('updateShopView')->middleware('auth','checkUserTrader');
+Route::put('/updateDetail/shop/{shop}',[UpdateShopController::class,'update'])->name('update.shop');
+
 //register shop
 Route::get('/registerShop',[RegisterShopController::class,'index'])->name('registerShop')->middleware(['auth','verified','checkUserTrader','verifiedByAdmin']);
 Route::post('/registerShop',[RegisterShopController::class,'store']);
@@ -118,4 +123,6 @@ Route::get('paypal/checkout-cancel', [PayPalController::class,'cancelPage'])->na
 
 //search
 Route::get('/search',[SearchController::class,'search'])->name('search');
+
+
 

@@ -90,6 +90,10 @@
                 <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
                     {{ session('notVerified') }}
                 </p>
+                @elseif(session('updateShop'))
+                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
+                    {{ session('updateShop') }}
+                </p>
             @endif
 
         </div>
