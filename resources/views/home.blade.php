@@ -58,6 +58,7 @@
         }
 
     </style>
+
     <div>
 
         <div class="flex w-12/12 justify-center mb-10" id="messages">
@@ -90,9 +91,15 @@
                 <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
                     {{ session('notVerified') }}
                 </p>
+<<<<<<< HEAD
                 @elseif(session('updateShop'))
                 <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
                     {{ session('updateShop') }}
+=======
+            @elseif(session('slotsFull'))
+                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                    {{ session('slotsFull') }}
+>>>>>>> a445e3e2a03e98d17f2f2a909e3d31600c606a8b
                 </p>
             @endif
 
@@ -244,8 +251,6 @@
 
         <section class="bg-white py-8">
 
-
-
             <div class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
 
                 <div id="store" class="w-full z-30 top-0 px-6 py-1">
@@ -317,7 +322,7 @@
                 </div>
 
 
-                <div class="md:grid grid-cols-2 lg:grid-cols-3 gap-10">
+                <div class="md:grid grid-cols-2 lg:grid-cols-3 gap-10 p-6">
 
 
                     @foreach ($products as $product)
@@ -365,7 +370,7 @@
 
                                     <!-- Add the remaining ratings without color. -->
                                     @if(round(($product->reviews->sum('review_rating') / ($product->reviews->count() * 5)) *
-                                    5) < 5) @for($i=0; $i <div (5 - round(($product->reviews->sum('review_rating') /
+                                    5) < 5) @for($i=0; $i < (5 - round(($product->reviews->sum('review_rating') /
                                         ($product->reviews->count() * 5)) * 5)); $i++)
                                         <svg class="w-5 h-5 text-gray-300 fill-current" viewBox="0 0 24 24">
                                             <path

@@ -6,12 +6,30 @@ use App\Models\Product;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Models\CollectionTimeSlot;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Collection;
 
 class CheckoutController extends Controller
 {
     public function index(Request $request) {
+
+        // If collections slots already have 20 products, deny the customer's proceeding to checkout.
+        $firstCollectionSlot = CollectionTimeSlot::find(1);
+        $secondCollectionSlot = CollectionTimeSlot::find(2);
+        $thirdCollectionSlot = CollectionTimeSlot::find(3);
+
+        if ($firstCollectionSlot->order_quantity === 20 && $secondCollectionSlot->order_quantity === 20
+            && $thirdCollectionSlot->order_quantity === 20) {
+            
+            // Collection slot full message.
+
+            $request->session()->flash('slotsFull', 'All of the collection slots are full. Please try 
+            again this coming Friday from 7pm onwards.');
+
+            return redirect()->route('home');
+
+        }
 
         $total_price = 0.0;
         $total_items_quantity = 0;
@@ -51,6 +69,7 @@ class CheckoutController extends Controller
             'thirdTimeSlot' => $thirdTimeSlot,
         ]);
     }
+
 
     public function store(Request $request, float $totalPrice, int $totalQuantity, 
                             int $totalItems, Carbon $currentDateTime) {
