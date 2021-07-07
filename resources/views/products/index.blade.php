@@ -1,24 +1,16 @@
 @extends('layouts.crud')
 @section('content')
-    <div class="container mx-auto px-4 sm:px-8 max-w-5xl rounded-lg shadow-lg">   
+    <div class="container mx-auto px-4 sm:px-8 max-w-5xl rounded-lg shadow-lg">
         <div class="py-5">
-            @if (session('success'))
-                <div class="flex w-full max-w-sm mx-auto overflow-hidden rounded-lg shadow-lg bg-white dark:bg-gray-800">
-                    <div class="flex items-center justify-center w-12 bg-green-500">
-                        <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM16.6667 28.3333L8.33337 20L10.6834 17.65L16.6667 23.6166L29.3167 10.9666L31.6667 13.3333L16.6667 28.3333Z" />
-                        </svg>
-                    </div>
+            <div class="flex w-12/12 justify-center mb-10" id="messages">
 
-                    <div class="px-4 py-2 -mx-3">
-                        <div class="mx-3">
-                            <span class="font-semibold text-green-500 dark:text-green-400">Success</span>
-                            <p class="text-sm text-gray-600 dark:text-gray-200">{{ $message }}</p>
-                        </div>
-                    </div>
-                </div>
-            @endif
+                @if (session('ShopCreated'))
+                    <p class="message p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                        {{ session('ShopCreated') }}
+                    </p>
+                @endif
+
+            </div>
             <div class="my-2">
 
                 <div class="flex justify-center space-x-6">
@@ -39,7 +31,7 @@
                                     <path d="M7 11H17V13H7zM4 7H20V9H4zM10 15H14V17H10z" />
                                 </svg>
                             </button>
-        
+
                             <!-- Dropdown menu -->
                             <div
                                 class="show-sort absolute right-0 z-20 w-48 py-2 mt-2 bg-white rounded-md shadow-xl dark:bg-gray-800 hidden">
@@ -48,12 +40,12 @@
                                     All Products
                                 </a>
                                 @foreach ($shops as $shop)
-                                <a href="{{ URL::current()."?sort=". $shop->shopname }}"
-                                    class="block px-4 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-blue-500 hover:text-white dark:hover:text-white">
-                                    {{ $shop->shopname }}
-                                </a>
+                                    <a href="{{ URL::current() . '?sort=' . $shop->shopname }}"
+                                        class="block px-4 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-blue-500 hover:text-white dark:hover:text-white">
+                                        {{ $shop->shopname }}
+                                    </a>
                                 @endforeach
-                                
+
                             </div>
                         </div>
                     </div>
@@ -79,7 +71,7 @@
                     </select>
                 </form>
             </div> --}}
-            
+
 
             <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
                 <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
@@ -153,8 +145,8 @@
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                         <div class="flex">
                                             <a class="px-4 mr-2 py-2 font-medium tracking-wide text-white 
-                                                                                                                capitalize transition-colors duration-200 
-                                                                                                                transform bg-blue-600 rounded-md  hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
+                                                                                                                        capitalize transition-colors duration-200 
+                                                                                                                        transform bg-blue-600 rounded-md  hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
                                                 href="{{ route('products.edit', $product->id) }}">Edit
                                             </a>
                                             <form action="{{ route('products.destroy', $product->id) }}" method="POST">
@@ -162,8 +154,8 @@
                                                 @method('DELETE')
                                                 <button type="submit"
                                                     class="px-4 py-2 font-medium tracking-wide text-white 
-                                                                                                                capitalize transition-colors duration-200 
-                                                                                                                transform bg-red-600 rounded-md  hover:bg-red-500 focus:outline-none focus:bg-red-500">
+                                                                                                                        capitalize transition-colors duration-200 
+                                                                                                                        transform bg-red-600 rounded-md  hover:bg-red-500 focus:outline-none focus:bg-red-500">
                                                     Delete
                                                 </button>
                                             </form>
@@ -185,5 +177,10 @@
         sortBtn.addEventListener('click', () => {
             showSort.classList.toggle('hidden');
         });
+
+        //message time
+        setTimeout(function() {
+            document.getElementById('messages').remove();
+        }, 3000)
     </script>
 @endsection

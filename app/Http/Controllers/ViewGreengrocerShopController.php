@@ -13,7 +13,7 @@ class ViewGreengrocerShopController extends Controller
                     ->where('traders.business','greengrocer')
                     ->get();
         
-        return view('shops.bakery',[
+        return view('shops.greengrocer',[
             'shopTraders'=>$shopTraders,
         ]);
     }

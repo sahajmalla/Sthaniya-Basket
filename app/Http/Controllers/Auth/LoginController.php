@@ -48,17 +48,17 @@ class LoginController extends Controller
                     ]); 
 
                     //TODO: Add success message
-
+                    $request->session()->flash('addedCartItem', 'Successfully added item to the cart.');
                 }else {
                 
                     //TODO: Add error message(item is already in cart)
-    
+                    $request->session()->flash('notAddedCartItem', 'Item is already in the cart. You can increase the number of products from your cart');
                 }
 
             }
             
         }
-
+        $request->session()->flash('loggedIn', 'Successfully logged in.');
         return redirect()->route('home');
     }
 }

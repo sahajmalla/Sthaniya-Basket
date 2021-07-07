@@ -64,42 +64,55 @@
         <div class="flex w-12/12 justify-center mb-10" id="messages">
 
             @if (session('order-success'))
-                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
+                <p class="message p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
                     {{ session('order-success') }}
                 </p>
             @elseif(session('addedToWishlist'))
-                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
+                <p class="message p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
                     {{ session('addedToWishlist') }}
                 </p>
             @elseif(session('failedToAddToWishlist'))
-                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                <p class="message p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
                     {{ session('failedToAddToWishlist') }}
                 </p>
             @elseif(session('addedToCart'))
-                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
+                <p class="message p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
                     {{ session('addedToCart') }}
                 </p>
             @elseif(session('failedToAddToCart'))
-                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                <p class="message p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
                     {{ session('failedToAddToCart') }}
                 </p>
             @elseif(session('productOutOfStock'))
-                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                <p class="message p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
                     {{ session('productOutOfStock') }}
                 </p>
             @elseif(session('notVerified'))
-                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                <p class="message p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
                     {{ session('notVerified') }}
                 </p>
-<<<<<<< HEAD
-                @elseif(session('updateShop'))
-                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
+            @elseif(session('updateShop'))
+                <p class="message p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
                     {{ session('updateShop') }}
-=======
-            @elseif(session('slotsFull'))
-                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                @elseif(session('slotsFull'))
+                <p class="message p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
                     {{ session('slotsFull') }}
->>>>>>> a445e3e2a03e98d17f2f2a909e3d31600c606a8b
+                </p>
+                {{-- @elseif(session('addedCartItem'))
+                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
+                    {{ session('addedCartItem') }}
+                </p>
+            @elseif(session('notAddedCartItem'))
+                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                    {{ session('notAddedCartItem') }}
+                </p> --}}
+            @elseif(session('loggedIn'))
+                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
+                    {{ session('loggedIn') }}
+                </p>
+            @elseif(session('registered'))
+                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
+                    {{ session('registered') }}
                 </p>
             @endif
 
@@ -256,10 +269,10 @@
                 <div id="store" class="w-full z-30 top-0 px-6 py-1">
                     <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-3">
 
-                        <a class="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl "
-                            href="#">
+                        <span
+                            class="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl ">
                             Store
-                        </a>
+                        </span>
 
                         <div class="flex items-center" id="store-nav-content">
 
@@ -379,37 +392,71 @@
                     @endfor
                     @endif
 
-            @else
+                @else
 
-                <!-- Display empty starts for no ratings -->
-                @for ($i = 0; $i < 5; $i++)
-                    <svg class="w-5 h-5 text-gray-300 fill-current" viewBox="0 0 24 24">
-                        <path
-                            d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
-                    </svg>
-                @endfor
-                @endif
-
-            </div>
-
-
-            <div class="mt-3 item-center space-y-2">
-
-                <h1 class="text-lg font-bold text-gray-700 dark:text-gray-200 md:text-xl">£{{ $product->price }}</h1>
-
-                <h1 class="text-sm font-medium text-gray-700 dark:text-gray-200 md:text-lg">
-
-                    @if ($product->prod_quantity > 0)
-                        In Stock
-                    @else
-                        Out Of Stock
+                    <!-- Display empty starts for no ratings -->
+                    @for ($i = 0; $i < 5; $i++)
+                        <svg class="w-5 h-5 text-gray-300 fill-current" viewBox="0 0 24 24">
+                            <path
+                                d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                        </svg>
+                    @endfor
                     @endif
 
-                </h1>
+                </div>
 
-                @if (auth()->user())
 
-                    @if (auth()->user()->user_type === 'customer')
+                <div class="mt-3 item-center space-y-2">
+
+                    <h1 class="text-lg font-bold text-gray-700 dark:text-gray-200 md:text-xl">£{{ $product->price }}</h1>
+
+                    <h1 class="text-sm font-medium text-gray-700 dark:text-gray-200 md:text-lg">
+
+                        @if ($product->prod_quantity > 0)
+                            In Stock
+                        @else
+                            Out Of Stock
+                        @endif
+
+                    </h1>
+
+                    @if (auth()->user())
+
+                        @if (auth()->user()->user_type === 'customer')
+
+                            <!-- Add to wishlist -->
+
+                            <form action="{{ route('addToWishlist', $product) }}" method="POST">
+                                @csrf
+                                <button>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                    </svg>
+                                </button>
+                            </form>
+
+                            <!-- Add to cart -->
+
+                            <form action="{{ route('addToCart', $product->id) }}" method="POST">
+                                @csrf
+                                <button
+                                    class="px-2 py-1 text-xs font-bold text-white uppercase 
+                                                                                                                                    transition-colors duration-200 transform bg-gray-800 rounded 
+                                                                                                                                    dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 
+                                                                                                                                    focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600">Add
+                                    to
+                                    Cart
+                                </button>
+
+                            </form>
+
+                        @endif
+
+                    @endif
+
+                    @guest
 
                         <!-- Add to wishlist -->
 
@@ -429,50 +476,16 @@
                         <form action="{{ route('addToCart', $product->id) }}" method="POST">
                             @csrf
                             <button
-                                class="px-2 py-1 text-xs font-bold text-white uppercase 
-                                                                                                                    transition-colors duration-200 transform bg-gray-800 rounded 
-                                                                                                                    dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 
-                                                                                                                    focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600">Add
-                                to
-                                Cart
+                                class="px-2 py-1 text-xs font-bold text-white uppercase transition-colors duration-200 transform bg-gray-800 rounded dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600">Add
+                                to Cart
                             </button>
 
                         </form>
 
-                    @endif
+                    @endguest
 
-                @endif
-
-                @guest
-
-                    <!-- Add to wishlist -->
-
-                    <form action="{{ route('addToWishlist', $product) }}" method="POST">
-                        @csrf
-                        <button>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                            </svg>
-                        </button>
-                    </form>
-
-                    <!-- Add to cart -->
-
-                    <form action="{{ route('addToCart', $product->id) }}" method="POST">
-                        @csrf
-                        <button
-                            class="px-2 py-1 text-xs font-bold text-white uppercase transition-colors duration-200 transform bg-gray-800 rounded dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600">Add
-                            to Cart
-                        </button>
-
-                    </form>
-
-                @endguest
-
+                </div>
             </div>
-    </div>
 
     </div>
 
@@ -499,5 +512,10 @@
         filterBtn.addEventListener('click', () => {
             showFilter.classList.toggle('hidden');
         });
+
+        //message time
+        setTimeout(function() {
+            document.getElementById('messages').remove();
+        }, 3000)
     </script>
 @endsection
