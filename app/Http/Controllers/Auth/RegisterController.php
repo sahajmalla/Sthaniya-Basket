@@ -74,7 +74,8 @@ class RegisterController extends Controller
                 'lastname' => $request->lastname,
                 'dob' => $request->dob,
                 'email' => $request->email,
-                'password' => Hash::make($request->password), // Hash facade.
+                // 'password' => Hash::make($request->password), // Hash facade.
+                'password' => md5($request->password),
                 'address' => $request->address,
                 'user_type'=>$request->userType,
                 'gender' => $request->gender,
@@ -82,18 +83,23 @@ class RegisterController extends Controller
             ]);
         
         //logged in
-            auth()->attempt($request->only('email', 'password'));
+            // auth()->attempt($request->only('email', 'password'));
+            $user = User::where('email', $request->email)
+            ->where('password',md5($request->password))
+            ->first();
+
+            Auth::login($user);
 
             if($request->userType === 'customer'){
 
                 // Subscription will be 'on' if set but nothing not even 'off' or 'null' if not set:
                 if(!(isset($request['subscription']))){
                     $request['subscription']='off';
-                } 
-
+                }
                 $request->user()->customers()->create([
                     'subscription'=>$request->subscription,
                 ]);
+                        
             }
 
             if($request->userType==='trader'){
@@ -134,6 +140,8 @@ class RegisterController extends Controller
             }
 
             Event::dispatch(new Registered(auth()->user())); // Dispatching email verification event.
+
+           
 
             if($request->userType==='trader'){
                 return redirect()->route('registerShop');
