@@ -160,6 +160,22 @@ class PayPalController extends Controller
     
     public function clearCustomerCartAndSendEmail(Checkout $order) {
 
+        // Before clearing cart, add to the product_purchased table the items the user bought.
+        $userItemsInCart = Cart::get()->where('customer_id', auth()->user()->customers->first()->id);
+
+        foreach ($userItemsInCart as $userItem) {
+            
+            $product = Product::find($userItem->product_id);
+
+            $productsPurchased = $product->productPurchaseds()->create([
+                'prod_quantity' => $userItem->product_quantity,
+                'total_price' => $userItem->total_price * $userItem->product_quantity, 
+                'customer_id' => auth()->user()->customers->first()->id, 
+                'checkout_id' => $order->id,
+            ]); 
+
+        }
+
         // Clear cart items for the current customer.
         Cart::where('customer_id', auth()->user()->customers->first()->id)->delete();
 

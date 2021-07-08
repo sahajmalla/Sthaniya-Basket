@@ -24,16 +24,10 @@ Artisan::command('inspire', function () {
 
 Artisan::command('collectionSlotsUpdate', function () {
 
-    $firstCollectionSlot = CollectionTimeSlot::find(1);
-    $firstCollectionSlot->order_quantity = 0;
-    $firstCollectionSlot->save();
-
-    $secondCollectionSlot = CollectionTimeSlot::find(2);
-    $secondCollectionSlot->order_quantity = 0;
-    $secondCollectionSlot->save();
-
-    $thirdCollectionSlot = CollectionTimeSlot::find(3);
-    $thirdCollectionSlot->order_quantity = 0;
-    $thirdCollectionSlot->save();
+    $collectionSlots = CollectionTimeSlot::get();
+    foreach ($collectionSlots as $collectionSlot) {
+        $collectionSlot->order_quantity = 0;
+        $collectionSlot->save();
+    }
 
 })->purpose('Update collection slots\' order quantity back to 0.');

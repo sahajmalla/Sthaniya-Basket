@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\CollectionDay;
 use Illuminate\Support\Carbon;
 use App\Models\CollectionTimeSlot;
 use Illuminate\Support\Facades\DB;
@@ -14,18 +15,74 @@ class CheckoutController extends Controller
 {
     public function index(Request $request) {
 
-        // If collections slots already have 20 products, deny the customer's proceeding to checkout.
-        $firstCollectionSlot = CollectionTimeSlot::find(1);
-        $secondCollectionSlot = CollectionTimeSlot::find(2);
-        $thirdCollectionSlot = CollectionTimeSlot::find(3);
+        $allSlotsFull = $this->checkAllCollectionSlotsAvailability($request);
+        $wedSlotsFull = $this->checkWednesdaySlotsAvailability($request);
+        $thurSlotsFull = $this->checkThursdaySlotsAvailability($request);
+        $friSlotsFull = $this->checkFridaySlotsAvailability($request);
+        $availableSlotsForWed = $this->getNoOfWedSlotsAvailability();
+        $availableSlotsForThu = $this->getNoOfThurSlotsAvailability();
+        $availableSlotsForFri = $this->getNoOfFridaySlotsAvailability();
+        $wedLast2SlotsFull = $this->wedLast2SlotsFull();
+        $wedLastSlotFull = $this->wedLastSlotFull();
 
-        if ($firstCollectionSlot->order_quantity === 20 && $secondCollectionSlot->order_quantity === 20
-            && $thirdCollectionSlot->order_quantity === 20) {
-            
-            // Collection slot full message.
+        // Current date and time:
+        $currentDateTime = Carbon::parse('10:00:00')->addDays(6); // Should be just now()
+
+        $firstTimeSlot = Carbon::parse('10:00:00')->addDays(7); // Should be 1
+        $secondTimeSlot = Carbon::parse('13:00:00')->addDays(7);
+        $thirdTimeSlot = Carbon::parse('16:00:00')->addDays(7);
+
+        if($currentDateTime->format('l') === "Friday" || 
+            ($currentDateTime->format('l') === "Thursday" && $currentDateTime > Carbon::parse('16:00:00')->addDays(6))
+          ) {
+
+            // If the current day is friday or if it is thursday and it's after 4pm disable checkout feature.
+
+            $request->session()->flash('friday', 'Orders cannot be made from every Thursday 4pm till
+            the end of every Friday. Please try again from Saturday onwards.');
+
+            return redirect()->route('home');
+
+        }elseif ($allSlotsFull) {
+
+            return redirect()->route('home');
+
+        }else if ($thurSlotsFull && $friSlotsFull && 
+        ($currentDateTime->format('l') === "Wednesday" || ($currentDateTime->format('l') === "Tuesday" 
+        && $currentDateTime > Carbon::parse('10:00:00' )->addDays(6) && $wedLast2SlotsFull))) {
 
             $request->session()->flash('slotsFull', 'All of the collection slots are full. Please try 
-            again this coming Friday from 7pm onwards.');
+            again this coming Saturday.');
+
+            return redirect()->route('home');
+
+        }else if ($thurSlotsFull && $friSlotsFull && 
+        ($currentDateTime->format('l') === "Wednesday" || ($currentDateTime->format('l') === "Tuesday" 
+        && $currentDateTime > Carbon::parse('13:00:00' )->addDays(6) && $wedLastSlotFull))) {
+
+            $request->session()->flash('slotsFull', 'All of the collection slots are full. Please try 
+            again this coming Saturday.');
+
+            return redirect()->route('home');
+
+        }else if ($thurSlotsFull && $friSlotsFull && 
+            ($currentDateTime->format('l') === "Wednesday" || ($currentDateTime->format('l') === "Tuesday" 
+            && $currentDateTime > Carbon::parse('16:00:00' )->addDays(6)))) {
+
+            // If Thursday and Friday's 3 slots are full and it's Wednesday or tuesday after 4pm.
+
+            $request->session()->flash('slotsFull', 'All of the collection slots are full. Please try 
+            again this coming Saturday.');
+
+            return redirect()->route('home');
+
+        }else if ($friSlotsFull && ($currentDateTime->format('l') === "Thursday" 
+        || ($currentDateTime->format('l') === "Wednesday" && $currentDateTime > Carbon::parse('16:00:00')->addDays(6)))) {
+
+            // If friday's 3 slots are full and it's thursday or wednesday after 4pm.
+
+            $request->session()->flash('slotsFull', 'All of the collection slots are full. Please try 
+            again this coming Saturday.');
 
             return redirect()->route('home');
 
@@ -49,16 +106,6 @@ class CheckoutController extends Controller
 
         $total_price_string_2dp = number_format($total_price, 2);
 
-        // dd(Carbon::now()->toDateString() get date as string 
-        // Carbon::now()->format('l')); get day as a string
-
-        // Current date and time:
-        $currentDateTime = Carbon::now();
-
-        $firstTimeSlot = Carbon::parse('10:00:00')->addDays(1);
-        $secondTimeSlot = Carbon::parse('13:00:00')->addDays(1);
-        $thirdTimeSlot = Carbon::parse('16:00:00')->addDays(1);
-
         return view('checkout', [
             "cartAndProductRecords" => $cartAndProductRecords,
             'total_price' => $total_price_string_2dp,
@@ -67,12 +114,20 @@ class CheckoutController extends Controller
             'firstTimeSlot' => $firstTimeSlot,
             'secondTimeSlot' => $secondTimeSlot,
             'thirdTimeSlot' => $thirdTimeSlot,
+            'wedSlotsFull' => $wedSlotsFull,
+            'thurSlotsFull' => $thurSlotsFull,
+            'friSlotsFull' => $friSlotsFull,
+            'availableSlotsForWed' => $availableSlotsForWed,
+            'availableSlotsForThu' => $availableSlotsForThu,
+            'availableSlotsForFri' => $availableSlotsForFri,
+            'wedLast2SlotsFull' => $wedLast2SlotsFull,
+            'wedLastSlotFull' => $wedLastSlotFull,
         ]);
     }
 
 
     public function store(Request $request, float $totalPrice, int $totalQuantity, 
-                            int $totalItems, Carbon $currentDateTime) {
+                            int $totalItems, Carbon $currentDateTime) { 
 
         $orderDescription = "A total of ".$totalItems." "
             .Str::plural('item', $totalItems)." with a total quantity of ".$totalQuantity
@@ -89,6 +144,9 @@ class CheckoutController extends Controller
                     'order_description' => $orderDescription,
                 ]); 
 
+        // Increment the collection slot's order quantity:
+        $this->updateCollectionSlotOrderQuantity($request->collectionDay, $request->collectionTime);
+
         if ($request->payment === 'PayPal') {
 
             return redirect()->route('paypal.checkout', $order->id);
@@ -96,6 +154,165 @@ class CheckoutController extends Controller
         }
 
         return redirect()->route('order');
+
+    }
+
+
+    public function updateCollectionSlotOrderQuantity(String $collectionDay, String $collectionSlot) {
+
+        $day = CollectionDay::get()->where('day', $collectionDay);
+        
+        $slot = CollectionTimeSlot::get()->where('slot_time', $collectionSlot)
+                                    ->where('collection_day_id', $day->first()->id);
+
+        $slot->first()->order_quantity += 1;
+        $slot->first()->save();
+        
+    }   
+
+    
+    public function checkAllCollectionSlotsAvailability(Request $request) {
+
+        // If all of the collections slots already have 20 products, deny the customer from
+        // proceeding to checkout.
+
+        $totalSlotsQuantity = (int) DB::table('collection_time_slots')->sum('order_quantity');
+
+        // If all slots are full, redirect to home with error message.
+        if ($totalSlotsQuantity === 180) {
+            
+            // Collection slot full message.
+
+            $request->session()->flash('slotsFull', 'All of the collection slots are full. Please try 
+            again this coming Saturday.');
+
+            return true;
+
+        }else {
+            return false;
+        }
+
+    }
+
+
+    public function checkWednesdaySlotsAvailability(Request $request) {
+    
+        $day = CollectionDay::find(1);
+        $totalSlotsQuantity = (int) CollectionTimeSlot::where('collection_day_id', $day->id)
+                                ->sum('order_quantity');
+
+        if ($totalSlotsQuantity === 60) {
+            return true;
+        }else {
+            return false;
+        }
+
+    }
+
+
+    public function checkThursdaySlotsAvailability(Request $request) {
+
+        $day = CollectionDay::find(2);
+        $totalSlotsQuantity = (int) CollectionTimeSlot::where('collection_day_id', $day->id)
+                                ->sum('order_quantity');
+
+        if ($totalSlotsQuantity === 60) {
+            return true;
+        }else {
+            return false;
+        }
+    
+    }
+
+
+    public function checkFridaySlotsAvailability(Request $request) {
+
+        $day = CollectionDay::find(3);
+        $totalSlotsQuantity = (int) CollectionTimeSlot::where('collection_day_id', $day->id)
+                                ->sum('order_quantity');
+
+        if ($totalSlotsQuantity === 60) {
+            return true;
+        }else {
+            return false;
+        }
+
+    }
+
+
+    public function getNoOfWedSlotsAvailability() {
+
+        $day = CollectionDay::find(1);
+        $noOfFreeSlots = CollectionTimeSlot::get()->where('collection_day_id', $day->id);
+
+        return $noOfFreeSlots;
+        
+    }
+
+
+    public function getNoOfThurSlotsAvailability() {
+
+        $day = CollectionDay::find(2);
+        $noOfFreeSlots = CollectionTimeSlot::get()->where('collection_day_id', $day->id);
+
+        return $noOfFreeSlots;
+
+    }
+
+
+    public function getNoOfFridaySlotsAvailability() {
+
+        $day = CollectionDay::find(3);
+        $noOfFreeSlots = CollectionTimeSlot::get()->where('collection_day_id', $day->id);
+
+        return $noOfFreeSlots;
+
+    }
+
+
+    public function wedLast2SlotsFull() {
+
+        $day = CollectionDay::find(1);
+        $noOfFreeSlots = CollectionTimeSlot::get()->where('collection_day_id', $day->id)
+                        ->where('slot_time', '!=', '10-13');
+
+        $last2SlotsFull = 0;
+
+        foreach ($noOfFreeSlots as $slot) {
+
+            if ($slot->order_quantity === 20) {
+
+                $last2SlotsFull++;
+
+            }
+
+        }
+
+        if ($last2SlotsFull === 2) {
+            return true;
+        }else {
+            return false;
+        }
+
+    }
+
+
+    public function wedLastSlotFull() {
+
+        $day = CollectionDay::find(1);
+        $slot = CollectionTimeSlot::get()->where('collection_day_id', $day->id)
+                        ->where('slot_time', '=', '16-19')->first();
+
+
+        if ($slot->order_quantity === 20) {
+
+            return true;
+
+        }else {
+
+            return false;
+
+        }
 
     }
 

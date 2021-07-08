@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\CollectionDay;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CollectionTimeSlot extends Model
 {
@@ -13,5 +14,9 @@ class CollectionTimeSlot extends Model
         'slot_time',
         'order_quantity',
     ];
+
+    public function collectionDay(){
+        return $this->belongsTo(CollectionDay::class);
+    }
 
 }

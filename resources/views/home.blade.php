@@ -95,6 +95,10 @@
                 <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
                     {{ session('slotsFull') }}
                 </p>
+            @elseif(session('friday'))
+                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                    {{ session('friday') }}
+                </p>
             @endif
 
         </div>

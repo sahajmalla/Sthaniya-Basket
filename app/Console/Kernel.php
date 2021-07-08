@@ -24,8 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('collectionSlotsUpdate')->weekly()->fridays()
-            ->timezone('Asia/Kathmandu')->at('19:00');
+        $schedule->command('collectionSlotsUpdate')->weekly()->saturdays()
+            ->timezone('Asia/Kathmandu')->at('00:00');
     }
 
     /**
