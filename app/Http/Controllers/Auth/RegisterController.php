@@ -142,9 +142,16 @@ class RegisterController extends Controller
             Event::dispatch(new Registered(auth()->user())); // Dispatching email verification event.       
 
             if($request->userType=='trader'){
+
                 return redirect()->route('registerShop');
+
             }else{
+
+                $request->session()->flash('registeredAndLoggedIn', 'Welcome '.auth()->user()->username.'. Please
+                verify your account through the link in your email.');
+
                 return redirect()->route('home');
+
             }
         }
        

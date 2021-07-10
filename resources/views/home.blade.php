@@ -119,6 +119,10 @@
                 <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
                     {{ session('cartEmpty') }}
                 </p>
+            @elseif(session('registeredAndLoggedIn'))
+                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
+                    {{ session('registeredAndLoggedIn') }}
+                </p>
             @endif
 
         </div>
