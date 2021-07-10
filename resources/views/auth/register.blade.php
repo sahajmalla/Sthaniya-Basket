@@ -269,11 +269,11 @@
             const traBus = document.querySelector('.trader-business');
             const subscription = document.querySelector('.subscription');
 
-            if (selectedValue === "trader") {
+            if (selectedValue == "trader") {
                 subscription.classList.add('hidden');
                 traBus.classList.remove('hidden');
             }
-            if (selectedValue === "customer") {
+            if (selectedValue  "customer") {
                 subscription.classList.remove('hidden');
                 traBus.classList.add('hidden');
             }

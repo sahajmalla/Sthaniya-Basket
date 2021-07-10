@@ -12,7 +12,7 @@ class HomeController extends Controller
 
         $collectionDays = CollectionDay::get();
 
-        if ($collectionDays->count() === 0) {
+        if ($collectionDays->count() == 0) {
 
             CollectionDay::create([
                 'day'=>'Wednesday'

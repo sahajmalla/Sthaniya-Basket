@@ -401,7 +401,7 @@
 
                     @if (auth()->user())
 
-                        @if (auth()->user()->user_type === 'customer')
+                        @if (auth()->user()->user_type == 'customer')
 
                             <!-- Add to wishlist -->
 

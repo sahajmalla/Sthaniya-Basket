@@ -110,7 +110,7 @@ class CartController extends Controller
                 $itemMatch = false;
                 if (session('products')) {
                     foreach (session('products') as $prod) {
-                        if ($prod->id === $product->id ) {
+                        if ($prod->id == $product->id ) {
                             $itemMatch = true;
                         }            
                     }
@@ -167,7 +167,7 @@ class CartController extends Controller
             $product_id = (int) $productID; // Since collection's product can't be passed.
 
             foreach (session('products') as $prod) {
-                if ($prod->id === $product_id ) {
+                if ($prod->id == $product_id ) {
                     $key = array_search($prod, session('products'));
                     $tempArray = session('products');
                     array_splice($tempArray , $key, 1); // Splice prevents gaps in the index position.
@@ -218,7 +218,7 @@ class CartController extends Controller
             // When user is not authenticated and increases product's quantity.
             foreach (session('products') as $prod) {
 
-                if ($prod->id === $product_id && session($prod->prod_name) < $prod->prod_quantity) {
+                if ($prod->id == $product_id && session($prod->prod_name) < $prod->prod_quantity) {
                     $oldQuantity = session($prod->prod_name);
                     $request->session()->put($prod->prod_name, ++$oldQuantity);
                 }
@@ -246,7 +246,7 @@ class CartController extends Controller
 
             foreach ($cartRecords as $cartRecord) {
             
-                if ($cartRecord->product_id === $product_id && $cartRecord->product_quantity > 1) {
+                if ($cartRecord->product_id == $product_id && $cartRecord->product_quantity > 1) {
                     
                     Cart::where('customer_id', auth()->user()->customers->first()->id)
                     ->where('product_id', $product_id)
@@ -261,7 +261,7 @@ class CartController extends Controller
             // When user is not authenticated and decreases product's quantity.
             foreach (session('products') as $prod) {
 
-                if ($prod->id === $product_id && session($prod->prod_name) > 1) {
+                if ($prod->id == $product_id && session($prod->prod_name) > 1) {
                     $oldQuantity = session($prod->prod_name);
                     $request->session()->put($prod->prod_name, --$oldQuantity);
                 }

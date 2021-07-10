@@ -98,7 +98,7 @@
                             <!-- Only show add to wishlist/cart buttons to customers and guests -->
                             @if (auth()->user())
 
-                                @if (auth()->user()->user_type === 'customer')
+                                @if (auth()->user()->user_type == 'customer')
 
                                     <!-- Add to cart button -->
 
@@ -255,7 +255,7 @@
                                                 @endif
 
                                                 <!-- If user's rating is 4, the above loop will not add the remaining uncolored star so doing it below. -->
-                                                @if ($review->review_rating === 4)
+                                                @if ($review->review_rating == 4)
                                                     <svg class="w-3 h-3 fill-current text-gray-400"
                                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                                         <path
@@ -274,7 +274,7 @@
 
                                     @auth
 
-                                        @if (auth()->user()->user_type === 'customer')
+                                        @if (auth()->user()->user_type == 'customer')
 
                                             <div class="mt-3">
 
@@ -671,7 +671,7 @@
                         <!-- Only show add to wishlist/cart buttons to customers and guests -->
                         @if (auth()->user())
 
-                            @if (auth()->user()->user_type === 'customer')
+                            @if (auth()->user()->user_type == 'customer')
 
                                 <!-- Add to wishlist -->
 

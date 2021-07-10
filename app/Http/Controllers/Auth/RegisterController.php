@@ -35,7 +35,7 @@ class RegisterController extends Controller
             
             return back();
         }else{
-            if((isset($request['userType'])) && $request['userType'] === 'trader'){
+            if((isset($request['userType'])) && $request['userType'] == 'trader'){
             
                 $this->validate($request, [   
                     'email' => 'required|email|max:255|unique:users',
@@ -90,7 +90,7 @@ class RegisterController extends Controller
 
             Auth::login($user);
 
-            if($request->userType === 'customer'){
+            if($request->userType == 'customer'){
 
                 // Subscription will be 'on' if set but nothing not even 'off' or 'null' if not set:
                 if(!(isset($request['subscription']))){
@@ -102,7 +102,7 @@ class RegisterController extends Controller
                         
             }
 
-            if($request->userType==='trader'){
+            if($request->userType=='trader'){
                 $request->user()->traders()->create([
                     'business' => $request->business,
                     'verified_trader' => 'no',
@@ -143,7 +143,7 @@ class RegisterController extends Controller
 
            
 
-            if($request->userType==='trader'){
+            if($request->userType=='trader'){
                 return redirect()->route('registerShop');
             }else{
                 return redirect()->route('home');

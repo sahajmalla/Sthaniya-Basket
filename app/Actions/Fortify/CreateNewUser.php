@@ -22,7 +22,7 @@ class CreateNewUser implements CreatesNewUsers
     {
         // Validation:
 
-        if((isset($input['userType'])) && $input['userType'] === 'trader'){
+        if((isset($input['userType'])) && $input['userType'] == 'trader'){
 
             Validator::make($input, [
                 'firstname' => ['required', 'string', 'max:255'],

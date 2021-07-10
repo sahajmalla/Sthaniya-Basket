@@ -235,7 +235,7 @@
             </form>
         </div>
 
-        @if (auth()->user()->user_type === 'trader')
+        @if (auth()->user()->user_type == 'trader')
             <div>
 
                 <section class="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">

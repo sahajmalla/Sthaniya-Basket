@@ -49,7 +49,7 @@ class RegisterShopController extends Controller
     
                 foreach($traders as $trader){
                     $traderUserId = (int) $trader->user_id;
-                    if($traderUserId === auth()->user()->id){
+                    if($traderUserId == auth()->user()->id){
                         $shop = $trader->shops()->create([
                                     'shopname'=> $request->shopname,
                                     'shoppic'=> $imageName,
@@ -60,7 +60,7 @@ class RegisterShopController extends Controller
                 foreach($traders as $trader){
                     $traderUserId = (int) $trader->user_id;
                     
-                    if($traderUserId === auth()->user()->id){
+                    if($traderUserId == auth()->user()->id){
                         $shop = $trader->shops()->create([
                                     'shopname'=> $request->shopname,
                                     'shoppic'=> 'defaultShopImage.png',

@@ -93,7 +93,7 @@
 
                 <!-- Form and order summary -->
 
-                <div class="space-y-6 lg:space-y-0 lg:space-x-16 lg:flex lg:flex-row my-6">
+                <div class="space-y-6 lg:space-y-0 lg:space-x-16 lg:flex lg:flex-row my-6 justify-center">
 
                     <!-- Form -->
                     <form
@@ -103,7 +103,7 @@
                         @csrf
                         <div class="leading-loose">
 
-                            <div class="space-y-5 md:flex md:space-y-0 md:space-x-10">
+                            <div class="space-y-5 md:flex justify-between md:space-y-0 md:space-x-10">
 
                                 <!-- Final details -->
                                 <div class="border rounded-md p-8 w-full md:w-6/12">
