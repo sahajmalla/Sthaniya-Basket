@@ -6,6 +6,7 @@ use App\Http\Middleware\CheckUserAdmin;
 use App\Http\Middleware\CheckUserTrader;
 use App\Http\Middleware\IsShopAvailable;
 use App\Http\Middleware\VerifiedByAdmin;
+use App\Http\Middleware\CheckItemsInCart;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -70,5 +71,6 @@ class Kernel extends HttpKernel
         'isShopAvailable' => \App\Http\MIddleware\IsShopAvailable::class,
         'checkUserAdmin' => \App\Http\Middleware\CheckUserAdmin::class,
         'verifiedByAdmin' => \App\Http\Middleware\VerifiedByAdmin::class,
+        'checkItemsCart' => \App\Http\Middleware\CheckItemsInCart::class
     ];
 }

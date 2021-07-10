@@ -23,7 +23,7 @@
                     <div class="relative inline-block text-left ">
                         <div>
                             <button type="button" class="user-icon space-x-2 focus:outline-none">
-                                <span> Hi {{ auth()->user()->firstname }}</span>
+                                <span>{{ auth()->user()->firstname }}</span>
                                 <img class="inline object-cover w-8 h-8 mr-2 rounded-full"
                                     src="/images/users/{{ auth()->user()->user_image }}" alt="Profile image" />
                             </button>
@@ -61,8 +61,6 @@
                         <div class="flex md:justify-center py-3 mt-3 -mx-3 overflow-y-auto whitespace-nowrap scroll-hidden">
                             <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
                                 href="{{ route('products.create') }}">Add Products</a>
-                            <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
-                                href="#">View Products</a>
                             <a class="mx-4 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:my-0"
                                 href="{{ route('home') }}">View Main Website</a>
 

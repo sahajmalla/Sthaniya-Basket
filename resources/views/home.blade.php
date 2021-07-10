@@ -98,19 +98,11 @@
                 <p class="message p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
                     {{ session('slotsFull') }}
                 </p>
-<<<<<<< HEAD
             @elseif(session('friday'))
                 <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
                     {{ session('friday') }}
-=======
-                {{-- @elseif(session('addedCartItem'))
-                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
-                    {{ session('addedCartItem') }}
+
                 </p>
-            @elseif(session('notAddedCartItem'))
-                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
-                    {{ session('notAddedCartItem') }}
-                </p> --}}
             @elseif(session('loggedIn'))
                 <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
                     {{ session('loggedIn') }}
@@ -118,12 +110,21 @@
             @elseif(session('registered'))
                 <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
                     {{ session('registered') }}
->>>>>>> df569a62e84a1a8bccccfe389b3c4d9ee86bf3ce
+                </p>
+            @elseif(session('loggedOut'))
+                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
+                    {{ session('loggedOut') }}
+                </p>
+            @elseif(session('cartEmpty'))
+                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                    {{ session('cartEmpty') }}
                 </p>
             @endif
 
         </div>
-
+        <div class="w-full h-40 mb-8 bg-center">
+            <img class="object-cover w-full h-40 " src="/images/banner/west-yorkshire.jpg" alt="west-yorkshire">
+        </div>
         <div class="carousel relative container mx-auto" style="max-width:1600px;">
             <div class="carousel-inner relative overflow-hidden w-full">
                 <!--Slide 1-->
@@ -137,8 +138,7 @@
                             <div
                                 class="flex flex-col w-full lg:w-1/2 md:ml-16 items-center md:items-start px-6 tracking-wide bg-red-200 bg-opacity-75">
                                 <p class="text-black text-2xl my-4">Bready or not, here I crumb!</p>
-                                <a class="text-xl inline-block no-underline border-b border-gray-600 leading-relaxed hover:text-black hover:border-black"
-                                    href="{{ route('bakery.shop') }}">Check our bakery</a>
+                               
                             </div>
                         </div>
 
@@ -159,8 +159,7 @@
                             <div
                                 class="flex flex-col w-full lg:w-1/2 md:ml-16 items-center md:items-start px-6 tracking-wide bg-red-200 bg-opacity-75">
                                 <p class="text-black text-2xl my-4">So... We meat again!</p>
-                                <a class="text-xl inline-block no-underline border-b border-gray-600 leading-relaxed hover:text-black hover:border-black"
-                                    href="{{ route('butcher.shop') }}">view our butcher</a>
+                               
                             </div>
                         </div>
 
@@ -182,8 +181,7 @@
                                 class="flex flex-col w-full lg:w-1/2 md:ml-16 items-center md:items-start px-6 tracking-wide bg-red-200 bg-opacity-75">
                                 <p class="text-black text-2xl my-4">What did batman do at the deli?</p>
                                 <p class="text-black text-2xl my-4">A.Got Ham!</p>
-                                <a class="text-xl inline-block no-underline border-b border-gray-600 leading-relaxed hover:text-black hover:border-black"
-                                    href="{{ route('delicatessen.shop') }}">view our delicatessen</a>
+                                
                             </div>
                         </div>
 
@@ -206,8 +204,7 @@
                                 class="flex flex-col w-full lg:w-1/2 md:ml-16 items-center md:items-start px-6 tracking-wide bg-red-200 bg-opacity-75">
                                 <p class="text-black text-2xl my-4">Why are fishmongers the worst friends?</p>
                                 <p class="text-black text-2xl my-4">They selfish</p>
-                                <a class="text-xl inline-block no-underline border-b border-gray-600 leading-relaxed hover:text-black hover:border-black"
-                                    href="{{ route('fishmonger.shop') }}">view our fishmongers</a>
+                                
                             </div>
                         </div>
 
@@ -229,8 +226,7 @@
                                 class="flex flex-col w-full lg:w-1/2 md:ml-16 items-center md:items-start px-6 tracking-wide bg-red-200 bg-opacity-75">
                                 <p class="text-black text-2xl my-4">What does a cannibalistic vegan eat?</p>
                                 <p class="text-black text-2xl my-4">A greengrocer.</p>
-                                <a class="text-xl inline-block no-underline border-b border-gray-600 leading-relaxed hover:text-black hover:border-black"
-                                    href="{{ route('greengrocer.shop') }}">view our greengrocers</a>
+                                
                             </div>
                         </div>
 
@@ -282,25 +278,6 @@
 
                         <div class="flex items-center" id="store-nav-content">
 
-                            {{-- <div>
-                                <form action="{{ route('home.sort') }}" method="POST">
-                                    @csrf
-                                    <select name="sortBy" id="sortBy">
-                                        <button>
-                                            <option value="Popularity">Popularity</option>
-                                        </button>
-                                        <button>
-                                            <option value="High">High to Low price</option>
-                                        </button>
-                                        <button>
-                                            <option value="Low">Low to High Price</option>
-                                        </button>
-                                        <button>
-                                            <option value="Latest">Latest</option>
-                                        </button>
-                                    </select>
-                                </form>
-                            </div> --}}
                             <div class="relative">
                                 <!-- Dropdown toggle button -->
                                 <button
@@ -317,10 +294,6 @@
                                     <a href="{{ URL::current() }}"
                                         class="block px-4 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-blue-500 hover:text-white dark:hover:text-white">
                                         Default
-                                    </a>
-                                    <a href="{{ URL::current() . '?sort=popularity' }}"
-                                        class="block px-4 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-blue-500 hover:text-white dark:hover:text-white">
-                                        Popularity
                                     </a>
                                     <a href="{{ URL::current() . '?sort=high-price' }}"
                                         class="block px-4 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-blue-500 hover:text-white dark:hover:text-white">
@@ -449,9 +422,9 @@
                                 @csrf
                                 <button
                                     class="px-2 py-1 text-xs font-bold text-white uppercase 
-                                                                                                                                    transition-colors duration-200 transform bg-gray-800 rounded 
-                                                                                                                                    dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 
-                                                                                                                                    focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600">Add
+                                                                                                                                            transition-colors duration-200 transform bg-gray-800 rounded 
+                                                                                                                                            dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 
+                                                                                                                                            focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600">Add
                                     to
                                     Cart
                                 </button>

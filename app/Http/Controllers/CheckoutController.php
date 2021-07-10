@@ -36,8 +36,8 @@ class CheckoutController extends Controller
         $secondTimeSlot = Carbon::parse('13:00:00')->addDays(1);
         $thirdTimeSlot = Carbon::parse('16:00:00')->addDays(1);
 
-        if($currentDateTime->format('l') === "Friday" || 
-            ($currentDateTime->format('l') === "Thursday" && $currentDateTime > Carbon::parse('16:00:00'))
+        if($currentDateTime->format('l') == "Friday" || 
+            ($currentDateTime->format('l') == "Thursday" && $currentDateTime > Carbon::parse('16:00:00'))
           ) {
 
             // If the current day is friday or if it is thursday and it's after 4pm disable checkout feature.
@@ -52,7 +52,7 @@ class CheckoutController extends Controller
             return redirect()->route('home');
 
         }else if ($thurSlotsFull && $friSlotsFull && 
-        ($currentDateTime->format('l') === "Wednesday" || ($currentDateTime->format('l') === "Tuesday" 
+        ($currentDateTime->format('l') == "Wednesday" || ($currentDateTime->format('l') == "Tuesday" 
         && $currentDateTime > Carbon::parse('10:00:00' ) && $wedLast2SlotsFull))) {
 
             // If thursday and friday slots are full and if it is either wednesday or tuesday
@@ -64,7 +64,7 @@ class CheckoutController extends Controller
             return redirect()->route('home');
 
         }else if ($thurSlotsFull && $friSlotsFull && 
-        ($currentDateTime->format('l') === "Wednesday" || ($currentDateTime->format('l') === "Tuesday" 
+        ($currentDateTime->format('l') == "Wednesday" || ($currentDateTime->format('l') == "Tuesday" 
         && $currentDateTime > Carbon::parse('13:00:00' ) && $wedLastSlotFull))) {
 
             // If thursday and friday slots are full and if it is either wednesday or tuesday
@@ -76,7 +76,7 @@ class CheckoutController extends Controller
             return redirect()->route('home');
 
         }else if ($thurSlotsFull && $friSlotsFull && 
-            ($currentDateTime->format('l') === "Wednesday" || ($currentDateTime->format('l') === "Tuesday" 
+            ($currentDateTime->format('l') == "Wednesday" || ($currentDateTime->format('l') == "Tuesday" 
             && $currentDateTime > Carbon::parse('16:00:00' )))) {
 
             // If Thursday and Friday's 3 slots are full and it's Wednesday or tuesday after 4pm.
@@ -86,8 +86,8 @@ class CheckoutController extends Controller
 
             return redirect()->route('home');
 
-        }else if ($friSlotsFull && ($currentDateTime->format('l') === "Thursday" 
-        || ($currentDateTime->format('l') === "Wednesday" 
+        }else if ($friSlotsFull && ($currentDateTime->format('l') == "Thursday" 
+        || ($currentDateTime->format('l') == "Wednesday" 
         && $currentDateTime > Carbon::parse('10:00:00') && $thuLast2SlotsFull))) {
 
             // If friday's 3 slots are full and it's thursday or wednesday after 10am with thursday's
@@ -98,8 +98,8 @@ class CheckoutController extends Controller
 
             return redirect()->route('home');
 
-        }else if ($friSlotsFull && ($currentDateTime->format('l') === "Thursday" 
-        || ($currentDateTime->format('l') === "Wednesday" 
+        }else if ($friSlotsFull && ($currentDateTime->format('l') == "Thursday" 
+        || ($currentDateTime->format('l') == "Wednesday" 
         && $currentDateTime > Carbon::parse('13:00:00') && $thuLastSlotFull))) {
 
             // If friday's 3 slots are full and it's thursday or wednesday after 1pm with thursday's
@@ -110,8 +110,8 @@ class CheckoutController extends Controller
 
             return redirect()->route('home');
 
-        }else if ($friSlotsFull && ($currentDateTime->format('l') === "Thursday" 
-        || ($currentDateTime->format('l') === "Wednesday" 
+        }else if ($friSlotsFull && ($currentDateTime->format('l') == "Thursday" 
+        || ($currentDateTime->format('l') == "Wednesday" 
         && $currentDateTime > Carbon::parse('16:00:00')))) {
 
             // If friday's 3 slots are full and it's thursday or wednesday after 4pm.
@@ -121,7 +121,7 @@ class CheckoutController extends Controller
 
             return redirect()->route('home');
 
-        }else if ($currentDateTime->format('l') === "Thursday" && $friLast2SlotsFull && 
+        }else if ($currentDateTime->format('l') == "Thursday" && $friLast2SlotsFull && 
         $currentDateTime > Carbon::parse('10:00:00')) {
 
             // If it is thursday, first time slot is up and last 2 time slots are full.
@@ -131,7 +131,7 @@ class CheckoutController extends Controller
 
             return redirect()->route('home');
 
-        }else if ($currentDateTime->format('l') === "Thursday" && $friLastSlotFull && 
+        }else if ($currentDateTime->format('l') == "Thursday" && $friLastSlotFull && 
         $currentDateTime > Carbon::parse('13:00:00')){
 
             // If it is thursday, first time slot is up and last time slot are full.
@@ -206,7 +206,7 @@ class CheckoutController extends Controller
         // Increment the collection slot's order quantity:
         $this->updateCollectionSlotOrderQuantity($request->collectionDay, $request->collectionTime);
 
-        if ($request->payment === 'PayPal') {
+        if ($request->payment == 'PayPal') {
 
             return redirect()->route('paypal.checkout', $order->id);
 
@@ -238,7 +238,7 @@ class CheckoutController extends Controller
         $totalSlotsQuantity = (int) DB::table('collection_time_slots')->sum('order_quantity');
 
         // If all slots are full, redirect to home with error message.
-        if ($totalSlotsQuantity === 180) {
+        if ($totalSlotsQuantity == 180) {
             
             // Collection slot full message.
 
@@ -260,7 +260,7 @@ class CheckoutController extends Controller
         $totalSlotsQuantity = (int) CollectionTimeSlot::where('collection_day_id', $day->id)
                                 ->sum('order_quantity');
 
-        if ($totalSlotsQuantity === 60) {
+        if ($totalSlotsQuantity == 60) {
             return true;
         }else {
             return false;
@@ -275,7 +275,7 @@ class CheckoutController extends Controller
         $totalSlotsQuantity = (int) CollectionTimeSlot::where('collection_day_id', $day->id)
                                 ->sum('order_quantity');
 
-        if ($totalSlotsQuantity === 60) {
+        if ($totalSlotsQuantity == 60) {
             return true;
         }else {
             return false;
@@ -290,7 +290,7 @@ class CheckoutController extends Controller
         $totalSlotsQuantity = (int) CollectionTimeSlot::where('collection_day_id', $day->id)
                                 ->sum('order_quantity');
 
-        if ($totalSlotsQuantity === 60) {
+        if ($totalSlotsQuantity == 60) {
             return true;
         }else {
             return false;
@@ -339,7 +339,7 @@ class CheckoutController extends Controller
 
         foreach ($noOfFreeSlots as $slot) {
 
-            if ($slot->order_quantity === 20) {
+            if ($slot->order_quantity == 20) {
 
                 $last2SlotsFull++;
 
@@ -347,7 +347,7 @@ class CheckoutController extends Controller
 
         }
 
-        if ($last2SlotsFull === 2) {
+        if ($last2SlotsFull == 2) {
             return true;
         }else {
             return false;
@@ -363,7 +363,7 @@ class CheckoutController extends Controller
                         ->where('slot_time', '=', '16-19')->first();
 
 
-        if ($slot->order_quantity === 20) {
+        if ($slot->order_quantity == 20) {
 
             return true;
 
@@ -386,7 +386,7 @@ class CheckoutController extends Controller
 
         foreach ($noOfFreeSlots as $slot) {
 
-            if ($slot->order_quantity === 20) {
+            if ($slot->order_quantity == 20) {
 
                 $last2SlotsFull++;
 
@@ -394,7 +394,7 @@ class CheckoutController extends Controller
 
         }
 
-        if ($last2SlotsFull === 2) {
+        if ($last2SlotsFull == 2) {
             return true;
         }else {
             return false;
@@ -410,7 +410,7 @@ class CheckoutController extends Controller
                         ->where('slot_time', '=', '16-19')->first();
 
 
-        if ($slot->order_quantity === 20) {
+        if ($slot->order_quantity == 20) {
 
             return true;
 
@@ -433,7 +433,7 @@ class CheckoutController extends Controller
 
         foreach ($noOfFreeSlots as $slot) {
 
-            if ($slot->order_quantity === 20) {
+            if ($slot->order_quantity == 20) {
 
                 $last2SlotsFull++;
 
@@ -441,7 +441,7 @@ class CheckoutController extends Controller
 
         }
 
-        if ($last2SlotsFull === 2) {
+        if ($last2SlotsFull == 2) {
             return true;
         }else {
             return false;
@@ -457,7 +457,7 @@ class CheckoutController extends Controller
                         ->where('slot_time', '=', '16-19')->first();
 
 
-        if ($slot->order_quantity === 20) {
+        if ($slot->order_quantity == 20) {
 
             return true;
 

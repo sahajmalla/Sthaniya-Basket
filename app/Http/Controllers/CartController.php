@@ -198,16 +198,14 @@ class CartController extends Controller
             ->get();
 
             $selectedProduct = Product::find($product_id);
-
             foreach ($cartRecords as $cartRecord) {
             
                 // Update only if product id matches in the cart that is linked to the user and
                 // if product's quantity in the cart is smaller than the product quantity.
-
-                if ($cartRecord->product_id === $product_id && 
+                if ($cartRecord->product_id == $product_id && 
                 $cartRecord->product_quantity < $selectedProduct->prod_quantity) {
-                    
-                    Cart::where('customer_id', auth()->user()->customers->first()->id)
+                
+                 Cart::where('customer_id', auth()->user()->customers->first()->id)
                     ->where('product_id', $product_id)
                     ->update(['product_quantity' => $cartRecord->product_quantity + 1]);
 

@@ -8,6 +8,10 @@
                     <p class="message p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
                         {{ session('ShopCreated') }}
                     </p>
+                @elseif (session('Success'))
+                    <p class="message p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
+                        {{ session('Success') }}
+                    </p>
                 @endif
 
             </div>
@@ -145,8 +149,8 @@
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                         <div class="flex">
                                             <a class="px-4 mr-2 py-2 font-medium tracking-wide text-white 
-                                                                                                                        capitalize transition-colors duration-200 
-                                                                                                                        transform bg-blue-600 rounded-md  hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
+                                                                                                                            capitalize transition-colors duration-200 
+                                                                                                                            transform bg-blue-600 rounded-md  hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
                                                 href="{{ route('products.edit', $product->id) }}">Edit
                                             </a>
                                             <form action="{{ route('products.destroy', $product->id) }}" method="POST">
@@ -154,8 +158,8 @@
                                                 @method('DELETE')
                                                 <button type="submit"
                                                     class="px-4 py-2 font-medium tracking-wide text-white 
-                                                                                                                        capitalize transition-colors duration-200 
-                                                                                                                        transform bg-red-600 rounded-md  hover:bg-red-500 focus:outline-none focus:bg-red-500">
+                                                                                                                            capitalize transition-colors duration-200 
+                                                                                                                            transform bg-red-600 rounded-md  hover:bg-red-500 focus:outline-none focus:bg-red-500">
                                                     Delete
                                                 </button>
                                             </form>

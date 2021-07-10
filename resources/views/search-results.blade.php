@@ -16,27 +16,8 @@
 
                 <div class="flex items-center" id="store-nav-content">
                     
-                    <p>{{ $products->total() }} Results found</p>
+                    <p class="ml-4">{{ $products->total() }} Results found</p>
                     
-                    {{-- <div>
-                        <form action="{{ route('home.sort') }}" method="POST">
-                            @csrf
-                            <select name="sortBy" id="sortBy">
-                                <button>
-                                    <option value="Popularity">Popularity</option>
-                                </button>
-                                <button>
-                                    <option value="High">High to Low price</option>
-                                </button>
-                                <button>
-                                    <option value="Low">Low to High Price</option>
-                                </button>
-                                <button>
-                                    <option value="Latest">Latest</option>
-                                </button>
-                            </select>
-                        </form>
-                    </div> --}}
                 </div>
             </div>
         </div>

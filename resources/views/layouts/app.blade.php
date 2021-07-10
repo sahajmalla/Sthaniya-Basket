@@ -45,7 +45,7 @@
                             <div class="relative inline-block text-left md:hidden">
                                 <div>
                                     <button type="button" class="user-icon space-x-2 focus:outline-none">
-                                        <span> Hi {{ auth()->user()->firstname }}</span>
+                                        <span> {{ auth()->user()->firstname }}</span>
                                         <img class="inline object-cover w-8 h-8 mr-2 rounded-full"
                                             src="/images/users/{{ auth()->user()->user_image }}" alt="Profile image" />
                                     </button>
@@ -162,7 +162,7 @@
                             <div class="hidden md:block relative inline-block text-left">
                                 <div>
                                     <button type="button" class="user-icon2 space-x-2 focus:outline-none">
-                                        <span> Hi {{ auth()->user()->firstname }}</span>
+                                        <span>{{ auth()->user()->firstname }}</span>
                                         <img class="inline object-cover w-8 h-8 mr-2 rounded-full"
                                             src="/images/users/{{ auth()->user()->user_image }}" alt="Profile image" />
                                     </button>

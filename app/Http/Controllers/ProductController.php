@@ -89,13 +89,13 @@ class ProductController extends Controller
 
         foreach ($traders as $trader){
 
-            if ($trader->user_id === auth()->user()->id) {
+            if ($trader->user_id == auth()->user()->id) {
 
                 $shops = Shop::get()->where('trader_id', $trader->id);
 
                 foreach ($shops as $shop){
 
-                    if ($shop->shopname === $request->shop) {
+                    if ($shop->shopname == $request->shop) {
 
                         $trader->products()->create([
                             'prod_name' => $request->prod_name,
@@ -117,7 +117,7 @@ class ProductController extends Controller
         }
 
 
-        return redirect()->route('products.index')->with('Success!','Product inserted successfully.');
+        return redirect()->route('products.index')->with('Success','Product inserted successfully.');
     }
 
     public function show(Product $product)
@@ -151,13 +151,13 @@ class ProductController extends Controller
 
         $product->save();
 
-        return redirect()->route('products.index')->with('Success!','Product updated successfully');
+        return redirect()->route('products.index')->with('Success','Product updated successfully');
     }
 
     public function destroy(Product $product)
     {
         $product->delete();
 
-        return redirect()->route('products.index')->with('Success!','Product deleted successfully');
+        return redirect()->route('products.index')->with('Success','Product deleted successfully');
     }
 }

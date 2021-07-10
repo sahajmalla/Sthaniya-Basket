@@ -3,17 +3,20 @@
     <section class="body-font flex flex-col rounded-lg w-10/12 shadow-xl">
 
         <div class="flex w-12/12 justify-center mb-4" id="messages">
-                @if(session('deleteFromWishlist'))
-                    <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">{{ session('deleteFromWishlist') }}</p>
-                @elseif(session('addedToCart'))
-                    <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">{{ session('addedToCart') }}</p>
-                @elseif(session('failedToAddToCart'))
-                    <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">{{ session('failedToAddToCart') }}</p>
-                @elseif(session('productOutOfStock'))
-                    <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
-                        {{ session('productOutOfStock') }}
-                    </p>
-                @endif
+            @if (session('deleteFromWishlist'))
+                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                    {{ session('deleteFromWishlist') }}</p>
+            @elseif(session('addedToCart'))
+                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
+                    {{ session('addedToCart') }}</p>
+            @elseif(session('failedToAddToCart'))
+                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                    {{ session('failedToAddToCart') }}</p>
+            @elseif(session('productOutOfStock'))
+                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                    {{ session('productOutOfStock') }}
+                </p>
+            @endif
         </div>
 
 
@@ -27,76 +30,82 @@
                         clip-rule="evenodd" />
                 </svg>
             </div>
-            
+
             @if ($products->count())
 
                 <!--product cards-->
-                    <div class="md:grid grid-cols-2 lg:grid-cols-3 gap-10 mb-4">
+                <div class="md:grid grid-cols-2 lg:grid-cols-3 gap-10 mb-4">
 
-                            @foreach ($products as $product)
-                                            
-                                <div class="mb-8 flex flex-col items-center justify-center max-w-sm">
-                                    
-                                    <div class="w-full bg-gray-300 bg-center bg-cover rounded-lg shadow-md">
-                                        <a href="{{ route('product', $product->product_id) }}">
-                                            <img class="w-full h-64" src="/images/products/{{ $product->prod_image }}" alt="{{ $product->prod_name }}">
-                                        </a>
+                    @foreach ($products as $product)
+
+                        <div class="mb-8 flex flex-col items-center justify-center max-w-sm">
+
+                            <div class="w-full bg-gray-300 bg-center bg-cover rounded-lg shadow-md">
+                                <a href="{{ route('product', $product->product_id) }}">
+                                    <img class="w-full h-64" src="/images/products/{{ $product->prod_image }}"
+                                        alt="{{ $product->prod_name }}">
+                                </a>
+                            </div>
+
+                            <div class="w-56 -mt-10 overflow-hidden bg-white rounded-lg shadow-lg md:w-64 dark:bg-gray-800">
+
+                                <div class="flex flex-col justify-evenly px-3 py-2 dark:bg-gray-700">
+
+                                    <a href="{{ route('product', $product->product_id) }}">
+                                        <div
+                                            class="flex space-x-1 py-2 font-bold tracking-wide text-gray-800 dark:text-white">
+                                            <p>Name:</p>
+                                            <p class="uppercase">{{ $product->prod_name }}</p>
+                                        </div>
+                                    </a>
+
+                                    <div class="flex space-x-1 font-bold text-gray-800 dark:text-gray-200">
+                                        <p>Price:</p>
+                                        <p>£{{ $product->price }}</p>
                                     </div>
 
-                                    <div class="w-56 -mt-10 overflow-hidden bg-white rounded-lg shadow-lg md:w-64 dark:bg-gray-800">
-                                        
-                                        <div class="flex flex-col justify-evenly px-3 py-2 dark:bg-gray-700">
-
-                                            <a href="{{ route('product', $product->product_id) }}">
-                                                <div class="flex space-x-1 py-2 font-bold tracking-wide text-gray-800 dark:text-white">
-                                                    <p>Name:</p> <p class="uppercase">{{ $product->prod_name }}</p>
-                                                </div>
-                                            </a>
-
-                                            <div class="flex space-x-1 font-bold text-gray-800 dark:text-gray-200">
-                                                <p>Price:</p> <p>£{{ $product->price }}</p>
-                                            </div>
-
-                                            @if($product->prod_quantity > 0)
-                                                <div class="flex space-x-2 items-baseline">
-                                                    <h1 class="text-md font-bold text-gray-800 dark:text-gray-200">In Stock</h1>
-                                                    <p class="text-xs font-medium text-gray-500">Only {{ $product->prod_quantity }} items left.</p>
-                                                </div>
-                                            @else
-                                                <h1 class="text-md font-bold text-gray-800 dark:text-gray-200">Out Of Stock</h1>
-                                            @endif
-
+                                    @if ($product->prod_quantity > 0)
+                                        <div class="flex space-x-2 items-baseline">
+                                            <h1 class="text-md font-bold text-gray-800 dark:text-gray-200">In Stock</h1>
+                                            <p class="text-xs font-medium text-gray-500">Only
+                                                {{ $product->prod_quantity }} items left.</p>
                                         </div>
+                                    @else
+                                        <h1 class="text-md font-bold text-gray-800 dark:text-gray-200">Out Of Stock</h1>
+                                    @endif
 
-                                        <div class="flex items-center justify-around px-3 py-2 bg-gray-200 dark:bg-gray-700">
-                                                                                       
-                                            <!-- Add to cart -->
-                                            <form action="{{ route('addToCart', $product->product_id) }}" method="POST">
-                                                @csrf
-                                                <button
-                                                    class="p-2 text-xs font-semibold text-white uppercase transition-colors duration-200 transform bg-gray-800 rounded hover:bg-gray-700 dark:hover:bg-gray-600 focus:bg-gray-700 dark:focus:bg-gray-600 focus:outline-none">
-                                                    Add to cart
-                                                </button>
-
-                                            </form>
-
-                                             <!-- Remove from wishlist -->
-                                            <form action="{{ route('wishlist.destroy', $product->product_id) }}" method="POST">
-                                                
-                                                @csrf
-                                                @method('DELETE') <!-- Method spoofing -->
-                                                <button class="font-medium text-xs text-white bg-red-600 p-2 rounded-lg">
-                                                    Remove
-                                                </button>
-
-                                            </form>
-
-                                        </div>
-                                    </div>
                                 </div>
-                            @endforeach
-                        
-                    </div>
+
+                                <div class="flex items-center justify-around px-3 py-2 bg-gray-200 dark:bg-gray-700">
+
+                                    <!-- Add to cart -->
+                                    <form action="{{ route('addToCart', $product->product_id) }}" method="POST">
+                                        @csrf
+                                        <button
+                                            class="p-2 text-xs font-semibold text-white uppercase transition-colors duration-200 transform bg-gray-800 rounded hover:bg-gray-700 dark:hover:bg-gray-600 focus:bg-gray-700 dark:focus:bg-gray-600 focus:outline-none">
+                                            Add to cart
+                                        </button>
+
+                                    </form>
+
+                                    <!-- Remove from wishlist -->
+                                    <form action="{{ route('wishlist.destroy', $product->product_id) }}" method="POST">
+
+                                        @csrf
+                                        @method('DELETE')
+                                        <!-- Method spoofing -->
+                                        <button class="font-medium text-xs text-white bg-red-600 p-2 rounded-lg">
+                                            Remove
+                                        </button>
+
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+
+                </div>
             @else
 
                 <h1 class="p-4 mb-4 text-md font-medium text-gray-700">
@@ -106,4 +115,10 @@
             @endif
         </div>
     </section>
+    <script>
+        //message time
+        setTimeout(function() {
+            document.getElementById('messages').remove();
+        }, 3000)
+    </script>
 @endsection

@@ -70,7 +70,7 @@ class LoginController extends Controller
             }
             
         }
-        $request->session()->flash('loggedIn', 'Successfully logged in.');
+        $request->session()->flash('loggedIn', 'Welcome '.auth()->user()->username);
         return redirect()->route('home');
     }
 }

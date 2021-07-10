@@ -93,10 +93,10 @@ Route::patch('/cart/{product:prod_name}', [CartController::class,'patch'])->name
 
 // CHECKOUT
 Route::get('/checkout', [CheckoutController::class,'index'])
-    ->middleware(['auth', 'verified'])->name('checkout');
+    ->middleware(['auth', 'verified','checkItemsCart'])->name('checkout');
     
 Route::post('/checkout/{total_price}/{total_quantity}/{total_items}/{current_day_time}', 
-    [CheckoutController::class,'store'])->middleware(['auth', 'verified'])->name('checkout.add');
+    [CheckoutController::class,'store'])->middleware(['auth', 'verified','checkItemsCart'])->name('checkout.add');
 
 //update details
 Route::get('/updateDetails',[UpdateDetailsController::class,'index'])->name('updateDetails')->middleware('auth');

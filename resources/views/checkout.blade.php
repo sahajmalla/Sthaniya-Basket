@@ -11,9 +11,9 @@
             <div class="container mx-auto px-6">
                 <h3 class="text-gray-700 text-center text-3xl font-bold mb-8">Checkout</h3>
 
-                 <!-- Review items -->
-                 <div class="border rounded-md p-8 mb-10 w-full">
-                    
+                <!-- Review items -->
+                <div class="border rounded-md p-8 mb-10 w-full">
+
                     <h1 class="font-bold text-xl mb-4 uppercase">Review Items</h1>
 
                     @if ($cartAndProductRecords->count())
@@ -35,7 +35,7 @@
                             <tbody>
 
                                 @foreach ($cartAndProductRecords as $cartAndProductRecord)
-                                
+
                                     <tr>
                                         <td class="hidden pb-4 md:table-cell">
                                             <a href="#">
@@ -51,8 +51,12 @@
                                         </td>
 
                                         <td class="hidden text-center md:table-cell mb-1">
+                                            @php
+                                                preg_match('/^([^.]+)/', $cartAndProductRecord->prod_descrip, $firstSentence);
+                                            @endphp
                                             <span class="text-xs lg:text-base">
-                                                {{ $cartAndProductRecord->prod_descrip }}
+
+                                                {{ $firstSentence[1] }} 
                                             </span>
                                         </td>
 
@@ -88,14 +92,14 @@
                 <div class="space-y-6 lg:space-y-0 lg:space-x-16 lg:flex lg:flex-row my-6">
 
                     <!-- Form -->
-                    <form action="{{ route('checkout.add', [$total_price, $total_items_quantity, 
-                    $cartAndProductRecords->count(), $currentDateTime]) }}" 
-                    method="POST" class="p-8 border rounded-md">
+                    <form
+                        action="{{ route('checkout.add', [$total_price, $total_items_quantity, $cartAndProductRecords->count(), $currentDateTime]) }}"
+                        method="POST" class="p-8">
 
                         @csrf
                         <div class="leading-loose">
 
-                            <div class="space-y-5 md:flex md:space-y-0 space-x-10">
+                            <div class="space-y-5 md:flex md:space-y-0 md:space-x-10">
 
                                 <!-- Final details -->
                                 <div class="border rounded-md p-8">
@@ -111,42 +115,44 @@
 
                                         <div class="sm:flex mb-6">
 
-                                            <label class="text-sm w-4/12 font-bold text-gray-700 mr-2">Collection Day:</label>
+                                            <label class="text-sm w-4/12 font-bold text-gray-700 mr-2">Collection
+                                                Day:</label>
 
                                             <select name="collectionDay" onchange="setCollectionDay()"
-                                            id="select-collection-day" 
-                                            class="w-full h-10 md:w-8/12 px-2 py-1 text-gray-700 bg-gray-200 rounded">
+                                                id="select-collection-day"
+                                                class="w-full h-10 md:w-8/12 px-2 py-1 text-gray-700 bg-gray-200 rounded">
 
-                                                @if($currentDateTime->format('l') === 'Wednesday')
+                                                @if ($currentDateTime->format('l') == 'Wednesday')
 
-                                                    @if($friSlotsFull) 
+                                                    @if ($friSlotsFull)
 
                                                         <option disabled>Wednesday</option>
                                                         <option>Thursday</option>
                                                         <option disabled>Friday (Slots Full)</option>
-                                                    
-                                                    @elseif($thurSlotsFull) 
 
-                                                        <option disabled>Wednesday</option>
-                                                        <option disabled>Thursday (Slots Full)</option>
-                                                        <option>Friday</option>
-                                                    
-                                                    @elseif(($thuLast2SlotsFull && ((strtotime($firstTimeSlot) / 3600) - (strtotime($currentDateTime) / 3600)) < 24) 
-                                                    || ($thuLastSlotFull && ((strtotime($secondTimeSlot) / 3600) - (strtotime($currentDateTime) / 3600)) < 24)) 
+                                                    @elseif($thurSlotsFull)
 
                                                         <option disabled>Wednesday</option>
                                                         <option disabled>Thursday (Slots Full)</option>
                                                         <option>Friday</option>
 
-                                                    @else
+                                                    @elseif(($thuLast2SlotsFull && ((strtotime($firstTimeSlot) / 3600) -
+                                                        (strtotime($currentDateTime) / 3600)) < 24) || ($thuLastSlotFull &&
+                                                            ((strtotime($secondTimeSlot) / 3600) -
+                                                            (strtotime($currentDateTime) / 3600)) < 24)) <option disabled>
+                                                            Wednesday</option>
+                                                            <option disabled>Thursday (Slots Full)</option>
+                                                            <option>Friday</option>
 
-                                                        <option disabled>Wednesday</option>
-                                                        <option>Thursday</option>
-                                                        <option>Friday</option>
+                                                        @else
 
-                                                    @endif 
+                                                            <option disabled>Wednesday</option>
+                                                            <option>Thursday</option>
+                                                            <option>Friday</option>
 
-                                                @elseif($currentDateTime->format('l') === 'Thursday')
+                                                    @endif
+
+                                                @elseif($currentDateTime->format('l') == 'Thursday')
 
                                                     <option disabled>Wednesday</option>
                                                     <option disabled>Thursday</option>
@@ -156,108 +162,110 @@
 
                                                     <!-- All were shown here before. -->
 
-                                                    @if($wedSlotsFull && $thurSlotsFull) 
+                                                    @if ($wedSlotsFull && $thurSlotsFull)
 
                                                         <option disabled>Wednesday (Slots Full)</option>
                                                         <option disabled>Thursday (Slots Full)</option>
                                                         <option>Friday</option>
 
-                                                    @elseif((($wedLast2SlotsFull && ((strtotime($firstTimeSlot) / 3600) - (strtotime($currentDateTime) / 3600)) < 24) 
-                                                    || ($wedLastSlotFull && ((strtotime($secondTimeSlot) / 3600) - (strtotime($currentDateTime) / 3600)) < 24)) 
-                                                    && $thurSlotsFull) 
+                                                    @elseif((($wedLast2SlotsFull && ((strtotime($firstTimeSlot) / 3600)
+                                                        - (strtotime($currentDateTime) / 3600)) < 24) || ($wedLastSlotFull
+                                                            && ((strtotime($secondTimeSlot) / 3600) -
+                                                            (strtotime($currentDateTime) / 3600)) < 24)) && $thurSlotsFull)
+                                                            <option disabled>Wednesday (Slots Full)</option>
+                                                            <option disabled>Thursday (Slots Full)</option>
+                                                            <option>Friday</option>
 
-                                                        <option disabled>Wednesday (Slots Full)</option>
-                                                        <option disabled>Thursday (Slots Full)</option>
-                                                        <option>Friday</option>
+                                                        @elseif($wedSlotsFull && $friSlotsFull)
 
-                                                    @elseif($wedSlotsFull && $friSlotsFull) 
+                                                            <option disabled>Wednesday (Slots Full)</option>
+                                                            <option>Thursday</option>
+                                                            <option disabled>Friday (Slots Full)</option>
 
-                                                        <option disabled>Wednesday (Slots Full)</option>
-                                                        <option>Thursday</option>
-                                                        <option disabled>Friday (Slots Full)</option>
+                                                        @elseif((($wedLast2SlotsFull && ((strtotime($firstTimeSlot) /
+                                                            3600) - (strtotime($currentDateTime) / 3600)) < 24) ||
+                                                                ($wedLastSlotFull && ((strtotime($secondTimeSlot) / 3600) -
+                                                                (strtotime($currentDateTime) / 3600)) < 24)) &&
+                                                                $friSlotsFull) <option disabled>Wednesday (Slots Full)
+                                                                </option>
+                                                                <option>Thursday</option>
+                                                                <option disabled>Friday (Slots Full)</option>
 
-                                                    @elseif((($wedLast2SlotsFull && ((strtotime($firstTimeSlot) / 3600) - (strtotime($currentDateTime) / 3600)) < 24) 
-                                                    || ($wedLastSlotFull && ((strtotime($secondTimeSlot) / 3600) - (strtotime($currentDateTime) / 3600)) < 24)) 
-                                                    && $friSlotsFull) 
-    
-                                                        <option disabled>Wednesday (Slots Full)</option>
-                                                        <option>Thursday</option>
-                                                        <option disabled>Friday (Slots Full)</option>
+                                                            @elseif($thurSlotsFull && $friSlotsFull)
 
-                                                    @elseif($thurSlotsFull && $friSlotsFull) 
+                                                                <option>Wednesday</option>
+                                                                <option disabled>Thursday (Slots Full)</option>
+                                                                <option disabled>Friday (Slots Full)</option>
 
-                                                        <option>Wednesday</option>
-                                                        <option disabled>Thursday (Slots Full)</option>
-                                                        <option disabled>Friday (Slots Full)</option>
+                                                            @elseif($wedSlotsFull)
 
-                                                    @elseif($wedSlotsFull)
+                                                                <option disabled>Wednesday (Slots Full)</option>
+                                                                <option>Thursday</option>
+                                                                <option>Friday</option>
 
-                                                        <option disabled>Wednesday (Slots Full)</option>
-                                                        <option>Thursday</option>
-                                                        <option>Friday</option>
+                                                            @elseif($thurSlotsFull)
 
-                                                    @elseif($thurSlotsFull)
+                                                                <option>Wednesday</option>
+                                                                <option disabled>Thursday (Slots Full)</option>
+                                                                <option>Friday</option>
 
-                                                        <option>Wednesday</option>
-                                                        <option disabled>Thursday (Slots Full)</option>
-                                                        <option>Friday</option>
+                                                            @elseif($friSlotsFull)
 
-                                                    @elseif($friSlotsFull)
+                                                                <option>Wednesday</option>
+                                                                <option>Thursday</option>
+                                                                <option disabled>Friday (Slots Full)</option>
 
-                                                        <option>Wednesday</option>
-                                                        <option>Thursday</option>
-                                                        <option disabled>Friday (Slots Full)</option>
+                                                            @elseif(($wedLast2SlotsFull && ((strtotime($firstTimeSlot) /
+                                                                3600) - (strtotime($currentDateTime) / 3600)) < 24) ||
+                                                                    ($wedLastSlotFull && ((strtotime($secondTimeSlot) /
+                                                                    3600) - (strtotime($currentDateTime) / 3600)) < 24))
+                                                                    <option disabled>Wednesday (Slots Full)</option>
+                                                                    <option>Thursday</option>
+                                                                    <option>Friday</option>
 
-                                                    @elseif(($wedLast2SlotsFull && ((strtotime($firstTimeSlot) / 3600) - (strtotime($currentDateTime) / 3600)) < 24) 
-                                                        || ($wedLastSlotFull && ((strtotime($secondTimeSlot) / 3600) - (strtotime($currentDateTime) / 3600)) < 24))
+                                                                @else
 
-                                                        <option disabled>Wednesday (Slots Full)</option>
-                                                        <option>Thursday</option>
-                                                        <option>Friday</option>
-
-                                                    @else
-
-                                                        <option>Wednesday</option>
-                                                        <option>Thursday</option>
-                                                        <option>Friday</option>
+                                                                    <option>Wednesday</option>
+                                                                    <option>Thursday</option>
+                                                                    <option>Friday</option>
 
                                                     @endif
 
                                                 @endif
 
                                             </select>
-        
+
                                         </div>
 
-                                        <!-- Collection time slot select -->              
+                                        <!-- Collection time slot select -->
 
                                         <div class="sm:flex">
 
-                                            <label class="text-sm w-4/12 font-bold text-gray-700 mr-2">Collection Slot Time:</label>
+                                            <label class="text-sm w-4/12 font-bold text-gray-700 mr-2">Collection Slot
+                                                Time:</label>
 
-                                            <select name="collectionTime" onchange="setCollectionTime()" 
-                                            id="select-collection-time" 
-                                            class="w-full h-10 md:w-8/12 px-2 py-1 text-gray-700 bg-gray-200 rounded">
+                                            <select name="collectionTime" onchange="setCollectionTime()"
+                                                id="select-collection-time"
+                                                class="w-full h-10 md:w-8/12 px-2 py-1 text-gray-700 bg-gray-200 rounded">
 
-                                                @if($currentDateTime->format('l') === "Tuesday") 
-                                                                                            
-                                                    @if(((strtotime($thirdTimeSlot) / 3600) - (strtotime($currentDateTime) / 3600)) < 24)
-                                                        
-                                                        <!-- Show other days because the wednesday will be disabled -->
+                                                @if ($currentDateTime->format('l') == 'Tuesday')
+
+                                                    @if(((strtotime($thirdTimeSlot) / 3600) - (strtotime($currentDateTime) /
+                                                    3600)) < 24) <!-- Show other days because the wednesday will be disabled
+                                                        -->
 
                                                         <script>
-
                                                             var selectCollectionDay = document.getElementById('select-collection-day');
                                                             var thuSlotsFull = {!! json_encode($thurSlotsFull) !!};
 
                                                             if (thuSlotsFull) {
                                                                 selectCollectionDay.options[2].selected = true;
-                                                            }else {
+                                                            } else {
                                                                 selectCollectionDay.options[1].selected = true;
                                                             }
 
                                                             selectCollectionDay.options[0].disabled = true;
-                                                            
+
                                                             function setCollectionDay() {
 
                                                                 // Change order summary's collection day:
@@ -274,7 +282,7 @@
                                                                 var friCollectionDays = {!! json_encode($availableSlotsForFri) !!};
 
                                                                 function updateCollectionTime(dayCollectionTimes, index) {
-                
+
                                                                     const emptySlots = [];
 
                                                                     for (let i = 0; i < 3; i++) {
@@ -287,12 +295,13 @@
 
                                                                     for (let i = 0; i < 3; i++) {
 
-                                                                        if (dayCollectionTimes[i + index]['order_quantity'] === 20) {
+                                                                        if (dayCollectionTimes[i + index]['order_quantity'] == 20) {
 
-                                                                            selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'].concat(' (Slot full)');
+                                                                            selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'].concat(
+                                                                                ' (Slot full)');
                                                                             selectCollectionTime.options[i].disabled = true;
 
-                                                                        }else {
+                                                                        } else {
 
                                                                             selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'];
 
@@ -302,7 +311,7 @@
 
                                                                     for (let i = 0; i < 3; i++) {
 
-                                                                        if (dayCollectionTimes[i + index]['order_quantity'] !== 20) {
+                                                                        if (dayCollectionTimes[i + index]['order_quantity'] != 20) {
 
                                                                             emptySlots.push(i + index);
 
@@ -315,15 +324,15 @@
                                                                         selectCollectionTime.options[emptySlots[0] - index].selected = true;
 
                                                                     }
-                                                                    
+
                                                                 }
 
-                                                                if (selectCollectionDay.options[selectCollectionDay.selectedIndex].value === "Friday") {
+                                                                if (selectCollectionDay.options[selectCollectionDay.selectedIndex].value == "Friday") {
 
                                                                     updateCollectionTime(friCollectionDays, 6);
                                                                     selectCollectionDay.options[0].disabled = true;
 
-                                                                }else {
+                                                                } else {
 
                                                                     // Thursday is clicked
                                                                     updateCollectionTime(thuCollectionDays, 3);
@@ -334,16 +343,16 @@
                                                                 setCollectionTime();
 
                                                             }
-
                                                         </script>
 
-                                                        @if($availableSlotsForThu->count() && !$thurSlotsFull) 
+                                                        @if ($availableSlotsForThu->count() && !$thurSlotsFull)
 
                                                             @foreach ($availableSlotsForThu as $slot)
 
-                                                                @if($slot->order_quantity === 20) 
+                                                                @if ($slot->order_quantity == 20)
 
-                                                                    <option disabled>{{ $slot->slot_time }} (Slot full)</option>
+                                                                    <option disabled>{{ $slot->slot_time }} (Slot full)
+                                                                    </option>
 
                                                                 @else
 
@@ -353,13 +362,14 @@
 
                                                             @endforeach
 
-                                                        @elseif($availableSlotsForFri->count() && !$friSlotsFull) 
+                                                        @elseif($availableSlotsForFri->count() && !$friSlotsFull)
 
                                                             @foreach ($availableSlotsForFri as $slot)
 
-                                                                @if($slot->order_quantity === 20) 
+                                                                @if ($slot->order_quantity == 20)
 
-                                                                    <option disabled>{{ $slot->slot_time }} (Slot full)</option>
+                                                                    <option disabled>{{ $slot->slot_time }} (Slot full)
+                                                                    </option>
 
                                                                 @else
 
@@ -372,1263 +382,1314 @@
 
                                                         @endif
 
-                                                    @elseif(((strtotime($secondTimeSlot) / 3600) - (strtotime($currentDateTime) / 3600)) < 24)
-                                                        
-                                                        <!-- Display every time slot if day has been changed from wednesday: -->
+                                                    @elseif(((strtotime($secondTimeSlot) / 3600) -
+                                                        (strtotime($currentDateTime) / 3600)) < 24) <!-- Display every time
+                                                            slot if day has been changed from wednesday: -->
 
-                                                        <script>
+                                                            <script>
+                                                                function setCollectionDay() {
 
-                                                            function setCollectionDay() {
+                                                                    // Change order summary's collection day:
+                                                                    var selectCollectionDay = document.getElementById('select-collection-day');
+                                                                    var selectedValue = selectCollectionDay.options[selectCollectionDay.selectedIndex].value;
+                                                                    const collectionDay = document.querySelector('.collection-day');
+                                                                    collectionDay.innerHTML = selectedValue;
 
-                                                                // Change order summary's collection day:
-                                                                var selectCollectionDay = document.getElementById('select-collection-day');
-                                                                var selectedValue = selectCollectionDay.options[selectCollectionDay.selectedIndex].value;
-                                                                const collectionDay = document.querySelector('.collection-day');
-                                                                collectionDay.innerHTML = selectedValue;
+                                                                    // If customer changes the day from wednesday to any other days:
+                                                                    var selectCollectionTime = document.getElementById('select-collection-time');
 
-                                                                // If customer changes the day from wednesday to any other days:
-                                                                var selectCollectionTime = document.getElementById('select-collection-time');
+                                                                    var wedCollectionDays = {!! json_encode($availableSlotsForWed) !!};
+                                                                    var thuCollectionDays = {!! json_encode($availableSlotsForThu) !!};
+                                                                    var friCollectionDays = {!! json_encode($availableSlotsForFri) !!};
 
-                                                                var wedCollectionDays = {!! json_encode($availableSlotsForWed) !!};
-                                                                var thuCollectionDays = {!! json_encode($availableSlotsForThu) !!};
-                                                                var friCollectionDays = {!! json_encode($availableSlotsForFri) !!};
+                                                                    function updateCollectionTime(dayCollectionTimes, index) {
 
-                                                                function updateCollectionTime(dayCollectionTimes, index) {
-                
-                                                                    const emptySlots = [];
+                                                                        const emptySlots = [];
 
-                                                                    for (let i = 0; i < 3; i++) {
+                                                                        for (let i = 0; i < 3; i++) {
 
-                                                                        selectCollectionTime.options[i].disabled = false;
-                                                                        selectCollectionTime.options[i].selected = false;
-                                                                        selectCollectionTime.options[i].innerHTML = "";
+                                                                            selectCollectionTime.options[i].disabled = false;
+                                                                            selectCollectionTime.options[i].selected = false;
+                                                                            selectCollectionTime.options[i].innerHTML = "";
 
-                                                                    }
+                                                                        }
 
-                                                                    for (let i = 0; i < 3; i++) {
+                                                                        for (let i = 0; i < 3; i++) {
 
-                                                                        if (dayCollectionTimes[i + index]['order_quantity'] === 20) {
+                                                                            if (dayCollectionTimes[i + index]['order_quantity'] == 20) {
 
-                                                                            selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'].concat(' (Slot full)');
-                                                                            selectCollectionTime.options[i].disabled = true;
+                                                                                selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'].concat(
+                                                                                    ' (Slot full)');
+                                                                                selectCollectionTime.options[i].disabled = true;
 
-                                                                        }else {
+                                                                            } else {
 
-                                                                            selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'];
+                                                                                selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'];
+
+                                                                            }
+
+                                                                        }
+
+                                                                        for (let i = 0; i < 3; i++) {
+
+                                                                            if (dayCollectionTimes[i + index]['order_quantity'] != 20) {
+
+                                                                                emptySlots.push(i + index);
+
+                                                                            }
+
+                                                                        }
+
+                                                                        if (emptySlots.length) {
+
+                                                                            selectCollectionTime.options[emptySlots[0] - index].selected = true;
 
                                                                         }
 
                                                                     }
 
-                                                                    for (let i = 0; i < 3; i++) {
+                                                                    if (selectCollectionDay.options[selectCollectionDay.selectedIndex].value == "Thursday") {
 
-                                                                        if (dayCollectionTimes[i + index]['order_quantity'] !== 20) {
+                                                                        updateCollectionTime(thuCollectionDays, 3);
 
-                                                                            emptySlots.push(i + index);
+                                                                        // If wednesday's first and second time slot are disabled and the other slot is full.
+
+                                                                        if (wedCollectionDays[2]['order_quantity'] == 20) {
+
+                                                                            selectCollectionDay.options[0].disabled = true;
+
+                                                                        }
+
+                                                                    } else if (selectCollectionDay.options[selectCollectionDay.selectedIndex].value == "Friday") {
+
+                                                                        updateCollectionTime(friCollectionDays, 6);
+
+                                                                        // If wednesday's first and second time slot are disabled and the other slot is full.
+
+                                                                        if (wedCollectionDays[2]['order_quantity'] == 20) {
+
+                                                                            selectCollectionDay.options[0].disabled = true;
+
+                                                                        }
+
+                                                                    } else {
+
+                                                                        // User changes it back to wednesday:
+                                                                        updateCollectionTime(wedCollectionDays, 0);
+                                                                        selectCollectionTime.options[0].disabled = true;
+                                                                        selectCollectionTime.options[1].disabled = true;
+                                                                        selectCollectionTime.options[0].innerHTML = '10-13';
+                                                                        selectCollectionTime.options[1].innerHTML = '13-16';
+
+
+                                                                        if (wedCollectionDays[2]['order_quantity'] != 20) {
+
+                                                                            selectCollectionTime.options[2].selected = true;
 
                                                                         }
 
                                                                     }
 
-                                                                    if (emptySlots.length) {
-
-                                                                        selectCollectionTime.options[emptySlots[0] - index].selected = true;
-
-                                                                    }
-                                                                    
-                                                                }
-
-                                                                if (selectCollectionDay.options[selectCollectionDay.selectedIndex].value === "Thursday") {
-                                                                    
-                                                                    updateCollectionTime(thuCollectionDays, 3);
-
-                                                                    // If wednesday's first and second time slot are disabled and the other slot is full.
-
-                                                                    if (wedCollectionDays[2]['order_quantity'] === 20) {
-
-                                                                        selectCollectionDay.options[0].disabled = true;
-
-                                                                    }
-
-                                                                }else if (selectCollectionDay.options[selectCollectionDay.selectedIndex].value === "Friday") {
-
-                                                                    updateCollectionTime(friCollectionDays, 6);
-
-                                                                    // If wednesday's first and second time slot are disabled and the other slot is full.
-
-                                                                    if (wedCollectionDays[2]['order_quantity'] === 20) {
-
-                                                                        selectCollectionDay.options[0].disabled = true;
-
-                                                                    }
-
-                                                                }else {
-                                                                    
-                                                                    // User changes it back to wednesday:
-                                                                    updateCollectionTime(wedCollectionDays, 0);
-                                                                    selectCollectionTime.options[0].disabled = true;
-                                                                    selectCollectionTime.options[1].disabled = true;
-                                                                    selectCollectionTime.options[0].innerHTML = '10-13';
-                                                                    selectCollectionTime.options[1].innerHTML = '13-16';
-
-
-                                                                    if (wedCollectionDays[2]['order_quantity'] !== 20) {
-
-                                                                        selectCollectionTime.options[2].selected = true;
-
-                                                                    }
-
-                                                                }
-
-                                                                setCollectionTime();
-
-                                                            }
-
-                                                        </script>
-
-                                                        @if($availableSlotsForWed->count() && !$wedLastSlotFull && !$wedSlotsFull) 
-
-                                                            <option disabled>{{ $availableSlotsForWed[0]->slot_time }}</option>
-                                                            <option disabled>{{ $availableSlotsForWed[1]->slot_time }}</option>
-
-
-                                                            @for ($i = 2; $i < $availableSlotsForWed->count(); $i++) {
-
-                                                                @if($availableSlotsForWed[$i]->order_quantity === 20) 
-
-                                                                    <option disabled>{{ $availableSlotsForWed[$i]->slot_time }} (Slot full)</option>
-
-                                                                @else
-
-                                                                    <option>{{ $availableSlotsForWed[$i]->slot_time }}</option>
-
-                                                                @endif
-
-                                                            @endfor
-
-                                                        @elseif($availableSlotsForThu->count() && !$thurSlotsFull) 
-
-                                                            @foreach ($availableSlotsForThu as $slot)
-
-                                                                @if($slot->order_quantity === 20) 
-
-                                                                    <option disabled>{{ $slot->slot_time }} (Slot full)</option>
-
-                                                                @else
-
-                                                                    <option>{{ $slot->slot_time }}</option>
-
-                                                                @endif
-
-                                                            @endforeach
-
-                                                        @elseif($availableSlotsForFri->count() && !$friSlotsFull) 
-
-                                                            @foreach ($availableSlotsForFri as $slot)
-
-                                                                @if($slot->order_quantity === 20) 
-
-                                                                    <option disabled>{{ $slot->slot_time }} (Slot full)</option>
-
-                                                                @else
-
-                                                                    <option>{{ $slot->slot_time }}</option>
-
-                                                                @endif
-
-                                                            @endforeach
-
-
-                                                        @endif
-
-                                                    @elseif(((strtotime($firstTimeSlot) / 3600) - (strtotime($currentDateTime) / 3600)) < 24)
-                                                        
-                                                        <!-- Display every time slot if day has been changed from wednesday: -->
-
-                                                        <script>
-
-                                                            function setCollectionDay() {
-
-                                                                // Change order summary's collection day:
-                                                                var selectCollectionDay = document.getElementById('select-collection-day');
-                                                                var selectedValue = selectCollectionDay.options[selectCollectionDay.selectedIndex].value;
-                                                                const collectionDay = document.querySelector('.collection-day');
-                                                                collectionDay.innerHTML = selectedValue;
-
-                                                                // If customer changes the day from wednesday to any other days:
-                                                                var selectCollectionTime = document.getElementById('select-collection-time');
-
-                                                                var wedCollectionDays = {!! json_encode($availableSlotsForWed) !!};
-                                                                var thuCollectionDays = {!! json_encode($availableSlotsForThu) !!};
-                                                                var friCollectionDays = {!! json_encode($availableSlotsForFri) !!};
-
-                                                                function updateCollectionTime(dayCollectionTimes, index) {
-                
-                                                                    const emptySlots = [];
-
-                                                                    for (let i = 0; i < 3; i++) {
-
-                                                                        selectCollectionTime.options[i].disabled = false;
-                                                                        selectCollectionTime.options[i].selected = false;
-                                                                        selectCollectionTime.options[i].innerHTML = "";
-
-                                                                    }
-
-                                                                    for (let i = 0; i < 3; i++) {
-
-                                                                        if (dayCollectionTimes[i + index]['order_quantity'] === 20) {
-
-                                                                            selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'].concat(' (Slot full)');
-                                                                            selectCollectionTime.options[i].disabled = true;
-
-                                                                        }else {
-
-                                                                            selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'];
-
-                                                                        }
-
-                                                                    }
-
-                                                                    for (let i = 0; i < 3; i++) {
-
-                                                                        if (dayCollectionTimes[i + index]['order_quantity'] !== 20) {
-
-                                                                            emptySlots.push(i + index);
-
-                                                                        }
-
-                                                                    }
-
-                                                                    if (emptySlots.length) {
-
-                                                                        selectCollectionTime.options[emptySlots[0] - index].selected = true;
-
-                                                                    }
-                                                                    
-                                                                }
-
-                                                                if (selectCollectionDay.options[selectCollectionDay.selectedIndex].value === "Thursday") {
-                                                                    
-                                                                    updateCollectionTime(thuCollectionDays, 3);
-
-                                                                    // If wednesday's first time slot is disabled and 2 other slots are full.
-                                                                    const emptySlots = [];
-
-                                                                    for (let i = 1; i < 3; i++) {
-
-                                                                        if (wedCollectionDays[i]['order_quantity'] !== 20) {
-
-                                                                            emptySlots.push(i);
-
-                                                                        }
-
-                                                                    }
-
-                                                                    if (!emptySlots.length) {
-
-                                                                        selectCollectionDay.options[0].disabled = true;
-
-                                                                    }
-
-                                                                }else if (selectCollectionDay.options[selectCollectionDay.selectedIndex].value === "Friday") {
-
-                                                                    updateCollectionTime(friCollectionDays, 6);
-
-                                                                    // If wednesday's first time slot is disabled and 2 other slots are full.
-                                                                    const emptySlots = [];
-
-                                                                    for (let i = 1; i < 3; i++) {
-
-                                                                        if (wedCollectionDays[i]['order_quantity'] !== 20) {
-
-                                                                            emptySlots.push(i);
-
-                                                                        }
-
-                                                                    }
-
-                                                                    if (!emptySlots.length) {
-
-                                                                        selectCollectionDay.options[0].disabled = true;
-
-                                                                    }
-
-                                                                }else {
-                                                                    
-                                                                    // User changes it back to wednesday:
-                                                                    updateCollectionTime(wedCollectionDays, 0);
-                                                                    selectCollectionTime.options[0].disabled = true;                                                                    
-                                                                    selectCollectionTime.options[0].innerHTML = '10-13';
-
-
-                                                                    const emptySlots = [];
-
-                                                                    for (let i = 1; i < 3; i++) {
-
-                                                                        if (wedCollectionDays[i]['order_quantity'] !== 20) {
-
-                                                                            emptySlots.push(i);
-
-                                                                        }
-
-                                                                    }
-
-                                                                    if (emptySlots.length) {
-
-                                                                        selectCollectionTime.options[emptySlots[0]].selected = true;
-
-                                                                    }
+                                                                    setCollectionTime();
 
                                                                 }
+                                                            </script>
 
-                                                                setCollectionTime();
+                                                            @if ($availableSlotsForWed->count() && !$wedLastSlotFull && !$wedSlotsFull)
 
-                                                            }
+                                                                <option disabled>{{ $availableSlotsForWed[0]->slot_time }}
+                                                                </option>
+                                                                <option disabled>
+                                                                    {{ $availableSlotsForWed[1]->slot_time }}</option>
 
-                                                        </script>
 
-                                                        @if($availableSlotsForWed->count() && !$wedLast2SlotsFull && !$wedSlotsFull) 
+                                                                @for ($i = 2; $i < $availableSlotsForWed->count(); $i++)
+                                                                    {
 
-                                                            <option disabled>{{ $availableSlotsForWed[0]->slot_time }}</option>
+                                                                    @if ($availableSlotsForWed[$i]->order_quantity == 20)
 
-                                                            @for ($i = 1; $i < $availableSlotsForWed->count(); $i++) {
+                                                                        <option disabled>
+                                                                            {{ $availableSlotsForWed[$i]->slot_time }}
+                                                                            (Slot full)</option>
 
-                                                                @if($availableSlotsForWed[$i]->order_quantity === 20) 
+                                                                    @else
 
-                                                                    <option disabled>{{ $availableSlotsForWed[$i]->slot_time }} (Slot full)</option>
+                                                                        <option>
+                                                                            {{ $availableSlotsForWed[$i]->slot_time }}
+                                                                        </option>
 
-                                                                @else
+                                                                    @endif
 
-                                                                    <option>{{ $availableSlotsForWed[$i]->slot_time }}</option>
+                                                                @endfor
 
-                                                                @endif
+                                                            @elseif($availableSlotsForThu->count() && !$thurSlotsFull)
 
-                                                            @endfor
+                                                                @foreach ($availableSlotsForThu as $slot)
 
-                                                        @elseif($availableSlotsForThu->count() && !$thurSlotsFull) 
+                                                                    @if ($slot->order_quantity == 20)
 
-                                                            @foreach ($availableSlotsForThu as $slot)
+                                                                        <option disabled>{{ $slot->slot_time }} (Slot
+                                                                            full)</option>
 
-                                                                @if($slot->order_quantity === 20) 
+                                                                    @else
 
-                                                                    <option disabled>{{ $slot->slot_time }} (Slot full)</option>
+                                                                        <option>{{ $slot->slot_time }}</option>
 
-                                                                @else
+                                                                    @endif
 
-                                                                    <option>{{ $slot->slot_time }}</option>
+                                                                @endforeach
 
-                                                                @endif
+                                                            @elseif($availableSlotsForFri->count() && !$friSlotsFull)
 
-                                                            @endforeach
+                                                                @foreach ($availableSlotsForFri as $slot)
 
-                                                        @elseif($availableSlotsForFri->count() && !$friSlotsFull) 
+                                                                    @if ($slot->order_quantity == 20)
 
-                                                            @foreach ($availableSlotsForFri as $slot)
+                                                                        <option disabled>{{ $slot->slot_time }} (Slot
+                                                                            full)</option>
 
-                                                                @if($slot->order_quantity === 20) 
+                                                                    @else
 
-                                                                    <option disabled>{{ $slot->slot_time }} (Slot full)</option>
+                                                                        <option>{{ $slot->slot_time }}</option>
 
-                                                                @else
+                                                                    @endif
 
-                                                                    <option>{{ $slot->slot_time }}</option>
+                                                                @endforeach
 
-                                                                @endif
-
-                                                            @endforeach
-
-
-                                                        @endif
-                                                    
-                                                    @else
-
-                                                        <script>
-
-                                                            // Change order summary's collection day:
-                                                            function setCollectionDay() {
-
-                                                                var selectColelctionDay = document.getElementById('select-collection-day');
-                                                                var selectedValue = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
-                                                                const collectionDay = document.querySelector('.collection-day');
-                                                                collectionDay.innerHTML = selectedValue; 
-                                                                
-                                                                // If customer changes the day from wednesday to any other days:
-                                                                var selectCollectionTime = document.getElementById('select-collection-time');
-
-                                                                var wedCollectionDays = {!! json_encode($availableSlotsForWed) !!};
-                                                                var thuCollectionDays = {!! json_encode($availableSlotsForThu) !!};
-                                                                var friCollectionDays = {!! json_encode($availableSlotsForFri) !!};
-
-                                                                function updateCollectionTime(dayCollectionTimes, index) {
-                
-                                                                    const emptySlots = [];
-
-                                                                    for (let i = 0; i < 3; i++) {
-
-                                                                        selectCollectionTime.options[i].disabled = false;
-                                                                        selectCollectionTime.options[i].selected = false;
-                                                                        selectCollectionTime.options[i].innerHTML = "";
-
-                                                                    }
-
-                                                                    for (let i = 0; i < 3; i++) {
-
-                                                                        if (dayCollectionTimes[i + index]['order_quantity'] === 20) {
-
-                                                                            selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'].concat(' (Slot full)');
-                                                                            selectCollectionTime.options[i].disabled = true;
-
-                                                                        }else {
-
-                                                                            selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'];
-
-                                                                        }
-
-                                                                    }
-
-                                                                    for (let i = 0; i < 3; i++) {
-                                                                        
-                                                                        if (dayCollectionTimes[i + index]['order_quantity'] !== 20) {
-
-                                                                            emptySlots.push(i + index);
-
-                                                                        }
-
-                                                                    }
-
-                                                                    if (emptySlots.length) {
-                                                                        
-                                                                        selectCollectionTime.options[emptySlots[0] - index].selected = true;
-
-                                                                    }
-                                                                    
-                                                                }
-
-                                                                if (selectColelctionDay.options[selectColelctionDay.selectedIndex].value === "Thursday") {
-                                                                    
-                                                                    updateCollectionTime(thuCollectionDays, 3);
-
-                                                                }else if (selectColelctionDay.options[selectColelctionDay.selectedIndex].value === "Friday") {
-
-                                                                    updateCollectionTime(friCollectionDays, 6);
-
-                                                                }else {
-                                                                    
-                                                                    // User changes it back to wednesday:
-                                                                    updateCollectionTime(wedCollectionDays, 0);
-
-                                                                }
-
-                                                                setCollectionTime();
-
-                                                            }
-                                                            
-                                                        </script>
-
-                                                        @if($availableSlotsForWed->count() && !$wedSlotsFull) 
-
-                                                            @foreach ($availableSlotsForWed as $slot)
-
-                                                                @if($slot->order_quantity === 20) 
-
-                                                                    <option disabled>{{ $slot->slot_time }} (Slot full)</option>
-
-                                                                @else
-
-                                                                    <option>{{ $slot->slot_time }}</option>
-
-                                                                @endif
-
-                                                            @endforeach
-
-                                                        @elseif($availableSlotsForThu->count() && !$thurSlotsFull) 
-
-                                                            @foreach ($availableSlotsForThu as $slot)
-
-                                                                @if($slot->order_quantity === 20) 
-
-                                                                    <option disabled>{{ $slot->slot_time }} (Slot full)</option>
-
-                                                                @else
-
-                                                                    <option>{{ $slot->slot_time }}</option>
-
-                                                                @endif
-
-                                                            @endforeach
-
-                                                        @elseif($availableSlotsForFri->count() && !$friSlotsFull) 
-
-                                                            @foreach ($availableSlotsForFri as $slot)
-
-                                                                @if($slot->order_quantity === 20) 
-
-                                                                    <option disabled>{{ $slot->slot_time }} (Slot full)</option>
-
-                                                                @else
-
-                                                                    <option>{{ $slot->slot_time }}</option>
-
-                                                                @endif
-
-                                                            @endforeach
-
-
-                                                        @else
-
-                                                            <option>10-13</option>
-                                                            <option>13-16</option>
-                                                            <option>16-19</option>
-
-                                                        @endif
-
-                                                    @endif
-
-                                                @elseif($currentDateTime->format('l') === "Wednesday")
-
-                                                    @if(((strtotime($thirdTimeSlot) / 3600) - (strtotime($currentDateTime) / 3600)) < 24)
-                                                            
-                                                        <!-- Show Friday slots because the thursday will be disabled after 4pm -->
-
-                                                        <script>
-
-                                                            var selectCollectionDay = document.getElementById('select-collection-day');
-                                                            selectCollectionDay.options[0].disabled = true;
-                                                            selectCollectionDay.options[1].disabled = true;
-                                                            selectCollectionDay.options[2].selected = true;
-                                                            
-                                                            function setCollectionDay() {
-
-                                                                // Change order summary's collection day:
-                                                                var selectCollectionDay = document.getElementById('select-collection-day');
-                                                                var selectedValue = selectCollectionDay.options[selectCollectionDay.selectedIndex].value;
-                                                                const collectionDay = document.querySelector('.collection-day');
-                                                                collectionDay.innerHTML = selectedValue;
-                                                        
-                                                            }
-
-                                                        </script>
-
-                                                        @if($availableSlotsForFri->count() && !$friSlotsFull) 
-
-                                                            @foreach ($availableSlotsForFri as $slot)
-
-                                                                @if($slot->order_quantity === 20) 
-
-                                                                    <option disabled>{{ $slot->slot_time }} (Slot full)</option>
-
-                                                                @else
-
-                                                                    <option>{{ $slot->slot_time }}</option>
-
-                                                                @endif
-
-                                                            @endforeach
-
-
-                                                        @endif
-
-                                                    @elseif(((strtotime($secondTimeSlot) / 3600) - (strtotime($currentDateTime) / 3600)) < 24)
-                                                        
-                                                        <!-- Display every time slot if day has been changed from Thursday: -->
-
-                                                        <script>
-
-                                                            function setCollectionDay() {
-
-                                                                // Change order summary's collection day:
-                                                                var selectCollectionDay = document.getElementById('select-collection-day');
-                                                                var selectedValue = selectCollectionDay.options[selectCollectionDay.selectedIndex].value;
-                                                                const collectionDay = document.querySelector('.collection-day');
-                                                                collectionDay.innerHTML = selectedValue;
-
-                                                                // If customer changes the day from wednesday to any other days:
-                                                                var selectCollectionTime = document.getElementById('select-collection-time');
-
-                                                                var thuCollectionDays = {!! json_encode($availableSlotsForThu) !!};
-                                                                var friCollectionDays = {!! json_encode($availableSlotsForFri) !!};
-
-                                                                function updateCollectionTime(dayCollectionTimes, index) {
-                
-                                                                    const emptySlots = [];
-
-                                                                    for (let i = 0; i < 3; i++) {
-
-                                                                        selectCollectionTime.options[i].disabled = false;
-                                                                        selectCollectionTime.options[i].selected = false;
-                                                                        selectCollectionTime.options[i].innerHTML = "";
-
-                                                                    }
-
-                                                                    for (let i = 0; i < 3; i++) {
-
-                                                                        if (dayCollectionTimes[i + index]['order_quantity'] === 20) {
-
-                                                                            selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'].concat(' (Slot full)');
-                                                                            selectCollectionTime.options[i].disabled = true;
-
-                                                                        }else {
-
-                                                                            selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'];
-
-                                                                        }
-
-                                                                    }
-
-                                                                    for (let i = 0; i < 3; i++) {
-
-                                                                        if (dayCollectionTimes[i + index]['order_quantity'] !== 20) {
-
-                                                                            emptySlots.push(i + index);
-
-                                                                        }
-
-                                                                    }
-
-                                                                    if (emptySlots.length) {
-
-                                                                        selectCollectionTime.options[emptySlots[0] - index].selected = true;
-
-                                                                    }
-                                                                    
-                                                                }
-
-                                                                if (selectCollectionDay.options[selectCollectionDay.selectedIndex].value === "Friday") {
-
-                                                                    updateCollectionTime(friCollectionDays, 6);
-
-                                                                    // If wednesday's first and second time slot are disabled and the other slot is full.
-
-                                                                    if (wedCollectionDays[2]['order_quantity'] === 20) {
-
-                                                                        selectCollectionDay.options[0].disabled = true;
-
-                                                                    }
-
-                                                                }else {
-                                                                    
-                                                                    // User changes it back to wednesday:
-                                                                    
-                                                                    updateCollectionTime(thuCollectionDays, 3);
-
-                                                                    selectCollectionTime.options[0].disabled = true;
-                                                                    selectCollectionTime.options[1].disabled = true;
-                                                                    selectCollectionTime.options[0].innerHTML = '10-13';
-                                                                    selectCollectionTime.options[1].innerHTML = '13-16';
-
-
-                                                                    if (thuCollectionDays[5]['order_quantity'] !== 20) {
-
-                                                                        selectCollectionTime.options[2].selected = true;
-
-                                                                    }
-
-                                                                }
-
-                                                                setCollectionTime();
-
-                                                            }
-
-                                                        </script>
-
-                                                        @if($availableSlotsForThu->count() && !$thurSlotsFull && !$thuLastSlotFull) 
-
-                                                            <option disabled>{{ $availableSlotsForThu[3]->slot_time }}</option>
-                                                            <option disabled>{{ $availableSlotsForThu[4]->slot_time }}</option>
-
-
-                                                            @for ($i = 2; $i < $availableSlotsForThu->count(); $i++) {
-
-                                                                @if($availableSlotsForThu[$i + 3]->order_quantity === 20) 
-
-                                                                    <option disabled>{{ $availableSlotsForThu[$i + 3]->slot_time }} (Slot full)</option>
-
-                                                                @else
-
-                                                                    <option>{{ $availableSlotsForThu[$i + 3]->slot_time }}</option>
-
-                                                                @endif
-
-                                                            @endfor
-
-                                                        @elseif($availableSlotsForFri->count() && !$friSlotsFull) 
-
-                                                            @foreach ($availableSlotsForFri as $slot)
-
-                                                                @if($slot->order_quantity === 20) 
-
-                                                                    <option disabled>{{ $slot->slot_time }} (Slot full)</option>
-
-                                                                @else
-
-                                                                    <option>{{ $slot->slot_time }}</option>
-
-                                                                @endif
-
-                                                            @endforeach
-
-
-                                                        @endif
-
-                                                    @elseif(((strtotime($firstTimeSlot) / 3600) - (strtotime($currentDateTime) / 3600)) < 24)
-                                                        
-                                                        <!-- Display every time slot if day has been changed from thursday: -->
-
-                                                        <script>
-
-                                                            function setCollectionDay() {
-
-                                                                // Change order summary's collection day:
-                                                                var selectCollectionDay = document.getElementById('select-collection-day');
-                                                                var selectedValue = selectCollectionDay.options[selectCollectionDay.selectedIndex].value;
-                                                                const collectionDay = document.querySelector('.collection-day');
-                                                                collectionDay.innerHTML = selectedValue;
-
-                                                                // If customer changes the day from wednesday to any other days:
-                                                                var selectCollectionTime = document.getElementById('select-collection-time');
-
-                                                                var thuCollectionDays = {!! json_encode($availableSlotsForThu) !!};
-                                                                var friCollectionDays = {!! json_encode($availableSlotsForFri) !!};
-
-                                                                function updateCollectionTime(dayCollectionTimes, index) {
-                
-                                                                    const emptySlots = [];
-
-                                                                    for (let i = 0; i < 3; i++) {
-
-                                                                        selectCollectionTime.options[i].disabled = false;
-                                                                        selectCollectionTime.options[i].selected = false;
-                                                                        selectCollectionTime.options[i].innerHTML = "";
-
-                                                                    }
-
-                                                                    for (let i = 0; i < 3; i++) {
-
-                                                                        if (dayCollectionTimes[i + index]['order_quantity'] === 20) {
-
-                                                                            selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'].concat(' (Slot full)');
-                                                                            selectCollectionTime.options[i].disabled = true;
-
-                                                                        }else {
-
-                                                                            selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'];
-
-                                                                        }
-
-                                                                    }
-
-                                                                    for (let i = 0; i < 3; i++) {
-
-                                                                        if (dayCollectionTimes[i + index]['order_quantity'] !== 20) {
-
-                                                                            emptySlots.push(i + index);
-
-                                                                        }
-
-                                                                    }
-
-                                                                    if (emptySlots.length) {
-
-                                                                        selectCollectionTime.options[emptySlots[0] - index].selected = true;
-
-                                                                    }
-                                                                    
-                                                                }
-
-                                                                if (selectCollectionDay.options[selectCollectionDay.selectedIndex].value === "Friday") {
-
-                                                                    updateCollectionTime(friCollectionDays, 6);
-
-                                                                    // If thursday's first time slot is disabled and 2 other slots are full.
-                                                                    const emptySlots = [];
-
-                                                                    for (let i = 1; i < 3; i++) {
-
-                                                                        if (wedCollectionDays[i]['order_quantity'] !== 20) {
-
-                                                                            emptySlots.push(i);
-
-                                                                        }
-
-                                                                    }
-
-                                                                    if (!emptySlots.length) {
-
-                                                                        selectCollectionDay.options[1].disabled = true;
-
-                                                                    }
-
-                                                                }else {
-                                                                    
-                                                                    // User changes it back to Thursday:
-
-                                                                    updateCollectionTime(thuCollectionDays, 3);
-
-                                                                    selectCollectionTime.options[0].disabled = true; // Disabling first time slot.
-                                                                    selectCollectionTime.options[0].innerHTML = '10-13';
-
-                                                                    const emptySlots = [];
-
-                                                                    for (let i = 1; i < 3; i++) {
-
-                                                                        if (thuCollectionDays[i + 3]['order_quantity'] !== 20) {
-
-                                                                            emptySlots.push(i);
-
-                                                                        }
-
-                                                                    }
-
-                                                                    if (emptySlots.length) {
-
-                                                                        selectCollectionTime.options[emptySlots[0]].selected = true;
-
-                                                                    }
-
-                                                                }
-
-                                                                setCollectionTime();
-
-                                                            }
-
-                                                        </script>
-
-                                                        @if($availableSlotsForThu->count() && !$thurSlotsFull && !$thuLast2SlotsFull) 
-
-                                                            <option disabled>{{ $availableSlotsForThu[3]->slot_time }}</option>
-
-
-                                                            @for ($i = 1; $i < $availableSlotsForThu->count(); $i++) {
-
-                                                                @if($availableSlotsForThu[$i + 3]->order_quantity === 20) 
-
-                                                                    <option disabled>{{ $availableSlotsForThu[$i + 3]->slot_time }} (Slot full)</option>
-
-                                                                @else
-
-                                                                    <option>{{ $availableSlotsForThu[$i + 3]->slot_time }}</option>
-
-                                                                @endif
-
-                                                            @endfor
-
-                                                        @elseif($availableSlotsForFri->count() && !$friSlotsFull) 
-
-                                                            @foreach ($availableSlotsForFri as $slot)
-
-                                                                @if($slot->order_quantity === 20) 
-
-                                                                    <option disabled>{{ $slot->slot_time }} (Slot full)</option>
-
-                                                                @else
-
-                                                                    <option>{{ $slot->slot_time }}</option>
-
-                                                                @endif
-
-                                                            @endforeach
-
-
-                                                        @else
-
-                                                            <option>10-13</option>
-                                                            <option>13-16</option>
-                                                            <option>16-19</option>
-
-                                                        @endif
-                                                
-                                                    @else
-
-                                                        <script>
-
-                                                            // Change order summary's collection day:
-                                                            function setCollectionDay() {
-
-                                                                var selectColelctionDay = document.getElementById('select-collection-day');
-                                                                var selectedValue = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
-                                                                const collectionDay = document.querySelector('.collection-day');
-                                                                collectionDay.innerHTML = selectedValue; 
-                                                                
-                                                                // If customer changes the day from wednesday to any other days:
-                                                                var selectCollectionTime = document.getElementById('select-collection-time');
-
-                                                                var thuCollectionDays = {!! json_encode($availableSlotsForThu) !!};
-                                                                var friCollectionDays = {!! json_encode($availableSlotsForFri) !!};
-
-                                                                function updateCollectionTime(dayCollectionTimes, index) {
-                
-                                                                    const emptySlots = [];
-
-                                                                    for (let i = 0; i < 3; i++) {
-
-                                                                        selectCollectionTime.options[i].disabled = false;
-                                                                        selectCollectionTime.options[i].selected = false;
-                                                                        selectCollectionTime.options[i].innerHTML = "";
-
-                                                                    }
-
-                                                                    for (let i = 0; i < 3; i++) {
-
-                                                                        if (dayCollectionTimes[i + index]['order_quantity'] === 20) {
-
-                                                                            selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'].concat(' (Slot full)');
-                                                                            selectCollectionTime.options[i].disabled = true;
-
-                                                                        }else {
-
-                                                                            selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'];
-
-                                                                        }
-
-                                                                    }
-
-                                                                    for (let i = 0; i < 3; i++) {
-                                                                        
-                                                                        if (dayCollectionTimes[i + index]['order_quantity'] !== 20) {
-
-                                                                            emptySlots.push(i + index);
-
-                                                                        }
-
-                                                                    }
-
-                                                                    if (emptySlots.length) {
-                                                                        
-                                                                        selectCollectionTime.options[emptySlots[0] - index].selected = true;
-
-                                                                    }
-                                                                    
-                                                                }
-
-                                                                if (selectColelctionDay.options[selectColelctionDay.selectedIndex].value === "Thursday") {
-                                                                    
-                                                                    updateCollectionTime(thuCollectionDays, 3);
-
-                                                                }else if (selectColelctionDay.options[selectColelctionDay.selectedIndex].value === "Friday") {
-
-                                                                    updateCollectionTime(friCollectionDays, 6);
-
-                                                                }
-
-                                                                setCollectionTime();
-
-                                                            }
-                                                            
-                                                        </script>
-
-                                                        @if($availableSlotsForThu->count() && !$thurSlotsFull) 
-
-                                                            @foreach ($availableSlotsForThu as $slot)
-
-                                                                @if($slot->order_quantity === 20) 
-
-                                                                    <option disabled>{{ $slot->slot_time }} (Slot full)</option>
-
-                                                                @else
-
-                                                                    <option>{{ $slot->slot_time }}</option>
-
-                                                                @endif
-
-                                                            @endforeach
-
-                                                        @elseif($availableSlotsForFri->count() && !$friSlotsFull) 
-
-                                                            @foreach ($availableSlotsForFri as $slot)
-
-                                                                @if($slot->order_quantity === 20) 
-
-                                                                    <option disabled>{{ $slot->slot_time }} (Slot full)</option>
-
-                                                                @else
-
-                                                                    <option>{{ $slot->slot_time }}</option>
-
-                                                                @endif
-
-                                                            @endforeach
-
-
-                                                        @else
-
-                                                            <option>10-13</option>
-                                                            <option>13-16</option>
-                                                            <option>16-19</option>
-
-                                                        @endif
-
-                                                    @endif
-
-                                                @elseif($currentDateTime->format('l') === "Thursday")
-
-                                                    @if(((strtotime($secondTimeSlot) / 3600) - (strtotime($currentDateTime) / 3600)) < 24)
-                                                        
-                                                        <!-- Display every time slot if day has been changed from wednesday: -->
-
-                                                        <script>
-
-                                                            function setCollectionDay() {
-
-                                                                // Change order summary's collection day:
-                                                                var selectColelctionDay = document.getElementById('select-collection-day');
-                                                                var selectedValue = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
-                                                                const collectionDay = document.querySelector('.collection-day');
-                                                                collectionDay.innerHTML = selectedValue;
-
-                                                            }
-
-                                                        </script>
-
-                                                        @if($availableSlotsForFri->count() && !$friSlotsFull && !$friLastSlotFull) 
-
-                                                            <option disabled>{{ $availableSlotsForFri[6]->slot_time }}</option>
-                                                            <option disabled>{{ $availableSlotsForFri[7]->slot_time }}</option>
-
-
-                                                            @for ($i = 2; $i < $availableSlotsForFri->count(); $i++) {
-
-                                                                @if($availableSlotsForFri[$i + 6]->order_quantity === 20) 
-
-                                                                    <option disabled>{{ $availableSlotsForFri[$i + 6]->slot_time }} (Slot full)</option>
-
-                                                                @else
-
-                                                                    <option>{{ $availableSlotsForFri[$i + 6]->slot_time }}</option>
-
-                                                                @endif
-
-                                                            @endfor
-                                                            
-                                                        @endif
-
-                                                    @elseif(((strtotime($firstTimeSlot) / 3600) - (strtotime($currentDateTime) / 3600)) < 24)
-                                                        
-                                                        <!-- Display every time slot if day has been changed from wednesday: -->
-
-                                                        <script>
-
-                                                            function setCollectionDay() {
-
-                                                                // Change order summary's collection day:
-                                                                var selectColelctionDay = document.getElementById('select-collection-day');
-                                                                var selectedValue = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
-                                                                const collectionDay = document.querySelector('.collection-day');
-                                                                collectionDay.innerHTML = selectedValue;
-
-                                                            }
-
-                                                        </script>
-
-                                                        @if($availableSlotsForFri->count() && !$friSlotsFull && !$friLast2SlotsFull) 
-
-                                                            <option disabled>{{ $availableSlotsForFri[6]->slot_time }}</option>
-
-
-                                                            @for ($i = 1; $i < $availableSlotsForFri->count(); $i++) {
-
-                                                                @if($availableSlotsForFri[$i + 6]->order_quantity === 20) 
-
-                                                                    <option disabled>{{ $availableSlotsForFri[$i + 6]->slot_time }} (Slot full)</option>
-
-                                                                @else
-
-                                                                    <option>{{ $availableSlotsForFri[$i + 6]->slot_time }}</option>
-
-                                                                @endif
-
-                                                            @endfor
-                                                            
-                                                        @endif
-                                                
-                                                    @else
-
-                                                        <script>
-
-                                                            // Change order summary's collection day:
-                                                            function setCollectionDay() {
-
-                                                                var selectColelctionDay = document.getElementById('select-collection-day');
-                                                                var selectedValue = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
-                                                                const collectionDay = document.querySelector('.collection-day');
-                                                                collectionDay.innerHTML = selectedValue; 
-
-                                                            }
-                                                            
-                                                        </script>
-
-                                                        @if($availableSlotsForFri->count() && !$friSlotsFull) 
-
-                                                            @foreach ($availableSlotsForFri as $slot)
-
-                                                                @if($slot->order_quantity === 20) 
-
-                                                                    <option disabled>{{ $slot->slot_time }} (Slot full)</option>
-
-                                                                @else
-
-                                                                    <option>{{ $slot->slot_time }}</option>
-
-                                                                @endif
-
-                                                            @endforeach
-
-
-                                                        @else
-
-                                                            <option>10-13</option>
-                                                            <option>13-16</option>
-                                                            <option>16-19</option>
-
-                                                        @endif
-
-                                                    @endif
-
-                                                @else
-                                                        
-                                                    <script>
-
-                                                        // Change order summary's collection day:
-                                                        function setCollectionDay() {
-
-                                                            var selectColelctionDay = document.getElementById('select-collection-day');
-                                                            var selectedValue = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
-                                                            const collectionDay = document.querySelector('.collection-day');
-                                                            collectionDay.innerHTML = selectedValue; 
-                                                            
-                                                            // If customer changes the day from wednesday to any other days:
-                                                            var selectCollectionTime = document.getElementById('select-collection-time');
-
-                                                            var wedCollectionDays = {!! json_encode($availableSlotsForWed) !!};
-                                                            var thuCollectionDays = {!! json_encode($availableSlotsForThu) !!};
-                                                            var friCollectionDays = {!! json_encode($availableSlotsForFri) !!};
-
-                                                            function updateCollectionTime(dayCollectionTimes, index) {
-            
-                                                                const emptySlots = [];
-
-                                                                for (let i = 0; i < 3; i++) {
-
-                                                                    selectCollectionTime.options[i].disabled = false;
-                                                                    selectCollectionTime.options[i].selected = false;
-                                                                    selectCollectionTime.options[i].innerHTML = "";
-
-                                                                }
-
-                                                                for (let i = 0; i < 3; i++) {
-
-                                                                    if (dayCollectionTimes[i + index]['order_quantity'] === 20) {
-
-                                                                        selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'].concat(' (Slot full)');
-                                                                        selectCollectionTime.options[i].disabled = true;
-
-                                                                    }else {
-
-                                                                        selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'];
-
-                                                                    }
-
-                                                                }
-
-                                                                for (let i = 0; i < 3; i++) {
-                                                                    
-                                                                    if (dayCollectionTimes[i + index]['order_quantity'] !== 20) {
-
-                                                                        emptySlots.push(i + index);
-
-                                                                    }
-
-                                                                }
-
-                                                                if (emptySlots.length) {
-                                                                    
-                                                                    selectCollectionTime.options[emptySlots[0] - index].selected = true;
-
-                                                                }
-                                                                
-                                                            }
-
-                                                            if (selectColelctionDay.options[selectColelctionDay.selectedIndex].value === "Thursday") {
-                                                                
-                                                                updateCollectionTime(thuCollectionDays, 3);
-
-                                                            }else if (selectColelctionDay.options[selectColelctionDay.selectedIndex].value === "Friday") {
-
-                                                                updateCollectionTime(friCollectionDays, 6);
-
-                                                            }else {
-                                                                
-                                                                // User changes it back to wednesday:
-                                                                updateCollectionTime(wedCollectionDays, 0);
-
-                                                            }
-
-                                                            setCollectionTime();
-
-                                                        }
-                                                        
-                                                    </script>
-
-                                                    @if($availableSlotsForWed->count() && !$wedSlotsFull) 
-
-                                                        @foreach ($availableSlotsForWed as $slot)
-
-                                                            @if($slot->order_quantity === 20) 
-
-                                                                <option disabled>{{ $slot->slot_time }} (Slot full)</option>
-
-                                                            @else
-
-                                                                <option>{{ $slot->slot_time }}</option>
 
                                                             @endif
 
-                                                        @endforeach
+                                                        @elseif(((strtotime($firstTimeSlot) / 3600) -
+                                                            (strtotime($currentDateTime) / 3600)) < 24) <!-- Display every
+                                                                time slot if day has been changed from wednesday: -->
 
-                                                    @elseif($availableSlotsForThu->count() && !$thurSlotsFull) 
+                                                                <script>
+                                                                    function setCollectionDay() {
 
-                                                        @foreach ($availableSlotsForThu as $slot)
+                                                                        // Change order summary's collection day:
+                                                                        var selectCollectionDay = document.getElementById('select-collection-day');
+                                                                        var selectedValue = selectCollectionDay.options[selectCollectionDay.selectedIndex].value;
+                                                                        const collectionDay = document.querySelector('.collection-day');
+                                                                        collectionDay.innerHTML = selectedValue;
 
-                                                            @if($slot->order_quantity === 20) 
+                                                                        // If customer changes the day from wednesday to any other days:
+                                                                        var selectCollectionTime = document.getElementById('select-collection-time');
 
-                                                                <option disabled>{{ $slot->slot_time }} (Slot full)</option>
+                                                                        var wedCollectionDays = {!! json_encode($availableSlotsForWed) !!};
+                                                                        var thuCollectionDays = {!! json_encode($availableSlotsForThu) !!};
+                                                                        var friCollectionDays = {!! json_encode($availableSlotsForFri) !!};
+
+                                                                        function updateCollectionTime(dayCollectionTimes, index) {
+
+                                                                            const emptySlots = [];
+
+                                                                            for (let i = 0; i < 3; i++) {
+
+                                                                                selectCollectionTime.options[i].disabled = false;
+                                                                                selectCollectionTime.options[i].selected = false;
+                                                                                selectCollectionTime.options[i].innerHTML = "";
+
+                                                                            }
+
+                                                                            for (let i = 0; i < 3; i++) {
+
+                                                                                if (dayCollectionTimes[i + index]['order_quantity'] == 20) {
+
+                                                                                    selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'].concat(
+                                                                                        ' (Slot full)');
+                                                                                    selectCollectionTime.options[i].disabled = true;
+
+                                                                                } else {
+
+                                                                                    selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'];
+
+                                                                                }
+
+                                                                            }
+
+                                                                            for (let i = 0; i < 3; i++) {
+
+                                                                                if (dayCollectionTimes[i + index]['order_quantity'] != 20) {
+
+                                                                                    emptySlots.push(i + index);
+
+                                                                                }
+
+                                                                            }
+
+                                                                            if (emptySlots.length) {
+
+                                                                                selectCollectionTime.options[emptySlots[0] - index].selected = true;
+
+                                                                            }
+
+                                                                        }
+
+                                                                        if (selectCollectionDay.options[selectCollectionDay.selectedIndex].value == "Thursday") {
+
+                                                                            updateCollectionTime(thuCollectionDays, 3);
+
+                                                                            // If wednesday's first time slot is disabled and 2 other slots are full.
+                                                                            const emptySlots = [];
+
+                                                                            for (let i = 1; i < 3; i++) {
+
+                                                                                if (wedCollectionDays[i]['order_quantity'] != 20) {
+
+                                                                                    emptySlots.push(i);
+
+                                                                                }
+
+                                                                            }
+
+                                                                            if (!emptySlots.length) {
+
+                                                                                selectCollectionDay.options[0].disabled = true;
+
+                                                                            }
+
+                                                                        } else if (selectCollectionDay.options[selectCollectionDay.selectedIndex].value == "Friday") {
+
+                                                                            updateCollectionTime(friCollectionDays, 6);
+
+                                                                            // If wednesday's first time slot is disabled and 2 other slots are full.
+                                                                            const emptySlots = [];
+
+                                                                            for (let i = 1; i < 3; i++) {
+
+                                                                                if (wedCollectionDays[i]['order_quantity'] != 20) {
+
+                                                                                    emptySlots.push(i);
+
+                                                                                }
+
+                                                                            }
+
+                                                                            if (!emptySlots.length) {
+
+                                                                                selectCollectionDay.options[0].disabled = true;
+
+                                                                            }
+
+                                                                        } else {
+
+                                                                            // User changes it back to wednesday:
+                                                                            updateCollectionTime(wedCollectionDays, 0);
+                                                                            selectCollectionTime.options[0].disabled = true;
+                                                                            selectCollectionTime.options[0].innerHTML = '10-13';
+
+
+                                                                            const emptySlots = [];
+
+                                                                            for (let i = 1; i < 3; i++) {
+
+                                                                                if (wedCollectionDays[i]['order_quantity'] != 20) {
+
+                                                                                    emptySlots.push(i);
+
+                                                                                }
+
+                                                                            }
+
+                                                                            if (emptySlots.length) {
+
+                                                                                selectCollectionTime.options[emptySlots[0]].selected = true;
+
+                                                                            }
+
+                                                                        }
+
+                                                                        setCollectionTime();
+
+                                                                    }
+                                                                </script>
+
+                                                                @if ($availableSlotsForWed->count() && !$wedLast2SlotsFull && !$wedSlotsFull)
+
+                                                                    <option disabled>
+                                                                        {{ $availableSlotsForWed[0]->slot_time }}
+                                                                    </option>
+
+                                                                    @for ($i = 1; $i < $availableSlotsForWed->count(); $i++)
+                                                                        {
+
+                                                                        @if ($availableSlotsForWed[$i]->order_quantity == 20)
+
+                                                                            <option disabled>
+                                                                                {{ $availableSlotsForWed[$i]->slot_time }}
+                                                                                (Slot full)</option>
+
+                                                                        @else
+
+                                                                            <option>
+                                                                                {{ $availableSlotsForWed[$i]->slot_time }}
+                                                                            </option>
+
+                                                                        @endif
+
+                                                                    @endfor
+
+                                                                @elseif($availableSlotsForThu->count() &&
+                                                                    !$thurSlotsFull)
+
+                                                                    @foreach ($availableSlotsForThu as $slot)
+
+                                                                        @if ($slot->order_quantity == 20)
+
+                                                                            <option disabled>{{ $slot->slot_time }} (Slot
+                                                                                full)</option>
+
+                                                                        @else
+
+                                                                            <option>{{ $slot->slot_time }}</option>
+
+                                                                        @endif
+
+                                                                    @endforeach
+
+                                                                @elseif($availableSlotsForFri->count() &&
+                                                                    !$friSlotsFull)
+
+                                                                    @foreach ($availableSlotsForFri as $slot)
+
+                                                                        @if ($slot->order_quantity == 20)
+
+                                                                            <option disabled>{{ $slot->slot_time }} (Slot
+                                                                                full)</option>
+
+                                                                        @else
+
+                                                                            <option>{{ $slot->slot_time }}</option>
+
+                                                                        @endif
+
+                                                                    @endforeach
+
+
+                                                                @endif
 
                                                             @else
 
-                                                                <option>{{ $slot->slot_time }}</option>
+                                                                <script>
+                                                                    // Change order summary's collection day:
+                                                                    function setCollectionDay() {
 
-                                                            @endif
+                                                                        var selectColelctionDay = document.getElementById('select-collection-day');
+                                                                        var selectedValue = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
+                                                                        const collectionDay = document.querySelector('.collection-day');
+                                                                        collectionDay.innerHTML = selectedValue;
 
-                                                        @endforeach
+                                                                        // If customer changes the day from wednesday to any other days:
+                                                                        var selectCollectionTime = document.getElementById('select-collection-time');
 
-                                                    @elseif($availableSlotsForFri->count() && !$friSlotsFull) 
+                                                                        var wedCollectionDays = {!! json_encode($availableSlotsForWed) !!};
+                                                                        var thuCollectionDays = {!! json_encode($availableSlotsForThu) !!};
+                                                                        var friCollectionDays = {!! json_encode($availableSlotsForFri) !!};
 
-                                                        @foreach ($availableSlotsForFri as $slot)
+                                                                        function updateCollectionTime(dayCollectionTimes, index) {
 
-                                                            @if($slot->order_quantity === 20) 
+                                                                            const emptySlots = [];
 
-                                                                <option disabled>{{ $slot->slot_time }} (Slot full)</option>
+                                                                            for (let i = 0; i < 3; i++) {
 
-                                                            @else
+                                                                                selectCollectionTime.options[i].disabled = false;
+                                                                                selectCollectionTime.options[i].selected = false;
+                                                                                selectCollectionTime.options[i].innerHTML = "";
 
-                                                                <option>{{ $slot->slot_time }}</option>
+                                                                            }
 
-                                                            @endif
+                                                                            for (let i = 0; i < 3; i++) {
 
-                                                        @endforeach
+                                                                                if (dayCollectionTimes[i + index]['order_quantity'] == 20) {
+
+                                                                                    selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'].concat(
+                                                                                        ' (Slot full)');
+                                                                                    selectCollectionTime.options[i].disabled = true;
+
+                                                                                } else {
+
+                                                                                    selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'];
+
+                                                                                }
+
+                                                                            }
+
+                                                                            for (let i = 0; i < 3; i++) {
+
+                                                                                if (dayCollectionTimes[i + index]['order_quantity'] != 20) {
+
+                                                                                    emptySlots.push(i + index);
+
+                                                                                }
+
+                                                                            }
+
+                                                                            if (emptySlots.length) {
+
+                                                                                selectCollectionTime.options[emptySlots[0] - index].selected = true;
+
+                                                                            }
+
+                                                                        }
+
+                                                                        if (selectColelctionDay.options[selectColelctionDay.selectedIndex].value == "Thursday") {
+
+                                                                            updateCollectionTime(thuCollectionDays, 3);
+
+                                                                        } else if (selectColelctionDay.options[selectColelctionDay.selectedIndex].value == "Friday") {
+
+                                                                            updateCollectionTime(friCollectionDays, 6);
+
+                                                                        } else {
+
+                                                                            // User changes it back to wednesday:
+                                                                            updateCollectionTime(wedCollectionDays, 0);
+
+                                                                        }
+
+                                                                        setCollectionTime();
+
+                                                                    }
+                                                                </script>
+
+                                                                @if ($availableSlotsForWed->count() && !$wedSlotsFull)
+
+                                                                    @foreach ($availableSlotsForWed as $slot)
+
+                                                                        @if ($slot->order_quantity == 20)
+
+                                                                            <option disabled>{{ $slot->slot_time }} (Slot
+                                                                                full)</option>
+
+                                                                        @else
+
+                                                                            <option>{{ $slot->slot_time }}</option>
+
+                                                                        @endif
+
+                                                                    @endforeach
+
+                                                                @elseif($availableSlotsForThu->count() &&
+                                                                    !$thurSlotsFull)
+
+                                                                    @foreach ($availableSlotsForThu as $slot)
+
+                                                                        @if ($slot->order_quantity == 20)
+
+                                                                            <option disabled>{{ $slot->slot_time }} (Slot
+                                                                                full)</option>
+
+                                                                        @else
+
+                                                                            <option>{{ $slot->slot_time }}</option>
+
+                                                                        @endif
+
+                                                                    @endforeach
+
+                                                                @elseif($availableSlotsForFri->count() &&
+                                                                    !$friSlotsFull)
+
+                                                                    @foreach ($availableSlotsForFri as $slot)
+
+                                                                        @if ($slot->order_quantity == 20)
+
+                                                                            <option disabled>{{ $slot->slot_time }} (Slot
+                                                                                full)</option>
+
+                                                                        @else
+
+                                                                            <option>{{ $slot->slot_time }}</option>
+
+                                                                        @endif
+
+                                                                    @endforeach
 
 
-                                                    @else
+                                                                @else
 
-                                                        <option>10-13</option>
-                                                        <option>13-16</option>
-                                                        <option>16-19</option>
+                                                                    <option>10-13</option>
+                                                                    <option>13-16</option>
+                                                                    <option>16-19</option>
 
-                                                    @endif
+                                                                @endif
 
                                                 @endif
 
+                                            @elseif($currentDateTime->format('l') == "Wednesday")
+
+                                                @if(((strtotime($thirdTimeSlot) / 3600) - (strtotime($currentDateTime) /
+                                                3600)) < 24) <!-- Show Friday slots because the thursday will be disabled
+                                                    after 4pm -->
+
+                                                    <script>
+                                                        var selectCollectionDay = document.getElementById('select-collection-day');
+                                                        selectCollectionDay.options[0].disabled = true;
+                                                        selectCollectionDay.options[1].disabled = true;
+                                                        selectCollectionDay.options[2].selected = true;
+
+                                                        function setCollectionDay() {
+
+                                                            // Change order summary's collection day:
+                                                            var selectCollectionDay = document.getElementById('select-collection-day');
+                                                            var selectedValue = selectCollectionDay.options[selectCollectionDay.selectedIndex].value;
+                                                            const collectionDay = document.querySelector('.collection-day');
+                                                            collectionDay.innerHTML = selectedValue;
+
+                                                        }
+                                                    </script>
+
+                                                    @if ($availableSlotsForFri->count() && !$friSlotsFull)
+
+                                                        @foreach ($availableSlotsForFri as $slot)
+
+                                                            @if ($slot->order_quantity == 20)
+
+                                                                <option disabled>{{ $slot->slot_time }} (Slot full)
+                                                                </option>
+
+                                                            @else
+
+                                                                <option>{{ $slot->slot_time }}</option>
+
+                                                            @endif
+
+                                                        @endforeach
+
+
+                                                    @endif
+
+                                                @elseif(((strtotime($secondTimeSlot) / 3600) -
+                                                    (strtotime($currentDateTime) / 3600)) < 24) <!-- Display every time slot
+                                                        if day has been changed from Thursday: -->
+
+                                                        <script>
+                                                            function setCollectionDay() {
+
+                                                                // Change order summary's collection day:
+                                                                var selectCollectionDay = document.getElementById('select-collection-day');
+                                                                var selectedValue = selectCollectionDay.options[selectCollectionDay.selectedIndex].value;
+                                                                const collectionDay = document.querySelector('.collection-day');
+                                                                collectionDay.innerHTML = selectedValue;
+
+                                                                // If customer changes the day from wednesday to any other days:
+                                                                var selectCollectionTime = document.getElementById('select-collection-time');
+
+                                                                var thuCollectionDays = {!! json_encode($availableSlotsForThu) !!};
+                                                                var friCollectionDays = {!! json_encode($availableSlotsForFri) !!};
+
+                                                                function updateCollectionTime(dayCollectionTimes, index) {
+
+                                                                    const emptySlots = [];
+
+                                                                    for (let i = 0; i < 3; i++) {
+
+                                                                        selectCollectionTime.options[i].disabled = false;
+                                                                        selectCollectionTime.options[i].selected = false;
+                                                                        selectCollectionTime.options[i].innerHTML = "";
+
+                                                                    }
+
+                                                                    for (let i = 0; i < 3; i++) {
+
+                                                                        if (dayCollectionTimes[i + index]['order_quantity'] == 20) {
+
+                                                                            selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'].concat(
+                                                                                ' (Slot full)');
+                                                                            selectCollectionTime.options[i].disabled = true;
+
+                                                                        } else {
+
+                                                                            selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'];
+
+                                                                        }
+
+                                                                    }
+
+                                                                    for (let i = 0; i < 3; i++) {
+
+                                                                        if (dayCollectionTimes[i + index]['order_quantity'] != 20) {
+
+                                                                            emptySlots.push(i + index);
+
+                                                                        }
+
+                                                                    }
+
+                                                                    if (emptySlots.length) {
+
+                                                                        selectCollectionTime.options[emptySlots[0] - index].selected = true;
+
+                                                                    }
+
+                                                                }
+
+                                                                if (selectCollectionDay.options[selectCollectionDay.selectedIndex].value == "Friday") {
+
+                                                                    updateCollectionTime(friCollectionDays, 6);
+
+                                                                    // If wednesday's first and second time slot are disabled and the other slot is full.
+
+                                                                    if (wedCollectionDays[2]['order_quantity'] == 20) {
+
+                                                                        selectCollectionDay.options[0].disabled = true;
+
+                                                                    }
+
+                                                                } else {
+
+                                                                    // User changes it back to wednesday:
+
+                                                                    updateCollectionTime(thuCollectionDays, 3);
+
+                                                                    selectCollectionTime.options[0].disabled = true;
+                                                                    selectCollectionTime.options[1].disabled = true;
+                                                                    selectCollectionTime.options[0].innerHTML = '10-13';
+                                                                    selectCollectionTime.options[1].innerHTML = '13-16';
+
+
+                                                                    if (thuCollectionDays[5]['order_quantity'] != 20) {
+
+                                                                        selectCollectionTime.options[2].selected = true;
+
+                                                                    }
+
+                                                                }
+
+                                                                setCollectionTime();
+
+                                                            }
+                                                        </script>
+
+                                                        @if ($availableSlotsForThu->count() && !$thurSlotsFull && !$thuLastSlotFull)
+
+                                                            <option disabled>{{ $availableSlotsForThu[3]->slot_time }}
+                                                            </option>
+                                                            <option disabled>{{ $availableSlotsForThu[4]->slot_time }}
+                                                            </option>
+
+
+                                                            @for ($i = 2; $i < $availableSlotsForThu->count(); $i++)
+                                                                {
+
+                                                                @if ($availableSlotsForThu[$i + 3]->order_quantity == 20)
+
+                                                                    <option disabled>
+                                                                        {{ $availableSlotsForThu[$i + 3]->slot_time }}
+                                                                        (Slot full)</option>
+
+                                                                @else
+
+                                                                    <option>
+                                                                        {{ $availableSlotsForThu[$i + 3]->slot_time }}
+                                                                    </option>
+
+                                                                @endif
+
+                                                            @endfor
+
+                                                        @elseif($availableSlotsForFri->count() && !$friSlotsFull)
+
+                                                            @foreach ($availableSlotsForFri as $slot)
+
+                                                                @if ($slot->order_quantity == 20)
+
+                                                                    <option disabled>{{ $slot->slot_time }} (Slot full)
+                                                                    </option>
+
+                                                                @else
+
+                                                                    <option>{{ $slot->slot_time }}</option>
+
+                                                                @endif
+
+                                                            @endforeach
+
+
+                                                        @endif
+
+                                                    @elseif(((strtotime($firstTimeSlot) / 3600) -
+                                                        (strtotime($currentDateTime) / 3600)) < 24) <!-- Display every time
+                                                            slot if day has been changed from thursday: -->
+
+                                                            <script>
+                                                                function setCollectionDay() {
+
+                                                                    // Change order summary's collection day:
+                                                                    var selectCollectionDay = document.getElementById('select-collection-day');
+                                                                    var selectedValue = selectCollectionDay.options[selectCollectionDay.selectedIndex].value;
+                                                                    const collectionDay = document.querySelector('.collection-day');
+                                                                    collectionDay.innerHTML = selectedValue;
+
+                                                                    // If customer changes the day from wednesday to any other days:
+                                                                    var selectCollectionTime = document.getElementById('select-collection-time');
+
+                                                                    var thuCollectionDays = {!! json_encode($availableSlotsForThu) !!};
+                                                                    var friCollectionDays = {!! json_encode($availableSlotsForFri) !!};
+
+                                                                    function updateCollectionTime(dayCollectionTimes, index) {
+
+                                                                        const emptySlots = [];
+
+                                                                        for (let i = 0; i < 3; i++) {
+
+                                                                            selectCollectionTime.options[i].disabled = false;
+                                                                            selectCollectionTime.options[i].selected = false;
+                                                                            selectCollectionTime.options[i].innerHTML = "";
+
+                                                                        }
+
+                                                                        for (let i = 0; i < 3; i++) {
+
+                                                                            if (dayCollectionTimes[i + index]['order_quantity'] == 20) {
+
+                                                                                selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'].concat(
+                                                                                    ' (Slot full)');
+                                                                                selectCollectionTime.options[i].disabled = true;
+
+                                                                            } else {
+
+                                                                                selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'];
+
+                                                                            }
+
+                                                                        }
+
+                                                                        for (let i = 0; i < 3; i++) {
+
+                                                                            if (dayCollectionTimes[i + index]['order_quantity'] != 20) {
+
+                                                                                emptySlots.push(i + index);
+
+                                                                            }
+
+                                                                        }
+
+                                                                        if (emptySlots.length) {
+
+                                                                            selectCollectionTime.options[emptySlots[0] - index].selected = true;
+
+                                                                        }
+
+                                                                    }
+
+                                                                    if (selectCollectionDay.options[selectCollectionDay.selectedIndex].value == "Friday") {
+
+                                                                        updateCollectionTime(friCollectionDays, 6);
+
+                                                                        // If thursday's first time slot is disabled and 2 other slots are full.
+                                                                        const emptySlots = [];
+
+                                                                        for (let i = 1; i < 3; i++) {
+
+                                                                            if (wedCollectionDays[i]['order_quantity'] != 20) {
+
+                                                                                emptySlots.push(i);
+
+                                                                            }
+
+                                                                        }
+
+                                                                        if (!emptySlots.length) {
+
+                                                                            selectCollectionDay.options[1].disabled = true;
+
+                                                                        }
+
+                                                                    } else {
+
+                                                                        // User changes it back to Thursday:
+
+                                                                        updateCollectionTime(thuCollectionDays, 3);
+
+                                                                        selectCollectionTime.options[0].disabled = true; // Disabling first time slot.
+                                                                        selectCollectionTime.options[0].innerHTML = '10-13';
+
+                                                                        const emptySlots = [];
+
+                                                                        for (let i = 1; i < 3; i++) {
+
+                                                                            if (thuCollectionDays[i + 3]['order_quantity'] != 20) {
+
+                                                                                emptySlots.push(i);
+
+                                                                            }
+
+                                                                        }
+
+                                                                        if (emptySlots.length) {
+
+                                                                            selectCollectionTime.options[emptySlots[0]].selected = true;
+
+                                                                        }
+
+                                                                    }
+
+                                                                    setCollectionTime();
+
+                                                                }
+                                                            </script>
+
+                                                            @if ($availableSlotsForThu->count() && !$thurSlotsFull && !$thuLast2SlotsFull)
+
+                                                                <option disabled>
+                                                                    {{ $availableSlotsForThu[3]->slot_time }}</option>
+
+
+                                                                @for ($i = 1; $i < $availableSlotsForThu->count(); $i++)
+                                                                    {
+
+                                                                    @if ($availableSlotsForThu[$i + 3]->order_quantity == 20)
+
+                                                                        <option disabled>
+                                                                            {{ $availableSlotsForThu[$i + 3]->slot_time }}
+                                                                            (Slot full)</option>
+
+                                                                    @else
+
+                                                                        <option>
+                                                                            {{ $availableSlotsForThu[$i + 3]->slot_time }}
+                                                                        </option>
+
+                                                                    @endif
+
+                                                                @endfor
+
+                                                            @elseif($availableSlotsForFri->count() && !$friSlotsFull)
+
+                                                                @foreach ($availableSlotsForFri as $slot)
+
+                                                                    @if ($slot->order_quantity == 20)
+
+                                                                        <option disabled>{{ $slot->slot_time }} (Slot
+                                                                            full)</option>
+
+                                                                    @else
+
+                                                                        <option>{{ $slot->slot_time }}</option>
+
+                                                                    @endif
+
+                                                                @endforeach
+
+
+                                                            @else
+
+                                                                <option>10-13</option>
+                                                                <option>13-16</option>
+                                                                <option>16-19</option>
+
+                                                            @endif
+
+                                                        @else
+
+                                                            <script>
+                                                                // Change order summary's collection day:
+                                                                function setCollectionDay() {
+
+                                                                    var selectColelctionDay = document.getElementById('select-collection-day');
+                                                                    var selectedValue = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
+                                                                    const collectionDay = document.querySelector('.collection-day');
+                                                                    collectionDay.innerHTML = selectedValue;
+
+                                                                    // If customer changes the day from wednesday to any other days:
+                                                                    var selectCollectionTime = document.getElementById('select-collection-time');
+
+                                                                    var thuCollectionDays = {!! json_encode($availableSlotsForThu) !!};
+                                                                    var friCollectionDays = {!! json_encode($availableSlotsForFri) !!};
+
+                                                                    function updateCollectionTime(dayCollectionTimes, index) {
+
+                                                                        const emptySlots = [];
+
+                                                                        for (let i = 0; i < 3; i++) {
+
+                                                                            selectCollectionTime.options[i].disabled = false;
+                                                                            selectCollectionTime.options[i].selected = false;
+                                                                            selectCollectionTime.options[i].innerHTML = "";
+
+                                                                        }
+
+                                                                        for (let i = 0; i < 3; i++) {
+
+                                                                            if (dayCollectionTimes[i + index]['order_quantity'] == 20) {
+
+                                                                                selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'].concat(
+                                                                                    ' (Slot full)');
+                                                                                selectCollectionTime.options[i].disabled = true;
+
+                                                                            } else {
+
+                                                                                selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'];
+
+                                                                            }
+
+                                                                        }
+
+                                                                        for (let i = 0; i < 3; i++) {
+
+                                                                            if (dayCollectionTimes[i + index]['order_quantity'] != 20) {
+
+                                                                                emptySlots.push(i + index);
+
+                                                                            }
+
+                                                                        }
+
+                                                                        if (emptySlots.length) {
+
+                                                                            selectCollectionTime.options[emptySlots[0] - index].selected = true;
+
+                                                                        }
+
+                                                                    }
+
+                                                                    if (selectColelctionDay.options[selectColelctionDay.selectedIndex].value == "Thursday") {
+
+                                                                        updateCollectionTime(thuCollectionDays, 3);
+
+                                                                    } else if (selectColelctionDay.options[selectColelctionDay.selectedIndex].value == "Friday") {
+
+                                                                        updateCollectionTime(friCollectionDays, 6);
+
+                                                                    }
+
+                                                                    setCollectionTime();
+
+                                                                }
+                                                            </script>
+
+                                                            @if ($availableSlotsForThu->count() && !$thurSlotsFull)
+
+                                                                @foreach ($availableSlotsForThu as $slot)
+
+                                                                    @if ($slot->order_quantity == 20)
+
+                                                                        <option disabled>{{ $slot->slot_time }} (Slot
+                                                                            full)</option>
+
+                                                                    @else
+
+                                                                        <option>{{ $slot->slot_time }}</option>
+
+                                                                    @endif
+
+                                                                @endforeach
+
+                                                            @elseif($availableSlotsForFri->count() && !$friSlotsFull)
+
+                                                                @foreach ($availableSlotsForFri as $slot)
+
+                                                                    @if ($slot->order_quantity == 20)
+
+                                                                        <option disabled>{{ $slot->slot_time }} (Slot
+                                                                            full)</option>
+
+                                                                    @else
+
+                                                                        <option>{{ $slot->slot_time }}</option>
+
+                                                                    @endif
+
+                                                                @endforeach
+
+
+                                                            @else
+
+                                                                <option>10-13</option>
+                                                                <option>13-16</option>
+                                                                <option>16-19</option>
+
+                                                            @endif
+
+                                                            @endif
+
+                                                        @elseif($currentDateTime->format('l') == "Thursday")
+
+                                                            @if(((strtotime($secondTimeSlot) / 3600) -
+                                                            (strtotime($currentDateTime) / 3600)) < 24) <!-- Display every
+                                                                time slot if day has been changed from wednesday: -->
+
+                                                                <script>
+                                                                    function setCollectionDay() {
+
+                                                                        // Change order summary's collection day:
+                                                                        var selectColelctionDay = document.getElementById('select-collection-day');
+                                                                        var selectedValue = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
+                                                                        const collectionDay = document.querySelector('.collection-day');
+                                                                        collectionDay.innerHTML = selectedValue;
+
+                                                                    }
+                                                                </script>
+
+                                                                @if ($availableSlotsForFri->count() && !$friSlotsFull && !$friLastSlotFull)
+
+                                                                    <option disabled>
+                                                                        {{ $availableSlotsForFri[6]->slot_time }}
+                                                                    </option>
+                                                                    <option disabled>
+                                                                        {{ $availableSlotsForFri[7]->slot_time }}
+                                                                    </option>
+
+
+                                                                    @for ($i = 2; $i < $availableSlotsForFri->count(); $i++)
+                                                                        {
+
+                                                                        @if ($availableSlotsForFri[$i + 6]->order_quantity == 20)
+
+                                                                            <option disabled>
+                                                                                {{ $availableSlotsForFri[$i + 6]->slot_time }}
+                                                                                (Slot full)</option>
+
+                                                                        @else
+
+                                                                            <option>
+                                                                                {{ $availableSlotsForFri[$i + 6]->slot_time }}
+                                                                            </option>
+
+                                                                        @endif
+
+                                                                    @endfor
+
+                                                                @endif
+
+                                                            @elseif(((strtotime($firstTimeSlot) / 3600) -
+                                                                (strtotime($currentDateTime) / 3600)) < 24) <!-- Display
+                                                                    every time slot if day has been changed from wednesday:
+                                                                    -->
+
+                                                                    <script>
+                                                                        function setCollectionDay() {
+
+                                                                            // Change order summary's collection day:
+                                                                            var selectColelctionDay = document.getElementById('select-collection-day');
+                                                                            var selectedValue = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
+                                                                            const collectionDay = document.querySelector('.collection-day');
+                                                                            collectionDay.innerHTML = selectedValue;
+
+                                                                        }
+                                                                    </script>
+
+                                                                    @if ($availableSlotsForFri->count() && !$friSlotsFull && !$friLast2SlotsFull)
+
+                                                                        <option disabled>
+                                                                            {{ $availableSlotsForFri[6]->slot_time }}
+                                                                        </option>
+
+
+                                                                        @for ($i = 1; $i < $availableSlotsForFri->count(); $i++)
+                                                                            {
+
+                                                                            @if ($availableSlotsForFri[$i + 6]->order_quantity == 20)
+
+                                                                                <option disabled>
+                                                                                    {{ $availableSlotsForFri[$i + 6]->slot_time }}
+                                                                                    (Slot full)</option>
+
+                                                                            @else
+
+                                                                                <option>
+                                                                                    {{ $availableSlotsForFri[$i + 6]->slot_time }}
+                                                                                </option>
+
+                                                                            @endif
+
+                                                                        @endfor
+
+                                                                    @endif
+
+                                                                @else
+
+                                                                    <script>
+                                                                        // Change order summary's collection day:
+                                                                        function setCollectionDay() {
+
+                                                                            var selectColelctionDay = document.getElementById('select-collection-day');
+                                                                            var selectedValue = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
+                                                                            const collectionDay = document.querySelector('.collection-day');
+                                                                            collectionDay.innerHTML = selectedValue;
+
+                                                                        }
+                                                                    </script>
+
+                                                                    @if ($availableSlotsForFri->count() && !$friSlotsFull)
+
+                                                                        @foreach ($availableSlotsForFri as $slot)
+
+                                                                            @if ($slot->order_quantity == 20)
+
+                                                                                <option disabled>{{ $slot->slot_time }}
+                                                                                    (Slot full)</option>
+
+                                                                            @else
+
+                                                                                <option>{{ $slot->slot_time }}</option>
+
+                                                                            @endif
+
+                                                                        @endforeach
+
+
+                                                                    @else
+
+                                                                        <option>10-13</option>
+                                                                        <option>13-16</option>
+                                                                        <option>16-19</option>
+
+                                                                    @endif
+
+                                                                    @endif
+
+                                                                @else
+
+                                                                    <script>
+                                                                        // Change order summary's collection day:
+                                                                        function setCollectionDay() {
+
+                                                                            var selectColelctionDay = document.getElementById('select-collection-day');
+                                                                            var selectedValue = selectColelctionDay.options[selectColelctionDay.selectedIndex].value;
+                                                                            const collectionDay = document.querySelector('.collection-day');
+                                                                            collectionDay.innerHTML = selectedValue;
+
+                                                                            // If customer changes the day from wednesday to any other days:
+                                                                            var selectCollectionTime = document.getElementById('select-collection-time');
+
+                                                                            var wedCollectionDays = {!! json_encode($availableSlotsForWed) !!};
+                                                                            var thuCollectionDays = {!! json_encode($availableSlotsForThu) !!};
+                                                                            var friCollectionDays = {!! json_encode($availableSlotsForFri) !!};
+
+                                                                            function updateCollectionTime(dayCollectionTimes, index) {
+
+                                                                                const emptySlots = [];
+
+                                                                                for (let i = 0; i < 3; i++) {
+
+                                                                                    selectCollectionTime.options[i].disabled = false;
+                                                                                    selectCollectionTime.options[i].selected = false;
+                                                                                    selectCollectionTime.options[i].innerHTML = "";
+
+                                                                                }
+
+                                                                                for (let i = 0; i < 3; i++) {
+
+                                                                                    if (dayCollectionTimes[i + index]['order_quantity'] == 20) {
+
+                                                                                        selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'].concat(
+                                                                                            ' (Slot full)');
+                                                                                        selectCollectionTime.options[i].disabled = true;
+
+                                                                                    } else {
+
+                                                                                        selectCollectionTime.options[i].innerHTML = dayCollectionTimes[i + index]['slot_time'];
+
+                                                                                    }
+
+                                                                                }
+
+                                                                                for (let i = 0; i < 3; i++) {
+
+                                                                                    if (dayCollectionTimes[i + index]['order_quantity'] != 20) {
+
+                                                                                        emptySlots.push(i + index);
+
+                                                                                    }
+
+                                                                                }
+
+                                                                                if (emptySlots.length) {
+
+                                                                                    selectCollectionTime.options[emptySlots[0] - index].selected = true;
+
+                                                                                }
+
+                                                                            }
+
+                                                                            if (selectColelctionDay.options[selectColelctionDay.selectedIndex].value == "Thursday") {
+
+                                                                                updateCollectionTime(thuCollectionDays, 3);
+
+                                                                            } else if (selectColelctionDay.options[selectColelctionDay.selectedIndex].value == "Friday") {
+
+                                                                                updateCollectionTime(friCollectionDays, 6);
+
+                                                                            } else {
+
+                                                                                // User changes it back to wednesday:
+                                                                                updateCollectionTime(wedCollectionDays, 0);
+
+                                                                            }
+
+                                                                            setCollectionTime();
+
+                                                                        }
+                                                                    </script>
+
+                                                                    @if ($availableSlotsForWed->count() && !$wedSlotsFull)
+
+                                                                        @foreach ($availableSlotsForWed as $slot)
+
+                                                                            @if ($slot->order_quantity == 20)
+
+                                                                                <option disabled>{{ $slot->slot_time }}
+                                                                                    (Slot full)</option>
+
+                                                                            @else
+
+                                                                                <option>{{ $slot->slot_time }}</option>
+
+                                                                            @endif
+
+                                                                        @endforeach
+
+                                                                    @elseif($availableSlotsForThu->count() &&
+                                                                        !$thurSlotsFull)
+
+                                                                        @foreach ($availableSlotsForThu as $slot)
+
+                                                                            @if ($slot->order_quantity == 20)
+
+                                                                                <option disabled>{{ $slot->slot_time }}
+                                                                                    (Slot full)</option>
+
+                                                                            @else
+
+                                                                                <option>{{ $slot->slot_time }}</option>
+
+                                                                            @endif
+
+                                                                        @endforeach
+
+                                                                    @elseif($availableSlotsForFri->count() &&
+                                                                        !$friSlotsFull)
+
+                                                                        @foreach ($availableSlotsForFri as $slot)
+
+                                                                            @if ($slot->order_quantity == 20)
+
+                                                                                <option disabled>{{ $slot->slot_time }}
+                                                                                    (Slot full)</option>
+
+                                                                            @else
+
+                                                                                <option>{{ $slot->slot_time }}</option>
+
+                                                                            @endif
+
+                                                                        @endforeach
+
+
+                                                                    @else
+
+                                                                        <option>10-13</option>
+                                                                        <option>13-16</option>
+                                                                        <option>16-19</option>
+
+                                                                    @endif
+
+                                                                    @endif
+
                                             </select>
-        
+
                                         </div>
 
                                     </div>
@@ -1641,11 +1702,11 @@
 
                                         <div class="sm:flex">
 
-                                            <label class="mr-2 text-sm w-4/12 font-bold text-gray-700">Payment Method:</label>
+                                            <label class="mr-2 text-sm w-4/12 font-bold text-gray-700">Payment
+                                                Method:</label>
 
-                                            <select name="payment" 
-                                            id="select-payment-method" 
-                                            class="w-full h-10 sm:w-8/12 px-2 py-1 text-gray-700 bg-gray-200 rounded">
+                                            <select name="payment" id="select-payment-method"
+                                                class="w-full h-10 sm:w-8/12 px-2 py-1 text-gray-700 bg-gray-200 rounded">
 
                                                 <option>PayPal</option>
 
@@ -1654,89 +1715,54 @@
                                         </div>
                                     </div>
                                     
-                                    <!-- Discount code -->
-                                    <div class="mb-8">
-                                        <div class="p-4 bg-gray-100 rounded-full">
-                                            <h1 class="ml-2 font-bold uppercase">Discount Coupon Code</h1>
-                                        </div>
-                                        <div class="p-4">
-                                            <p class="mb-4 italic">If you have a Discount coupon code, please enter it in the box below</p>
-                                            <div class="justify-center md:flex">
-                                                <form action="" method="POST">
-                                                    <div
-                                                        class="flex items-center w-full h-13 pl-3 bg-white bg-gray-100 border rounded-full">
-                                                        <input type="coupon" name="code" id="coupon" placeholder="Apply coupon"
-                                                            value=""
-                                                            class="w-full bg-gray-100 outline-none appearance-none focus:outline-none active:outline-none" />
-                                                        <button type="submit"
-                                                            class="text-sm flex items-center px-3 py-1 text-white bg-gray-800 rounded-full outline-none md:px-4 hover:bg-gray-700 focus:outline-none active:outline-none">
-                                                            <svg aria-hidden="true" data-prefix="fas" data-icon="gift" class="w-8"
-                                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                                                <path fill="currentColor"
-                                                                    d="M32 448c0 17.7 14.3 32 32 32h160V320H32v128zm256 32h160c17.7 0 32-14.3 32-32V320H288v160zm192-320h-42.1c6.2-12.1 10.1-25.5 10.1-40 0-48.5-39.5-88-88-88-41.6 0-68.5 21.3-103 68.3-34.5-47-61.4-68.3-103-68.3-48.5 0-88 39.5-88 88 0 14.5 3.8 27.9 10.1 40H32c-17.7 0-32 14.3-32 32v80c0 8.8 7.2 16 16 16h480c8.8 0 16-7.2 16-16v-80c0-17.7-14.3-32-32-32zm-326.1 0c-22.1 0-40-17.9-40-40s17.9-40 40-40c19.9 0 34.6 3.3 86.1 80h-86.1zm206.1 0h-86.1c51.4-76.5 65.7-80 86.1-80 22.1 0 40 17.9 40 40s-17.9 40-40 40z" />
-                                                            </svg>
-                                                            <span class="font-medium">Apply discount coupon</span>
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                        <div class="p-4 mt-6 bg-gray-100 rounded-full">
-                                            <h1 class="ml-2 font-bold">Instruction for seller</h1>
-                                        </div>
-                                        <div class="p-4">
-                                            <p class="mb-4 italic">If you have some information for the seller you can leave them in the box
-                                                below</p>
-                                            <textarea class="w-full h-24 p-2 bg-gray-100 rounded"></textarea>
-                                        </div>
-                                    </div>
+
 
                                 </div>
 
                                 <!-- Order Summary. -->
-                                
+
                                 <div class="border rounded-md p-4">
 
                                     <h1 class="text-center font-bold text-xl mb-2 uppercase">Order Summary</h1>
-        
+
                                     <div class="p-4">
-    
+
                                         <div class="flex justify-between border-b">
-                                            <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
+                                            <div class="text-sm lg:px-4 lg:py-2 m-2 md:text-lg font-bold text-gray-800">
                                                 <p>Items:</p>
                                             </div>
-                                            <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
+                                            <div class="text-sm lg:px-4 lg:py-2 m-2 md:lg:text-lg font-bold text-gray-900">
                                                 <p>{{ $cartAndProductRecords->count() }}</p>
                                             </div>
                                         </div>
-    
+
                                         <div class="flex justify-between border-b">
-                                            <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
+                                            <div class="text-sm lg:px-4 lg:py-2 m-2 md:text-lg font-bold text-gray-800">
                                                 <p>Items Quantity:</p>
                                             </div>
                                             <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
                                                 <p>{{ $total_items_quantity }}</p>
                                             </div>
                                         </div>
-    
+
                                         <div class="flex justify-between border-b">
-                                            <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
+                                            <div class="text-sm lg:px-4 lg:py-2 m-2 md:text-lg font-bold text-gray-800">
                                                 <p>Payment Method:</p>
                                             </div>
-                                            <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
+                                            <div class="text-sm lg:px-4 lg:py-2 m-2 md:lg:text-lg font-bold text-gray-900">
                                                 <p class="payment-method">PayPal</p>
                                             </div>
                                         </div>
 
                                         <div class="flex justify-between pt-4 border-b">
-                                            <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
+                                            <div class="text-sm lg:px-4 lg:py-2 m-2 md:text-lg font-bold text-gray-800">
                                                 <p>Collection Day:</p>
                                             </div>
-                                            <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
+                                            <div class="text-sm lg:px-4 lg:py-2 m-2 md:lg:text-lg font-bold text-gray-900">
 
-                                                @if($currentDateTime->format('l') === 'Wednesday')
+                                                @if ($currentDateTime->format('l') == 'Wednesday')
                                                     <p class="collection-day">Thursday</p>
-                                                @elseif($currentDateTime->format('l') === 'Thursday')
+                                                @elseif($currentDateTime->format('l') == 'Thursday')
                                                     <p class="collection-day">Friday</p>
                                                 @else
                                                     <p class="collection-day">Wednesday</p>
@@ -1744,48 +1770,32 @@
 
                                             </div>
                                         </div>
-    
+
                                         <div class="flex justify-between pt-4 border-b">
-                                            <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
+                                            <div class="text-sm lg:px-4 lg:py-2 m-2 md:text-lg font-bold text-gray-800">
                                                 <p>Collection Time:</p>
                                             </div>
-                                            <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
+                                            <div class="text-sm lg:px-4 lg:py-2 m-2 md:lg:text-lg font-bold text-gray-900">
                                                 <p class="collection-time">10-13</p>
                                             </div>
                                         </div>
-    
+
                                         <div class="flex justify-between border-b">
-                                            <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
-                                                <p>Subtotal</p>
+                                            <div class="text-sm lg:px-4 lg:py-2 m-2 md:text-lg font-bold text-gray-800">
+                                                <p>Order Total</p>
                                             </div>
-                                            <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
+                                            <div class="text-sm lg:px-4 lg:py-2 m-2 md:lg:text-lg font-bold text-gray-900">
                                                 <p>£{{ $total_price }}</p>
                                             </div>
                                         </div>
-    
-                                        <div class="flex justify-between pt-4 border-b">
-                                            <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
-                                                <p>Discount</p>
-                                            </div>
-                                            <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
-                                                <p>£3,000 (10%)</p>
-                                            </div>
-                                        </div>
-    
-                                        <div class="flex justify-between pt-4 border-b">
-                                            <div class="lg:px-4 lg:py-2 m-2 text-lg font-bold text-gray-800">
-                                                <p>Order Total:</p>
-                                            </div>
-                                            <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
-                                                <p>£27,000</p>
-                                            </div>
-                                        </div>
-    
-                                        <p class="text-center my-6 italic">By placing an order, you agree to Sthaniya Basket's
+
+
+                                        <p class="text-center my-6 italic">By placing an order, you agree to Sthaniya
+                                            Basket's
                                             <span class="underline font-bold">Privacy Policy</span> and
                                             <span class="underline font-bold">Terms of Use.</span>
                                         </p>
-    
+
                                         <button
                                             class="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
                                             <svg aria-hidden="true" data-prefix="far" data-icon="credit-card" class="w-8"
@@ -1793,10 +1803,10 @@
                                                 <path fill="currentColor"
                                                     d="M527.9 32H48.1C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48.1 48h479.8c26.6 0 48.1-21.5 48.1-48V80c0-26.5-21.5-48-48.1-48zM54.1 80h467.8c3.3 0 6 2.7 6 6v42H48.1V86c0-3.3 2.7-6 6-6zm467.8 352H54.1c-3.3 0-6-2.7-6-6V256h479.8v170c0 3.3-2.7 6-6 6zM192 332v40c0 6.6-5.4 12-12 12h-72c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h72c6.6 0 12 5.4 12 12zm192 0v40c0 6.6-5.4 12-12 12H236c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h136c6.6 0 12 5.4 12 12z" />
                                             </svg>
-                                            <span class="ml-2 mt-5px">Place your order</span>
+                                            <span class="text-sm md:text-lg ml-2 mt-5px">Place your order</span>
                                         </button>
                                     </div>
-    
+
                                 </div>
 
                             </div>
@@ -1813,7 +1823,6 @@
     </div>
 
     <script>
-
         // Setting the order summary's value for collection time and collection when page loads.
 
         var selectCollectionTime = document.getElementById('select-collection-time');
@@ -1828,14 +1837,13 @@
 
         // Change collection time by the drop down select list:
         function setCollectionTime() {
-            
+
             var selectCollectionTime = document.getElementById('select-collection-time');
             var selectedValue = selectCollectionTime.options[selectCollectionTime.selectedIndex].value;
             const collectionTime = document.querySelector('.collection-time');
             collectionTime.innerHTML = selectedValue;
-            
-        }
 
+        }
     </script>
 
 @endsection
