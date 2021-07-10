@@ -387,7 +387,7 @@
 
                 <div class="mt-3 item-center space-y-2">
 
-                    <h1 class="text-lg font-bold text-gray-700 dark:text-gray-200 md:text-xl">£{{ $product->price }}</h1>
+                    <h1 class="text-lg font-bold text-gray-700 dark:text-gray-200 md:text-xl">£{{ number_format((float) $product->price, 2, '.', '') }}</h1>
 
                     <h1 class="text-sm font-medium text-gray-700 dark:text-gray-200 md:text-lg">
 
