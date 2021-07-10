@@ -1735,7 +1735,7 @@
                                             <div class="text-sm lg:px-4 lg:py-2 m-2 md:text-lg font-bold text-gray-800">
                                                 <p>Items:</p>
                                             </div>
-                                            <div class="text-sm lg:px-4 lg:py-2 m-2 md:lg:text-lg font-bold text-gray-900">
+                                            <div class="text-sm lg:px-4 lg:py-2 m-2 md:text-lg font-bold text-gray-900">
                                                 <p>{{ $cartAndProductRecords->count() }}</p>
                                             </div>
                                         </div>
@@ -1744,7 +1744,7 @@
                                             <div class="text-sm lg:px-4 lg:py-2 m-2 md:text-lg font-bold text-gray-800">
                                                 <p>Items Quantity:</p>
                                             </div>
-                                            <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-gray-900">
+                                            <div class="lg:px-4 lg:py-2 m-2 md:text-lg font-bold text-gray-900">
                                                 <p>{{ $total_items_quantity }}</p>
                                             </div>
                                         </div>
@@ -1753,7 +1753,7 @@
                                             <div class="text-sm lg:px-4 lg:py-2 m-2 md:text-lg font-bold text-gray-800">
                                                 <p>Payment Method:</p>
                                             </div>
-                                            <div class="text-sm lg:px-4 lg:py-2 m-2 md:lg:text-lg font-bold text-gray-900">
+                                            <div class="text-sm lg:px-4 lg:py-2 m-2 md:text-lg font-bold text-gray-900">
                                                 <p class="payment-method">PayPal</p>
                                             </div>
                                         </div>
@@ -1762,7 +1762,7 @@
                                             <div class="text-sm lg:px-4 lg:py-2 m-2 md:text-lg font-bold text-gray-800">
                                                 <p>Collection Day:</p>
                                             </div>
-                                            <div class="text-sm lg:px-4 lg:py-2 m-2 md:lg:text-lg font-bold text-gray-900">
+                                            <div class="text-sm lg:px-4 lg:py-2 m-2 md:text-lg font-bold text-gray-900">
 
                                                 @if ($currentDateTime->format('l') == 'Wednesday')
                                                     <p class="collection-day">Thursday</p>
@@ -1779,7 +1779,7 @@
                                             <div class="text-sm lg:px-4 lg:py-2 m-2 md:text-lg font-bold text-gray-800">
                                                 <p>Collection Time:</p>
                                             </div>
-                                            <div class="text-sm lg:px-4 lg:py-2 m-2 md:lg:text-lg font-bold text-gray-900">
+                                            <div class="text-sm lg:px-4 lg:py-2 m-2 md:text-lg font-bold text-gray-900">
                                                 <p class="collection-time">10-13</p>
                                             </div>
                                         </div>
@@ -1788,7 +1788,7 @@
                                             <div class="text-sm lg:px-4 lg:py-2 m-2 md:text-lg font-bold text-gray-800">
                                                 <p>Order Total</p>
                                             </div>
-                                            <div class="text-sm lg:px-4 lg:py-2 m-2 md:lg:text-lg font-bold text-gray-900">
+                                            <div class="text-sm lg:px-4 lg:py-2 m-2 md:text-lg font-bold text-gray-900">
                                                 <p>£{{ $total_price }}</p>
                                             </div>
                                         </div>
