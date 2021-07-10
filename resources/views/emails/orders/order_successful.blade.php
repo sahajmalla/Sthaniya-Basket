@@ -21,8 +21,8 @@
         @foreach($order->productPurchaseds as $item)
             <tr>
                 <td scope="row">{{ $item->product->prod_name }}</td>
-                <td>{{ $item->prod_quantity}}</td>
-                <td>{{ $item->product->price }}</td>
+                <td>{{ $item->prod_quantity }}</td>
+                <td>£{{ number_format((float) $item->product->price, 2, '.', '') }}</td>
             </tr>
         @endforeach
     </tbody>
