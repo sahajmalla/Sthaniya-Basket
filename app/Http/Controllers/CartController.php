@@ -180,7 +180,7 @@ class CartController extends Controller
 
         }
         
-        return back()->with('status', 'Successfully deleted product.');
+        return back();
 
     }
 
@@ -229,7 +229,7 @@ class CartController extends Controller
 
         }
 
-        return back()->with('status', 'Successfully deleted product from your cart.');
+        return back();
 
     }
 
@@ -272,7 +272,7 @@ class CartController extends Controller
 
         }
 
-        return back()->with('status', 'Successfully deleted product from your cart.');
+        return back();
 
     }
 

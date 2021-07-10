@@ -22,7 +22,9 @@ class ReportFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'report_type' =>'daily',
+            'report_sales_quantity'=>5,
+            'report_earnings'=>100,
         ];
     }
 }

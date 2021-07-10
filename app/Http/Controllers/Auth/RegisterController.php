@@ -26,110 +26,130 @@ class RegisterController extends Controller
 
     public function store(Request $request){
 
-        // For traders
-        if((isset($request['userType'])) && $request['userType'] === 'trader'){
+        //if exists
+        $userEmailExists = User::where('email',$request->email)->count();
+        
+        if($userEmailExists){
             
-            $this->validate($request, [   
-                'email' => 'required|email|max:255|unique:users',
-                'username' => 'required|max:255',
-                'password' => 'required|confirmed',
-                'firstname' => 'required|max:255',
-                'lastname' => 'required|max:255',
-                'address' => 'required|max:255',
-                'dob' => 'required',
-                'gender' => 'required',
-                'business' => 'required',
-                'userType' => 'required',
-            ]);
+            $request->session()->flash('UserExists', 'User already exists of your Email.');
             
-        }else {
+            return back();
+        }else{
+            if((isset($request['userType'])) && $request['userType'] === 'trader'){
+            
+                $this->validate($request, [   
+                    'email' => 'required|email|max:255|unique:users',
+                    'username' => 'required|max:255',
+                    'password' => 'required|confirmed',
+                    'firstname' => 'required|max:255',
+                    'lastname' => 'required|max:255',
+                    'address' => 'required|max:255',
+                    'dob' => 'required',
+                    'gender' => 'required',
+                    'business' => 'required',
+                    'userType' => 'required',
+                ]);
+                
+            }else {
+    
+                // For customers
+                $this->validate($request, [   
+                    'email' => 'required|email|max:255|unique:users',
+                    'username' => 'required|max:255',
+                    'password' => 'required|confirmed',
+                    'firstname' => 'required|max:255',
+                    'lastname' => 'required|max:255',
+                    'address' => 'required|max:255',
+                    'dob' => 'required',
+                    'gender' => 'required',
+                    'userType' => 'required',
+                ]);
+            }
+             // For traders
+       
 
-            // For customers
-            $this->validate($request, [   
-                'email' => 'required|email|max:255|unique:users',
-                'username' => 'required|max:255',
-                'password' => 'required|confirmed',
-                'firstname' => 'required|max:255',
-                'lastname' => 'required|max:255',
-                'address' => 'required|max:255',
-                'dob' => 'required',
-                'gender' => 'required',
-                'userType' => 'required',
+            User::create([
+                'username' => $request->username,
+                'firstname' => $request->firstname,
+                'lastname' => $request->lastname,
+                'dob' => $request->dob,
+                'email' => $request->email,
+                // 'password' => Hash::make($request->password), // Hash facade.
+                'password' => md5($request->password),
+                'address' => $request->address,
+                'user_type'=>$request->userType,
+                'gender' => $request->gender,
+                'user_image' => 'userpp.png',
             ]);
-        }
-
-        User::create([
-            'username' => $request->username,
-            'firstname' => $request->firstname,
-            'lastname' => $request->lastname,
-            'dob' => $request->dob,
-            'email' => $request->email,
-            'password' => Hash::make($request->password), // Hash facade.
-            'address' => $request->address,
-            'user_type'=>$request->userType,
-            'gender' => $request->gender,
-            'user_image' => 'userpp.png',
-        ]);
         
         //logged in
-        auth()->attempt($request->only('email', 'password'));
+            // auth()->attempt($request->only('email', 'password'));
+            $user = User::where('email', $request->email)
+            ->where('password',md5($request->password))
+            ->first();
 
-        if($request->userType === 'customer'){
+            Auth::login($user);
 
-            // Subscription will be 'on' if set but nothing not even 'off' or 'null' if not set:
-            if(!(isset($request['subscription']))){
-                $request['subscription']='off';
-            } 
+            if($request->userType === 'customer'){
 
-            $request->user()->customers()->create([
-                'subscription'=>$request->subscription,
-            ]);
-        }
+                // Subscription will be 'on' if set but nothing not even 'off' or 'null' if not set:
+                if(!(isset($request['subscription']))){
+                    $request['subscription']='off';
+                }
+                $request->user()->customers()->create([
+                    'subscription'=>$request->subscription,
+                ]);
+                        
+            }
 
-        if($request->userType==='trader'){
-            $request->user()->traders()->create([
-                'business' => $request->business,
-                'verified_trader' => 'no',
-            ]);
-        }
-        // When user registers, if they have items in the cart, add items to the
-        // registered user's record in the cart table.
+            if($request->userType==='trader'){
+                $request->user()->traders()->create([
+                    'business' => $request->business,
+                    'verified_trader' => 'no',
+                ]);
+            }
+            // When user registers, if they have items in the cart, add items to the
+            // registered user's record in the cart table.
 
-        if (session('products') && auth()->user()->user_type=='customer') {
+            if (session('products') && auth()->user()->user_type=='customer') {
 
-            foreach (session('products') as $product) {
+                foreach (session('products') as $product) {
                 
-                // Check if product already exists in user's cart of products before adding:
-                $productCollection = Cart::get()->where('product_id', $product->id)
-                ->where('customer_id', auth()->user()->customers->first()->id);
+                    // Check if product already exists in user's cart of products before adding:
+                    $productCollection = Cart::get()->where('product_id', $product->id)
+                    ->where('customer_id', auth()->user()->customers->first()->id);
             
-                if (!$productCollection->count()) {
+                    if (!$productCollection->count()) {
 
-                    $product->carts()->create([
-                        'customer_id' => $request->user()->customers->first()->id,
-                        'total_price' => $product->price,
-                        'product_quantity' => session($product->prod_name),
-                    ]); 
+                        $product->carts()->create([
+                            'customer_id' => $request->user()->customers->first()->id,
+                            'total_price' => $product->price,
+                            'product_quantity' => session($product->prod_name),
+                        ]); 
 
                     //TODO: Add success message
 
-                }else {
+                    }else {
                 
                     //TODO: Add error message(item is already in cart)
     
+                    }
+
                 }
-
-            }
             
-        }
+            }
 
-        Event::dispatch(new Registered(auth()->user())); // Dispatching email verification event.
+            Event::dispatch(new Registered(auth()->user())); // Dispatching email verification event.
 
-        if($request->userType==='trader'){
-            return redirect()->route('registerShop');
-        }else{
-            return redirect()->route('home');
+           
+
+            if($request->userType==='trader'){
+                return redirect()->route('registerShop');
+            }else{
+                return redirect()->route('home');
+            }
         }
+       
         
     }
 }

@@ -45,7 +45,7 @@ class RegisterAdminController extends Controller
         
         //logged in
         auth()->attempt($request->only('email', 'password')); 
-         
+        $request->session()->flash('registered', 'Successfully logged in. Check your email for verification.');
         return redirect()->route('home');
         
         

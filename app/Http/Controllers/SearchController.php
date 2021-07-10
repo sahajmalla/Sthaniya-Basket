@@ -11,9 +11,10 @@ class SearchController extends Controller
    public function search(Request $request){
     
     $query =$request->input('query');
-    $products = DB::table('products')   
-                ->whereRaw(DB::raw("lower(prod_name) like '%{$query}%'"))
-                ->get();
+    $query = strtolower($query);
+    $products = Product:: 
+                whereRaw(Product::raw("lower(prod_name) like '%{$query}%'"))
+                ->latest()->paginate(20);
 // dd($products); 
     return view('search-results',[
         'products' => $products,

@@ -11,11 +11,13 @@
 
                 <a class="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl "
                     href="#">
-                    Store
+                    Search Results
                 </a>
 
                 <div class="flex items-center" id="store-nav-content">
-
+                    
+                    <p>{{ $products->total() }} Results found</p>
+                    
                     {{-- <div>
                         <form action="{{ route('home.sort') }}" method="POST">
                             @csrf
@@ -35,41 +37,6 @@
                             </select>
                         </form>
                     </div> --}}
-                    <div class="relative">
-                        <!-- Dropdown toggle button -->
-                        <button
-                            class="filter-btn relative z-10 block p-2 bg-white rounded-md dark:bg-gray-800 focus:outline-none">
-                            <svg class="fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg" width="24"
-                                height="24" viewBox="0 0 24 24">
-                                <path d="M7 11H17V13H7zM4 7H20V9H4zM10 15H14V17H10z" />
-                            </svg>
-                        </button>
-
-                        <!-- Dropdown menu -->
-                        <div
-                            class="show-filter absolute right-0 z-20 w-48 py-2 mt-2 bg-white rounded-md shadow-xl dark:bg-gray-800 hidden">
-                            <a href="{{ URL::current() }}"
-                                class="block px-4 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-blue-500 hover:text-white dark:hover:text-white">
-                                Default
-                            </a>
-                            <a href="{{ URL::current() . '?sort=popularity' }}"
-                                class="block px-4 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-blue-500 hover:text-white dark:hover:text-white">
-                                Popularity
-                            </a>
-                            <a href="{{ URL::current() . '?sort=high-price' }}"
-                                class="block px-4 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-blue-500 hover:text-white dark:hover:text-white">
-                                High to Low price
-                            </a>
-                            <a href="{{ URL::current() . '?sort=low-price' }}"
-                                class="block px-4 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-blue-500 hover:text-white dark:hover:text-white">
-                                Low to High Price
-                            </a>
-                            <a href="{{ URL::current() . '?sort=latest' }}"
-                                class="block px-4 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-blue-500 hover:text-white dark:hover:text-white">
-                                Latest
-                            </a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -79,7 +46,7 @@
 
 
             @foreach ($products as $product)
-
+                
                 <div class="mb-4 lg:flex overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
 
                     <!-- Product Image -->

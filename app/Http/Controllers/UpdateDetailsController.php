@@ -18,6 +18,6 @@ class UpdateDetailsController extends Controller
             
         }
         // dd($shops);
-        return view('updateDetails',['shop'=>$shops]);
+        return view('updateDetails',['shops'=>$shops]);
     }
 }
