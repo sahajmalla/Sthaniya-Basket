@@ -12,13 +12,17 @@
             <h1 class="text-2xl text-center font-bold mb-8">Reset Password</h1>
 
             <!-- Success message -->
-            @if (session('status')) 
+            <div id="messages" class="mb-4">
+
+                @if (session('status')) 
             
                 <div class="bg-green-500 p-4 rounded-lg mb-6 text-white text-center">
                     <h2 class="text-center font-medium text-md">{{ session('status') }}</h2>
                 </div>
 
-            @endif
+                @endif
+
+            </div>
 
             <!-- Reset Password form -->
             <form action="{{ route('password.request') }}" method="POST">
@@ -66,5 +70,14 @@
             </form>
         </div>
     </div>
+
+    <script>
+
+        //message time-out
+        setTimeout(function() {
+            document.getElementById('messages').remove();
+        }, 3000)
+
+    </script>
 
 @endsection

@@ -11,15 +11,20 @@
             
             <!-- If the key status is set in the session's array, then display the invalid credentials
                 error.-->
-            @if(session('status') == "Invalid login details.")
+
+            <div id="messages">
+
+                @if(session('status') == "Invalid login details.")
                 <div class="bg-red-500 p-4 rounded-lg mb-6 text-white text-center">
                     {{session('status')}}
                 </div>
-            @elseif(session('status') == "Your password has been reset!")
-                <div class="bg-green-500 p-4 rounded-lg mb-6 text-white text-center">
-                    {{session('status')}}
-                </div>
-            @endif
+                @elseif(session('status') == "Your password has been reset!")
+                    <div class="bg-green-500 p-4 rounded-lg mb-6 text-white text-center">
+                        {{session('status')}}
+                    </div>
+                @endif
+
+            </div>
 
             <form action="{{ route('login') }}" method="POST">
                 <h1 class="text-2xl text-center font-bold mb-8">Sign In</h1>
@@ -99,5 +104,14 @@
             </form>
         </div>
     </div>
+
+    <script>
+
+        //message time-out
+        setTimeout(function() {
+            document.getElementById('messages').remove();
+        }, 3000)
+
+    </script>
 
 @endsection
