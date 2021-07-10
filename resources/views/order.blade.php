@@ -41,10 +41,6 @@
                                             class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
                                             Total Quantity
                                         </th>
-                                        <th scope="col"
-                                            class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
-                                            Discount
-                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -80,11 +76,6 @@
                                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                                 <p class="text-gray-900 whitespace-no-wrap">
                                                     {{ $order->order_quantity }}
-                                                </p>
-                                            </td>
-                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                <p class="text-gray-900 whitespace-no-wrap">
-                                                    0.0%
                                                 </p>
                                             </td>
                                         </tr>
