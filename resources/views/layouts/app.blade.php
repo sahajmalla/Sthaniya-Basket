@@ -314,9 +314,11 @@
         const userIconbtn2 = document.querySelector('.user-icon2');
         const showIconDetails2 = document.querySelector('.show-icon-details2');
 
-        userIconbtn2.addEventListener('click', () => {
-            showIconDetails2.classList.toggle('hidden');
-        });
+        if (userIconbtn2) {
+            userIconbtn2.addEventListener('click', () => {
+                showIconDetails2.classList.toggle('hidden');
+            });
+        }
     </script>
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
