@@ -3,7 +3,8 @@
 
     <section class="w-10/12 space-y-10 shadow-lg rounded-lg p-8 text-gray-600 body-font overflow-hidden">
 
-        <div class="flex w-12/12 justify-center">
+        <div class="flex w-12/12 justify-center" id="messages">
+
             @if (session('addedToWishlist'))
                 <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
                     {{ session('addedToWishlist') }}</p>
@@ -16,7 +17,12 @@
             @elseif(session('failedToAddToCart'))
                 <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
                     {{ session('failedToAddToCart') }}</p>
+            @elseif(session('status'))
+                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                    {{ session('status') }}
+                </p>
             @endif
+
         </div>
 
         <div class="mb-8">
@@ -175,14 +181,6 @@
             <div class="shadow-lg rounded-lg p-4">
 
                 <h1 class="text-gray-600 text-2xl font-bold mb-8 mt-4">Top reviews</h1>
-
-                @if (session('status'))
-                    <div class="flex justify-center">
-                        <div class="bg-red-500 p-4 w-5/12 rounded-lg mb-6 text-white text-center">
-                            {{ session('status') }}
-                        </div>
-                    </div>
-                @endif
 
                 <div class="grid grid-cols-2 gap-8 mb-8">
 
@@ -754,6 +752,7 @@
 
         <!-- Open and close review text area-->
         <script>
+
             //write comment open close
             const writeBtn = document.querySelector('.write-review');
             const writeCancel = document.querySelector('.write-cancel');
@@ -767,6 +766,12 @@
                     writeBtn.innerHTML = "Write a review";
                 }
             });
+            
+            //message time
+            setTimeout(function() {
+                document.getElementById('messages').remove();
+            }, 3000);
+
         </script>
 
     </section>
