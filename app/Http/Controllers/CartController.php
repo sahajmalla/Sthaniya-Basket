@@ -215,7 +215,7 @@ class CartController extends Controller
                 }else {
 
                     $request->session()->flash('cannotIncreaseQuantity', 
-                    'Unable to increase product\'s quantity as this is the final stock.');
+                    'Unable to increase product\'s quantity as there is no more stock.');
 
                 }
 
@@ -234,7 +234,7 @@ class CartController extends Controller
                 }else {
 
                     $request->session()->flash('cannotIncreaseQuantity', 
-                    'Unable to increase quantity as product does not have more quantity.');
+                    'Unable to increase product\'s quantity as there is no more stock.');
 
                 }
 
