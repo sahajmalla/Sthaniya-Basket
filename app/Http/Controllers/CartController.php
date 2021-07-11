@@ -212,11 +212,6 @@ class CartController extends Controller
                     ->where('product_id', $product_id)
                     ->update(['product_quantity' => $cartRecord->product_quantity + 1]);
 
-                }else {
-
-                    $request->session()->flash('cannotIncreaseQuantity', 
-                    'Unable to increase product\'s quantity as there is no more stock.');
-
                 }
 
             }
@@ -230,11 +225,6 @@ class CartController extends Controller
 
                     $oldQuantity = session($prod->prod_name);
                     $request->session()->put($prod->prod_name, ++$oldQuantity);
-
-                }else {
-
-                    $request->session()->flash('cannotIncreaseQuantity', 
-                    'Unable to increase product\'s quantity as there is no more stock.');
 
                 }
 
