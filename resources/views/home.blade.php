@@ -127,7 +127,7 @@
 
         </div>
         <div class="w-full h-40 mb-8 bg-center">
-            <img class="object-cover w-full h-40 " src="/images/banner/west-yorkshire.jpg" alt="west-yorkshire">
+            <img class="object-cover w-full h-40 object-center " src="/images/banner/cleck.jpeg" alt="Cleckhuddersfax West Yorkshire">
         </div>
         <div class="carousel relative container mx-auto" style="max-width:1600px;">
             <div class="carousel-inner relative overflow-hidden w-full">
