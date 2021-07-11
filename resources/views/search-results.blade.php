@@ -1,29 +1,28 @@
 @extends('layouts.app')
 @section('content')
-<section class="bg-white py-8">
-
-
+<section class="bg-white">
 
     <div class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
 
         <div id="store" class="w-full z-30 top-0 px-6 py-1">
-            <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-3">
+            <div class="w-full container mx-auto flex flex-wrap items-center mt-0 px-2 py-3 items-baseline">
 
-                <a class="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl "
+                <a class="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-2xl "
                     href="#">
                     Search Results
                 </a>
 
-                <div class="flex items-center" id="store-nav-content">
+                <div id="store-nav-content">
                     
-                    <p class="ml-4">{{ $products->total() }} Results found</p>
+                    <p class="ml-4">{{ $products->total() }} {{ Str::plural('Result', $products->total()) }} found</p>
                     
                 </div>
+                
             </div>
         </div>
 
 
-        <div class="md:grid grid-cols-2 lg:grid-cols-3 gap-10">
+        <div class="md:grid grid-cols-2 lg:grid-cols-3 gap-10 m-4 p-4">
 
 
             @foreach ($products as $product)
@@ -71,7 +70,7 @@
 
                             <!-- Add the remaining ratings without color. -->
                             @if(round(($product->reviews->sum('review_rating') / ($product->reviews->count() * 5)) *
-                            5) < 5) @for($i=0; $i <div (5 - round(($product->reviews->sum('review_rating') /
+                            5) < 5) @for($i=0; $i < (5 - round(($product->reviews->sum('review_rating') /
                                 ($product->reviews->count() * 5)) * 5)); $i++)
                                 <svg class="w-5 h-5 text-gray-300 fill-current" viewBox="0 0 24 24">
                                     <path
