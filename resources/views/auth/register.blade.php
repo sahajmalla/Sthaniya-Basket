@@ -273,7 +273,7 @@
                 subscription.classList.add('hidden');
                 traBus.classList.remove('hidden');
             }
-            if (selectedValue  "customer") {
+            if (selectedValue == "customer") {
                 subscription.classList.remove('hidden');
                 traBus.classList.add('hidden');
             }
