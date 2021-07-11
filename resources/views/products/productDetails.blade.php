@@ -93,8 +93,16 @@
                             </div>
 
                             <!---description-->
-                            <div>
+                            <div class="space-y-4">
+
                                 <p class="leading-relaxed border-b">{{ $product->prod_descrip }}</p>
+
+                                @if($product->allergy)
+
+                                    <p class="leading-relaxed border-b">Allergy information: {{ $product->allergy }}</p>
+
+                                @endif
+
                             </div>
                         </div>
 
