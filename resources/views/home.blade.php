@@ -61,66 +61,66 @@
 
     <div>
 
-        <div class="flex w-12/12 justify-center mb-10" id="messages">
+        <div class="flex w-12/12 justify-center mb-10">
 
             @if (session('order-success'))
-                <p class="message p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
+                <p id="messages" class="message mt-9 p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
                     {{ session('order-success') }}
                 </p>
             @elseif(session('addedToWishlist'))
-                <p class="message p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
+                <p id="messages" class="message mt-9 p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
                     {{ session('addedToWishlist') }}
                 </p>
             @elseif(session('failedToAddToWishlist'))
-                <p class="message p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                <p id="messages" class="message mt-9 p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
                     {{ session('failedToAddToWishlist') }}
                 </p>
             @elseif(session('addedToCart'))
-                <p class="message p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
+                <p id="messages" class="message mt-9 p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
                     {{ session('addedToCart') }}
                 </p>
             @elseif(session('failedToAddToCart'))
-                <p class="message p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                <p id="messages" class="message mt-9 p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
                     {{ session('failedToAddToCart') }}
                 </p>
             @elseif(session('productOutOfStock'))
-                <p class="message p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                <p id="messages" class="message mt-9 p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
                     {{ session('productOutOfStock') }}
                 </p>
             @elseif(session('notVerified'))
-                <p class="message p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                <p id="messages" class="message mt-9 p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
                     {{ session('notVerified') }}
                 </p>
             @elseif(session('updateShop'))
-                <p class="message p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
+                <p id="messages" class="message mt-9 p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
                     {{ session('updateShop') }}
                 @elseif(session('slotsFull'))
-                <p class="message p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                <p id="messages" class="message mt-9 p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
                     {{ session('slotsFull') }}
                 </p>
             @elseif(session('friday'))
-                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                <p id="messages" class="p-4 mt-9 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
                     {{ session('friday') }}
 
                 </p>
             @elseif(session('loggedIn'))
-                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
+                <p id="messages" class="p-4 mt-9 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
                     {{ session('loggedIn') }}
                 </p>
             @elseif(session('registered'))
-                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
+                <p id="messages" class="p-4 mt-9 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
                     {{ session('registered') }}
                 </p>
             @elseif(session('loggedOut'))
-                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
+                <p id="messages" class="p-4 mt-9 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
                     {{ session('loggedOut') }}
                 </p>
             @elseif(session('cartEmpty'))
-                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                <p id="messages" class="p-4 mt-9 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
                     {{ session('cartEmpty') }}
                 </p>
             @elseif(session('registeredAndLoggedIn'))
-                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
+                <p id="messages" class="p-4 mt-9 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
                     {{ session('registeredAndLoggedIn') }}
                 </p>
             @endif
@@ -497,8 +497,13 @@
         });
 
         //message time
+
+        const messages = document.getElementById('messages');
+
         setTimeout(function() {
-            document.getElementById('messages').remove();
-        }, 3000)
+            messages.remove();
+        }, 3000);
+
+
     </script>
 @endsection

@@ -3,22 +3,22 @@
 
     <section class="w-10/12 space-y-10 shadow-lg rounded-lg p-8 text-gray-600 body-font overflow-hidden">
 
-        <div class="flex w-12/12 justify-center" id="messages">
+        <div class="flex w-12/12 justify-center">
 
             @if (session('addedToWishlist'))
-                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
+                <p id="messages" class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
                     {{ session('addedToWishlist') }}</p>
             @elseif(session('failedToAddToWishlist'))
-                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                <p id="messages" class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
                     {{ session('failedToAddToWishlist') }}</p>
             @elseif(session('addedToCart'))
-                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
+                <p id="messages" class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
                     {{ session('addedToCart') }}</p>
             @elseif(session('failedToAddToCart'))
-                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                <p id="messages" class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
                     {{ session('failedToAddToCart') }}</p>
             @elseif(session('status'))
-                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                <p id="messages" class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
                     {{ session('status') }}
                 </p>
             @endif

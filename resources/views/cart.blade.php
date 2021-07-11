@@ -3,12 +3,12 @@
 
     <div class="flex w-full justify-center" >
 
-        <div class="flex flex-col p-8 text-gray-800 bg-white shadow-lg pin-r pin-y md:w-4/5 lg:w-9/12">
+        <div class="flex flex-col p-8 text-gray-800 bg-white shadow-lg pin-r pin-y md:w-4/5 lg:w-10/12">
 
-            <div class="flex w-12/12 justify-center mb-4" id="messages">
+            <div class="flex w-12/12 justify-center mb-4">
 
                 @if (session('deleteFromCart'))
-                    <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium mb-6">
+                    <p id="messages" class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium mb-6">
                         {{ session('deleteFromCart') }}</p>
                 @endif
 
@@ -17,7 +17,7 @@
             <div class="flex-1">
 
                 <div class="flex space-x-2 mb-4">
-                    <h1 class="text-3xl font-medium">My Cart</h1>
+                    <h1 class="text-3xl font-bold">My Cart</h1>
 
                     <!-- TODO: Add cart icon like wishlist's. -->
                 </div>

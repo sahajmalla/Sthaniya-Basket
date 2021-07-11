@@ -2,18 +2,18 @@
 @section('content')
     <section class="body-font flex flex-col rounded-lg w-10/12 shadow-xl">
 
-        <div class="flex w-12/12 justify-center mb-4" id="messages">
+        <div class="flex w-12/12 justify-center mb-4">
             @if (session('deleteFromWishlist'))
-                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                <p id="messages" class="p-4 mt-6 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
                     {{ session('deleteFromWishlist') }}</p>
             @elseif(session('addedToCart'))
-                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
+                <p id="messages" class="p-4 mt-6 text-lg text-center w-6/12 text-white rounded-lg bg-green-500 font-medium">
                     {{ session('addedToCart') }}</p>
             @elseif(session('failedToAddToCart'))
-                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                <p id="messages" class="p-4 mt-6 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
                     {{ session('failedToAddToCart') }}</p>
             @elseif(session('productOutOfStock'))
-                <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
+                <p id="messages" class="p-4 mt-6 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium">
                     {{ session('productOutOfStock') }}
                 </p>
             @endif
@@ -21,9 +21,10 @@
 
 
         <div class="container p-10 mx-auto">
+
             <!--heading-->
-            <div class="flex space-x-2 p-4 mb-4">
-                <h1 class="text-2xl font-medium">My Wishlist</h1>
+            <div class="flex space-x-2 mb-4">
+                <h1 class="text-3xl font-bold">My Wishlist</h1>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd"
                         d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
