@@ -10,6 +10,9 @@
                 @if (session('deleteFromCart'))
                     <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium mb-6">
                         {{ session('deleteFromCart') }}</p>
+                @elseif (session('cannotIncreaseQuantity'))
+                    <p class="p-4 text-lg text-center w-6/12 text-white rounded-lg bg-red-500 font-medium mb-6">
+                        {{ session('cannotIncreaseQuantity') }}</p>
                 @endif
 
             </div>

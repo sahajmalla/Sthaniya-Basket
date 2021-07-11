@@ -57,6 +57,7 @@ class CartController extends Controller
         ]);
     } 
 
+
     public function store(Request $request, int $productID){
 
         $product = Product::find($productID);
@@ -144,6 +145,7 @@ class CartController extends Controller
         return back();
     }
 
+
     public function destroy (Request $request, String $productID) {
 
         // If user is logged in, delete from database.
@@ -184,6 +186,7 @@ class CartController extends Controller
 
     }
 
+
     public function update (Request $request, int $product_id) {
 
         if (auth()->user()) {
@@ -209,6 +212,11 @@ class CartController extends Controller
                     ->where('product_id', $product_id)
                     ->update(['product_quantity' => $cartRecord->product_quantity + 1]);
 
+                }else {
+
+                    $request->session()->flash('cannotIncreaseQuantity', 
+                    'Unable to increase product\'s quantity as this is the final stock.');
+
                 }
 
             }
@@ -219,8 +227,15 @@ class CartController extends Controller
             foreach (session('products') as $prod) {
 
                 if ($prod->id == $product_id && session($prod->prod_name) < $prod->prod_quantity) {
+
                     $oldQuantity = session($prod->prod_name);
                     $request->session()->put($prod->prod_name, ++$oldQuantity);
+
+                }else {
+
+                    $request->session()->flash('cannotIncreaseQuantity', 
+                    'Unable to increase quantity as product does not have more quantity.');
+
                 }
 
             }
@@ -230,6 +245,7 @@ class CartController extends Controller
         return back();
 
     }
+
 
     public function patch (Request $request, int $product_id) {
 
