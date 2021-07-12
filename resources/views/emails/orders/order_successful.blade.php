@@ -14,7 +14,8 @@
         <tr>
             <th>Product name</th>
             <th>Quantity</th>
-            <th>Product Price</th>
+            <th>Unit Price</th>
+            <th>Total Price</th>
         </tr>
     </thead>
     <tbody>
@@ -23,6 +24,7 @@
                 <td scope="row">{{ $item->product->prod_name }}</td>
                 <td>{{ $item->prod_quantity }}</td>
                 <td>£{{ number_format((float) $item->product->price, 2, '.', '') }}</td>
+                <td>£{{ number_format((float) $item->total_price, 2, '.', '') }}</td>
             </tr>
         @endforeach
     </tbody>
