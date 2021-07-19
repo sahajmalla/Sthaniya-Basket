@@ -71,7 +71,7 @@ class HomeController extends Controller
         }
 
         $products = Product::orderByRaw('dbms_random.value')->paginate(20); //for oracle
-        // $products = Product::inRandomOrder()->paginate(20); //for mysql
+//         $products = Product::inRandomOrder()->paginate(20); //for mysql
         if($request->sort=='latest'){
             $products = Product::latest()->paginate(20); 
         }
