@@ -5,8 +5,9 @@
             <form action="{{ route('image.upload') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="grid grid-cols-2 md:grid-cols-3 items-center">
-                    <img class="inline object-cover w-28 h-28 rounded-full md:h-36 md:w-36"
-                        src="/images/users/{{ auth()->user()->user_image }}" alt="Profile image" name="user_image" />
+                    <img class="inline object-cover w-28 h-28 rounded-full md:h-36 md:w-36 @error('user_image') border-red-500 
+                        @enderror" src="/images/users/{{ auth()->user()->user_image }}" alt="Profile image"
+                        name="user_image" />
                     <h1 class="font-bold">Update your picture</h1>
                     <input type="file" name="user_image" class="mt-2 col-span-2 md:col-span-1 ">
                 </div>
@@ -15,6 +16,12 @@
                     <button type="submit"
                         class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Update</button>
                 </div>
+                @error('user_image')
+                    <div class="text-red-500 mt-2 text-sm">
+                        {{ $message }}
+                        <!-- Give us the first error message.-->
+                    </div>
+                @enderror
             </form>
 
         </div>
@@ -51,7 +58,7 @@
                         <label class="text-gray-700 dark:text-gray-200" for="username">Username</label>
                         <input id="username" name="username" type="text"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring @error('username') border-red-500 
-                                                                                                                                                            @enderror"
+                                                                                                                                                                @enderror"
                             value="{{ auth()->user()->username }}">
 
                         @error('username')
@@ -65,7 +72,7 @@
                         <label class="text-gray-700 dark:text-gray-200" for="firstname">First Name</label>
                         <input id="firstname" name="firstname" type="text"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring @error('firstname') border-red-500 
-                                                                                                                                                        @enderror"
+                                                                                                                                                            @enderror"
                             value="{{ auth()->user()->firstname }}">
                         @error('firstname')
                             <div class="text-red-500 mt-2 text-sm">
@@ -79,7 +86,7 @@
                         <label class="text-gray-700 dark:text-gray-200" for="lastname">Last Name</label>
                         <input id="lastname" name="lastname" type="text"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring @error('lastname') border-red-500 
-                                                                                                                                                    @enderror"
+                                                                                                                                                        @enderror"
                             value="{{ auth()->user()->lastname }}">
                         @error('lastname')
                             <div class="text-red-500 mt-2 text-sm">
@@ -93,7 +100,7 @@
                         <label class="text-gray-700 dark:text-gray-200" for="email">Email Address</label>
                         <input id="email" name="email" type="email"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring @error('email') border-red-500 
-                                                                                                                                            @enderror"
+                                                                                                                                                @enderror"
                             value="{{ auth()->user()->email }}">
                         @error('email')
                             <div class="text-red-500 mt-2 text-sm">
@@ -119,7 +126,7 @@
                         <label class="text-gray-700 dark:text-gray-200" for="address">Address</label>
                         <input id="address" name="address" type="text"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring  @error('address') border-red-500 
-                                                                                                                                        @enderror"
+                                                                                                                                            @enderror"
                             value="{{ auth()->user()->address }}">
 
                         @error('address')
@@ -245,7 +252,7 @@
                         <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
 
                             <select name="tradershop" class="@error('tradershop') 
-                                    border-red-500 @enderror">
+                                        border-red-500 @enderror">
                                 <option value="" disabled selected>Select your shop</option>
                                 @foreach ($shops as $shop)
                                     <option value="{{ $shop->shopname }}">{{ $shop->shopname }}</option>

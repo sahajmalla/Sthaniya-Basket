@@ -24,6 +24,6 @@ class ReviewPolicy
     */
 
     public function delete(User $user, Review $review) {
-        return $user->customers->first()->id === $review->customer_id;
+        return $user->customers->first()->id == $review->customer_id;
     }
 }
